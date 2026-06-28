@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destaseo Mods</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Library Marked -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigasi Transparan -->
+    <nav id="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="logo">Destaseo<span>Mods</span></a>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Beranda</a>
+                <a href="#about" class="nav-link">Tentang</a>
+                <a href="https://github.com" target="_blank" class="nav-link">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Konten Utama -->
+    <main class="container">
+        <!-- Daftar Postingan -->
+        <section id="post-list">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Mengambil postingan...</p>
+            </div>
+        </section>
+
+        <!-- Detail Postingan -->
+        <section id="post-detail" style="display: none;">
+            <button id="back-button" class="btn-back">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Kembali
+            </button>
+            <article id="detail-content"></article>
+        </section>
+
+        <!-- Halaman Tentang -->
+        <section id="about" style="display: none;">
+            <button class="btn-back" onclick="window.location.hash='#'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Kembali
+            </button>
+            <h2>Tentang Destaseo Mods</h2>
+            <p>
+                Destaseo Mods adalah platform berbagi mod APK, tutorial, dan informasi seputar dunia modding Android.
+                Dirancang dengan tampilan modern, elegan, dan didukung penuh oleh GitHub Pages.
+            </p>
+            <p>
+                Semua postingan diambil otomatis dari folder <code>posts/</code> repository, jadi kamu cukup menambah file Markdown untuk update konten.
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Destaseo Mods — Dibuat dengan ❤️ dan GitHub Pages.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
