@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Destaseo Mods • Premium Mod APK</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/0VpHv0R/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -47,7 +48,6 @@
         }
         .container { max-width: 760px; margin: 0 auto; padding: 12px 20px; position: relative; z-index: 2; }
 
-        /* Topbar */
         .topbar {
             display: flex; align-items: center; justify-content: space-between;
             padding: 14px 22px;
@@ -60,12 +60,18 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.7);
             position: sticky; top: 14px; z-index: 99;
         }
-        .logo {
+        .logo-area {
+            display: flex; align-items: center; gap: 8px;
+        }
+        .logo-img {
+            width: 34px; height: 34px; border-radius: 50%; object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.15);
+        }
+        .logo-text {
             font-weight: 800; font-size: 1.4rem; letter-spacing: -0.6px;
             background: var(--grad1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            cursor: pointer;
         }
         .telegram-btn {
             background: var(--surface); border: 1px solid var(--border);
@@ -76,7 +82,6 @@
         }
         .telegram-btn:hover { border-color: var(--accent2); box-shadow: 0 0 20px rgba(62,224,255,0.3); }
 
-        /* Search */
         .search-container { margin: 8px 0 16px; display: flex; gap: 8px; }
         .search-input {
             flex: 1; background: var(--surface); backdrop-filter: blur(16px);
@@ -85,22 +90,36 @@
             font-family: inherit; outline: none; transition: var(--transition);
             box-shadow: 0 4px 16px rgba(0,0,0,0.4);
         }
-        .search-input:focus {
-            border-color: var(--accent); box-shadow: 0 0 30px rgba(168,127,255,0.4);
-        }
+        .search-input:focus { border-color: var(--accent); box-shadow: 0 0 30px rgba(168,127,255,0.4); }
         .search-input::placeholder { color: var(--text2); }
 
-        .post-grid {
-            display: grid; grid-template-columns: 1fr; gap: 18px;
+        .category-bar {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
+            align-items: center;
         }
+        .category-chip {
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 6px 14px; border-radius: 20px;
+            color: var(--text2); font-size: 0.75rem; font-weight: 600;
+            cursor: pointer; transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        .category-chip.active, .category-chip:hover {
+            background: rgba(168,127,255,0.2); border-color: var(--accent);
+            color: #fff;
+        }
+        .reset-filter {
+            background: none; border: none; color: var(--accent2);
+            font-size: 0.75rem; font-weight: 600; cursor: pointer;
+            padding: 6px 12px;
+        }
+
+        .post-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
         @media (min-width: 540px) { .post-grid { grid-template-columns: 1fr 1fr; } }
         .post-card {
-            background: var(--surface);
-            backdrop-filter: blur(22px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            cursor: pointer;
+            background: var(--surface); backdrop-filter: blur(22px);
+            border: 1px solid var(--border); border-radius: var(--radius-sm);
+            overflow: hidden; cursor: pointer;
             transition: all 0.45s cubic-bezier(0.4,0,0.2,1);
             display: flex; flex-direction: column;
             animation: fadeInUp 0.5s ease forwards;
@@ -125,7 +144,9 @@
         .badge {
             background: rgba(168,127,255,0.2); color: #cfc4ff;
             padding: 3px 12px; border-radius: 20px; font-weight: 700; font-size: 0.7rem;
+            cursor: pointer; transition: 0.2s;
         }
+        .badge:hover { background: rgba(168,127,255,0.4); color: #fff; }
 
         .hidden { display: none !important; }
         .detail-header, .profile-card {
@@ -214,14 +235,21 @@
             text-align: center; padding: 45px; color: var(--text2);
             background: rgba(255,0,0,0.07); border-radius: 24px; margin: 20px 0;
         }
+        .filter-indicator {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+            font-size: 0.85rem; color: var(--accent2);
+        }
     </style>
 </head>
 <body>
     <canvas id="particles"></canvas>
 
     <div class="topbar">
-        <div class="logo">DestaseoMods</div>
-        <!-- Tombol Telegram menggantikan tombol Cari -->
+        <div class="logo-area">
+            <!-- Logo gambar, bisa diganti URL di konfigurasi -->
+            <img src="https://i.ibb.co/0VpHv0R/logo.png" alt="Logo" class="logo-img" id="logo-img">
+            <span class="logo-text">DestaseoMods</span>
+        </div>
         <a href="https://t.me/destaseo" target="_blank" class="telegram-btn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.66-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.41-.88.03-.24.37-.49 1.02-.74 3.98-1.73 6.63-2.87 7.94-3.42 3.78-1.57 4.57-1.84 5.08-1.85.11 0 .37.03.53.17.14.12.18.28.2.45-.01.06.01.24 0 .38z"/></svg>
             Telegram
@@ -233,6 +261,9 @@
             <div class="search-container hidden" id="search-box">
                 <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit...">
             </div>
+            <!-- Baris kategori -->
+            <div class="category-bar" id="category-bar"></div>
+            <div id="filter-indicator" class="filter-indicator hidden"></div>
             <div id="post-container" class="post-grid">
                 <div class="spinner"></div>
             </div>
@@ -249,7 +280,6 @@
                 <div class="profile-name" id="profile-name">Destaseo</div>
                 <div class="profile-bio" id="profile-bio">Premium modder & content creator.</div>
                 <div class="social-links" id="social-links"></div>
-                <!-- Donasi -->
                 <div class="donate-section">
                     <div class="donate-title">☕ Dukung Saya</div>
                     <div class="donate-links">
@@ -281,6 +311,8 @@
 
     <script>
         (function() {
+            // ========== KONFIGURASI ==========
+            const LOGO_URL = "https://i.ibb.co/0VpHv0R/logo.png"; // ganti dengan URL logo kamu
             const PROFILE = {
                 avatar: "👑",
                 name: "Destaseo",
@@ -292,13 +324,13 @@
                 ]
             };
 
+            // ========== PARTIKEL ==========
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
             let particles = [];
             const maxParticles = 70;
             function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
             window.addEventListener('resize', resizeCanvas); resizeCanvas();
-
             class Particle {
                 constructor() { this.reset(); }
                 reset() {
@@ -329,7 +361,8 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v3';
+            // ========== CACHE & API ==========
+            const CACHE_KEY = 'destaseo_premium_cache_v4';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
@@ -340,8 +373,16 @@
             const navItems = document.querySelectorAll('.nav-item');
             const searchBox = document.getElementById('search-box');
             const searchInput = document.getElementById('search-input');
+            const categoryBar = document.getElementById('category-bar');
+            const filterIndicator = document.getElementById('filter-indicator');
 
             let postsData = [], fetchedPosts = [];
+            let activeTagFilter = null; // menyimpan tag yang sedang aktif
+
+            // Set logo
+            if (LOGO_URL) {
+                document.getElementById('logo-img').src = LOGO_URL;
+            }
 
             function showSection(section) {
                 [homeSection, detailSection, profileSection].forEach(s => s.classList.add('hidden'));
@@ -354,13 +395,17 @@
                 if (page === 'home') {
                     showSection(homeSection);
                     searchBox.classList.remove('hidden');
+                    categoryBar.classList.remove('hidden');
                 } else if (page === 'search') {
                     showSection(homeSection);
                     searchBox.classList.remove('hidden');
+                    categoryBar.classList.remove('hidden');
                     setTimeout(() => searchInput.focus(), 100);
                 } else if (page === 'profile') {
                     showSection(profileSection);
                     searchBox.classList.add('hidden');
+                    categoryBar.classList.add('hidden');
+                    filterIndicator.classList.add('hidden');
                     renderProfile();
                 }
                 setActiveNav(page);
@@ -422,49 +467,147 @@
                 } catch { return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>' }; }
             }
 
+            // Dapatkan semua tag unik
+            function getAllTags() {
+                const tags = new Set();
+                fetchedPosts.forEach(p => {
+                    const tag = p.metadata.tag || p.metadata.kategori || '';
+                    if (tag) tags.add(tag);
+                });
+                return Array.from(tags).sort();
+            }
+
+            // Render kategori chips
+            function renderCategoryBar() {
+                const tags = getAllTags();
+                if (tags.length === 0) {
+                    categoryBar.innerHTML = '';
+                    return;
+                }
+                let html = '';
+                tags.forEach(tag => {
+                    html += `<span class="category-chip${activeTagFilter === tag ? ' active' : ''}" data-tag="${tag}">${tag}</span>`;
+                });
+                if (activeTagFilter) {
+                    html += `<button class="reset-filter" id="reset-filter">✕ Hapus filter</button>`;
+                }
+                categoryBar.innerHTML = html;
+
+                // Event listener untuk chip
+                categoryBar.querySelectorAll('.category-chip').forEach(chip => {
+                    chip.addEventListener('click', () => {
+                        const tag = chip.dataset.tag;
+                        if (activeTagFilter === tag) {
+                            // Klik lagi untuk menonaktifkan
+                            activeTagFilter = null;
+                        } else {
+                            activeTagFilter = tag;
+                        }
+                        applyFilters();
+                    });
+                });
+
+                // Tombol reset
+                const resetBtn = document.getElementById('reset-filter');
+                if (resetBtn) {
+                    resetBtn.addEventListener('click', () => {
+                        activeTagFilter = null;
+                        applyFilters();
+                    });
+                }
+            }
+
+            function applyFilters() {
+                const query = searchInput.value.trim().toLowerCase();
+                let filtered = fetchedPosts;
+
+                // Filter tag
+                if (activeTagFilter) {
+                    filtered = filtered.filter(p => {
+                        const tag = p.metadata.tag || p.metadata.kategori || '';
+                        return tag === activeTagFilter;
+                    });
+                }
+
+                // Filter pencarian
+                if (query) {
+                    filtered = filtered.filter(p => {
+                        const title = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
+                        return title.includes(query);
+                    });
+                }
+
+                // Update indicator
+                if (activeTagFilter) {
+                    filterIndicator.classList.remove('hidden');
+                    filterIndicator.innerHTML = `🔖 Kategori: <strong>${activeTagFilter}</strong> (${filtered.length} hasil)`;
+                } else {
+                    filterIndicator.classList.add('hidden');
+                }
+
+                // Render kartu
+                if (filtered.length === 0) {
+                    postContainer.innerHTML = '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
+                } else {
+                    postContainer.innerHTML = filtered.map((p,i) => cardHTML(p,i)).join('');
+                }
+                attachCardEvents();
+            }
+
             function cardHTML(post, index) {
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = post.metadata.gambar || post.metadata.image || '';
                 const tag = post.metadata.tag || post.metadata.kategori || '';
                 const ver = post.metadata.versi || post.metadata.version || '';
-                const delay = index * 0.06 + 's';
+                const delay = index * 0.04 + 's';
                 return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
                     <div class="card-img">${img ? `<img src="${img}" alt="${t}" style="width:100%;height:100%;object-fit:cover;">` : '📦'}</div>
                     <div class="card-body">
                         <div class="card-title">${t}</div>
                         <div class="card-meta">
                             ${ver ? `<span>v${ver}</span>` : ''}
-                            ${tag ? `<span class="badge">${tag}</span>` : ''}
+                            ${tag ? `<span class="badge" data-tag="${tag}">${tag}</span>` : ''}
                         </div>
                     </div>
                 </div>`;
             }
 
-            function filterPosts(q) {
-                const kw = q.toLowerCase();
-                const filtered = fetchedPosts.filter(p => {
-                    const title = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
-                    return title.includes(kw);
-                });
-                postContainer.innerHTML = filtered.length ? filtered.map((p,i) => cardHTML(p,i)).join('') : '<div class="empty-text">🔍 Tidak ditemukan.</div>';
-                attachEvents();
-            }
-
-            function attachEvents() {
+            function attachCardEvents() {
                 document.querySelectorAll('.post-card').forEach(c => {
-                    c.addEventListener('click', () => showDetail(c.dataset.name));
+                    c.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('badge')) return; // jangan navigate jika klik badge
+                        showDetail(c.dataset.name);
+                    });
+                });
+                // Klik badge untuk filter
+                document.querySelectorAll('.badge').forEach(badge => {
+                    badge.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const tag = badge.dataset.tag;
+                        activeTagFilter = tag;
+                        searchInput.value = '';
+                        applyFilters();
+                        // Update kategori bar
+                        renderCategoryBar();
+                    });
                 });
             }
 
             async function renderHome() {
                 postContainer.innerHTML = '<div class="spinner"></div>';
+                categoryBar.innerHTML = '';
                 try {
                     await fetchPostList();
-                    if (!postsData.length) { postContainer.innerHTML = '<div class="empty-text">📭 Tidak ada postingan.</div>'; return; }
+                    if (!postsData.length) {
+                        postContainer.innerHTML = '<div class="empty-text">📭 Tidak ada postingan.</div>';
+                        return;
+                    }
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
-                    postContainer.innerHTML = fetchedPosts.map((p,i) => cardHTML(p,i)).join('');
-                    attachEvents();
-                } catch (err) { postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`; }
+                    renderCategoryBar();
+                    applyFilters();
+                } catch (err) {
+                    postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`;
+                }
             }
 
             function showDetail(name) {
@@ -491,12 +634,16 @@
                 showSection(detailSection);
                 setActiveNav('detail');
                 searchBox.classList.add('hidden');
+                categoryBar.classList.add('hidden');
+                filterIndicator.classList.add('hidden');
                 window.scrollTo({ top: 0 });
             }
 
             detailBack.addEventListener('click', () => navigate('home'));
             navItems.forEach(item => item.addEventListener('click', () => navigate(item.dataset.page)));
-            searchInput.addEventListener('input', () => filterPosts(searchInput.value));
+            searchInput.addEventListener('input', () => {
+                applyFilters();
+            });
 
             (async () => {
                 await renderHome();
