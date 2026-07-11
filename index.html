@@ -77,7 +77,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: gradientShift 3s ease infinite alternate;
-            text-shadow: 0 0 25px rgba(168,127,255,0.7), 0 0 40px rgba(96,165,250,0.5);
         }
         @keyframes gradientShift {
             0% { background-position: 0% center; }
@@ -379,6 +378,7 @@
         }
         .back-btn:hover { opacity: 0.8; }
 
+        /* Avatar dengan border */
         .profile-avatar {
             width: 100px; height: 100px; border-radius: 50%;
             background: var(--surface2); margin: 0 auto 20px;
@@ -386,7 +386,7 @@
             font-size: 2.8rem; color: #fff;
             box-shadow: 0 10px 40px rgba(255,100,165,0.4);
             background-size: cover; background-position: center;
-            border: 3px solid rgba(255,255,255,0.1);
+            border: 3px solid rgba(255,255,255,0.2);
         }
         .profile-name { text-align: center; font-size: 1.5rem; font-weight: 800; }
         .profile-bio { text-align: center; color: var(--text2); margin: 10px 0 20px; }
@@ -430,7 +430,7 @@
             border-radius: 16px;
             margin-bottom: 16px;
         }
-        .qris-close-btn {
+        .qris-close-btn, .qris-download-btn {
             background: var(--surface);
             border: 1px solid var(--border);
             color: #fff;
@@ -439,8 +439,9 @@
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
+            margin: 4px;
         }
-        .qris-close-btn:hover { background: rgba(255,255,255,0.1); }
+        .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255,255,255,0.1); }
 
         .screenshot-scroll {
             display: flex;
@@ -516,8 +517,11 @@
     <!-- QRIS Popup -->
     <div class="qris-overlay hidden" id="qris-overlay">
         <div class="qris-container">
-            <img src="https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png" alt="QRIS Dana">
-            <button class="qris-close-btn" id="qris-close-btn"><i class="fas fa-times"></i> Tutup</button>
+            <img src="https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png" alt="QRIS Dana" id="qris-img">
+            <div>
+                <button class="qris-download-btn" id="qris-download-btn"><i class="fas fa-download"></i> Download Gambar</button>
+                <button class="qris-close-btn" id="qris-close-btn"><i class="fas fa-times"></i> Tutup</button>
+            </div>
         </div>
     </div>
 
@@ -572,8 +576,9 @@
                     </div>
                 </div>
             </div>
-            <div class="content-box">
-                <p style="color:var(--text2);">Update konten otomatis dari folder <code>posts/</code> di repository GitHub. Cukup tambah file <code>.md</code>, langsung muncul.</p>
+            <div class="content-box" id="profile-footer-text">
+                Update aplikasi modifikasi premium.
+                Nganjuk - Jawa Timur - Indonesia 🇮🇩
             </div>
         </section>
     </main>
@@ -596,9 +601,10 @@
     <script>
         (function() {
             const GITHUB_REPO = "destaseomods/web";
-            const AD_URL = "https://saweria.co/destaseo";
+            const AD_URL = "https://destaseo.wapkizs.com";
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
+            const QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
             const PROFILE = {
                 avatar: AVATAR_URL,
                 name: "Destaseo",
@@ -645,7 +651,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v29';
+            const CACHE_KEY = 'destaseo_premium_cache_v31';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -665,6 +671,7 @@
             const qrisOverlay = document.getElementById('qris-overlay');
             const qrisCloseBtn = document.getElementById('qris-close-btn');
             const qrisDanaBtn = document.getElementById('qris-dana-btn');
+            const qrisDownloadBtn = document.getElementById('qris-download-btn');
 
             let postsData = [], fetchedPosts = [];
             let activeTagFilter = null;
@@ -699,6 +706,16 @@
             });
             qrisOverlay.addEventListener('click', (e) => {
                 if (e.target === qrisOverlay) qrisOverlay.classList.add('hidden');
+            });
+
+            // Download QRIS
+            qrisDownloadBtn.addEventListener('click', () => {
+                const link = document.createElement('a');
+                link.href = QRIS_URL;
+                link.download = 'qris-destaseo.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
             });
 
             function getHashPage() {
@@ -767,6 +784,7 @@
                 document.getElementById('social-links').innerHTML = PROFILE.links.map(l =>
                     `<a href="${l.url}" target="_blank" class="social-link"><i class="${l.icon}"></i> ${l.label}</a>`
                 ).join('');
+                // Teks footer sudah diatur langsung di HTML
             }
 
             function getCache() {
