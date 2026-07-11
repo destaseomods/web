@@ -18,9 +18,7 @@
             --text2: #b0b0c0;
             --accent: #7c4dff;
             --accent2: #00e5ff;
-            --accent3: #ff4081;
             --grad: linear-gradient(135deg, #7c4dff, #00e5ff);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             --radius: 20px;
             --radius-sm: 14px;
             --nav-height: 70px;
@@ -119,7 +117,7 @@
             animation: spin 0.7s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .empty-text, .error-text { text-align: center; padding: 40px; color: var(--text2); }
+        .empty-text, .error-text { text-align: center; padding: 40px; color: var(--text2); background: rgba(255,0,0,0.1); border-radius: 16px; margin: 20px; }
     </style>
 </head>
 <body>
@@ -149,7 +147,7 @@
                     Destaseo Mods adalah platform berbagi mod APK, tutorial, dan informasi seputar dunia modding Android. Dirancang dengan tampilan modern ala aplikasi, didukung penuh oleh GitHub Pages.
                 </p>
                 <p style="color:var(--text2);">
-                    Semua postingan diambil otomatis dari folder <code>posts/</code> repository. Cukup tambah file <code>.md</code> untuk update konten.
+                    Semua postingan diambil dari folder <code>posts/</code>. Cukup tambah file <code>.md</code> dan update <code>index.json</code>.
                 </p>
             </div>
         </section>
@@ -168,14 +166,6 @@
 
     <script>
         (function() {
-            // =============================================
-            // 🌐 KONFIGURASI SATU KALI (untuk local dev)
-            // =============================================
-            // Isi dengan username/repo GitHub kamu (contoh: "destaseo/destaseo-mods")
-            // Biarkan kosong jika sudah deploy ke GitHub Pages.
-            const GITHUB_REPO = 'destaseomods/web'; // <<<< ISI DISINI UNTUK LOCAL DEVELOPMENT
-            // =============================================
-
             const POSTS_DIR = 'posts/';
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
@@ -202,42 +192,19 @@
             }
 
             async function fetchPostList() {
-                let apiUrl = '';
-                const isGitHubPages = window.location.hostname.includes('github.io');
-
-                if (isGitHubPages) {
-                    const parts = window.location.pathname.split('/').filter(p => p);
-                    if (parts.length >= 2) {
-                        const user = parts[0];
-                        const repo = parts[1];
-                        apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/posts`;
-                    }
-                } else if (GITHUB_REPO) {
-                    // Local development dengan repo yang di-set
-                    apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
-                }
-
-                if (!apiUrl) {
-                    throw new Error('Tidak dapat menentukan repo. Untuk local dev, isi variabel GITHUB_REPO.');
-                }
-
-                try {
-                    const res = await fetch(apiUrl);
-                    if (!res.ok) throw new Error('GitHub API gagal. Pastikan repo publik dan folder posts/ ada.');
-                    const files = await res.json();
-                    if (!Array.isArray(files)) throw new Error('Response tidak valid.');
-                    postsData = files
-                        .filter(f => f.name.endsWith('.md'))
-                        .map(f => ({
-                            filename: f.name,
-                            name: f.name.replace('.md', ''),
-                            download_url: f.download_url,
-                        }));
-                    return postsData;
-                } catch (err) {
-                    console.error(err);
-                    throw err;
-                }
+                // Fetch daftar dari index.json (lokal maupun GitHub Pages)
+                const res = await fetch(POSTS_DIR + 'index.json');
+                if (!res.ok) throw new Error('File posts/index.json tidak ditemukan. Pastikan file tersebut ada dan berisi daftar file .md.');
+                const list = await res.json();
+                if (!Array.isArray(list)) throw new Error('Format index.json salah, harus array string.');
+                const mdFiles = list.filter(f => typeof f === 'string' && f.endsWith('.md'));
+                if (mdFiles.length === 0) throw new Error('index.json tidak berisi file .md.');
+                postsData = mdFiles.map(f => ({
+                    filename: f,
+                    name: f.replace('.md', ''),
+                    download_url: POSTS_DIR + f,
+                }));
+                return postsData;
             }
 
             function parseFrontmatter(md) {
@@ -298,7 +265,7 @@
                 try {
                     await fetchPostList();
                     if (postsData.length === 0) {
-                        postContainer.innerHTML = '<div class="empty-text">📭 Belum ada postingan. Tambahkan file .md ke folder posts/ repository.</div>';
+                        postContainer.innerHTML = '<div class="empty-text">📭 Tidak ada postingan.</div>';
                         return;
                     }
                     fetchedPosts = await Promise.all(postsData.map(p => fetchPost(p)));
@@ -320,7 +287,7 @@
                         });
                     });
                 } catch (err) {
-                    postContainer.innerHTML = `<div class="error-text">⚠️ Gagal memuat postingan: ${err.message}<br><small>Untuk local dev: isi GITHUB_REPO di script. Untuk GitHub Pages: pastikan repo publik.</small></div>`;
+                    postContainer.innerHTML = `<div class="error-text"><strong>🚫 Error:</strong> ${err.message}</div>`;
                 }
             }
 
@@ -373,7 +340,6 @@
                 });
             });
 
-            // Init
             (async () => {
                 await renderHome();
                 goHome();
