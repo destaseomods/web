@@ -569,7 +569,14 @@
                 <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit...">
             </div>
             <div class="category-bar" id="category-bar"></div>
-            <div class="sort-bar" id="sort-bar">
+            <div class="popular-section" id="popular-section">
+                <div class="carousel-wrapper">
+                    <div class="carousel-title-top"><i class="fas fa-hashtag"></i> Urutan Populer</div>
+                    <div class="carousel-track" id="carousel-track"></div>
+                </div>
+            </div>
+            <!-- Sort bar dipindahkan ke bawah carousel -->
+            <div class="sort-bar" id="sort-bar" style="margin-top: 12px; margin-bottom: 0;">
                 <span class="sort-label"><i class="fas fa-sort-amount-down"></i> Urutkan:</span>
                 <select class="sort-select" id="sort-select">
                     <option value="terbaru">Terbaru</option>
@@ -577,12 +584,6 @@
                     <option value="az">Judul A-Z</option>
                     <option value="za">Judul Z-A</option>
                 </select>
-            </div>
-            <div class="popular-section" id="popular-section">
-                <div class="carousel-wrapper">
-                    <div class="carousel-title-top"><i class="fas fa-hashtag"></i> Urutan Populer</div>
-                    <div class="carousel-track" id="carousel-track"></div>
-                </div>
             </div>
             <hr class="section-divider">
             <div id="filter-indicator" class="filter-indicator hidden"></div>
@@ -684,7 +685,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v39';
+            const CACHE_KEY = 'destaseo_premium_cache_v40';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
