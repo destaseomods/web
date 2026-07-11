@@ -133,7 +133,7 @@
         .search-input::placeholder { color: var(--text2); }
 
         .category-bar {
-            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;
             align-items: center;
         }
         .category-chip {
@@ -154,6 +154,22 @@
             padding: 6px 12px;
         }
         .reset-filter i { margin-right: 4px; }
+
+        .sort-bar {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+            justify-content: flex-end;
+        }
+        .sort-label {
+            color: var(--text2); font-size: 0.75rem; font-weight: 500;
+        }
+        .sort-select {
+            background: var(--surface); backdrop-filter: blur(10px);
+            border: 1px solid var(--border); border-radius: 20px;
+            padding: 6px 12px; color: #fff; font-size: 0.75rem;
+            font-family: inherit; outline: none; cursor: pointer;
+            transition: var(--transition);
+        }
+        .sort-select:hover { border-color: var(--accent2); }
 
         .popular-section { margin-bottom: 0; }
         .carousel-wrapper {
@@ -447,7 +463,6 @@
         }
         .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255,255,255,0.1); }
 
-        /* Galeri dengan touch-action horizontal */
         .screenshot-scroll {
             display: flex;
             flex-wrap: nowrap;
@@ -458,7 +473,7 @@
             padding-bottom: 8px;
             margin-top: 16px;
             max-width: 100%;
-            touch-action: pan-x; /* hanya izinkan scroll horizontal */
+            touch-action: pan-x;
         }
         .screenshot-scroll img {
             flex: 0 0 auto;
@@ -470,7 +485,6 @@
             transition: transform 0.2s;
             background: var(--surface2);
             border: 1px solid var(--border);
-            /* pointer-events: auto; */ /* sudah default */
         }
         .screenshot-scroll img:hover {
             transform: scale(1.03);
@@ -555,6 +569,15 @@
                 <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit...">
             </div>
             <div class="category-bar" id="category-bar"></div>
+            <div class="sort-bar" id="sort-bar">
+                <span class="sort-label"><i class="fas fa-sort-amount-down"></i> Urutkan:</span>
+                <select class="sort-select" id="sort-select">
+                    <option value="terbaru">Terbaru</option>
+                    <option value="terlama">Terlama</option>
+                    <option value="az">Judul A-Z</option>
+                    <option value="za">Judul Z-A</option>
+                </select>
+            </div>
             <div class="popular-section" id="popular-section">
                 <div class="carousel-wrapper">
                     <div class="carousel-title-top"><i class="fas fa-hashtag"></i> Urutan Populer</div>
@@ -573,7 +596,7 @@
         <section id="profile-section" class="hidden">
             <div class="profile-card">
                 <div class="profile-avatar" id="profile-avatar" style="background-image: url('https://avatars.githubusercontent.com/u/189899710?v=4');"></div>
-                <div class="profile-name" id="profile-name">Destaseo</div>
+                <div class="profile-name" id="profile-name">Destaseo Mods</div>
                 <div class="profile-bio" id="profile-bio">Premium modder & content creator.</div>
                 <div class="social-links" id="social-links"></div>
                 <div class="donate-section">
@@ -610,14 +633,14 @@
         (function() {
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
-            const AD_INTERVAL = 1 * 60 * 60 * 1000; // 1 jam
+            const AD_INTERVAL = 1 * 60 * 60 * 1000;
             const AD_STORAGE_KEY = 'lastAdClickTimestamp';
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
             const PROFILE = {
                 avatar: AVATAR_URL,
-                name: "Destaseo",
+                name: "Destaseo Mods",
                 bio: "Premium modder & content creator.",
                 links: [
                     { label: "Facebook", url: "https://fb.com/destaseo.id", icon: "fab fa-facebook" },
@@ -661,7 +684,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v37';
+            const CACHE_KEY = 'destaseo_premium_cache_v39';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -675,6 +698,8 @@
             const searchBox = document.getElementById('search-box');
             const searchInput = document.getElementById('search-input');
             const categoryBar = document.getElementById('category-bar');
+            const sortBar = document.getElementById('sort-bar');
+            const sortSelect = document.getElementById('sort-select');
             const filterIndicator = document.getElementById('filter-indicator');
             const telegramBtn = document.getElementById('telegram-btn');
             const telegramDropdown = document.getElementById('telegram-dropdown');
@@ -740,6 +765,10 @@
                 }
             });
 
+            sortSelect.addEventListener('change', () => {
+                resetAndApplyFilters();
+            });
+
             function getHashPage() {
                 const hash = window.location.hash.slice(1);
                 if (!hash || hash === 'home') return { page: 'home' };
@@ -769,6 +798,7 @@
                     showSection(homeSection);
                     searchBox.classList.add('hidden');
                     categoryBar.classList.remove('hidden');
+                    sortBar.classList.remove('hidden');
                     document.getElementById('popular-section').classList.remove('hidden');
                     setActiveNav('home');
                     startCarousel();
@@ -776,6 +806,7 @@
                     showSection(homeSection);
                     searchBox.classList.remove('hidden');
                     categoryBar.classList.remove('hidden');
+                    sortBar.classList.add('hidden');
                     document.getElementById('popular-section').classList.add('hidden');
                     setActiveNav('search');
                     stopCarousel();
@@ -784,6 +815,7 @@
                     showSection(profileSection);
                     searchBox.classList.add('hidden');
                     categoryBar.classList.add('hidden');
+                    sortBar.classList.add('hidden');
                     document.getElementById('popular-section').classList.add('hidden');
                     filterIndicator.classList.add('hidden');
                     setActiveNav('profile');
@@ -794,6 +826,7 @@
                     setActiveNav('detail');
                     searchBox.classList.add('hidden');
                     categoryBar.classList.add('hidden');
+                    sortBar.classList.add('hidden');
                     document.getElementById('popular-section').classList.add('hidden');
                     filterIndicator.classList.add('hidden');
                     stopCarousel();
@@ -901,13 +934,51 @@
                 return filtered;
             }
 
+            function sortPosts(posts) {
+                const sortBy = sortSelect.value;
+                const sorted = [...posts];
+                switch (sortBy) {
+                    case 'terbaru':
+                        sorted.sort((a, b) => {
+                            const dateA = a.metadata.tanggal || a.metadata.date || '';
+                            const dateB = b.metadata.tanggal || b.metadata.date || '';
+                            return dateB.localeCompare(dateA);
+                        });
+                        break;
+                    case 'terlama':
+                        sorted.sort((a, b) => {
+                            const dateA = a.metadata.tanggal || a.metadata.date || '';
+                            const dateB = b.metadata.tanggal || b.metadata.date || '';
+                            return dateA.localeCompare(dateB);
+                        });
+                        break;
+                    case 'az':
+                        sorted.sort((a, b) => {
+                            const titleA = (a.metadata.judul || a.metadata.title || a.name).toLowerCase();
+                            const titleB = (b.metadata.judul || b.metadata.title || b.name).toLowerCase();
+                            return titleA.localeCompare(titleB);
+                        });
+                        break;
+                    case 'za':
+                        sorted.sort((a, b) => {
+                            const titleA = (a.metadata.judul || a.metadata.title || a.name).toLowerCase();
+                            const titleB = (b.metadata.judul || b.metadata.title || b.name).toLowerCase();
+                            return titleB.localeCompare(titleA);
+                        });
+                        break;
+                }
+                return sorted;
+            }
+
             function resetAndApplyFilters() {
                 currentDisplayCount = 0;
                 applyFilters();
             }
 
             function applyFilters() {
-                const filtered = getFilteredPosts();
+                let filtered = getFilteredPosts();
+                filtered = sortPosts(filtered);
+                
                 if (activeTagFilter) {
                     filterIndicator.classList.remove('hidden');
                     filterIndicator.innerHTML = `<i class="fas fa-filter"></i> Kategori: <strong>${activeTagFilter}</strong> (${filtered.length} hasil)`;
@@ -932,7 +1003,8 @@
             }
 
             function loadMorePosts() {
-                const filtered = getFilteredPosts();
+                let filtered = getFilteredPosts();
+                filtered = sortPosts(filtered);
                 const nextCount = Math.min(currentDisplayCount + ITEMS_PER_PAGE, filtered.length);
                 const newPosts = filtered.slice(currentDisplayCount, nextCount);
                 currentDisplayCount = nextCount;
