@@ -176,10 +176,15 @@
         .carousel-title-top {
             position: absolute;
             top: 14px; left: 16px;
-            font-size: 1rem; font-weight: 700;
+            font-size: 0.8rem;
+            font-weight: 700;
             color: #fff;
             z-index: 5;
-            display: flex; align-items: center; gap: 6px;
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(6px);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: flex; align-items: center; gap: 4px;
             text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
         .carousel-counter {
@@ -193,7 +198,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Divider lebih jelas */
         .section-divider {
             border: none;
             border-top: 2px solid rgba(255, 255, 255, 0.15);
@@ -447,7 +451,7 @@
 
             <div class="popular-section" id="popular-section">
                 <div class="carousel-wrapper">
-                    <div class="carousel-title-top">🔥 Urutan Populer</div>
+                    <div class="carousel-title-top"># Urutan Populer</div>
                     <div class="carousel-track" id="carousel-track"></div>
                 </div>
             </div>
@@ -551,7 +555,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v19';
+            const CACHE_KEY = 'destaseo_premium_cache_v20';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -837,7 +841,6 @@
                 });
             }
 
-            // Carousel
             function stopCarousel() {
                 if (carouselInterval) { clearInterval(carouselInterval); carouselInterval = null; }
             }
@@ -857,7 +860,6 @@
                 const track = carouselTrack;
                 if (!track) return;
                 track.style.transform = `translateX(-${index * 100}%)`;
-                // Update nomor di setiap slide
                 document.querySelectorAll('.carousel-counter').forEach((counter, i) => {
                     counter.textContent = `${i+1}/${totalPopularSlides}`;
                 });
@@ -941,6 +943,7 @@
                 const dwn = post.metadata.download || post.metadata.link || '#';
                 const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
                 const galleryHtml = buildScreenshotGallery(screenshots);
+                // Detail: gambar, judul, meta, screenshot, DESKRIPSI, lalu tombol download
                 detailContent.innerHTML = `
                 <div class="detail-header">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;">📱</div>'}
@@ -951,9 +954,9 @@
                         <div class="meta-item"><strong>Developer</strong> ${dev}</div>
                     </div>
                     ${galleryHtml}
-                    <a href="${dwn}" target="_blank" class="big-download">⬇ Download APK</a>
                 </div>
-                <div class="content-box">${post.html || '<p>Tidak ada deskripsi.</p>'}</div>`;
+                <div class="content-box">${post.html || '<p>Tidak ada deskripsi.</p>'}</div>
+                <a href="${dwn}" target="_blank" class="big-download" style="margin-top: 16px;">⬇ Download APK</a>`;
                 showSection(detailSection);
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
