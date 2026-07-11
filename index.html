@@ -325,6 +325,13 @@
             opacity: 0.5;
             pointer-events: none;
         }
+        .big-download.counting {
+            opacity: 0.8;
+            pointer-events: none;
+            background: var(--surface2);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
         .content-box {
             background: var(--surface); backdrop-filter: blur(24px);
             border: 1px solid var(--border); border-radius: var(--radius);
@@ -340,41 +347,6 @@
             transition: opacity 0.2s;
         }
         .back-btn:hover { opacity: 0.8; }
-
-        .ad-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px);
-            z-index: 300;
-            display: flex; align-items: center; justify-content: center;
-            flex-direction: column;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-        }
-        .ad-overlay.hidden { display: none; }
-        .ad-countdown {
-            font-size: 4rem; font-weight: 800;
-            background: var(--grad1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 20px 0;
-        }
-        .ad-message {
-            font-size: 1.2rem; margin-bottom: 10px;
-        }
-        .ad-skip {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: #fff;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: 0.2s;
-        }
-        .ad-skip:hover { background: rgba(255,255,255,0.1); }
 
         .profile-avatar {
             width: 100px; height: 100px; border-radius: 50%;
@@ -470,13 +442,6 @@
 </head>
 <body>
     <canvas id="particles"></canvas>
-
-    <div id="ad-overlay" class="ad-overlay hidden">
-        <div class="ad-message">Iklan akan selesai dalam</div>
-        <div class="ad-countdown" id="ad-countdown">5</div>
-        <div class="ad-message">detik...</div>
-        <button class="ad-skip" id="ad-skip-btn" style="display: none;">Lewati & Download</button>
-    </div>
 
     <div class="topbar">
         <div class="logo-area">
@@ -603,7 +568,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v23';
+            const CACHE_KEY = 'destaseo_premium_cache_v24';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -620,9 +585,6 @@
             const filterIndicator = document.getElementById('filter-indicator');
             const telegramBtn = document.getElementById('telegram-btn');
             const telegramDropdown = document.getElementById('telegram-dropdown');
-            const adOverlay = document.getElementById('ad-overlay');
-            const adCountdown = document.getElementById('ad-countdown');
-            const adSkipBtn = document.getElementById('ad-skip-btn');
 
             let postsData = [], fetchedPosts = [];
             let activeTagFilter = null;
@@ -631,8 +593,6 @@
             let carouselInterval = null;
             let currentSlide = 0;
             let totalPopularSlides = 0;
-            let adTimer = null;
-            let pendingDownloadUrl = '';
 
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) {
@@ -647,47 +607,6 @@
             });
             document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
-
-            function showAdOverlay(downloadUrl) {
-                if (!downloadUrl || downloadUrl === '#') {
-                    alert('Link download tidak tersedia.');
-                    return;
-                }
-                pendingDownloadUrl = downloadUrl;
-                let seconds = 5;
-                adCountdown.textContent = seconds;
-                adOverlay.classList.remove('hidden');
-                adSkipBtn.style.display = 'none';
-
-                if (adTimer) clearInterval(adTimer);
-                adTimer = setInterval(() => {
-                    seconds--;
-                    adCountdown.textContent = seconds;
-                    if (seconds <= 0) {
-                        clearInterval(adTimer);
-                        adTimer = null;
-                        adOverlay.classList.add('hidden');
-                        if (pendingDownloadUrl) {
-                            window.open(pendingDownloadUrl, '_blank');
-                            pendingDownloadUrl = '';
-                        }
-                    }
-                }, 1000);
-
-                setTimeout(() => {
-                    adSkipBtn.style.display = 'block';
-                }, 2000);
-            }
-
-            adSkipBtn.addEventListener('click', () => {
-                if (adTimer) clearInterval(adTimer);
-                adTimer = null;
-                adOverlay.classList.add('hidden');
-                if (pendingDownloadUrl) {
-                    window.open(pendingDownloadUrl, '_blank');
-                    pendingDownloadUrl = '';
-                }
-            });
 
             function getHashPage() {
                 const hash = window.location.hash.slice(1);
@@ -1026,6 +945,26 @@
                 document.body.appendChild(lb);
             };
 
+            function startDownloadCountdown(button, url) {
+                let seconds = 5;
+                button.textContent = `⏳ ${seconds} detik`;
+                button.classList.add('counting');
+                button.style.pointerEvents = 'none';
+
+                const timer = setInterval(() => {
+                    seconds--;
+                    if (seconds <= 0) {
+                        clearInterval(timer);
+                        button.textContent = '⬇ Download APK';
+                        button.classList.remove('counting');
+                        button.style.pointerEvents = 'auto';
+                        window.open(url, '_blank');
+                    } else {
+                        button.textContent = `⏳ ${seconds} detik`;
+                    }
+                }, 1000);
+            }
+
             function showDetail(name) {
                 const post = fetchedPosts.find(p => p.name === name);
                 if (!post) return;
@@ -1040,7 +979,7 @@
 
                 const hasDownload = dwn && dwn !== '#';
                 const downloadButtonHtml = hasDownload ? 
-                    `<a href="${dwn}" target="_blank" class="big-download" id="detail-download-btn">⬇ Download APK</a>` : 
+                    `<button class="big-download" id="detail-download-btn">⬇ Download APK</button>` : 
                     `<div class="big-download disabled">Link Download Tidak Tersedia</div>`;
 
                 detailContent.innerHTML = `
@@ -1062,8 +1001,8 @@
                     if (downloadBtn) {
                         downloadBtn.addEventListener('click', function(e) {
                             e.preventDefault();
-                            const url = this.getAttribute('href');
-                            showAdOverlay(url);
+                            if (this.classList.contains('counting')) return;
+                            startDownloadCountdown(this, dwn);
                         });
                     }
                 }
