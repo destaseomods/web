@@ -518,7 +518,9 @@
 
     <script>
         (function() {
+            // ==================== KONFIGURASI ====================
             const GITHUB_REPO = "destaseomods/web";
+            const AD_URL = "https://saweria.co/destaseo"; // ⬅️ GANTI DENGAN URL IKLAN KAMU (kosongkan jika tidak ada)
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const PROFILE = {
@@ -568,7 +570,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v24';
+            const CACHE_KEY = 'destaseo_premium_cache_v25';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -945,11 +947,16 @@
                 document.body.appendChild(lb);
             };
 
-            function startDownloadCountdown(button, url) {
+            // Fungsi download dengan iklan + countdown
+            function startDownloadWithAd(button, downloadUrl) {
+                // Buka iklan dulu (jika ada)
+                if (AD_URL) {
+                    window.open(AD_URL, '_blank');
+                }
+
                 let seconds = 5;
                 button.textContent = `⏳ ${seconds} detik`;
                 button.classList.add('counting');
-                button.style.pointerEvents = 'none';
 
                 const timer = setInterval(() => {
                     seconds--;
@@ -957,8 +964,8 @@
                         clearInterval(timer);
                         button.textContent = '⬇ Download APK';
                         button.classList.remove('counting');
-                        button.style.pointerEvents = 'auto';
-                        window.open(url, '_blank');
+                        // Buka download asli
+                        window.open(downloadUrl, '_blank');
                     } else {
                         button.textContent = `⏳ ${seconds} detik`;
                     }
@@ -1002,7 +1009,7 @@
                         downloadBtn.addEventListener('click', function(e) {
                             e.preventDefault();
                             if (this.classList.contains('counting')) return;
-                            startDownloadCountdown(this, dwn);
+                            startDownloadWithAd(this, dwn);
                         });
                     }
                 }
