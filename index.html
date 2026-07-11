@@ -6,71 +6,192 @@
     <title>Destaseo Mods</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
-            --bg: #0c0c14; --surface: #161625; --surface2: #1e1e2e;
-            --border: rgba(255, 255, 255, 0.08); --text: #f0f0f5; --text2: #b0b0c0;
-            --accent: #7c4dff; --accent2: #00e5ff; --grad: linear-gradient(135deg, #7c4dff, #00e5ff);
-            --radius: 20px; --radius-sm: 14px; --nav-height: 70px;
+            --bg: #06060c;
+            --surface: rgba(16, 16, 30, 0.7);
+            --surface2: rgba(22, 22, 40, 0.8);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f0f0ff;
+            --text2: #b0b0d0;
+            --accent: #7c5cff;
+            --accent2: #4ec9ff;
+            --accent3: #ff5ea0;
+            --grad: linear-gradient(135deg, #7c5cff, #4ec9ff);
+            --grad2: linear-gradient(135deg, #ff5ea0, #7c5cff);
+            --radius: 22px;
+            --radius-sm: 16px;
+            --nav-height: 72px;
             --safe-bottom: env(safe-area-inset-bottom, 16px);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            --glow: 0 0 40px rgba(124, 92, 255, 0.3);
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);
-            line-height: 1.5; min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
             padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 10px);
-            -webkit-tap-highlight-color: transparent; overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
         }
-        .container { max-width: 700px; margin: 0 auto; padding: 12px 16px; }
+
+        /* Background orbs */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(124, 92, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float1 18s ease-in-out infinite;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -25%;
+            right: -15%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(78, 201, 255, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float2 22s ease-in-out infinite;
+        }
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(6%, -5%); }
+        }
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-5%, 5%); }
+        }
+
+        .container { max-width: 720px; margin: 0 auto; padding: 12px 18px; position: relative; z-index: 2; }
+
+        /* Top bar */
         .topbar {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 10px 16px; background: rgba(22, 22, 37, 0.7);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            position: sticky; top: 0; z-index: 99; border-bottom: 1px solid var(--border);
+            padding: 12px 20px;
+            background: rgba(12, 12, 24, 0.7);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            position: sticky; top: 0; z-index: 99;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            margin: 8px auto;
+            max-width: 700px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
         }
-        .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
-        .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: rgba(18, 18, 28, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border-top: 1px solid var(--border); display: flex; justify-content: space-around;
-            align-items: center; height: var(--nav-height); padding-bottom: var(--safe-bottom); z-index: 100;
+        .logo {
+            font-weight: 800; font-size: 1.3rem; letter-spacing: -0.5px;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .nav-item {
-            display: flex; flex-direction: column; align-items: center;
-            color: var(--text2); font-size: 0.7rem; font-weight: 500; gap: 4px;
-            transition: 0.2s; cursor: pointer; background: none; border: none;
-            padding: 8px 12px; border-radius: 16px;
+        .search-toggle {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text2);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.25s;
+            display: flex; align-items: center; gap: 6px;
         }
-        .nav-item.active { color: var(--accent2); background: rgba(0, 229, 255, 0.1); }
-        .nav-item svg { width: 22px; height: 22px; }
-        .post-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 8px; }
+        .search-toggle:hover {
+            border-color: var(--accent2);
+            color: #fff;
+        }
+
+        /* Search bar */
+        .search-container {
+            margin: 12px 0;
+            transition: 0.3s;
+            display: flex; gap: 8px;
+        }
+        .search-input {
+            flex: 1;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 12px 20px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: 0.25s;
+        }
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(124,92,255,0.2);
+        }
+        .search-input::placeholder { color: var(--text2); }
+
+        /* Post grid */
+        .post-grid {
+            display: grid; grid-template-columns: 1fr; gap: 14px;
+            margin-top: 8px;
+        }
         @media (min-width: 500px) { .post-grid { grid-template-columns: 1fr 1fr; } }
         .post-card {
-            background: var(--surface); border-radius: var(--radius-sm); overflow: hidden;
-            border: 1px solid var(--border); transition: 0.25s; cursor: pointer;
+            background: var(--surface);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex; flex-direction: column;
+            position: relative;
+        }
+        .post-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: var(--glow);
         }
         .post-card:active { transform: scale(0.97); }
-        .post-card:hover { border-color: rgba(255,255,255,0.2); box-shadow: 0 8px 24px rgba(124,77,255,0.2); }
         .card-img {
-            width: 100%; height: 140px; object-fit: cover; background: var(--surface2);
-            display: flex; align-items: center; justify-content: center; color: var(--text2); font-size: 2rem;
+            width: 100%; height: 150px; object-fit: cover;
+            background: linear-gradient(135deg, #1a1a30, #121224);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text2); font-size: 2.5rem;
         }
-        .card-body { padding: 14px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
-        .card-title { font-weight: 700; font-size: 1rem; line-height: 1.3; }
+        .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+        .card-title { font-weight: 700; font-size: 1rem; line-height: 1.3; color: #fff; }
         .card-meta { font-size: 0.75rem; color: var(--text2); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .badge { background: rgba(124,77,255,0.2); color: #b388ff; padding: 2px 10px; border-radius: 20px; font-weight: 600; font-size: 0.7rem; }
+        .badge {
+            background: rgba(124,92,255,0.2); color: #b8a4ff;
+            padding: 3px 10px; border-radius: 20px; font-weight: 600; font-size: 0.7rem;
+        }
         .download-btn {
             margin-top: auto; background: var(--grad); border: none; color: #000;
-            font-weight: 700; font-size: 0.8rem; padding: 8px 12px; border-radius: 30px;
-            text-align: center; cursor: pointer; transition: 0.2s; letter-spacing: -0.2px;
+            font-weight: 700; font-size: 0.8rem; padding: 8px 14px;
+            border-radius: 30px; text-align: center; cursor: pointer;
+            transition: 0.2s; letter-spacing: -0.2px; width: fit-content;
         }
-        .download-btn:hover { filter: brightness(1.2); }
+        .download-btn:hover { filter: brightness(1.2); transform: scale(1.03); }
+
+        /* Detail & profile */
         .hidden { display: none !important; }
-        .detail-header { background: var(--surface); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); }
+        .detail-header, .profile-header {
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 16px;
+        }
         .detail-img { width: 100%; height: 200px; object-fit: cover; border-radius: 16px; background: var(--surface2); margin-bottom: 16px; }
         .detail-title { font-size: 1.6rem; font-weight: 800; }
         .detail-meta-grid { display: flex; gap: 16px; margin: 12px 0; flex-wrap: wrap; }
@@ -83,7 +204,14 @@
             letter-spacing: -0.2px; text-decoration: none; text-align: center;
         }
         .big-download:active { transform: scale(0.97); }
-        .content-box { background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); line-height: 1.7; }
+        .content-box {
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            line-height: 1.7;
+        }
         .content-box img { max-width: 100%; border-radius: 12px; margin: 8px 0; }
         .content-box pre { background: #0a0a14; padding: 12px; border-radius: 12px; overflow-x: auto; }
         .back-btn {
@@ -91,9 +219,44 @@
             display: flex; align-items: center; gap: 6px; margin-bottom: 12px;
             cursor: pointer; font-size: 0.9rem;
         }
+        .profile-avatar {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: var(--grad2); margin: 0 auto 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; color: #fff;
+        }
+        .profile-name { text-align: center; font-size: 1.3rem; font-weight: 700; }
+        .profile-bio { text-align: center; color: var(--text2); margin: 8px 0; }
+        .social-links { display: flex; gap: 12px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
+        .social-link {
+            background: var(--surface2); padding: 8px 16px; border-radius: 30px;
+            color: var(--accent2); text-decoration: none; font-size: 0.8rem; transition: 0.2s;
+        }
+        .social-link:hover { background: rgba(255,255,255,0.1); }
+
+        /* Bottom nav */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            border-top: 1px solid var(--border);
+            display: flex; justify-content: space-around; align-items: center;
+            height: var(--nav-height); padding-bottom: var(--safe-bottom);
+            z-index: 100;
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            color: var(--text2); font-size: 0.7rem; font-weight: 500; gap: 4px;
+            transition: 0.2s; cursor: pointer; background: none; border: none;
+            padding: 8px 14px; border-radius: 20px;
+        }
+        .nav-item.active { color: var(--accent2); background: rgba(78, 201, 255, 0.1); }
+        .nav-item svg { width: 22px; height: 22px; }
+
+        /* Utility */
         .loading-spinner { display: flex; justify-content: center; padding: 40px; }
         .spinner {
-            width: 32px; height: 32px; border: 3px solid rgba(255,255,255,0.1);
+            width: 36px; height: 36px; border: 3px solid rgba(255,255,255,0.1);
             border-top-color: var(--accent2); border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
@@ -103,33 +266,54 @@
 </head>
 <body>
     <div class="topbar">
-        <div class="logo">Destaseo<span>Mods</span></div>
+        <div class="logo">DestaseoMods</div>
+        <button class="search-toggle" id="search-toggle-btn">
+            🔍 <span>Cari</span>
+        </button>
     </div>
 
     <main class="container" id="app">
+        <!-- Beranda -->
         <section id="home-section">
+            <div class="search-container hidden" id="search-container">
+                <input type="text" class="search-input" id="search-input" placeholder="Cari mod / tutorial...">
+            </div>
             <div id="post-container" class="post-grid">
                 <div class="loading-spinner"><div class="spinner"></div></div>
             </div>
         </section>
 
+        <!-- Detail -->
         <section id="detail-section" class="hidden">
             <button class="back-btn" id="detail-back">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                Kembali
+                ← Kembali
             </button>
             <div id="detail-content"></div>
         </section>
 
+        <!-- Profil -->
+        <section id="profile-section" class="hidden">
+            <div class="profile-header">
+                <div class="profile-avatar" id="profile-avatar">👤</div>
+                <div class="profile-name" id="profile-name">Destaseo</div>
+                <div class="profile-bio" id="profile-bio">Creator & Modder</div>
+                <div class="social-links" id="social-links"></div>
+            </div>
+            <div class="content-box">
+                <p style="color:var(--text2);">Bagikan mod APK favoritmu dan ikuti tutorial terbaru seputar modding Android.</p>
+            </div>
+        </section>
+
+        <!-- Tentang -->
         <section id="about-section" class="hidden">
             <div class="content-box">
                 <h2 style="font-weight:800;">Tentang Destaseo Mods</h2>
                 <p style="color:var(--text2); margin-top:12px;">
-                    Destaseo Mods adalah platform berbagi mod APK, tutorial, dan informasi seputar dunia modding Android. 
-                    Tampilan modern ala aplikasi, didukung oleh GitHub Pages.
+                    Platform berbagi mod APK, tutorial, dan informasi seputar dunia modding Android. 
+                    Tampilan modern premium, didukung penuh oleh GitHub Pages.
                 </p>
                 <p style="color:var(--text2);">
-                    Postingan diambil otomatis dari folder <code>posts/</code> repository. Cukup tambah file <code>.md</code> untuk update konten.
+                    Postingan diambil otomatis dari folder <code>posts/</code>. Cukup tambah file <code>.md</code>.
                 </p>
             </div>
         </section>
@@ -140,6 +324,14 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             <span>Beranda</span>
         </button>
+        <button class="nav-item" data-page="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <span>Cari</span>
+        </button>
+        <button class="nav-item" data-page="profile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profil</span>
+        </button>
         <button class="nav-item" data-page="about">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
             <span>Tentang</span>
@@ -148,25 +340,39 @@
 
     <script>
         (function() {
-            // Cache 10 menit untuk menghindari rate limit
-            const CACHE_KEY = 'destaseo_posts_cache';
-            const CACHE_DURATION = 10 * 60 * 1000;
+            // =============== KONFIGURASI PROFIL ===============
+            const PROFILE_DATA = {
+                avatar: "👤",        // emoji atau URL gambar
+                name: "Destaseo",
+                bio: "Modder & Content Creator",
+                links: [
+                    { label: "GitHub", url: "https://github.com" },
+                    { label: "Telegram", url: "https://t.me" },
+                    { label: "YouTube", url: "https://youtube.com" }
+                ]
+            };
+            // =============== KONFIGURASI CACHE ===============
+            const CACHE_KEY = 'destaseo_posts_cache_v2';
+            const CACHE_DURATION = 10 * 60 * 1000; // 10 menit
 
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
             const detailSection = document.getElementById('detail-section');
+            const profileSection = document.getElementById('profile-section');
             const aboutSection = document.getElementById('about-section');
             const detailContent = document.getElementById('detail-content');
             const detailBack = document.getElementById('detail-back');
             const navItems = document.querySelectorAll('.nav-item');
+            const searchContainer = document.getElementById('search-container');
+            const searchInput = document.getElementById('search-input');
+            const searchToggleBtn = document.getElementById('search-toggle-btn');
 
             let postsData = [];
             let fetchedPosts = [];
 
+            // =============== NAVIGASI ===============
             function showSection(section) {
-                homeSection.classList.add('hidden');
-                detailSection.classList.add('hidden');
-                aboutSection.classList.add('hidden');
+                [homeSection, detailSection, profileSection, aboutSection].forEach(s => s.classList.add('hidden'));
                 section.classList.remove('hidden');
             }
 
@@ -176,62 +382,71 @@
                 });
             }
 
+            function goToPage(page) {
+                if (page === 'home') {
+                    showSection(homeSection);
+                    searchContainer.classList.remove('hidden');
+                } else if (page === 'search') {
+                    showSection(homeSection);
+                    searchContainer.classList.remove('hidden');
+                    searchInput.focus();
+                } else if (page === 'profile') {
+                    showSection(profileSection);
+                    searchContainer.classList.add('hidden');
+                    renderProfile();
+                } else if (page === 'about') {
+                    showSection(aboutSection);
+                    searchContainer.classList.add('hidden');
+                }
+                setActiveNav(page);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // =============== PROFIL ===============
+            function renderProfile() {
+                document.getElementById('profile-avatar').textContent = PROFILE_DATA.avatar || '👤';
+                document.getElementById('profile-name').textContent = PROFILE_DATA.name;
+                document.getElementById('profile-bio').textContent = PROFILE_DATA.bio;
+                const linksHtml = PROFILE_DATA.links.map(l =>
+                    `<a href="${l.url}" target="_blank" class="social-link">${l.label}</a>`
+                ).join('');
+                document.getElementById('social-links').innerHTML = linksHtml;
+            }
+
+            // =============== CACHE ===============
             function getCachedPosts() {
                 const raw = localStorage.getItem(CACHE_KEY);
                 if (!raw) return null;
                 try {
                     const cache = JSON.parse(raw);
-                    if (Date.now() - cache.timestamp < CACHE_DURATION) {
-                        return cache.posts;
-                    }
+                    if (Date.now() - cache.timestamp < CACHE_DURATION) return cache.posts;
                 } catch (e) {}
                 return null;
             }
-
             function setCachedPosts(posts) {
-                localStorage.setItem(CACHE_KEY, JSON.stringify({
-                    timestamp: Date.now(),
-                    posts: posts
-                }));
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), posts }));
             }
 
+            // =============== FETCH POST LIST ===============
             async function fetchPostList() {
                 const cached = getCachedPosts();
-                if (cached) {
-                    console.log('✅ Menggunakan cache');
-                    postsData = cached;
-                    return postsData;
-                }
+                if (cached) { postsData = cached; return; }
 
-                // Deteksi lingkungan GitHub Pages
                 const host = window.location.hostname;
-                const path = window.location.pathname;
-                const pathParts = path.split('/').filter(p => p);
-
                 if (!host.includes('github.io')) {
-                    throw new Error('Halaman ini hanya bekerja di GitHub Pages. Untuk lokal, gunakan Live Server dan tambahkan daftar postingan manual.');
+                    throw new Error('Hanya berfungsi di GitHub Pages.');
                 }
-
-                let apiUrl = '';
-                const username = host.split('.')[0]; // ambil username dari subdomain
-
+                const pathParts = window.location.pathname.split('/').filter(p => p);
+                const username = host.split('.')[0];
+                let apiUrl;
                 if (pathParts.length === 0) {
-                    // User site: username.github.io
-                    const repo = `${username}.github.io`;
-                    apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/posts`;
+                    apiUrl = `https://api.github.com/repos/${username}/${username}.github.io/contents/posts`;
                 } else {
-                    // Project site: username.github.io/nama-repo
-                    const repo = pathParts[0];
-                    apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/posts`;
+                    apiUrl = `https://api.github.com/repos/${username}/${pathParts[0]}/contents/posts`;
                 }
 
                 const res = await fetch(apiUrl);
-                if (!res.ok) {
-                    if (res.status === 404) throw new Error('Folder "posts/" tidak ditemukan di repository. Pastikan folder ada dan berisi file .md.');
-                    if (res.status === 403) throw new Error('Akses ditolak. Pastikan repository dalam mode PUBLIC.');
-                    throw new Error(`Gagal mengambil data (${res.status}). Cek kembali struktur repo.`);
-                }
-
+                if (!res.ok) throw new Error(`Gagal fetch (${res.status}). Pastikan repo public.`);
                 const files = await res.json();
                 const mdFiles = files.filter(f => f.name.endsWith('.md'));
                 if (mdFiles.length === 0) throw new Error('Tidak ada file .md di folder posts/.');
@@ -241,17 +456,14 @@
                     name: f.name.replace('.md', ''),
                     download_url: f.download_url,
                 }));
-
                 setCachedPosts(postsData);
-                return postsData;
             }
 
+            // =============== PARSE MD ===============
             function parseFrontmatter(md) {
                 const match = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
                 if (!match) return { metadata: {}, content: md };
-                const front = match[1];
-                const content = match[2];
-                const meta = {};
+                const front = match[1], content = match[2], meta = {};
                 front.split('\n').forEach(line => {
                     const idx = line.indexOf(':');
                     if (idx > 0) {
@@ -275,13 +487,13 @@
                 }
             }
 
+            // =============== RENDER ===============
             function renderCard(post) {
                 const title = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = post.metadata.gambar || post.metadata.image || '';
                 const tag = post.metadata.tag || post.metadata.kategori || '';
                 const versi = post.metadata.versi || post.metadata.version || '';
                 const download = post.metadata.download || post.metadata.link || '#';
-
                 return `
                 <div class="post-card" data-name="${post.name}">
                     <div class="card-img">
@@ -298,6 +510,33 @@
                 </div>`;
             }
 
+            function filterPosts(query) {
+                const q = query.toLowerCase();
+                const filtered = fetchedPosts.filter(p => {
+                    const title = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
+                    return title.includes(q);
+                });
+                const cards = filtered.map(p => renderCard(p)).join('');
+                postContainer.innerHTML = cards || '<div class="empty-text">🔍 Tidak ditemukan.</div>';
+                attachCardEvents();
+            }
+
+            function attachCardEvents() {
+                document.querySelectorAll('.post-card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('download-btn')) return;
+                        showDetail(card.dataset.name);
+                    });
+                });
+                document.querySelectorAll('.download-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const link = btn.dataset.link;
+                        if (link && link !== '#') window.open(link, '_blank');
+                    });
+                });
+            }
+
             async function renderHome() {
                 postContainer.innerHTML = '<div class="loading-spinner"><div class="spinner"></div></div>';
                 try {
@@ -309,21 +548,7 @@
                     fetchedPosts = await Promise.all(postsData.map(p => fetchPost(p)));
                     const cards = fetchedPosts.map(p => renderCard(p)).join('');
                     postContainer.innerHTML = cards;
-
-                    document.querySelectorAll('.post-card').forEach(card => {
-                        card.addEventListener('click', (e) => {
-                            if (e.target.classList.contains('download-btn')) return;
-                            showDetail(card.dataset.name);
-                        });
-                    });
-
-                    document.querySelectorAll('.download-btn').forEach(btn => {
-                        btn.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            const link = btn.dataset.link;
-                            if (link && link !== '#') window.open(link, '_blank');
-                        });
-                    });
+                    attachCardEvents();
                 } catch (err) {
                     postContainer.innerHTML = `<div class="error-text"><strong>🚫 Error:</strong> ${err.message}</div>`;
                 }
@@ -354,33 +579,28 @@
                 `;
                 showSection(detailSection);
                 setActiveNav('detail');
+                searchContainer.classList.add('hidden');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            function goHome() {
-                showSection(homeSection);
-                setActiveNav('home');
-                window.scrollTo({ top: 0 });
-            }
+            // =============== EVENT LISTENERS ===============
+            detailBack.addEventListener('click', () => goToPage('home'));
 
-            function showAboutPage() {
-                showSection(aboutSection);
-                setActiveNav('about');
-                window.scrollTo({ top: 0 });
-            }
-
-            detailBack.addEventListener('click', goHome);
             navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const page = item.dataset.page;
-                    if (page === 'home') goHome();
-                    else if (page === 'about') showAboutPage();
-                });
+                item.addEventListener('click', () => goToPage(item.dataset.page));
             });
 
+            searchToggleBtn.addEventListener('click', () => {
+                searchContainer.classList.toggle('hidden');
+                if (!searchContainer.classList.contains('hidden')) searchInput.focus();
+            });
+
+            searchInput.addEventListener('input', () => filterPosts(searchInput.value));
+
+            // =============== INIT ===============
             (async () => {
                 await renderHome();
-                goHome();
+                goToPage('home');
             })();
         })();
     </script>
