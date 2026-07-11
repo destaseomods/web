@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
+        /* ... (CSS sama seperti sebelumnya, tanpa perubahan) ... */
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -659,7 +660,10 @@
 
     <script>
         (function() {
+            // ==================== KONFIGURASI ====================
             const GITHUB_REPO = "destaseomods/web";
+            // ⚠️ ISI TOKEN GITHUB KAMU DI SINI (hanya untuk development lokal)
+            const GITHUB_TOKEN = ""; // contoh: "ghp_xxxxxxx"
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
             const AD_INTERVAL = 1 * 60 * 60 * 1000;
             const AD_STORAGE_KEY = 'lastAdClickTimestamp';
@@ -675,6 +679,7 @@
                     { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane" }
                 ]
             };
+            // ==================== END KONFIGURASI ====================
 
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
@@ -712,7 +717,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v46';
+            const CACHE_KEY = 'destaseo_premium_cache_v47';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -881,8 +886,12 @@
                 const cached = getCache();
                 if (cached) { postsData = cached; return; }
                 let apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
-                const res = await fetch(apiUrl);
-                if (!res.ok) throw new Error(`Gagal fetch (${res.status}).`);
+                const headers = {};
+                if (GITHUB_TOKEN) {
+                    headers['Authorization'] = `token ${GITHUB_TOKEN}`;
+                }
+                const res = await fetch(apiUrl, { headers });
+                if (!res.ok) throw new Error(`Gagal fetch (${res.status}).${res.status === 403 ? ' Tambahkan token di variabel GITHUB_TOKEN.' : ''}`);
                 const files = await res.json();
                 const mdFiles = files.filter(f => f.name.endsWith('.md'));
                 if (!mdFiles.length) throw new Error('Tidak ada file .md di posts/.');
@@ -977,13 +986,12 @@
                 return filtered;
             }
 
-            // Perbaikan sort: gunakan timestamp numerik agar urut
             function sortPosts(posts) {
                 const sortBy = sortSelect.value;
                 const sorted = [...posts];
                 const getTime = (p) => {
                     const dateStr = p.metadata.tanggal || p.metadata.date || p.lastModified;
-                    if (!dateStr) return 0; // epoch 1970
+                    if (!dateStr) return 0;
                     const d = new Date(dateStr);
                     return isNaN(d.getTime()) ? 0 : d.getTime();
                 };
