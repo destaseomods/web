@@ -880,9 +880,10 @@
                 try {
                     const r = await fetch(p.download_url);
                     if (!r.ok) throw new Error('fail');
-                    const lastModified = r.headers.get('Last-Modified');
                     const md = await r.text();
                     const { metadata, content } = parseFrontmatter(md);
+                    // Ambil last-modified header jika tanggal tidak ada di metadata
+                    const lastModified = r.headers.get('Last-Modified');
                     return { ...p, metadata, content, lastModified, html: marked.parse(content) };
                 } catch { return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>' }; }
             }
@@ -1033,7 +1034,7 @@
             function cardHTML(post, index) {
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
-                const tag = post.metadata.tag || post.metadata.kategori || '';
+                const kategori = post.metadata.tag || post.metadata.kategori || '';
                 const ver = post.metadata.versi || post.metadata.version || '';
                 const dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
                 const dateFormatted = formatDate(dateRaw);
@@ -1050,7 +1051,7 @@
                         <div class="card-meta">
                             ${ver ? `<span class="version-tag"><i class="fas fa-code-branch"></i> v${ver}</span>` : ''}
                             ${dateFormatted ? `<span class="date-tag"><i class="far fa-calendar-alt"></i> ${dateFormatted}</span>` : ''}
-                            ${tag ? `<span class="badge" data-tag="${tag}"><i class="fas fa-tag"></i> ${tag}</span>` : ''}
+                            ${kategori ? `<span class="badge"><i class="fas fa-tag"></i> ${kategori}</span>` : ''}
                         </div>
                         ${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}
                     </div>
@@ -1067,7 +1068,7 @@
                 document.querySelectorAll('.badge').forEach(badge => {
                     badge.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        activeTagFilter = badge.dataset.tag;
+                        activeTagFilter = badge.textContent.trim();
                         searchInput.value = '';
                         resetAndApplyFilters();
                         renderCategoryBar();
@@ -1188,6 +1189,7 @@
                 const s = post.metadata.ukuran || post.metadata.size || '?';
                 const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
                 const dwn = post.metadata.download || post.metadata.link || '';
+                const kategori = post.metadata.tag || post.metadata.kategori || '';
                 const dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
                 const dateFormatted = formatDate(dateRaw);
                 const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
@@ -1205,6 +1207,7 @@
                         <div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ${v}</div>
                         <div class="meta-item"><i class="fas fa-weight-hanging"></i> <strong>Ukuran</strong> ${s}</div>
                         <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
+                        ${kategori ? `<div class="meta-item"><i class="fas fa-tag"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
                         ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
                     </div>
                     ${galleryHtml}
