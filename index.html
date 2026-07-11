@@ -440,7 +440,6 @@
         }
         .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255,255,255,0.1); }
 
-        /* Gallery scroll */
         .screenshot-scroll {
             display: flex;
             flex-wrap: nowrap;
@@ -515,7 +514,6 @@
 <body>
     <canvas id="particles"></canvas>
 
-    <!-- QRIS Popup -->
     <div class="qris-overlay hidden" id="qris-overlay">
         <div class="qris-container">
             <img src="https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png" alt="QRIS Dana" id="qris-img">
@@ -603,6 +601,8 @@
         (function() {
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
+            const AD_INTERVAL = 2 * 60 * 60 * 1000; // 2 jam dalam milidetik
+            const AD_STORAGE_KEY = 'lastAdClickTimestamp';
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
@@ -652,7 +652,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v34';
+            const CACHE_KEY = 'destaseo_premium_cache_v35';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -1050,22 +1050,38 @@
                 document.body.appendChild(lb);
             };
 
+            // Fungsi download dengan pengecekan interval iklan
             function startDownloadWithAd(button, downloadUrl) {
-                if (AD_URL) window.open(AD_URL, '_blank');
-                let seconds = 5;
-                button.textContent = `⏳ ${seconds} detik`;
-                button.classList.add('counting');
-                const timer = setInterval(() => {
-                    seconds--;
-                    if (seconds <= 0) {
-                        clearInterval(timer);
-                        button.innerHTML = '<i class="fas fa-download"></i> Download APK';
-                        button.classList.remove('counting');
-                        window.open(downloadUrl, '_blank');
-                    } else {
-                        button.textContent = `⏳ ${seconds} detik`;
-                    }
-                }, 1000);
+                const now = Date.now();
+                const lastClick = localStorage.getItem(AD_STORAGE_KEY);
+                
+                // Jika belum pernah klik atau sudah melebihi 2 jam
+                if (!lastClick || (now - parseInt(lastClick)) > AD_INTERVAL) {
+                    // Simpan timestamp sekarang
+                    localStorage.setItem(AD_STORAGE_KEY, now.toString());
+                    
+                    // Buka iklan
+                    if (AD_URL) window.open(AD_URL, '_blank');
+                    
+                    // Countdown di tombol
+                    let seconds = 5;
+                    button.textContent = `⏳ ${seconds} detik`;
+                    button.classList.add('counting');
+                    const timer = setInterval(() => {
+                        seconds--;
+                        if (seconds <= 0) {
+                            clearInterval(timer);
+                            button.innerHTML = '<i class="fas fa-download"></i> Download APK';
+                            button.classList.remove('counting');
+                            window.open(downloadUrl, '_blank');
+                        } else {
+                            button.textContent = `⏳ ${seconds} detik`;
+                        }
+                    }, 1000);
+                } else {
+                    // Masih dalam interval 2 jam, langsung download
+                    window.open(downloadUrl, '_blank');
+                }
             }
 
             function showDetail(name) {
