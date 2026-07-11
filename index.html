@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* ... (CSS sama seperti sebelumnya, tidak diubah) ... */
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -467,6 +466,25 @@
         }
         .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255,255,255,0.1); }
 
+        /* Tag di detail */
+        .tags-container {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .tag-badge {
+            background: rgba(255,255,255,0.06);
+            color: var(--text2);
+            padding: 3px 10px;
+            border-radius: 14px;
+            font-size: 0.65rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         .screenshot-scroll {
             display: flex;
             flex-wrap: nowrap;
@@ -688,7 +706,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v43';
+            const CACHE_KEY = 'destaseo_premium_cache_v44';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -713,7 +731,7 @@
             const qrisDownloadBtn = document.getElementById('qris-download-btn');
 
             let postsData = [], fetchedPosts = [];
-            let activeTagFilter = null; // meskipun nama variabel 'tag', sekarang berisi kategori
+            let activeKatFilter = null;
             let currentDisplayCount = 0;
             const ITEMS_PER_PAGE = 10;
             let carouselInterval = null;
@@ -905,15 +923,12 @@
 
             function formatDate(dateStr) {
                 if (!dateStr) return '';
-                try {
-                    const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
-                    const d = new Date(dateStr);
-                    if (isNaN(d.getTime())) return dateStr;
-                    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
-                } catch { return dateStr; }
+                const d = new Date(dateStr);
+                if (isNaN(d.getTime())) return dateStr; // fallback ke string asli jika gagal parse
+                const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+                return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
             }
 
-            // Ambil semua kategori unik dari metadata.kategori
             function getAllKategori() {
                 const kats = new Set();
                 fetchedPosts.forEach(p => {
@@ -925,24 +940,24 @@
 
             function renderCategoryBar() {
                 const kats = getAllKategori();
-                let html = '<span class="category-chip' + (!activeTagFilter ? ' active' : '') + '" data-tag=""><i class="fas fa-globe"></i> Semua</span>';
-                kats.forEach(kat => html += `<span class="category-chip${activeTagFilter === kat ? ' active' : ''}" data-tag="${kat}"><i class="fas fa-tag"></i> ${kat}</span>`);
-                if (activeTagFilter) html += `<button class="reset-filter" id="reset-filter"><i class="fas fa-times"></i> Hapus filter</button>`;
+                let html = '<span class="category-chip' + (!activeKatFilter ? ' active' : '') + '" data-kat=""><i class="fas fa-globe"></i> Semua</span>';
+                kats.forEach(kat => html += `<span class="category-chip${activeKatFilter === kat ? ' active' : ''}" data-kat="${kat}"><i class="fas fa-tag"></i> ${kat}</span>`);
+                if (activeKatFilter) html += `<button class="reset-filter" id="reset-filter"><i class="fas fa-times"></i> Hapus filter</button>`;
                 categoryBar.innerHTML = html;
                 categoryBar.querySelectorAll('.category-chip').forEach(chip => {
                     chip.addEventListener('click', () => {
-                        activeTagFilter = chip.dataset.tag || null;
+                        activeKatFilter = chip.dataset.kat || null;
                         resetAndApplyFilters();
                     });
                 });
                 const resetBtn = document.getElementById('reset-filter');
-                if (resetBtn) resetBtn.addEventListener('click', () => { activeTagFilter = null; resetAndApplyFilters(); });
+                if (resetBtn) resetBtn.addEventListener('click', () => { activeKatFilter = null; resetAndApplyFilters(); });
             }
 
             function getFilteredPosts() {
                 const query = searchInput.value.trim().toLowerCase();
                 let filtered = fetchedPosts;
-                if (activeTagFilter) filtered = filtered.filter(p => (p.metadata.kategori || '') === activeTagFilter);
+                if (activeKatFilter) filtered = filtered.filter(p => (p.metadata.kategori || '') === activeKatFilter);
                 if (query) filtered = filtered.filter(p => {
                     const title = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
                     return title.includes(query);
@@ -958,14 +973,14 @@
                         sorted.sort((a, b) => {
                             const dateA = a.metadata.tanggal || a.metadata.date || a.lastModified || '';
                             const dateB = b.metadata.tanggal || b.metadata.date || b.lastModified || '';
-                            return dateB.localeCompare(dateA);
+                            return new Date(dateB) - new Date(dateA);
                         });
                         break;
                     case 'terlama':
                         sorted.sort((a, b) => {
                             const dateA = a.metadata.tanggal || a.metadata.date || a.lastModified || '';
                             const dateB = b.metadata.tanggal || b.metadata.date || b.lastModified || '';
-                            return dateA.localeCompare(dateB);
+                            return new Date(dateA) - new Date(dateB);
                         });
                         break;
                     case 'az':
@@ -995,9 +1010,9 @@
                 let filtered = getFilteredPosts();
                 filtered = sortPosts(filtered);
                 
-                if (activeTagFilter) {
+                if (activeKatFilter) {
                     filterIndicator.classList.remove('hidden');
-                    filterIndicator.innerHTML = `<i class="fas fa-filter"></i> Kategori: <strong>${activeTagFilter}</strong> (${filtered.length} hasil)`;
+                    filterIndicator.innerHTML = `<i class="fas fa-filter"></i> Kategori: <strong>${activeKatFilter}</strong> (${filtered.length} hasil)`;
                 } else filterIndicator.classList.add('hidden');
                 currentDisplayCount = Math.min(ITEMS_PER_PAGE, filtered.length);
                 displayPosts(filtered.slice(0, currentDisplayCount));
@@ -1035,7 +1050,7 @@
             function cardHTML(post, index) {
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
-                const kategori = post.metadata.kategori || ''; // gunakan kategori, bukan tag
+                const kategori = post.metadata.kategori || '';
                 const ver = post.metadata.versi || post.metadata.version || '';
                 const dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
                 const dateFormatted = formatDate(dateRaw);
@@ -1052,7 +1067,7 @@
                         <div class="card-meta">
                             ${ver ? `<span class="version-tag"><i class="fas fa-code-branch"></i> v${ver}</span>` : ''}
                             ${dateFormatted ? `<span class="date-tag"><i class="far fa-calendar-alt"></i> ${dateFormatted}</span>` : ''}
-                            ${kategori ? `<span class="badge" data-tag="${kategori}"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}
+                            ${kategori ? `<span class="badge" data-kat="${kategori}"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}
                         </div>
                         ${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}
                     </div>
@@ -1069,7 +1084,7 @@
                 document.querySelectorAll('.badge').forEach(badge => {
                     badge.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        activeTagFilter = badge.dataset.tag; // dataset.tag berisi kategori
+                        activeKatFilter = badge.dataset.kat;
                         searchInput.value = '';
                         resetAndApplyFilters();
                         renderCategoryBar();
@@ -1191,6 +1206,7 @@
                 const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
                 const dwn = post.metadata.download || post.metadata.link || '';
                 const kategori = post.metadata.kategori || '';
+                const tags = post.metadata.tag ? post.metadata.tag.split(',').map(t => t.trim()).filter(t => t) : [];
                 const dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
                 const dateFormatted = formatDate(dateRaw);
                 const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
@@ -1199,6 +1215,9 @@
                 const downloadButtonHtml = hasDownload ? 
                     `<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` : 
                     `<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>`;
+
+                const tagsHtml = tags.length > 0 ? 
+                    `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` : '';
 
                 detailContent.innerHTML = `
                 <div class="detail-header">
@@ -1212,6 +1231,7 @@
                         ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
                     </div>
                     ${galleryHtml}
+                    ${tagsHtml}
                 </div>
                 <div class="content-box">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
                 ${downloadButtonHtml}`;
