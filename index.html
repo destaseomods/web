@@ -337,9 +337,8 @@
 
     <script>
         (function() {
-            // ⚠️ ISI VARIABEL INI JIKA PAKAI CUSTOM DOMAIN (selain github.io)
-            // Contoh: "usernamekamu/namarepo"
-            const GITHUB_REPO = "destaseomods/web"; // <<<< ISI UNTUK CUSTOM DOMAIN
+            // ⚠️ ISI VARIABEL INI JIKA PAKAI CUSTOM DOMAIN
+            const GITHUB_REPO = "destaseomods/web"; // "username/repo"
 
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
@@ -349,11 +348,12 @@
                 bio: "Premium modder & content creator.",
                 links: [
                     { label: "GitHub", url: "https://github.com" },
-                    { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1" },
+                    { label: "Telegram", url: "https://t.me" },
                     { label: "YouTube", url: "https://youtube.com" }
                 ]
             };
 
+            // Partikel background
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
             let particles = [];
@@ -390,7 +390,8 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v6';
+            // Cache & API
+            const CACHE_KEY = 'destaseo_premium_cache_v7';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
@@ -414,31 +415,61 @@
                 avatarEl.textContent = '';
             }
 
+            // ========== ROUTING HASH ==========
+            function getHashPage() {
+                const hash = window.location.hash.slice(1); // hapus #
+                if (!hash || hash === 'home') return { page: 'home' };
+                if (hash === 'search') return { page: 'search' };
+                if (hash === 'profile') return { page: 'profile' };
+                if (hash.startsWith('detail/')) return { page: 'detail', postName: hash.split('/')[1] };
+                return { page: 'home' }; // fallback
+            }
+
+            function setHash(page, param) {
+                if (page === 'home') window.location.hash = 'home';
+                else if (page === 'search') window.location.hash = 'search';
+                else if (page === 'profile') window.location.hash = 'profile';
+                else if (page === 'detail' && param) window.location.hash = 'detail/' + param;
+            }
+
             function showSection(section) {
                 [homeSection, detailSection, profileSection].forEach(s => s.classList.add('hidden'));
                 section.classList.remove('hidden');
             }
+
             function setActiveNav(page) {
-                navItems.forEach(i => i.classList.toggle('active', i.dataset.page === page));
+                navItems.forEach(i => {
+                    const p = i.dataset.page;
+                    i.classList.toggle('active', p === page || (page === 'detail' && p === 'home'));
+                });
             }
-            function navigate(page) {
+
+            function navigate(page, postName) {
                 if (page === 'home') {
                     showSection(homeSection);
                     searchBox.classList.remove('hidden');
                     categoryBar.classList.remove('hidden');
+                    setActiveNav('home');
                 } else if (page === 'search') {
                     showSection(homeSection);
                     searchBox.classList.remove('hidden');
                     categoryBar.classList.remove('hidden');
+                    setActiveNav('search');
                     setTimeout(() => searchInput.focus(), 100);
                 } else if (page === 'profile') {
                     showSection(profileSection);
                     searchBox.classList.add('hidden');
                     categoryBar.classList.add('hidden');
                     filterIndicator.classList.add('hidden');
+                    setActiveNav('profile');
                     renderProfile();
+                } else if (page === 'detail' && postName) {
+                    showDetail(postName);
+                    setActiveNav('detail');
+                    searchBox.classList.add('hidden');
+                    categoryBar.classList.add('hidden');
+                    filterIndicator.classList.add('hidden');
                 }
-                setActiveNav(page);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
@@ -450,6 +481,7 @@
                 ).join('');
             }
 
+            // ========== DATA FETCHING ==========
             function getCache() {
                 const raw = localStorage.getItem(CACHE_KEY);
                 if (!raw) return null;
@@ -463,7 +495,6 @@
                 if (cached) { postsData = cached; return; }
 
                 let apiUrl = '';
-                // Prioritaskan GITHUB_REPO jika diisi (custom domain)
                 if (GITHUB_REPO) {
                     apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
                 } else if (window.location.hostname.includes('github.io')) {
@@ -472,7 +503,7 @@
                     const repo = parts.length ? parts[0] : `${user}.github.io`;
                     apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/posts`;
                 } else {
-                    throw new Error('🔧 Isi variabel GITHUB_REPO di script untuk custom domain. Contoh: "destaseo/mods".');
+                    throw new Error('🔧 Isi GITHUB_REPO untuk custom domain.');
                 }
 
                 const res = await fetch(apiUrl);
@@ -574,7 +605,7 @@
                 document.querySelectorAll('.post-card').forEach(c => {
                     c.addEventListener('click', (e) => {
                         if (e.target.classList.contains('badge')) return;
-                        showDetail(c.dataset.name);
+                        setHash('detail', c.dataset.name);
                     });
                 });
                 document.querySelectorAll('.badge').forEach(badge => {
@@ -653,13 +684,41 @@
                 window.scrollTo({ top: 0 });
             }
 
-            detailBack.addEventListener('click', () => navigate('home'));
-            navItems.forEach(item => item.addEventListener('click', () => navigate(item.dataset.page)));
+            // ========== EVENT LISTENERS ==========
+            detailBack.addEventListener('click', () => setHash('home'));
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const page = item.dataset.page;
+                    setHash(page);
+                });
+            });
             searchInput.addEventListener('input', () => applyFilters());
 
+            window.addEventListener('hashchange', () => {
+                const { page, postName } = getHashPage();
+                if (page === 'detail' && postName) {
+                    if (fetchedPosts.length === 0) {
+                        // jika data belum siap, tunggu render ulang
+                        renderHome().then(() => {
+                            navigate('detail', postName);
+                        });
+                    } else {
+                        navigate('detail', postName);
+                    }
+                } else {
+                    navigate(page);
+                }
+            });
+
+            // ========== INIT ==========
             (async () => {
                 await renderHome();
-                navigate('home');
+                const { page, postName } = getHashPage();
+                if (page === 'detail' && postName) {
+                    navigate('detail', postName);
+                } else {
+                    navigate(page);
+                }
             })();
         })();
     </script>
