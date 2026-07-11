@@ -33,97 +33,46 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
-            -webkit-tap-highlight-color: transparent;
-            overflow-x: hidden;
-            position: relative;
+            background: var(--bg); color: var(--text); line-height: 1.6;
+            min-height: 100vh; padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
+            -webkit-tap-highlight-color: transparent; overflow-x: hidden; position: relative;
         }
-        canvas#particles {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 0; opacity: 0.7;
-        }
+        canvas#particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.7; }
         .container { max-width: 760px; margin: 0 auto; padding: 12px 20px; position: relative; z-index: 2; }
 
         .topbar {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 14px 22px;
-            background: rgba(12,12,25,0.65);
+            padding: 14px 22px; background: rgba(12,12,25,0.65);
             backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--border);
-            border-radius: 34px; margin: 12px auto;
+            border: 1px solid var(--border); border-radius: 34px; margin: 12px auto;
             max-width: 700px; box-shadow: 0 8px 30px rgba(0,0,0,0.7);
             position: sticky; top: 14px; z-index: 99;
         }
         .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-img {
-            width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.2);
-            box-shadow: 0 0 15px rgba(168,127,255,0.4);
-        }
+        .logo-img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 0 15px rgba(168,127,255,0.4); }
         .logo-text {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 900; font-size: 1.7rem; letter-spacing: -1px;
-            background: linear-gradient(135deg, #c084fc, #60a5fa, #34d399);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.7rem; letter-spacing: -1px;
+            background: linear-gradient(135deg, #c084fc, #60a5fa, #34d399); background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: gradientShift 3s ease infinite alternate;
         }
-        @keyframes gradientShift {
-            0% { background-position: 0% center; }
-            100% { background-position: 100% center; }
-        }
+        @keyframes gradientShift { 0% { background-position: 0% center; } 100% { background-position: 100% center; } }
         .telegram-wrapper { position: relative; }
-        .telegram-btn {
-            background: var(--surface); border: 1px solid var(--border);
-            color: var(--accent2); padding: 8px 18px; border-radius: 30px;
-            font-size: 0.85rem; font-weight: 600; cursor: pointer;
-            display: flex; align-items: center; gap: 8px;
-            transition: var(--transition); backdrop-filter: blur(16px);
-            white-space: nowrap;
-        }
+        .telegram-btn { background: var(--surface); border: 1px solid var(--border); color: var(--accent2); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: var(--transition); backdrop-filter: blur(16px); white-space: nowrap; }
         .telegram-btn:hover { border-color: var(--accent2); box-shadow: 0 0 25px rgba(62,224,255,0.4); background: rgba(62,224,255,0.1); }
-        .telegram-dropdown {
-            position: absolute; top: 100%; right: 0; margin-top: 8px;
-            background: var(--surface); backdrop-filter: blur(24px);
-            border: 1px solid var(--border); border-radius: 20px;
-            padding: 8px; min-width: 180px;
-            display: none; flex-direction: column; gap: 4px;
-            box-shadow: 0 12px 32px rgba(0,0,0,0.8); z-index: 150;
-        }
+        .telegram-dropdown { position: absolute; top: 100%; right: 0; margin-top: 8px; background: var(--surface); backdrop-filter: blur(24px); border: 1px solid var(--border); border-radius: 20px; padding: 8px; min-width: 180px; display: none; flex-direction: column; gap: 4px; box-shadow: 0 12px 32px rgba(0,0,0,0.8); z-index: 150; }
         .telegram-dropdown.show { display: flex; }
-        .telegram-dropdown a {
-            color: var(--text); text-decoration: none;
-            padding: 10px 14px; border-radius: 14px;
-            font-size: 0.85rem; font-weight: 500;
-            display: flex; align-items: center; gap: 10px;
-            transition: background 0.2s;
-        }
+        .telegram-dropdown a { color: var(--text); text-decoration: none; padding: 10px 14px; border-radius: 14px; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 10px; transition: background 0.2s; }
         .telegram-dropdown a:hover { background: rgba(255,255,255,0.05); color: #fff; }
         .telegram-dropdown a i { width: 18px; text-align: center; }
 
         .search-container { margin: 8px 0 16px; display: flex; gap: 8px; }
-        .search-input {
-            flex: 1; background: var(--surface); backdrop-filter: blur(16px);
-            border: 1px solid var(--border); border-radius: 30px;
-            padding: 12px 20px; color: #fff; font-size: 0.95rem;
-            font-family: inherit; outline: none; transition: var(--transition);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-        }
+        .search-input { flex: 1; background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 30px; padding: 12px 20px; color: #fff; font-size: 0.95rem; font-family: inherit; outline: none; transition: var(--transition); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
         .search-input:focus { border-color: var(--accent); box-shadow: 0 0 30px rgba(168,127,255,0.5); }
         .search-input::placeholder { color: var(--text2); }
 
         .category-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
-        .category-chip {
-            background: var(--surface); border: 1px solid var(--border);
-            padding: 6px 14px; border-radius: 20px;
-            color: var(--text2); font-size: 0.75rem; font-weight: 600;
-            cursor: pointer; transition: var(--transition); backdrop-filter: blur(10px);
-        }
+        .category-chip { background: var(--surface); border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px; color: var(--text2); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: var(--transition); backdrop-filter: blur(10px); }
         .category-chip i { margin-right: 4px; }
         .category-chip.active, .category-chip:hover { background: rgba(168,127,255,0.2); border-color: var(--accent); color: #fff; }
         .reset-filter { background: none; border: none; color: var(--accent2); font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 6px 12px; }
@@ -268,7 +217,7 @@
             <div class="sort-bar" id="sort-bar" style="margin-top: 12px; margin-bottom: 0;">
                 <span class="sort-label"><i class="fas fa-sort-amount-down"></i> Urutkan:</span>
                 <select class="sort-select" id="sort-select">
-                    <option value="terbaru">Terbaru</option>
+                    <option value="terbaru" selected>Terbaru</option>
                     <option value="terlama">Terlama</option>
                     <option value="az">Judul A-Z</option>
                     <option value="za">Judul Z-A</option>
@@ -318,7 +267,6 @@
 
     <script>
         (function() {
-            // GitHub API langsung (tanpa token) - repo harus PUBLIC
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
             const AD_INTERVAL = 1 * 60 * 60 * 1000;
@@ -359,7 +307,7 @@
             function animateParticles() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateParticles); }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v53';
+            const CACHE_KEY = 'destaseo_premium_cache_v54';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -461,8 +409,16 @@
             function parseFrontmatter(md) { const m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/); if (!m) return { metadata: {}, content: md }; const meta = {}; m[1].split('\n').forEach(line => { const i = line.indexOf(':'); if (i>0) meta[line.slice(0,i).trim()] = line.slice(i+1).trim().replace(/^["']|["']$/g, ''); }); return { metadata: meta, content: m[2] }; }
 
             async function fetchPost(p) {
-                try { const r = await fetch(p.download_url); if (!r.ok) throw new Error('fail'); const md = await r.text(); const { metadata, content } = parseFrontmatter(md); const lastModified = r.headers.get('Last-Modified'); return { ...p, metadata, content, lastModified, html: marked.parse(content) }; }
-                catch { return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>', lastModified: null }; }
+                try {
+                    const r = await fetch(p.download_url);
+                    if (!r.ok) throw new Error('fail');
+                    const md = await r.text();
+                    const { metadata, content } = parseFrontmatter(md);
+                    const lastModified = r.headers.get('Last-Modified');
+                    return { ...p, metadata, content, lastModified, html: marked.parse(content) };
+                } catch {
+                    return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>', lastModified: null };
+                }
             }
 
             function fixImageUrl(url) { if (!url) return ''; if (url.includes('github.com') && !url.includes('raw.githubusercontent.com')) url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/'); return url; }
@@ -484,8 +440,14 @@
             function getFilteredPosts() { const query = searchInput.value.trim().toLowerCase(); let filtered = fetchedPosts; if (activeKatFilter) filtered = filtered.filter(p => (p.metadata.kategori || '') === activeKatFilter); if (query) filtered = filtered.filter(p => { const title = (p.metadata.judul || p.metadata.title || p.name).toLowerCase(); return title.includes(query); }); return filtered; }
 
             function sortPosts(posts) {
-                const sortBy = sortSelect.value; const sorted = [...posts];
-                const getTime = (p) => { const dateStr = p.metadata.tanggal || p.metadata.date || p.lastModified; if (!dateStr) return 0; const d = new Date(dateStr); return isNaN(d.getTime()) ? 0 : d.getTime(); };
+                const sortBy = sortSelect.value;
+                const sorted = [...posts];
+                const getTime = (p) => {
+                    const dateStr = p.metadata.tanggal || p.metadata.date || p.lastModified;
+                    if (!dateStr) return 0;
+                    const d = new Date(dateStr);
+                    return isNaN(d.getTime()) ? 0 : d.getTime();
+                };
                 switch (sortBy) {
                     case 'terbaru': sorted.sort((a, b) => getTime(b) - getTime(a)); break;
                     case 'terlama': sorted.sort((a, b) => getTime(a) - getTime(b)); break;
@@ -498,10 +460,13 @@
             function resetAndApplyFilters() { currentDisplayCount = 0; applyFilters(); }
 
             function applyFilters() {
-                let filtered = getFilteredPosts(); filtered = sortPosts(filtered);
+                let filtered = getFilteredPosts();
+                filtered = sortPosts(filtered);
                 if (activeKatFilter) { filterIndicator.classList.remove('hidden'); filterIndicator.innerHTML = `<i class="fas fa-filter"></i> Kategori: <strong>${activeKatFilter}</strong> (${filtered.length} hasil)`; }
                 else filterIndicator.classList.add('hidden');
-                currentDisplayCount = Math.min(ITEMS_PER_PAGE, filtered.length); displayPosts(filtered.slice(0, currentDisplayCount)); renderLoadMoreButton(filtered.length);
+                currentDisplayCount = Math.min(ITEMS_PER_PAGE, filtered.length);
+                displayPosts(filtered.slice(0, currentDisplayCount));
+                renderLoadMoreButton(filtered.length);
             }
 
             function displayPosts(posts) { postContainer.innerHTML = posts.length ? posts.map((p,i) => cardHTML(p,i)).join('') : '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>'; attachCardEvents(); }
