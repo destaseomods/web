@@ -73,14 +73,43 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        /* Dropdown Telegram */
+        .telegram-wrapper {
+            position: relative;
+        }
         .telegram-btn {
             background: var(--surface); border: 1px solid var(--border);
             color: var(--accent2); padding: 8px 18px; border-radius: 30px;
-            font-size: 0.85rem; font-weight: 600; text-decoration: none;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
             display: flex; align-items: center; gap: 6px;
             transition: var(--transition); backdrop-filter: blur(16px);
+            white-space: nowrap;
         }
         .telegram-btn:hover { border-color: var(--accent2); box-shadow: 0 0 20px rgba(62,224,255,0.3); }
+        .telegram-dropdown {
+            position: absolute; top: 100%; right: 0; margin-top: 8px;
+            background: var(--surface); backdrop-filter: blur(24px);
+            border: 1px solid var(--border); border-radius: 20px;
+            padding: 8px; min-width: 160px;
+            display: none; flex-direction: column; gap: 4px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.7);
+            z-index: 150;
+        }
+        .telegram-dropdown.show { display: flex; }
+        .telegram-dropdown a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex; align-items: center; gap: 8px;
+            transition: background 0.2s;
+        }
+        .telegram-dropdown a:hover {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
 
         .search-container { margin: 8px 0 16px; display: flex; gap: 8px; }
         .search-input {
@@ -147,6 +176,14 @@
             cursor: pointer; transition: 0.2s;
         }
         .badge:hover { background: rgba(168,127,255,0.4); color: #fff; }
+        .card-excerpt {
+            font-size: 0.8rem; color: var(--text2);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
 
         .hidden { display: none !important; }
         .detail-header, .profile-card {
@@ -277,10 +314,16 @@
             <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo" class="logo-img">
             <span class="logo-text">DestaseoMods</span>
         </div>
-        <a href="https://t.me/destaseo" target="_blank" class="telegram-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.66-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.41-.88.03-.24.37-.49 1.02-.74 3.98-1.73 6.63-2.87 7.94-3.42 3.78-1.57 4.57-1.84 5.08-1.85.11 0 .37.03.53.17.14.12.18.28.2.45-.01.06.01.24 0 .38z"/></svg>
-            Telegram
-        </a>
+        <div class="telegram-wrapper">
+            <button class="telegram-btn" id="telegram-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.66-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.41-.88.03-.24.37-.49 1.02-.74 3.98-1.73 6.63-2.87 7.94-3.42 3.78-1.57 4.57-1.84 5.08-1.85.11 0 .37.03.53.17.14.12.18.28.2.45-.01.06.01.24 0 .38z"/></svg>
+                Telegram
+            </button>
+            <div class="telegram-dropdown" id="telegram-dropdown">
+                <a href="https://t.me/destaseo" target="_blank">👤 Admin</a>
+                <a href="https://t.me/+wlXhR-M2BbliMDU1" target="_blank">📢 Channel</a>
+            </div>
+        </div>
     </div>
 
     <main class="container" id="app">
@@ -337,9 +380,8 @@
 
     <script>
         (function() {
-            // ⚠️ ISI VARIABEL INI JIKA PAKAI CUSTOM DOMAIN
-            const GITHUB_REPO = "destaseomods/web"; // "username/repo"
-
+            // ========== KONFIGURASI ==========
+            const GITHUB_REPO = "destaseomods/web"; // isi jika custom domain, contoh: "username/repo"
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const PROFILE = {
@@ -347,13 +389,13 @@
                 name: "Destaseo",
                 bio: "Premium modder & content creator.",
                 links: [
-                    { label: "GitHub", url: "https://github.com" },
-                    { label: "Telegram", url: "https://t.me" },
-                    { label: "YouTube", url: "https://youtube.com" }
+                    { label: "Facebook", url: "https://fb.com/destaseo" },
+                    { label: "Channel", url: "https://t.me/+wlXhR-M2BbliMDU1" },
+                    { label: "Admin", url: "https://t.me/destaseo" }
                 ]
             };
 
-            // Partikel background
+            // Partikel
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
             let particles = [];
@@ -391,7 +433,7 @@
             animateParticles();
 
             // Cache & API
-            const CACHE_KEY = 'destaseo_premium_cache_v7';
+            const CACHE_KEY = 'destaseo_premium_cache_v8';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
@@ -404,6 +446,8 @@
             const searchInput = document.getElementById('search-input');
             const categoryBar = document.getElementById('category-bar');
             const filterIndicator = document.getElementById('filter-indicator');
+            const telegramBtn = document.getElementById('telegram-btn');
+            const telegramDropdown = document.getElementById('telegram-dropdown');
 
             let postsData = [], fetchedPosts = [];
             let activeTagFilter = null;
@@ -415,14 +459,26 @@
                 avatarEl.textContent = '';
             }
 
+            // Dropdown Telegram
+            telegramBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                telegramDropdown.classList.toggle('show');
+            });
+            document.addEventListener('click', () => {
+                telegramDropdown.classList.remove('show');
+            });
+            telegramDropdown.addEventListener('click', (e) => {
+                e.stopPropagation(); // biar tidak langsung hilang saat klik link
+            });
+
             // ========== ROUTING HASH ==========
             function getHashPage() {
-                const hash = window.location.hash.slice(1); // hapus #
+                const hash = window.location.hash.slice(1);
                 if (!hash || hash === 'home') return { page: 'home' };
                 if (hash === 'search') return { page: 'search' };
                 if (hash === 'profile') return { page: 'profile' };
                 if (hash.startsWith('detail/')) return { page: 'detail', postName: hash.split('/')[1] };
-                return { page: 'home' }; // fallback
+                return { page: 'home' };
             }
 
             function setHash(page, param) {
@@ -481,7 +537,6 @@
                 ).join('');
             }
 
-            // ========== DATA FETCHING ==========
             function getCache() {
                 const raw = localStorage.getItem(CACHE_KEY);
                 if (!raw) return null;
@@ -507,11 +562,7 @@
                 }
 
                 const res = await fetch(apiUrl);
-                if (!res.ok) {
-                    if (res.status === 404) throw new Error('Folder posts/ tidak ditemukan.');
-                    if (res.status === 403) throw new Error('Akses ditolak. Pastikan repo publik.');
-                    throw new Error(`Gagal fetch (${res.status}).`);
-                }
+                if (!res.ok) throw new Error(`Gagal fetch (${res.status}). Pastikan repo publik.`);
                 const files = await res.json();
                 const mdFiles = files.filter(f => f.name.endsWith('.md'));
                 if (!mdFiles.length) throw new Error('Tidak ada file .md di posts/.');
@@ -538,6 +589,18 @@
                     const { metadata, content } = parseFrontmatter(md);
                     return { ...p, metadata, content, html: marked.parse(content) };
                 } catch { return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>' }; }
+            }
+
+            // Buat excerpt dari konten mentah (tanpa frontmatter)
+            function getExcerpt(content) {
+                if (!content) return '';
+                // Hapus karakter markdown sederhana
+                let text = content
+                    .replace(/[#*`>\[\]()!|]/g, '')
+                    .replace(/\n/g, ' ')
+                    .trim();
+                if (text.length > 100) text = text.slice(0, 100) + '...';
+                return text;
             }
 
             function getAllTags() {
@@ -588,6 +651,7 @@
                 const img = post.metadata.gambar || post.metadata.image || '';
                 const tag = post.metadata.tag || post.metadata.kategori || '';
                 const ver = post.metadata.versi || post.metadata.version || '';
+                const excerpt = getExcerpt(post.content);
                 const delay = index * 0.04 + 's';
                 return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
                     <div class="card-img">${img ? `<img src="${img}" alt="${t}" style="width:100%;height:100%;object-fit:cover;">` : '📦'}</div>
@@ -597,6 +661,7 @@
                             ${ver ? `<span>v${ver}</span>` : ''}
                             ${tag ? `<span class="badge" data-tag="${tag}">${tag}</span>` : ''}
                         </div>
+                        ${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}
                     </div>
                 </div>`;
             }
@@ -684,24 +749,15 @@
                 window.scrollTo({ top: 0 });
             }
 
-            // ========== EVENT LISTENERS ==========
             detailBack.addEventListener('click', () => setHash('home'));
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const page = item.dataset.page;
-                    setHash(page);
-                });
-            });
+            navItems.forEach(item => item.addEventListener('click', () => setHash(item.dataset.page)));
             searchInput.addEventListener('input', () => applyFilters());
 
             window.addEventListener('hashchange', () => {
                 const { page, postName } = getHashPage();
                 if (page === 'detail' && postName) {
                     if (fetchedPosts.length === 0) {
-                        // jika data belum siap, tunggu render ulang
-                        renderHome().then(() => {
-                            navigate('detail', postName);
-                        });
+                        renderHome().then(() => navigate('detail', postName));
                     } else {
                         navigate('detail', postName);
                     }
@@ -710,7 +766,6 @@
                 }
             });
 
-            // ========== INIT ==========
             (async () => {
                 await renderHome();
                 const { page, postName } = getHashPage();
