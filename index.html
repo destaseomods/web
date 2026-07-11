@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* ... (CSS sama persis seperti kode sebelumnya, tidak berubah) ... */
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -43,39 +42,88 @@
             overflow-x: hidden;
             position: relative;
         }
-        canvas#particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.7; }
+        canvas#particles {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; opacity: 0.7;
+        }
         .container { max-width: 760px; margin: 0 auto; padding: 12px 20px; position: relative; z-index: 2; }
 
         .topbar {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 14px 22px; background: rgba(12,12,25,0.65);
+            padding: 14px 22px;
+            background: rgba(12,12,25,0.65);
             backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--border); border-radius: 34px;
-            margin: 12px auto; max-width: 700px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+            border: 1px solid var(--border);
+            border-radius: 34px; margin: 12px auto;
+            max-width: 700px; box-shadow: 0 8px 30px rgba(0,0,0,0.7);
             position: sticky; top: 14px; z-index: 99;
         }
         .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 0 15px rgba(168,127,255,0.4); }
-        .logo-text { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.7rem; letter-spacing: -1px; background: linear-gradient(135deg, #c084fc, #60a5fa, #34d399); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 3s ease infinite alternate; }
-        @keyframes gradientShift { 0% { background-position: 0% center; } 100% { background-position: 100% center; } }
+        .logo-img {
+            width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: 0 0 15px rgba(168,127,255,0.4);
+        }
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900; font-size: 1.7rem; letter-spacing: -1px;
+            background: linear-gradient(135deg, #c084fc, #60a5fa, #34d399);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite alternate;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% center; }
+            100% { background-position: 100% center; }
+        }
         .telegram-wrapper { position: relative; }
-        .telegram-btn { background: var(--surface); border: 1px solid var(--border); color: var(--accent2); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: var(--transition); backdrop-filter: blur(16px); white-space: nowrap; }
+        .telegram-btn {
+            background: var(--surface); border: 1px solid var(--border);
+            color: var(--accent2); padding: 8px 18px; border-radius: 30px;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; gap: 8px;
+            transition: var(--transition); backdrop-filter: blur(16px);
+            white-space: nowrap;
+        }
         .telegram-btn:hover { border-color: var(--accent2); box-shadow: 0 0 25px rgba(62,224,255,0.4); background: rgba(62,224,255,0.1); }
-        .telegram-dropdown { position: absolute; top: 100%; right: 0; margin-top: 8px; background: var(--surface); backdrop-filter: blur(24px); border: 1px solid var(--border); border-radius: 20px; padding: 8px; min-width: 180px; display: none; flex-direction: column; gap: 4px; box-shadow: 0 12px 32px rgba(0,0,0,0.8); z-index: 150; }
+        .telegram-dropdown {
+            position: absolute; top: 100%; right: 0; margin-top: 8px;
+            background: var(--surface); backdrop-filter: blur(24px);
+            border: 1px solid var(--border); border-radius: 20px;
+            padding: 8px; min-width: 180px;
+            display: none; flex-direction: column; gap: 4px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.8); z-index: 150;
+        }
         .telegram-dropdown.show { display: flex; }
-        .telegram-dropdown a { color: var(--text); text-decoration: none; padding: 10px 14px; border-radius: 14px; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 10px; transition: background 0.2s; }
+        .telegram-dropdown a {
+            color: var(--text); text-decoration: none;
+            padding: 10px 14px; border-radius: 14px;
+            font-size: 0.85rem; font-weight: 500;
+            display: flex; align-items: center; gap: 10px;
+            transition: background 0.2s;
+        }
         .telegram-dropdown a:hover { background: rgba(255,255,255,0.05); color: #fff; }
         .telegram-dropdown a i { width: 18px; text-align: center; }
 
-        /* ... (CSS lainnya sama) ... */
         .search-container { margin: 8px 0 16px; display: flex; gap: 8px; }
-        .search-input { flex: 1; background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 30px; padding: 12px 20px; color: #fff; font-size: 0.95rem; font-family: inherit; outline: none; transition: var(--transition); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+        .search-input {
+            flex: 1; background: var(--surface); backdrop-filter: blur(16px);
+            border: 1px solid var(--border); border-radius: 30px;
+            padding: 12px 20px; color: #fff; font-size: 0.95rem;
+            font-family: inherit; outline: none; transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
         .search-input:focus { border-color: var(--accent); box-shadow: 0 0 30px rgba(168,127,255,0.5); }
         .search-input::placeholder { color: var(--text2); }
 
         .category-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
-        .category-chip { background: var(--surface); border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px; color: var(--text2); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: var(--transition); backdrop-filter: blur(10px); }
+        .category-chip {
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 6px 14px; border-radius: 20px;
+            color: var(--text2); font-size: 0.75rem; font-weight: 600;
+            cursor: pointer; transition: var(--transition); backdrop-filter: blur(10px);
+        }
         .category-chip i { margin-right: 4px; }
         .category-chip.active, .category-chip:hover { background: rgba(168,127,255,0.2); border-color: var(--accent); color: #fff; }
         .reset-filter { background: none; border: none; color: var(--accent2); font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 6px 12px; }
@@ -117,7 +165,7 @@
         .version-tag, .date-tag { background: rgba(255,255,255,0.08); padding: 2px 10px; border-radius: 14px; font-size: 0.65rem; font-weight: 600; color: var(--text2); display: inline-flex; align-items: center; gap: 4px; }
         .card-excerpt { font-size: 0.72rem; color: var(--text2); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .load-more-btn { display: block; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border); color: var(--accent2); padding: 12px 24px; border-radius: 30px; font-weight: 700; cursor: pointer; transition: var(--transition); backdrop-filter: blur(16px); }
-        .load-more-btn:hover { border-color: var(--accent2); box-shadow: 0 0 25px rgba(62,224,255,0.4); }
+        .load-more-btn:hover { border-color: var(--accent2); box-shadow: 0 0 25px rgba(62,224,255,0.4); background: rgba(62,224,255,0.1); }
 
         .hidden { display: none !important; }
         .detail-header, .profile-card { background: var(--surface); backdrop-filter: blur(24px); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 12px; box-shadow: var(--shadow-card); }
@@ -170,7 +218,6 @@
         .nav-item.active { color: var(--accent2); background: rgba(62,224,255,0.12); }
         .nav-item i { font-size: 1.3rem; }
 
-        /* Input token */
         .token-section { margin-top: 16px; display: flex; gap: 8px; align-items: center; }
         .token-input { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 30px; padding: 10px 16px; color: #fff; font-size: 0.8rem; font-family: monospace; outline: none; }
         .token-btn { background: var(--grad1); border: none; color: #000; font-weight: 600; padding: 10px 18px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; white-space: nowrap; }
@@ -254,7 +301,6 @@
                         <button class="social-link" id="qris-dana-btn"><i class="fas fa-qrcode"></i> QRIS Dana</button>
                     </div>
                 </div>
-                <!-- Input Token GitHub -->
                 <div class="token-section">
                     <input type="text" class="token-input" id="token-input" placeholder="Masukkan GitHub token...">
                     <button class="token-btn" id="token-save-btn"><i class="fas fa-key"></i> Simpan</button>
@@ -282,7 +328,7 @@
 
     <script>
         (function() {
-            // Ambil token dari localStorage (jika sudah pernah di-set lewat profil)
+            // Token dari localStorage (jika sudah diset via profil)
             const GITHUB_TOKEN = localStorage.getItem('gh_token') || '';
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
@@ -301,7 +347,6 @@
                 ]
             };
 
-            // ... (Partikel dan DOM) ...
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
             let particles = [];
@@ -325,7 +370,7 @@
             function animateParticles() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateParticles); }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v51';
+            const CACHE_KEY = 'destaseo_premium_cache_v52';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -367,13 +412,11 @@
                 avatarEl.textContent = '';
             }
 
-            // Tampilkan status token
             if (GITHUB_TOKEN) {
                 tokenStatus.textContent = '✅ Token tersimpan. API bebas limit.';
                 tokenInput.placeholder = 'Token sudah disimpan';
             }
 
-            // Simpan token
             tokenSaveBtn.addEventListener('click', () => {
                 const token = tokenInput.value.trim();
                 if (token) {
@@ -386,7 +429,6 @@
                 }
             });
 
-            // Event listener lainnya (Telegram, QRIS, sortir) sama seperti sebelumnya...
             telegramBtn.addEventListener('click', (e) => { e.stopPropagation(); telegramDropdown.classList.toggle('show'); });
             document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
