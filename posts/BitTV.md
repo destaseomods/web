@@ -8,6 +8,7 @@ developer: "DukTek"
 screenshot: "https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-11-14-26-36-430_com.live_streaming_tv.online_tv.jpg, https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-11-14-26-28-200_com.live_streaming_tv.online_tv.jpg, https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-11-14-26-21-357_com.live_streaming_tv.online_tv.jpg"
 download: "https://sfile.co/sphayGZPS6e"
 tag: "Media"
+kategori: "TV"
 ---
 
 FITUR MOD:
