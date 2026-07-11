@@ -109,6 +109,58 @@
         .search-input:focus { border-color: var(--accent); box-shadow: 0 0 30px rgba(168,127,255,0.4); }
         .search-input::placeholder { color: var(--text2); }
 
+        /* POSTINGAN POPULER */
+        .popular-section {
+            margin-bottom: 24px;
+        }
+        .popular-title {
+            font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 8px;
+            color: var(--text);
+        }
+        .popular-scroll {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+        }
+        .popular-card {
+            flex: 0 0 auto;
+            width: 200px;
+            background: var(--surface);
+            backdrop-filter: blur(22px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            box-shadow: var(--shadow-card);
+        }
+        .popular-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: var(--glow);
+        }
+        .popular-card .card-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #1e1e35, #10101c);
+        }
+        .popular-card .card-body {
+            padding: 14px;
+        }
+        .popular-card .card-title {
+            font-weight: 700; font-size: 0.9rem; line-height: 1.2; color: #fff;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .popular-card .card-meta {
+            margin-top: 6px; font-size: 0.7rem; color: var(--text2);
+            display: flex; align-items: center; gap: 6px;
+        }
+
         .category-bar {
             display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
             align-items: center;
@@ -193,7 +245,6 @@
             border: 1px solid var(--border); border-radius: var(--radius);
             padding: 28px; margin-bottom: 22px; box-shadow: var(--shadow-card);
         }
-        /* Gambar utama dibuat seperti icon aplikasi */
         .detail-img {
             display: block;
             width: 100px;
@@ -356,6 +407,11 @@
             <div class="search-container hidden" id="search-box">
                 <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit...">
             </div>
+            <!-- Postingan Populer -->
+            <div class="popular-section" id="popular-section">
+                <div class="popular-title">🔥 Postingan Populer</div>
+                <div class="popular-scroll" id="popular-container"></div>
+            </div>
             <div class="category-bar" id="category-bar"></div>
             <div id="filter-indicator" class="filter-indicator hidden"></div>
             <div id="post-container" class="post-grid">
@@ -410,7 +466,7 @@
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const PROFILE = {
                 avatar: AVATAR_URL,
-                name: "Destaseo",
+                name: "Destaseo Mods",
                 bio: "Premium modder & content creator.",
                 links: [
                     { label: "GitHub", url: "https://github.com" },
@@ -456,9 +512,10 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v14';
+            const CACHE_KEY = 'destaseo_premium_cache_v15';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
+            const popularContainer = document.getElementById('popular-container');
             const homeSection = document.getElementById('home-section');
             const detailSection = document.getElementById('detail-section');
             const profileSection = document.getElementById('profile-section');
@@ -518,12 +575,14 @@
                     showSection(homeSection);
                     searchBox.classList.remove('hidden');
                     categoryBar.classList.remove('hidden');
+                    document.getElementById('popular-section').classList.remove('hidden');
                     setActiveNav(page);
                     if (page === 'search') setTimeout(() => searchInput.focus(), 100);
                 } else if (page === 'profile') {
                     showSection(profileSection);
                     searchBox.classList.add('hidden');
                     categoryBar.classList.add('hidden');
+                    document.getElementById('popular-section').classList.add('hidden');
                     filterIndicator.classList.add('hidden');
                     setActiveNav('profile');
                     renderProfile();
@@ -532,6 +591,7 @@
                     setActiveNav('detail');
                     searchBox.classList.add('hidden');
                     categoryBar.classList.add('hidden');
+                    document.getElementById('popular-section').classList.add('hidden');
                     filterIndicator.classList.add('hidden');
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -693,9 +753,45 @@
                 });
             }
 
+            // Render popular posts
+            function renderPopularSection() {
+                if (!fetchedPosts.length) {
+                    popularContainer.innerHTML = '';
+                    return;
+                }
+                // Ambil yang metadata.populer === true, atau 4 pertama
+                let popular = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() === 'true');
+                if (popular.length === 0) {
+                    popular = fetchedPosts.slice(0, 4);
+                } else {
+                    popular = popular.slice(0, 4);
+                }
+                popularContainer.innerHTML = popular.map(p => {
+                    const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
+                    const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
+                    const tag = p.metadata.tag || p.metadata.kategori || '';
+                    return `<div class="popular-card" data-name="${p.name}">
+                        <img class="card-img" src="${img}" alt="${title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E📦%3C/text%3E%3C/svg%3E'">
+                        <div class="card-body">
+                            <div class="card-title">${title}</div>
+                            <div class="card-meta">
+                                ${tag ? `<span class="badge">${tag}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+                // Event listener
+                document.querySelectorAll('.popular-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        setHash('detail', card.dataset.name);
+                    });
+                });
+            }
+
             async function renderHome() {
                 postContainer.innerHTML = '<div class="spinner"></div>';
                 categoryBar.innerHTML = '';
+                popularContainer.innerHTML = '';
                 try {
                     await fetchPostList();
                     if (!postsData.length) {
@@ -703,6 +799,7 @@
                         return;
                     }
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
+                    renderPopularSection();
                     renderCategoryBar();
                     applyFilters();
                 } catch (err) {
@@ -755,6 +852,7 @@
                 setActiveNav('detail');
                 searchBox.classList.add('hidden');
                 categoryBar.classList.add('hidden');
+                document.getElementById('popular-section').classList.add('hidden');
                 filterIndicator.classList.add('hidden');
                 window.scrollTo({ top: 0 });
             }
