@@ -1,4 +1,5 @@
 ---
+populer: true
 judul: "HOT51 PRO UNLOCKED ROOM"
 gambar: "https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/image-45.jpg"
 versi: "1.1.999-95F"
