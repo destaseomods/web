@@ -355,18 +355,25 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.6);
         }
         .detail-title { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.3px; text-align: center; }
-        .detail-meta-grid { display: flex; gap: 12px; margin: 14px 0; flex-wrap: wrap; justify-content: center; }
+        .detail-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin: 14px 0;
+        }
         .meta-item {
             background: var(--surface2);
-            padding: 8px 14px;
+            padding: 10px 12px;
             border-radius: 12px;
-            font-size: 0.78rem;
-            flex: 1;
-            min-width: 70px;
+            font-size: 0.75rem;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-        .meta-item i { color: var(--accent2); margin-right: 4px; }
-        .meta-item strong { display: block; color: var(--accent2); font-size: 0.8rem; }
+        .meta-item i { color: var(--accent2); margin-bottom: 4px; font-size: 0.9rem; }
+        .meta-item strong { color: var(--accent2); font-size: 0.75rem; }
         .big-download {
             display: block; width: 100%; background: var(--grad1); border: none;
             color: #04040e; font-weight: 700; font-size: 1rem; padding: 15px;
@@ -466,7 +473,6 @@
         }
         .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255,255,255,0.1); }
 
-        /* Tag di detail */
         .tags-container {
             margin-top: 12px;
             display: flex;
@@ -706,7 +712,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v44';
+            const CACHE_KEY = 'destaseo_premium_cache_v45';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -924,7 +930,7 @@
             function formatDate(dateStr) {
                 if (!dateStr) return '';
                 const d = new Date(dateStr);
-                if (isNaN(d.getTime())) return dateStr; // fallback ke string asli jika gagal parse
+                if (isNaN(d.getTime())) return dateStr;
                 const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
                 return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
             }
