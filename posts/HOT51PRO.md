@@ -1,0 +1,28 @@
+---
+judul: "HOT51 PRO UNLOCKED ROOM"
+gambar: "https://i.ibb.co/xxx/cover.jpg"
+versi: "1.1.999-95F"
+ukuran: "75 MB"
+developer: "HOT51 INC."
+screenshot: "https://i.imgur.com/xxx.png, https://i.imgur.com/yyy.png"
+download: "https://link-download-anda.com"
+tag: "Media"
+---
+
+FITUR MOD:
+
+⦿ FIXED DIALOG
+⦿ STABIL
+⦿ PERBAIKAN MACET / LAG
+⦿ 100% WORK
+⦿ DIALOG INFO SISTEM DI HAPUS
+⦿ TOMBOL LOGIN GOOGLE DI HAPUS
+⦿ UNLOCK SEMUA ROOM LANCAR
+⦿ TANPA LOGIN MAUPUN LOGIN
+⦿ KUALITAS 1080P FHD UNLOCKED
+⦿ DIALOG PAKSA LOGIN SAAT STREAMING DIHAPUS
+⦿ TIDAK ADA ROOM BERKEDIP
+⦿ FUNGSI LAIN YANG TIDAK PENTING TELAH DI NONAKTIFKAN
+⦿ FIXED OPEN GAME
+⦿ SUPPORT VPN
+⦿ TELAH DI OPTIMALKAN
