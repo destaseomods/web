@@ -109,7 +109,6 @@
         .search-input:focus { border-color: var(--accent); box-shadow: 0 0 30px rgba(168,127,255,0.4); }
         .search-input::placeholder { color: var(--text2); }
 
-        /* POSTINGAN POPULER */
         .popular-section {
             margin-bottom: 24px;
         }
@@ -237,6 +236,23 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+        }
+        .load-more-btn {
+            display: block;
+            margin: 20px auto 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--accent2);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(16px);
+        }
+        .load-more-btn:hover {
+            border-color: var(--accent2);
+            box-shadow: 0 0 20px rgba(62,224,255,0.3);
         }
 
         .hidden { display: none !important; }
@@ -396,8 +412,8 @@
                 Telegram
             </button>
             <div class="telegram-dropdown" id="telegram-dropdown">
-                <a href="https://t.me/admin_destaseo" target="_blank">👤 Admin</a>
-                <a href="https://t.me/channel_destaseo" target="_blank">📢 Channel</a>
+                <a href="https://t.me/destaseo" target="_blank">👤 Admin</a>
+                <a href="https://t.me/+wlXhR-M2BbliMDU1" target="_blank">📢 Channel</a>
             </div>
         </div>
     </div>
@@ -407,16 +423,14 @@
             <div class="search-container hidden" id="search-box">
                 <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit...">
             </div>
-            <!-- Postingan Populer -->
             <div class="popular-section" id="popular-section">
                 <div class="popular-title">🔥 Postingan Populer</div>
                 <div class="popular-scroll" id="popular-container"></div>
             </div>
             <div class="category-bar" id="category-bar"></div>
             <div id="filter-indicator" class="filter-indicator hidden"></div>
-            <div id="post-container" class="post-grid">
-                <div class="spinner"></div>
-            </div>
+            <div id="post-container" class="post-grid"></div>
+            <div id="load-more-container" style="text-align: center;"></div>
         </section>
 
         <section id="detail-section" class="hidden">
@@ -461,12 +475,12 @@
 
     <script>
         (function() {
-            const GITHUB_REPO = "destaseomods/web"; // isi jika custom domain
+            const GITHUB_REPO = "destaseomods/web";
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const PROFILE = {
                 avatar: AVATAR_URL,
-                name: "Destaseo Mods",
+                name: "Destaseo",
                 bio: "Premium modder & content creator.",
                 links: [
                     { label: "GitHub", url: "https://github.com" },
@@ -512,10 +526,11 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v15';
+            const CACHE_KEY = 'destaseo_premium_cache_v16';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const popularContainer = document.getElementById('popular-container');
+            const loadMoreContainer = document.getElementById('load-more-container');
             const homeSection = document.getElementById('home-section');
             const detailSection = document.getElementById('detail-section');
             const profileSection = document.getElementById('profile-section');
@@ -531,6 +546,8 @@
 
             let postsData = [], fetchedPosts = [];
             let activeTagFilter = null;
+            let currentDisplayCount = 0;
+            const ITEMS_PER_PAGE = 10;
 
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) {
@@ -571,13 +588,19 @@
                 });
             }
             function navigate(page, postName) {
-                if (page === 'home' || page === 'search') {
+                if (page === 'home') {
                     showSection(homeSection);
-                    searchBox.classList.remove('hidden');
+                    searchBox.classList.add('hidden'); // Sembunyikan pencarian di Beranda
                     categoryBar.classList.remove('hidden');
                     document.getElementById('popular-section').classList.remove('hidden');
-                    setActiveNav(page);
-                    if (page === 'search') setTimeout(() => searchInput.focus(), 100);
+                    setActiveNav('home');
+                } else if (page === 'search') {
+                    showSection(homeSection);
+                    searchBox.classList.remove('hidden'); // Tampilkan kolom pencarian
+                    categoryBar.classList.remove('hidden');
+                    document.getElementById('popular-section').classList.add('hidden');
+                    setActiveNav('search');
+                    setTimeout(() => searchInput.focus(), 100);
                 } else if (page === 'profile') {
                     showSection(profileSection);
                     searchBox.classList.add('hidden');
@@ -688,14 +711,14 @@
                 categoryBar.querySelectorAll('.category-chip').forEach(chip => {
                     chip.addEventListener('click', () => {
                         activeTagFilter = (activeTagFilter === chip.dataset.tag) ? null : chip.dataset.tag;
-                        applyFilters();
+                        resetAndApplyFilters();
                     });
                 });
                 const resetBtn = document.getElementById('reset-filter');
-                if (resetBtn) resetBtn.addEventListener('click', () => { activeTagFilter = null; applyFilters(); });
+                if (resetBtn) resetBtn.addEventListener('click', () => { activeTagFilter = null; resetAndApplyFilters(); });
             }
 
-            function applyFilters() {
+            function getFilteredPosts() {
                 const query = searchInput.value.trim().toLowerCase();
                 let filtered = fetchedPosts;
                 if (activeTagFilter) filtered = filtered.filter(p => (p.metadata.tag || p.metadata.kategori || '') === activeTagFilter);
@@ -703,12 +726,52 @@
                     const title = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
                     return title.includes(query);
                 });
+                return filtered;
+            }
+
+            function resetAndApplyFilters() {
+                currentDisplayCount = 0;
+                applyFilters();
+            }
+
+            function applyFilters() {
+                const filtered = getFilteredPosts();
                 if (activeTagFilter) {
                     filterIndicator.classList.remove('hidden');
                     filterIndicator.innerHTML = `🔖 Kategori: <strong>${activeTagFilter}</strong> (${filtered.length} hasil)`;
                 } else filterIndicator.classList.add('hidden');
-                postContainer.innerHTML = filtered.length ? filtered.map((p,i) => cardHTML(p,i)).join('') : '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
+
+                // Reset pagination
+                currentDisplayCount = Math.min(ITEMS_PER_PAGE, filtered.length);
+                displayPosts(filtered.slice(0, currentDisplayCount));
+                renderLoadMoreButton(filtered.length);
+            }
+
+            function displayPosts(posts) {
+                postContainer.innerHTML = posts.length ? posts.map((p,i) => cardHTML(p,i)).join('') : '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
                 attachCardEvents();
+            }
+
+            function renderLoadMoreButton(totalItems) {
+                if (currentDisplayCount < totalItems) {
+                    loadMoreContainer.innerHTML = `<button class="load-more-btn" id="load-more-btn">Muat Lebih Banyak (${totalItems - currentDisplayCount})</button>`;
+                    document.getElementById('load-more-btn').addEventListener('click', loadMorePosts);
+                } else {
+                    loadMoreContainer.innerHTML = '';
+                }
+            }
+
+            function loadMorePosts() {
+                const filtered = getFilteredPosts();
+                const nextCount = Math.min(currentDisplayCount + ITEMS_PER_PAGE, filtered.length);
+                const newPosts = filtered.slice(currentDisplayCount, nextCount);
+                currentDisplayCount = nextCount;
+                newPosts.forEach((p,i) => {
+                    const card = cardHTML(p, i);
+                    postContainer.insertAdjacentHTML('beforeend', card);
+                });
+                attachCardEvents();
+                renderLoadMoreButton(filtered.length);
             }
 
             function cardHTML(post, index) {
@@ -747,19 +810,17 @@
                         e.stopPropagation();
                         activeTagFilter = badge.dataset.tag;
                         searchInput.value = '';
-                        applyFilters();
+                        resetAndApplyFilters();
                         renderCategoryBar();
                     });
                 });
             }
 
-            // Render popular posts
             function renderPopularSection() {
                 if (!fetchedPosts.length) {
                     popularContainer.innerHTML = '';
                     return;
                 }
-                // Ambil yang metadata.populer === true, atau 4 pertama
                 let popular = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() === 'true');
                 if (popular.length === 0) {
                     popular = fetchedPosts.slice(0, 4);
@@ -780,7 +841,6 @@
                         </div>
                     </div>`;
                 }).join('');
-                // Event listener
                 document.querySelectorAll('.popular-card').forEach(card => {
                     card.addEventListener('click', () => {
                         setHash('detail', card.dataset.name);
@@ -790,6 +850,7 @@
 
             async function renderHome() {
                 postContainer.innerHTML = '<div class="spinner"></div>';
+                loadMoreContainer.innerHTML = '';
                 categoryBar.innerHTML = '';
                 popularContainer.innerHTML = '';
                 try {
@@ -801,7 +862,7 @@
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
                     renderPopularSection();
                     renderCategoryBar();
-                    applyFilters();
+                    resetAndApplyFilters();
                 } catch (err) {
                     postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`;
                 }
@@ -850,16 +911,12 @@
                 <div class="content-box">${post.html || '<p>Tidak ada deskripsi.</p>'}</div>`;
                 showSection(detailSection);
                 setActiveNav('detail');
-                searchBox.classList.add('hidden');
-                categoryBar.classList.add('hidden');
-                document.getElementById('popular-section').classList.add('hidden');
-                filterIndicator.classList.add('hidden');
                 window.scrollTo({ top: 0 });
             }
 
             detailBack.addEventListener('click', () => setHash('home'));
             navItems.forEach(item => item.addEventListener('click', () => setHash(item.dataset.page)));
-            searchInput.addEventListener('input', () => applyFilters());
+            searchInput.addEventListener('input', () => resetAndApplyFilters());
 
             window.addEventListener('hashchange', () => {
                 const { page, postName } = getHashPage();
