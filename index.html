@@ -198,7 +198,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Garis pemisah lebih tebal */
         .section-divider {
             border: none;
             border-top: 3px solid rgba(255, 255, 255, 0.25);
@@ -245,7 +244,6 @@
         .card-img.error .placeholder-icon { display: block; }
         .card-img.error img { display: none; }
         .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-        /* Judul kartu diperkecil */
         .card-title { font-weight: 800; font-size: 0.85rem; line-height: 1.3; color: #fff; }
         .card-meta { font-size: 0.7rem; color: var(--text2); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
         .badge {
@@ -254,7 +252,6 @@
             cursor: pointer; transition: 0.2s;
         }
         .badge:hover { background: rgba(168,127,255,0.4); color: #fff; }
-        /* Versi dengan background rounded */
         .version-tag {
             background: rgba(255,255,255,0.08);
             padding: 2px 10px;
@@ -339,6 +336,42 @@
             transition: opacity 0.2s;
         }
         .back-btn:hover { opacity: 0.8; }
+
+        /* Overlay Iklan */
+        .ad-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 300;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .ad-overlay.hidden { display: none; }
+        .ad-countdown {
+            font-size: 4rem; font-weight: 800;
+            background: var(--grad1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+        }
+        .ad-message {
+            font-size: 1.2rem; margin-bottom: 10px;
+        }
+        .ad-skip {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.2s;
+        }
+        .ad-skip:hover { background: rgba(255,255,255,0.1); }
 
         .profile-avatar {
             width: 100px; height: 100px; border-radius: 50%;
@@ -434,6 +467,14 @@
 </head>
 <body>
     <canvas id="particles"></canvas>
+
+    <!-- Overlay Iklan Countdown -->
+    <div id="ad-overlay" class="ad-overlay hidden">
+        <div class="ad-message">Iklan akan selesai dalam</div>
+        <div class="ad-countdown" id="ad-countdown">5</div>
+        <div class="ad-message">detik...</div>
+        <button class="ad-skip" id="ad-skip-btn" style="display: none;">Lewati & Download</button>
+    </div>
 
     <div class="topbar">
         <div class="logo-area">
@@ -566,7 +607,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v21';
+            const CACHE_KEY = 'destaseo_premium_cache_v22';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -583,6 +624,9 @@
             const filterIndicator = document.getElementById('filter-indicator');
             const telegramBtn = document.getElementById('telegram-btn');
             const telegramDropdown = document.getElementById('telegram-dropdown');
+            const adOverlay = document.getElementById('ad-overlay');
+            const adCountdown = document.getElementById('ad-countdown');
+            const adSkipBtn = document.getElementById('ad-skip-btn');
 
             let postsData = [], fetchedPosts = [];
             let activeTagFilter = null;
@@ -591,6 +635,8 @@
             let carouselInterval = null;
             let currentSlide = 0;
             let totalPopularSlides = 0;
+            let adTimer = null;
+            let pendingDownloadUrl = '';
 
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) {
@@ -605,6 +651,45 @@
             });
             document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
+
+            // Fungsi overlay iklan
+            function showAdOverlay(downloadUrl) {
+                pendingDownloadUrl = downloadUrl;
+                let seconds = 5;
+                adCountdown.textContent = seconds;
+                adOverlay.classList.remove('hidden');
+                adSkipBtn.style.display = 'none';
+
+                if (adTimer) clearInterval(adTimer);
+                adTimer = setInterval(() => {
+                    seconds--;
+                    adCountdown.textContent = seconds;
+                    if (seconds <= 0) {
+                        clearInterval(adTimer);
+                        adTimer = null;
+                        adOverlay.classList.add('hidden');
+                        if (pendingDownloadUrl) {
+                            window.open(pendingDownloadUrl, '_blank');
+                            pendingDownloadUrl = '';
+                        }
+                    }
+                }, 1000);
+
+                // Tampilkan tombol skip setelah 2 detik
+                setTimeout(() => {
+                    adSkipBtn.style.display = 'block';
+                }, 2000);
+            }
+
+            adSkipBtn.addEventListener('click', () => {
+                if (adTimer) clearInterval(adTimer);
+                adTimer = null;
+                adOverlay.classList.add('hidden');
+                if (pendingDownloadUrl) {
+                    window.open(pendingDownloadUrl, '_blank');
+                    pendingDownloadUrl = '';
+                }
+            });
 
             function getHashPage() {
                 const hash = window.location.hash.slice(1);
@@ -966,7 +1051,20 @@
                     ${galleryHtml}
                 </div>
                 <div class="content-box">${post.html || '<p>Tidak ada deskripsi.</p>'}</div>
-                <a href="${dwn}" target="_blank" class="big-download" style="margin-top: 16px;">⬇ Download APK</a>`;
+                <a href="${dwn}" target="_blank" class="big-download" id="detail-download-btn">⬇ Download APK</a>`;
+
+                // Pasang event untuk tombol download agar melalui iklan
+                const downloadBtn = document.getElementById('detail-download-btn');
+                if (downloadBtn) {
+                    downloadBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const url = this.getAttribute('href');
+                        if (url && url !== '#') {
+                            showAdOverlay(url);
+                        }
+                    });
+                }
+
                 showSection(detailSection);
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
