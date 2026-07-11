@@ -300,13 +300,16 @@
             cursor: pointer; transition: 0.2s;
         }
         .badge:hover { background: rgba(168,127,255,0.4); color: #fff; }
-        .version-tag {
+        .version-tag, .date-tag {
             background: rgba(255,255,255,0.08);
             padding: 2px 10px;
             border-radius: 14px;
             font-size: 0.65rem;
             font-weight: 600;
             color: var(--text2);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
         .card-excerpt {
             font-size: 0.72rem; color: var(--text2);
@@ -550,7 +553,7 @@
     <div class="topbar">
         <div class="logo-area">
             <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo" class="logo-img">
-            <span class="logo-text">Destaseo Mods</span>
+            <span class="logo-text">DestaseoMods</span>
         </div>
         <div class="telegram-wrapper">
             <button class="telegram-btn" id="telegram-btn">
@@ -575,7 +578,6 @@
                     <div class="carousel-track" id="carousel-track"></div>
                 </div>
             </div>
-            <!-- Sort bar dipindahkan ke bawah carousel -->
             <div class="sort-bar" id="sort-bar" style="margin-top: 12px; margin-bottom: 0;">
                 <span class="sort-label"><i class="fas fa-sort-amount-down"></i> Urutkan:</span>
                 <select class="sort-select" id="sort-select">
@@ -685,7 +687,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v40';
+            const CACHE_KEY = 'destaseo_premium_cache_v41';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -899,6 +901,16 @@
                 return text;
             }
 
+            function formatDate(dateStr) {
+                if (!dateStr) return '';
+                try {
+                    const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+                    const d = new Date(dateStr);
+                    if (isNaN(d.getTime())) return dateStr;
+                    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+                } catch { return dateStr; }
+            }
+
             function getAllTags() {
                 const tags = new Set();
                 fetchedPosts.forEach(p => {
@@ -1022,6 +1034,8 @@
                 const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
                 const tag = post.metadata.tag || post.metadata.kategori || '';
                 const ver = post.metadata.versi || post.metadata.version || '';
+                const dateRaw = post.metadata.tanggal || post.metadata.date || '';
+                const dateFormatted = formatDate(dateRaw);
                 const excerpt = getExcerpt(post.content);
                 const delay = index * 0.04 + 's';
                 const imgTag = img ? `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">` : '';
@@ -1034,6 +1048,7 @@
                         <div class="card-title">${t}</div>
                         <div class="card-meta">
                             ${ver ? `<span class="version-tag"><i class="fas fa-code-branch"></i> v${ver}</span>` : ''}
+                            ${dateFormatted ? `<span class="date-tag"><i class="far fa-calendar-alt"></i> ${dateFormatted}</span>` : ''}
                             ${tag ? `<span class="badge" data-tag="${tag}"><i class="fas fa-tag"></i> ${tag}</span>` : ''}
                         </div>
                         ${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}
@@ -1172,6 +1187,8 @@
                 const s = post.metadata.ukuran || post.metadata.size || '?';
                 const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
                 const dwn = post.metadata.download || post.metadata.link || '';
+                const dateRaw = post.metadata.tanggal || post.metadata.date || '';
+                const dateFormatted = formatDate(dateRaw);
                 const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
                 const galleryHtml = buildScreenshotGallery(screenshots);
                 const hasDownload = dwn && dwn !== '#';
@@ -1187,6 +1204,7 @@
                         <div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ${v}</div>
                         <div class="meta-item"><i class="fas fa-weight-hanging"></i> <strong>Ukuran</strong> ${s}</div>
                         <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
+                        ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
                     </div>
                     ${galleryHtml}
                 </div>
