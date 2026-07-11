@@ -3,317 +3,359 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Destaseo Mods</title>
+    <title>Destaseo Mods • Premium Mod APK</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
-            --bg: #06060c;
-            --surface: rgba(16, 16, 30, 0.7);
-            --surface2: rgba(22, 22, 40, 0.8);
-            --border: rgba(255, 255, 255, 0.08);
-            --text: #f0f0ff;
-            --text2: #b0b0d0;
-            --accent: #7c5cff;
-            --accent2: #4ec9ff;
+            --bg: #03030a;
+            --surface: rgba(18, 18, 32, 0.75);
+            --surface2: rgba(22, 22, 40, 0.85);
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --text: #f2f2ff;
+            --text2: #b5b5d0;
+            --accent: #9d6cff;
+            --accent2: #3cc6ff;
             --accent3: #ff5ea0;
-            --grad: linear-gradient(135deg, #7c5cff, #4ec9ff);
-            --grad2: linear-gradient(135deg, #ff5ea0, #7c5cff);
-            --radius: 22px;
-            --radius-sm: 16px;
-            --nav-height: 72px;
+            --grad1: linear-gradient(135deg, #9d6cff, #3cc6ff);
+            --grad2: linear-gradient(135deg, #ff5ea0, #9d6cff);
+            --grad3: linear-gradient(135deg, #3cc6ff, #9d6cff, #ff5ea0);
+            --radius: 24px;
+            --radius-sm: 18px;
+            --nav-height: 74px;
             --safe-bottom: env(safe-area-inset-bottom, 16px);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-            --glow: 0 0 40px rgba(124, 92, 255, 0.3);
+            --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            --shadow-glow: 0 0 50px rgba(157, 108, 255, 0.3);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
-            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 10px);
+            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 12px);
             -webkit-tap-highlight-color: transparent;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Background orbs */
+        /* Dynamic background orbs */
         body::before {
             content: '';
             position: fixed;
-            top: -20%;
-            left: -10%;
-            width: 60vw;
-            height: 60vw;
-            background: radial-gradient(circle, rgba(124, 92, 255, 0.15) 0%, transparent 70%);
+            top: -25%;
+            left: -15%;
+            width: 70vw;
+            height: 70vw;
+            max-width: 900px;
+            max-height: 900px;
+            background: radial-gradient(circle, rgba(157, 108, 255, 0.12) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 0;
-            animation: float1 18s ease-in-out infinite;
+            animation: orb1 20s ease-in-out infinite;
         }
         body::after {
             content: '';
             position: fixed;
-            bottom: -25%;
-            right: -15%;
-            width: 50vw;
-            height: 50vw;
-            background: radial-gradient(circle, rgba(78, 201, 255, 0.12) 0%, transparent 70%);
+            bottom: -20%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            max-width: 750px;
+            max-height: 750px;
+            background: radial-gradient(circle, rgba(60, 198, 255, 0.1) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 0;
-            animation: float2 22s ease-in-out infinite;
+            animation: orb2 24s ease-in-out infinite;
         }
-        @keyframes float1 {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(6%, -5%); }
+        @keyframes orb1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(5%, -4%) scale(1.05); }
+            66% { transform: translate(-3%, 2%) scale(0.96); }
         }
-        @keyframes float2 {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-5%, 5%); }
+        @keyframes orb2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-6%, 4%) scale(1.08); }
         }
 
-        .container { max-width: 720px; margin: 0 auto; padding: 12px 18px; position: relative; z-index: 2; }
+        .container { max-width: 750px; margin: 0 auto; padding: 10px 18px; position: relative; z-index: 2; }
 
         /* Top bar */
         .topbar {
             display: flex; align-items: center; justify-content: space-between;
             padding: 12px 20px;
-            background: rgba(12, 12, 24, 0.7);
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-            position: sticky; top: 0; z-index: 99;
+            background: rgba(12, 12, 24, 0.65);
+            backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
             border: 1px solid var(--border);
-            border-radius: 30px;
-            margin: 8px auto;
+            border-radius: 32px;
+            margin: 10px auto;
             max-width: 700px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            position: sticky; top: 10px; z-index: 99;
         }
         .logo {
-            font-weight: 800; font-size: 1.3rem; letter-spacing: -0.5px;
-            background: var(--grad);
+            font-weight: 800; font-size: 1.35rem; letter-spacing: -0.6px;
+            background: var(--grad1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            cursor: pointer;
         }
-        .search-toggle {
+        .search-btn {
             background: var(--surface);
             border: 1px solid var(--border);
             color: var(--text2);
             padding: 8px 16px;
             border-radius: 30px;
             font-size: 0.85rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.25s;
             display: flex; align-items: center; gap: 6px;
+            transition: var(--transition);
+            backdrop-filter: blur(16px);
         }
-        .search-toggle:hover {
-            border-color: var(--accent2);
-            color: #fff;
-        }
+        .search-btn:hover { border-color: var(--accent2); color: #fff; background: rgba(255,255,255,0.05); }
 
-        /* Search bar */
+        /* Search box */
         .search-container {
-            margin: 12px 0;
-            transition: 0.3s;
+            margin: 8px 0 14px;
+            transition: 0.35s;
             display: flex; gap: 8px;
         }
         .search-input {
             flex: 1;
             background: var(--surface);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--border);
             border-radius: 30px;
             padding: 12px 20px;
             color: #fff;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-family: inherit;
             outline: none;
-            transition: 0.25s;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .search-input:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(124,92,255,0.2);
+            box-shadow: 0 0 24px rgba(157,108,255,0.25);
         }
         .search-input::placeholder { color: var(--text2); }
 
         /* Post grid */
         .post-grid {
-            display: grid; grid-template-columns: 1fr; gap: 14px;
-            margin-top: 8px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
         }
-        @media (min-width: 500px) { .post-grid { grid-template-columns: 1fr 1fr; } }
+        @media (min-width: 520px) { .post-grid { grid-template-columns: 1fr 1fr; } }
         .post-card {
             background: var(--surface);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             overflow: hidden;
             cursor: pointer;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex; flex-direction: column;
             position: relative;
         }
-        .post-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255,255,255,0.2);
-            box-shadow: var(--glow);
+        .post-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-sm);
+            padding: 1px;
+            background: var(--grad3);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            -webkit-mask-composite: xor;
+            opacity: 0;
+            transition: opacity 0.4s;
         }
-        .post-card:active { transform: scale(0.97); }
+        .post-card:hover::before { opacity: 1; }
+        .post-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-glow), 0 16px 40px rgba(0,0,0,0.7);
+            border-color: transparent;
+        }
+        .post-card:active { transform: scale(0.96); }
         .card-img {
             width: 100%; height: 150px; object-fit: cover;
-            background: linear-gradient(135deg, #1a1a30, #121224);
+            background: linear-gradient(135deg, #1c1c30, #10101c);
             display: flex; align-items: center; justify-content: center;
-            color: var(--text2); font-size: 2.5rem;
+            color: var(--text2); font-size: 2.8rem;
         }
-        .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-        .card-title { font-weight: 700; font-size: 1rem; line-height: 1.3; color: #fff; }
-        .card-meta { font-size: 0.75rem; color: var(--text2); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .card-body { padding: 18px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+        .card-title { font-weight: 800; font-size: 1.05rem; line-height: 1.3; color: #fff; letter-spacing: -0.2px; }
+        .card-meta { font-size: 0.75rem; color: var(--text2); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .badge {
-            background: rgba(124,92,255,0.2); color: #b8a4ff;
-            padding: 3px 10px; border-radius: 20px; font-weight: 600; font-size: 0.7rem;
+            background: rgba(157,108,255,0.2); color: #c8b4ff;
+            padding: 3px 12px; border-radius: 20px; font-weight: 700; font-size: 0.7rem;
+            letter-spacing: 0.3px;
         }
-        .download-btn {
-            margin-top: auto; background: var(--grad); border: none; color: #000;
-            font-weight: 700; font-size: 0.8rem; padding: 8px 14px;
-            border-radius: 30px; text-align: center; cursor: pointer;
-            transition: 0.2s; letter-spacing: -0.2px; width: fit-content;
+        .download-pill {
+            margin-top: auto;
+            background: var(--grad1);
+            border: none;
+            color: #0a0a14;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 9px 16px;
+            border-radius: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            letter-spacing: -0.2px;
+            align-self: flex-start;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
-        .download-btn:hover { filter: brightness(1.2); transform: scale(1.03); }
+        .download-pill:hover { filter: brightness(1.15); transform: scale(1.03); }
 
-        /* Detail & profile */
+        /* Detail */
         .hidden { display: none !important; }
-        .detail-header, .profile-header {
+        .detail-header, .profile-card {
             background: var(--surface);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(22px);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 24px;
-            margin-bottom: 16px;
+            padding: 26px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-card);
         }
-        .detail-img { width: 100%; height: 200px; object-fit: cover; border-radius: 16px; background: var(--surface2); margin-bottom: 16px; }
-        .detail-title { font-size: 1.6rem; font-weight: 800; }
-        .detail-meta-grid { display: flex; gap: 16px; margin: 12px 0; flex-wrap: wrap; }
-        .meta-item { background: var(--surface2); padding: 10px 14px; border-radius: 12px; font-size: 0.8rem; }
-        .meta-item strong { display: block; color: var(--accent2); }
+        .detail-img { width: 100%; height: 220px; object-fit: cover; border-radius: 18px; background: var(--surface2); margin-bottom: 18px; }
+        .detail-title { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; }
+        .detail-meta-grid { display: flex; gap: 16px; margin: 16px 0; flex-wrap: wrap; }
+        .meta-item { background: var(--surface2); padding: 12px 16px; border-radius: 14px; font-size: 0.85rem; flex: 1; min-width: 80px; }
+        .meta-item strong { display: block; color: var(--accent2); font-size: 0.9rem; }
         .big-download {
-            display: block; width: 100%; background: var(--grad); border: none;
-            color: #000; font-weight: 700; font-size: 1rem; padding: 14px;
-            border-radius: 16px; margin: 16px 0; cursor: pointer; transition: 0.2s;
-            letter-spacing: -0.2px; text-decoration: none; text-align: center;
+            display: block; width: 100%; background: var(--grad1); border: none;
+            color: #06060c; font-weight: 700; font-size: 1rem; padding: 14px;
+            border-radius: 18px; margin: 18px 0 0; cursor: pointer; transition: 0.2s;
+            letter-spacing: -0.3px; text-decoration: none; text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
         }
-        .big-download:active { transform: scale(0.97); }
+        .big-download:active { transform: scale(0.96); }
         .content-box {
             background: var(--surface);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(22px);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 24px;
-            line-height: 1.7;
+            padding: 26px;
+            line-height: 1.8;
+            box-shadow: var(--shadow-card);
         }
-        .content-box img { max-width: 100%; border-radius: 12px; margin: 8px 0; }
-        .content-box pre { background: #0a0a14; padding: 12px; border-radius: 12px; overflow-x: auto; }
+        .content-box img { max-width: 100%; border-radius: 14px; margin: 10px 0; }
+        .content-box pre { background: #050510; padding: 14px; border-radius: 14px; overflow-x: auto; }
         .back-btn {
-            background: none; border: none; color: var(--accent2); font-weight: 600;
-            display: flex; align-items: center; gap: 6px; margin-bottom: 12px;
-            cursor: pointer; font-size: 0.9rem;
+            background: none; border: none; color: var(--accent2); font-weight: 700;
+            display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px;
+            cursor: pointer; font-size: 0.95rem; padding: 8px 0;
+            transition: opacity 0.2s;
         }
-        .profile-avatar {
-            width: 80px; height: 80px; border-radius: 50%;
-            background: var(--grad2); margin: 0 auto 16px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; color: #fff;
-        }
-        .profile-name { text-align: center; font-size: 1.3rem; font-weight: 700; }
-        .profile-bio { text-align: center; color: var(--text2); margin: 8px 0; }
-        .social-links { display: flex; gap: 12px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
-        .social-link {
-            background: var(--surface2); padding: 8px 16px; border-radius: 30px;
-            color: var(--accent2); text-decoration: none; font-size: 0.8rem; transition: 0.2s;
-        }
-        .social-link:hover { background: rgba(255,255,255,0.1); }
+        .back-btn:hover { opacity: 0.8; }
 
-        /* Bottom nav */
+        /* Profile */
+        .profile-avatar {
+            width: 90px; height: 90px; border-radius: 50%;
+            background: var(--grad2); margin: 0 auto 18px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.6rem; color: #fff; box-shadow: 0 8px 30px rgba(255,94,160,0.3);
+        }
+        .profile-name { text-align: center; font-size: 1.4rem; font-weight: 800; }
+        .profile-bio { text-align: center; color: var(--text2); margin: 8px 0 16px; }
+        .social-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .social-link {
+            background: var(--surface2); padding: 10px 18px; border-radius: 30px;
+            color: var(--accent2); text-decoration: none; font-weight: 600; font-size: 0.85rem;
+            transition: var(--transition); border: 1px solid transparent;
+        }
+        .social-link:hover { border-color: var(--accent2); background: rgba(60,198,255,0.08); }
+
+        /* Bottom navigation */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; right: 0;
-            background: rgba(10, 10, 20, 0.85);
+            background: rgba(8, 8, 16, 0.85);
             backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
             border-top: 1px solid var(--border);
             display: flex; justify-content: space-around; align-items: center;
             height: var(--nav-height); padding-bottom: var(--safe-bottom);
             z-index: 100;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.6);
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center;
-            color: var(--text2); font-size: 0.7rem; font-weight: 500; gap: 4px;
-            transition: 0.2s; cursor: pointer; background: none; border: none;
-            padding: 8px 14px; border-radius: 20px;
+            color: var(--text2); font-size: 0.7rem; font-weight: 600; gap: 5px;
+            transition: 0.25s; cursor: pointer; background: none; border: none;
+            padding: 8px 16px; border-radius: 22px;
         }
-        .nav-item.active { color: var(--accent2); background: rgba(78, 201, 255, 0.1); }
-        .nav-item svg { width: 22px; height: 22px; }
+        .nav-item.active { color: var(--accent2); background: rgba(60, 198, 255, 0.1); }
+        .nav-item svg { width: 22px; height: 22px; stroke-width: 2px; }
 
-        /* Utility */
-        .loading-spinner { display: flex; justify-content: center; padding: 40px; }
         .spinner {
-            width: 36px; height: 36px; border: 3px solid rgba(255,255,255,0.1);
+            width: 38px; height: 38px; margin: 40px auto;
+            border: 3px solid rgba(255,255,255,0.08);
             border-top-color: var(--accent2); border-radius: 50%;
-            animation: spin 0.7s linear infinite;
+            animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .empty-text, .error-text { text-align: center; padding: 40px; color: var(--text2); background: rgba(255,0,0,0.1); border-radius: 16px; margin: 20px; }
+        .empty-text, .error-text {
+            text-align: center; padding: 40px; color: var(--text2);
+            background: rgba(255,0,0,0.08); border-radius: 20px; margin: 18px 0;
+        }
     </style>
 </head>
 <body>
     <div class="topbar">
         <div class="logo">DestaseoMods</div>
-        <button class="search-toggle" id="search-toggle-btn">
-            🔍 <span>Cari</span>
-        </button>
+        <button class="search-btn" id="search-toggle">🔍 <span>Cari mod</span></button>
     </div>
 
     <main class="container" id="app">
-        <!-- Beranda -->
         <section id="home-section">
-            <div class="search-container hidden" id="search-container">
-                <input type="text" class="search-input" id="search-input" placeholder="Cari mod / tutorial...">
+            <div class="search-container hidden" id="search-box">
+                <input type="text" class="search-input" id="search-input" placeholder="Cari mod, tutorial, atau tools...">
             </div>
             <div id="post-container" class="post-grid">
-                <div class="loading-spinner"><div class="spinner"></div></div>
+                <div class="spinner"></div>
             </div>
         </section>
 
-        <!-- Detail -->
         <section id="detail-section" class="hidden">
-            <button class="back-btn" id="detail-back">
-                ← Kembali
-            </button>
+            <button class="back-btn" id="detail-back">← Kembali ke Beranda</button>
             <div id="detail-content"></div>
         </section>
 
-        <!-- Profil -->
         <section id="profile-section" class="hidden">
-            <div class="profile-header">
-                <div class="profile-avatar" id="profile-avatar">👤</div>
+            <div class="profile-card">
+                <div class="profile-avatar" id="profile-avatar">👑</div>
                 <div class="profile-name" id="profile-name">Destaseo</div>
-                <div class="profile-bio" id="profile-bio">Creator & Modder</div>
+                <div class="profile-bio" id="profile-bio">Modding enthusiast & premium content creator.</div>
                 <div class="social-links" id="social-links"></div>
             </div>
             <div class="content-box">
-                <p style="color:var(--text2);">Bagikan mod APK favoritmu dan ikuti tutorial terbaru seputar modding Android.</p>
+                <p style="color:var(--text2);">Bagikan mod APK terbaik dan ikuti panduan eksklusif. Update konten cukup dengan menambah file <code>.md</code> ke folder <code>posts/</code> repository.</p>
             </div>
         </section>
 
-        <!-- Tentang -->
         <section id="about-section" class="hidden">
             <div class="content-box">
-                <h2 style="font-weight:800;">Tentang Destaseo Mods</h2>
-                <p style="color:var(--text2); margin-top:12px;">
-                    Platform berbagi mod APK, tutorial, dan informasi seputar dunia modding Android. 
-                    Tampilan modern premium, didukung penuh oleh GitHub Pages.
+                <h2 style="font-weight:800; margin-bottom:12px;">Tentang Platform</h2>
+                <p style="color:var(--text2); margin-bottom:12px;">
+                    Destaseo Mods adalah hub premium untuk mod APK Android, tutorial mendalam, dan informasi modding. 
+                    Dirancang dengan UI modern mewah, didukung penuh oleh GitHub Pages.
                 </p>
                 <p style="color:var(--text2);">
-                    Postingan diambil otomatis dari folder <code>posts/</code>. Cukup tambah file <code>.md</code>.
+                    Cukup unggah file <code>.md</code> ke folder <code>posts/</code>, konten langsung muncul otomatis. 
+                    Pencarian instan membantu menemukan mod favoritmu.
                 </p>
             </div>
         </section>
@@ -321,39 +363,39 @@
 
     <nav class="bottom-nav">
         <button class="nav-item active" data-page="home">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             <span>Beranda</span>
         </button>
         <button class="nav-item" data-page="search">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
             <span>Cari</span>
         </button>
         <button class="nav-item" data-page="profile">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             <span>Profil</span>
         </button>
         <button class="nav-item" data-page="about">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
             <span>Tentang</span>
         </button>
     </nav>
 
     <script>
         (function() {
-            // =============== KONFIGURASI PROFIL ===============
-            const PROFILE_DATA = {
-                avatar: "👤",        // emoji atau URL gambar
+            // ==================== KONFIGURASI PROFIL ====================
+            const PROFILE = {
+                avatar: "👑",              // emoji atau URL gambar
                 name: "Destaseo",
-                bio: "Modder & Content Creator",
+                bio: "Modding enthusiast & premium content creator.",
                 links: [
                     { label: "GitHub", url: "https://github.com" },
                     { label: "Telegram", url: "https://t.me" },
                     { label: "YouTube", url: "https://youtube.com" }
                 ]
             };
-            // =============== KONFIGURASI CACHE ===============
-            const CACHE_KEY = 'destaseo_posts_cache_v2';
-            const CACHE_DURATION = 10 * 60 * 1000; // 10 menit
+            // ==================== CACHE ====================
+            const CACHE_KEY = 'destaseo_premium_cache';
+            const CACHE_TIME = 10 * 60 * 1000; // 10 menit
 
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
@@ -363,244 +405,208 @@
             const detailContent = document.getElementById('detail-content');
             const detailBack = document.getElementById('detail-back');
             const navItems = document.querySelectorAll('.nav-item');
-            const searchContainer = document.getElementById('search-container');
+            const searchBox = document.getElementById('search-box');
             const searchInput = document.getElementById('search-input');
-            const searchToggleBtn = document.getElementById('search-toggle-btn');
+            const searchToggle = document.getElementById('search-toggle');
 
             let postsData = [];
             let fetchedPosts = [];
 
-            // =============== NAVIGASI ===============
+            // ==================== UI HELPERS ====================
             function showSection(section) {
                 [homeSection, detailSection, profileSection, aboutSection].forEach(s => s.classList.add('hidden'));
                 section.classList.remove('hidden');
             }
 
             function setActiveNav(page) {
-                navItems.forEach(item => {
-                    item.classList.toggle('active', item.dataset.page === page);
-                });
+                navItems.forEach(item => item.classList.toggle('active', item.dataset.page === page));
             }
 
-            function goToPage(page) {
-                if (page === 'home') {
+            function navigate(page) {
+                if (page === 'home' || page === 'search') {
                     showSection(homeSection);
-                    searchContainer.classList.remove('hidden');
-                } else if (page === 'search') {
-                    showSection(homeSection);
-                    searchContainer.classList.remove('hidden');
-                    searchInput.focus();
+                    searchBox.classList.remove('hidden');
+                    if (page === 'search') setTimeout(() => searchInput.focus(), 100);
                 } else if (page === 'profile') {
                     showSection(profileSection);
-                    searchContainer.classList.add('hidden');
+                    searchBox.classList.add('hidden');
                     renderProfile();
                 } else if (page === 'about') {
                     showSection(aboutSection);
-                    searchContainer.classList.add('hidden');
+                    searchBox.classList.add('hidden');
                 }
                 setActiveNav(page);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // =============== PROFIL ===============
             function renderProfile() {
-                document.getElementById('profile-avatar').textContent = PROFILE_DATA.avatar || '👤';
-                document.getElementById('profile-name').textContent = PROFILE_DATA.name;
-                document.getElementById('profile-bio').textContent = PROFILE_DATA.bio;
-                const linksHtml = PROFILE_DATA.links.map(l =>
+                document.getElementById('profile-avatar').textContent = PROFILE.avatar || '👤';
+                document.getElementById('profile-name').textContent = PROFILE.name;
+                document.getElementById('profile-bio').textContent = PROFILE.bio;
+                document.getElementById('social-links').innerHTML = PROFILE.links.map(l =>
                     `<a href="${l.url}" target="_blank" class="social-link">${l.label}</a>`
                 ).join('');
-                document.getElementById('social-links').innerHTML = linksHtml;
             }
 
-            // =============== CACHE ===============
-            function getCachedPosts() {
+            // ==================== GITHUB API + CACHE ====================
+            function getCache() {
                 const raw = localStorage.getItem(CACHE_KEY);
                 if (!raw) return null;
                 try {
-                    const cache = JSON.parse(raw);
-                    if (Date.now() - cache.timestamp < CACHE_DURATION) return cache.posts;
+                    const data = JSON.parse(raw);
+                    if (Date.now() - data.t < CACHE_TIME) return data.posts;
                 } catch (e) {}
                 return null;
             }
-            function setCachedPosts(posts) {
-                localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), posts }));
+            function setCache(posts) {
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), posts }));
             }
 
-            // =============== FETCH POST LIST ===============
             async function fetchPostList() {
-                const cached = getCachedPosts();
+                const cached = getCache();
                 if (cached) { postsData = cached; return; }
 
-                const host = window.location.hostname;
-                if (!host.includes('github.io')) {
-                    throw new Error('Hanya berfungsi di GitHub Pages.');
+                if (!window.location.hostname.includes('github.io')) {
+                    throw new Error('Halaman hanya untuk GitHub Pages. Local dev? Gunakan Live Server & tambahkan daftar manual.');
                 }
-                const pathParts = window.location.pathname.split('/').filter(p => p);
-                const username = host.split('.')[0];
-                let apiUrl;
-                if (pathParts.length === 0) {
-                    apiUrl = `https://api.github.com/repos/${username}/${username}.github.io/contents/posts`;
-                } else {
-                    apiUrl = `https://api.github.com/repos/${username}/${pathParts[0]}/contents/posts`;
-                }
+                const parts = window.location.pathname.split('/').filter(p => p);
+                const user = window.location.hostname.split('.')[0];
+                const repo = parts.length ? parts[0] : `${user}.github.io`;
+                const api = `https://api.github.com/repos/${user}/${repo}/contents/posts`;
 
-                const res = await fetch(apiUrl);
-                if (!res.ok) throw new Error(`Gagal fetch (${res.status}). Pastikan repo public.`);
+                const res = await fetch(api);
+                if (!res.ok) throw new Error(`Folder posts/ tidak ditemukan atau repo private (${res.status}).`);
                 const files = await res.json();
                 const mdFiles = files.filter(f => f.name.endsWith('.md'));
-                if (mdFiles.length === 0) throw new Error('Tidak ada file .md di folder posts/.');
+                if (!mdFiles.length) throw new Error('Tidak ada file .md di folder posts/.');
 
                 postsData = mdFiles.map(f => ({
                     filename: f.name,
                     name: f.name.replace('.md', ''),
                     download_url: f.download_url,
                 }));
-                setCachedPosts(postsData);
+                setCache(postsData);
             }
 
-            // =============== PARSE MD ===============
             function parseFrontmatter(md) {
-                const match = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
-                if (!match) return { metadata: {}, content: md };
-                const front = match[1], content = match[2], meta = {};
-                front.split('\n').forEach(line => {
-                    const idx = line.indexOf(':');
-                    if (idx > 0) {
-                        const key = line.slice(0, idx).trim();
-                        let val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
-                        meta[key] = val;
-                    }
+                const m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
+                if (!m) return { metadata: {}, content: md };
+                const meta = {};
+                m[1].split('\n').forEach(line => {
+                    const i = line.indexOf(':');
+                    if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i+1).trim().replace(/^["']|["']$/g, '');
                 });
-                return { metadata: meta, content };
+                return { metadata: meta, content: m[2] };
             }
 
-            async function fetchPost(postInfo) {
+            async function fetchPost(p) {
                 try {
-                    const res = await fetch(postInfo.download_url);
-                    if (!res.ok) throw new Error('Gagal fetch');
-                    const md = await res.text();
+                    const r = await fetch(p.download_url);
+                    if (!r.ok) throw new Error('fail');
+                    const md = await r.text();
                     const { metadata, content } = parseFrontmatter(md);
-                    return { ...postInfo, metadata, content, html: marked.parse(content) };
-                } catch (err) {
-                    return { ...postInfo, metadata: {}, content: '', html: '<p>Gagal memuat konten.</p>' };
-                }
+                    return { ...p, metadata, content, html: marked.parse(content) };
+                } catch { return { ...p, metadata: {}, content: '', html: '<p>Gagal memuat konten.</p>' }; }
             }
 
-            // =============== RENDER ===============
-            function renderCard(post) {
-                const title = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
+            function cardHTML(post) {
+                const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = post.metadata.gambar || post.metadata.image || '';
                 const tag = post.metadata.tag || post.metadata.kategori || '';
-                const versi = post.metadata.versi || post.metadata.version || '';
-                const download = post.metadata.download || post.metadata.link || '#';
-                return `
-                <div class="post-card" data-name="${post.name}">
-                    <div class="card-img">
-                        ${img ? `<img src="${img}" alt="${title}" style="width:100%;height:100%;object-fit:cover;">` : '📦'}
-                    </div>
+                const ver = post.metadata.versi || post.metadata.version || '';
+                const dwn = post.metadata.download || post.metadata.link || '#';
+                return `<div class="post-card" data-name="${post.name}">
+                    <div class="card-img">${img ? `<img src="${img}" alt="${t}" style="width:100%;height:100%;object-fit:cover;">` : '📦'}</div>
                     <div class="card-body">
-                        <div class="card-title">${title}</div>
+                        <div class="card-title">${t}</div>
                         <div class="card-meta">
-                            ${versi ? `<span>v${versi}</span>` : ''}
+                            ${ver ? `<span>v${ver}</span>` : ''}
                             ${tag ? `<span class="badge">${tag}</span>` : ''}
                         </div>
-                        <button class="download-btn" data-link="${download}">⬇ Download</button>
+                        <button class="download-pill" data-link="${dwn}">⬇ Download</button>
                     </div>
                 </div>`;
             }
 
-            function filterPosts(query) {
-                const q = query.toLowerCase();
+            function filterPosts(q) {
+                const kw = q.toLowerCase();
                 const filtered = fetchedPosts.filter(p => {
                     const title = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
-                    return title.includes(q);
+                    return title.includes(kw);
                 });
-                const cards = filtered.map(p => renderCard(p)).join('');
-                postContainer.innerHTML = cards || '<div class="empty-text">🔍 Tidak ditemukan.</div>';
-                attachCardEvents();
+                postContainer.innerHTML = filtered.length ? filtered.map(cardHTML).join('') : '<div class="empty-text">🔍 Mod tidak ditemukan.</div>';
+                attachEvents();
             }
 
-            function attachCardEvents() {
-                document.querySelectorAll('.post-card').forEach(card => {
-                    card.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('download-btn')) return;
-                        showDetail(card.dataset.name);
+            function attachEvents() {
+                document.querySelectorAll('.post-card').forEach(c => {
+                    c.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('download-pill')) return;
+                        showDetail(c.dataset.name);
                     });
                 });
-                document.querySelectorAll('.download-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.download-pill').forEach(b => {
+                    b.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        const link = btn.dataset.link;
+                        const link = b.dataset.link;
                         if (link && link !== '#') window.open(link, '_blank');
                     });
                 });
             }
 
             async function renderHome() {
-                postContainer.innerHTML = '<div class="loading-spinner"><div class="spinner"></div></div>';
+                postContainer.innerHTML = '<div class="spinner"></div>';
                 try {
                     await fetchPostList();
-                    if (postsData.length === 0) {
-                        postContainer.innerHTML = '<div class="empty-text">📭 Tidak ada postingan.</div>';
-                        return;
-                    }
-                    fetchedPosts = await Promise.all(postsData.map(p => fetchPost(p)));
-                    const cards = fetchedPosts.map(p => renderCard(p)).join('');
-                    postContainer.innerHTML = cards;
-                    attachCardEvents();
+                    if (!postsData.length) { postContainer.innerHTML = '<div class="empty-text">📭 Belum ada postingan.</div>'; return; }
+                    fetchedPosts = await Promise.all(postsData.map(fetchPost));
+                    postContainer.innerHTML = fetchedPosts.map(cardHTML).join('');
+                    attachEvents();
                 } catch (err) {
-                    postContainer.innerHTML = `<div class="error-text"><strong>🚫 Error:</strong> ${err.message}</div>`;
+                    postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`;
                 }
             }
 
             function showDetail(name) {
                 const post = fetchedPosts.find(p => p.name === name);
                 if (!post) return;
-                const title = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
+                const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = post.metadata.gambar || post.metadata.image || '';
-                const versi = post.metadata.versi || post.metadata.version || '?';
-                const ukuran = post.metadata.ukuran || post.metadata.size || '?';
-                const developer = post.metadata.developer || post.metadata.dev || 'Destaseo';
-                const download = post.metadata.download || post.metadata.link || '#';
-
+                const v = post.metadata.versi || post.metadata.version || '?';
+                const s = post.metadata.ukuran || post.metadata.size || '?';
+                const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
+                const dwn = post.metadata.download || post.metadata.link || '#';
                 detailContent.innerHTML = `
                 <div class="detail-header">
-                    ${img ? `<img src="${img}" class="detail-img" alt="${title}">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;">📱</div>'}
-                    <h1 class="detail-title">${title}</h1>
+                    ${img ? `<img src="${img}" class="detail-img" alt="${t}">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;">📱</div>'}
+                    <h1 class="detail-title">${t}</h1>
                     <div class="detail-meta-grid">
-                        <div class="meta-item"><strong>Versi</strong> ${versi}</div>
-                        <div class="meta-item"><strong>Ukuran</strong> ${ukuran}</div>
-                        <div class="meta-item"><strong>Developer</strong> ${developer}</div>
+                        <div class="meta-item"><strong>Versi</strong> ${v}</div>
+                        <div class="meta-item"><strong>Ukuran</strong> ${s}</div>
+                        <div class="meta-item"><strong>Developer</strong> ${dev}</div>
                     </div>
-                    <a href="${download}" target="_blank" class="big-download">⬇ Download APK</a>
+                    <a href="${dwn}" target="_blank" class="big-download">⬇ Download APK</a>
                 </div>
-                <div class="content-box">${post.html || '<p>Tidak ada deskripsi.</p>'}</div>
-                `;
+                <div class="content-box">${post.html || '<p>Tidak ada deskripsi.</p>'}</div>`;
                 showSection(detailSection);
                 setActiveNav('detail');
-                searchContainer.classList.add('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                searchBox.classList.add('hidden');
+                window.scrollTo({ top: 0 });
             }
 
-            // =============== EVENT LISTENERS ===============
-            detailBack.addEventListener('click', () => goToPage('home'));
-
-            navItems.forEach(item => {
-                item.addEventListener('click', () => goToPage(item.dataset.page));
+            // ==================== EVENT LISTENERS ====================
+            detailBack.addEventListener('click', () => navigate('home'));
+            navItems.forEach(item => item.addEventListener('click', () => navigate(item.dataset.page)));
+            searchToggle.addEventListener('click', () => {
+                searchBox.classList.toggle('hidden');
+                if (!searchBox.classList.contains('hidden')) searchInput.focus();
             });
-
-            searchToggleBtn.addEventListener('click', () => {
-                searchContainer.classList.toggle('hidden');
-                if (!searchContainer.classList.contains('hidden')) searchInput.focus();
-            });
-
             searchInput.addEventListener('input', () => filterPosts(searchInput.value));
 
-            // =============== INIT ===============
+            // ==================== START ====================
             (async () => {
                 await renderHome();
-                goToPage('home');
+                navigate('home');
             })();
         })();
     </script>
