@@ -60,9 +60,7 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.7);
             position: sticky; top: 14px; z-index: 99;
         }
-        .logo-area {
-            display: flex; align-items: center; gap: 8px;
-        }
+        .logo-area { display: flex; align-items: center; gap: 8px; }
         .logo-img {
             width: 34px; height: 34px; border-radius: 50%; object-fit: cover;
             border: 2px solid rgba(255,255,255,0.15);
@@ -94,19 +92,13 @@
         }
         .telegram-dropdown.show { display: flex; }
         .telegram-dropdown a {
-            color: var(--text);
-            text-decoration: none;
-            padding: 10px 14px;
-            border-radius: 14px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            color: var(--text); text-decoration: none;
+            padding: 10px 14px; border-radius: 14px;
+            font-size: 0.85rem; font-weight: 500;
             display: flex; align-items: center; gap: 8px;
             transition: background 0.2s;
         }
-        .telegram-dropdown a:hover {
-            background: rgba(255,255,255,0.05);
-            color: #fff;
-        }
+        .telegram-dropdown a:hover { background: rgba(255,255,255,0.05); color: #fff; }
 
         .search-container { margin: 8px 0 16px; display: flex; gap: 8px; }
         .search-input {
@@ -140,7 +132,6 @@
             padding: 6px 12px;
         }
 
-        /* Grid selalu 2 kolom */
         .post-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -167,6 +158,22 @@
             background: linear-gradient(135deg, #1e1e35, #10101c);
             display: flex; align-items: center; justify-content: center;
             color: var(--text2); font-size: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-img img {
+            width: 100%; height: 100%; object-fit: cover;
+            display: block;
+        }
+        .card-img .placeholder-icon {
+            display: none;
+            font-size: 2.5rem;
+        }
+        .card-img.error .placeholder-icon {
+            display: block;
+        }
+        .card-img.error img {
+            display: none;
         }
         .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
         .card-title { font-weight: 800; font-size: 0.95rem; line-height: 1.3; color: #fff; }
@@ -431,7 +438,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v9';
+            const CACHE_KEY = 'destaseo_premium_cache_v10';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
@@ -642,8 +649,14 @@
                 const ver = post.metadata.versi || post.metadata.version || '';
                 const excerpt = getExcerpt(post.content);
                 const delay = index * 0.04 + 's';
+                const imgHTML = img
+                    ? `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">`
+                    : '';
                 return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
-                    <div class="card-img">${img ? `<img src="${img}" alt="${t}" style="width:100%;height:100%;object-fit:cover;">` : '📦'}</div>
+                    <div class="card-img${img ? '' : ' error'}">
+                        ${imgHTML}
+                        <span class="placeholder-icon">📦</span>
+                    </div>
                     <div class="card-body">
                         <div class="card-title">${t}</div>
                         <div class="card-meta">
