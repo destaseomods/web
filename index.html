@@ -7,11 +7,8 @@
     <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/189899710?v=4">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Font tebal untuk title -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Font utama -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
@@ -70,7 +67,6 @@
             border: 2px solid rgba(255,255,255,0.2);
             box-shadow: 0 0 15px rgba(168,127,255,0.4);
         }
-        /* Title super tebal dengan Outfit */
         .logo-text {
             font-family: 'Outfit', sans-serif;
             font-weight: 900;
@@ -410,6 +406,42 @@
         .donate-title { color: var(--text2); margin-bottom: 12px; font-weight: 600; }
         .donate-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
+        /* QRIS Popup */
+        .qris-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 250;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column;
+        }
+        .qris-overlay.hidden { display: none; }
+        .qris-container {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            max-width: 320px;
+            width: 90%;
+        }
+        .qris-container img {
+            width: 100%;
+            border-radius: 16px;
+            margin-bottom: 16px;
+        }
+        .qris-close-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .qris-close-btn:hover { background: rgba(255,255,255,0.1); }
+
         .screenshot-scroll {
             display: flex;
             gap: 12px;
@@ -481,6 +513,14 @@
 <body>
     <canvas id="particles"></canvas>
 
+    <!-- QRIS Popup -->
+    <div class="qris-overlay hidden" id="qris-overlay">
+        <div class="qris-container">
+            <img src="https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png" alt="QRIS Dana">
+            <button class="qris-close-btn" id="qris-close-btn"><i class="fas fa-times"></i> Tutup</button>
+        </div>
+    </div>
+
     <div class="topbar">
         <div class="logo-area">
             <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo" class="logo-img">
@@ -527,8 +567,8 @@
                 <div class="donate-section">
                     <div class="donate-title"><i class="fas fa-mug-hot"></i> Dukung Saya</div>
                     <div class="donate-links">
-                        <a href="https://saweria.co/destaseo" target="_blank" class="social-link"><i class="fas fa-hand-holding-heart"></i> Saweria</a>
-                        <a href="https://paypal.me/destaseo" target="_blank" class="social-link"><i class="fab fa-paypal"></i> PayPal</a>
+                        <a href="https://saweria.co/destaseomods" target="_blank" class="social-link"><i class="fas fa-hand-holding-heart"></i> Saweria</a>
+                        <button class="social-link" id="qris-dana-btn"><i class="fas fa-qrcode"></i> QRIS Dana</button>
                     </div>
                 </div>
             </div>
@@ -564,9 +604,8 @@
                 name: "Destaseo",
                 bio: "Premium modder & content creator.",
                 links: [
-                    { label: "GitHub", url: "https://github.com", icon: "fab fa-github" },
-                    { label: "Telegram", url: "https://t.me", icon: "fab fa-telegram-plane" },
-                    { label: "YouTube", url: "https://youtube.com", icon: "fab fa-youtube" }
+                    { label: "Facebook", url: "https://fb.com/destaseo.id", icon: "fab fa-facebook" },
+                    { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane" }
                 ]
             };
 
@@ -606,7 +645,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v28';
+            const CACHE_KEY = 'destaseo_premium_cache_v29';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -623,6 +662,9 @@
             const filterIndicator = document.getElementById('filter-indicator');
             const telegramBtn = document.getElementById('telegram-btn');
             const telegramDropdown = document.getElementById('telegram-dropdown');
+            const qrisOverlay = document.getElementById('qris-overlay');
+            const qrisCloseBtn = document.getElementById('qris-close-btn');
+            const qrisDanaBtn = document.getElementById('qris-dana-btn');
 
             let postsData = [], fetchedPosts = [];
             let activeTagFilter = null;
@@ -645,6 +687,19 @@
             });
             document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
+
+            // QRIS popup
+            if (qrisDanaBtn) {
+                qrisDanaBtn.addEventListener('click', () => {
+                    qrisOverlay.classList.remove('hidden');
+                });
+            }
+            qrisCloseBtn.addEventListener('click', () => {
+                qrisOverlay.classList.add('hidden');
+            });
+            qrisOverlay.addEventListener('click', (e) => {
+                if (e.target === qrisOverlay) qrisOverlay.classList.add('hidden');
+            });
 
             function getHashPage() {
                 const hash = window.location.hash.slice(1);
