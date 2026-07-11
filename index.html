@@ -193,19 +193,18 @@
             border: 1px solid var(--border); border-radius: var(--radius);
             padding: 28px; margin-bottom: 22px; box-shadow: var(--shadow-card);
         }
-        /* Perbaikan gambar utama: contain agar tidak kepotong */
+        /* Gambar utama dibuat seperti icon aplikasi */
         .detail-img {
-            width: 100%;
-            height: auto;
-            max-height: 300px;
-            object-fit: contain;
+            display: block;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
             border-radius: 20px;
             background: var(--surface2);
-            margin-bottom: 18px;
-            display: block;
+            margin: 0 auto 16px;
         }
-        .detail-title { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
-        .detail-meta-grid { display: flex; gap: 12px; margin: 14px 0; flex-wrap: wrap; }
+        .detail-title { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.3px; text-align: center; }
+        .detail-meta-grid { display: flex; gap: 12px; margin: 14px 0; flex-wrap: wrap; justify-content: center; }
         .meta-item {
             background: var(--surface2);
             padding: 8px 14px;
@@ -213,6 +212,7 @@
             font-size: 0.78rem;
             flex: 1;
             min-width: 70px;
+            text-align: center;
         }
         .meta-item strong { display: block; color: var(--accent2); font-size: 0.8rem; }
         .big-download {
@@ -456,7 +456,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v13';
+            const CACHE_KEY = 'destaseo_premium_cache_v14';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
