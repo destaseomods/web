@@ -22,7 +22,6 @@
             --accent: #a87fff;
             --accent2: #3ee0ff;
             --grad1: linear-gradient(135deg, #a87fff, #3ee0ff);
-            --grad2: linear-gradient(135deg, #ff5ea0, #a87fff);
             --radius: 28px;
             --radius-sm: 20px;
             --nav-height: 76px;
@@ -365,8 +364,10 @@
         .content-box {
             background: var(--surface); backdrop-filter: blur(24px);
             border: 1px solid var(--border); border-radius: var(--radius);
-            padding: 28px; line-height: 1.8; box-shadow: var(--shadow-card);
+            padding: 20px 28px; /* padding atas/bawah dikurangi */
+            line-height: 1.8; box-shadow: var(--shadow-card);
             white-space: pre-line;
+            margin-bottom: 0;
         }
         .content-box img { max-width: 100%; border-radius: 16px; margin: 12px 0; }
         .content-box pre { background: #050510; padding: 16px; border-radius: 16px; overflow-x: auto; white-space: pre; }
@@ -386,7 +387,6 @@
             font-size: 2.8rem; color: #fff;
             box-shadow: 0 10px 40px rgba(255,100,165,0.4);
             background-size: cover; background-position: center;
-            /* border dihapus */
         }
         .profile-name { text-align: center; font-size: 1.5rem; font-weight: 800; }
         .profile-bio { text-align: center; color: var(--text2); margin: 10px 0 20px; }
@@ -653,7 +653,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v32';
+            const CACHE_KEY = 'destaseo_premium_cache_v33';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
