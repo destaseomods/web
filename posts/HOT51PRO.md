@@ -1,10 +1,10 @@
 ---
 judul: "HOT51 PRO UNLOCKED ROOM"
-gambar: "https://i.ibb.co/xxx/cover.jpg"
+gambar: "https://github.com/destaseomods/web/blob/main/posts/photo/image-45.jpg"
 versi: "1.1.999-95F"
 ukuran: "75 MB"
 developer: "HOT51 INC."
-screenshot: "https://i.imgur.com/xxx.png, https://i.imgur.com/yyy.png"
+screenshot: "https://github.com/destaseomods/web/blob/main/posts/photo/bg_start.jpg, https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-11-10-49-13-841_com.sagadsg.user.mady501857.jpg, https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-11-10-48-42-978_com.sagadsg.user.mady501857.jpg, https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-11-10-48-32-278_com.sagadsg.user.mady501857.jpg"
 download: "https://link-download-anda.com"
 tag: "Media"
 ---
