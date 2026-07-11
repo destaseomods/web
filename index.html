@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
+        /* ... (CSS sama seperti sebelumnya, tidak diubah) ... */
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -687,7 +688,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v42';
+            const CACHE_KEY = 'destaseo_premium_cache_v43';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -712,7 +713,7 @@
             const qrisDownloadBtn = document.getElementById('qris-download-btn');
 
             let postsData = [], fetchedPosts = [];
-            let activeTagFilter = null;
+            let activeTagFilter = null; // meskipun nama variabel 'tag', sekarang berisi kategori
             let currentDisplayCount = 0;
             const ITEMS_PER_PAGE = 10;
             let carouselInterval = null;
@@ -882,7 +883,6 @@
                     if (!r.ok) throw new Error('fail');
                     const md = await r.text();
                     const { metadata, content } = parseFrontmatter(md);
-                    // Ambil last-modified header jika tanggal tidak ada di metadata
                     const lastModified = r.headers.get('Last-Modified');
                     return { ...p, metadata, content, lastModified, html: marked.parse(content) };
                 } catch { return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>' }; }
@@ -913,19 +913,20 @@
                 } catch { return dateStr; }
             }
 
-            function getAllTags() {
-                const tags = new Set();
+            // Ambil semua kategori unik dari metadata.kategori
+            function getAllKategori() {
+                const kats = new Set();
                 fetchedPosts.forEach(p => {
-                    const tag = p.metadata.tag || p.metadata.kategori || '';
-                    if (tag) tags.add(tag);
+                    const kat = p.metadata.kategori || '';
+                    if (kat) kats.add(kat);
                 });
-                return Array.from(tags).sort();
+                return Array.from(kats).sort();
             }
 
             function renderCategoryBar() {
-                const tags = getAllTags();
+                const kats = getAllKategori();
                 let html = '<span class="category-chip' + (!activeTagFilter ? ' active' : '') + '" data-tag=""><i class="fas fa-globe"></i> Semua</span>';
-                tags.forEach(tag => html += `<span class="category-chip${activeTagFilter === tag ? ' active' : ''}" data-tag="${tag}"><i class="fas fa-tag"></i> ${tag}</span>`);
+                kats.forEach(kat => html += `<span class="category-chip${activeTagFilter === kat ? ' active' : ''}" data-tag="${kat}"><i class="fas fa-tag"></i> ${kat}</span>`);
                 if (activeTagFilter) html += `<button class="reset-filter" id="reset-filter"><i class="fas fa-times"></i> Hapus filter</button>`;
                 categoryBar.innerHTML = html;
                 categoryBar.querySelectorAll('.category-chip').forEach(chip => {
@@ -941,7 +942,7 @@
             function getFilteredPosts() {
                 const query = searchInput.value.trim().toLowerCase();
                 let filtered = fetchedPosts;
-                if (activeTagFilter) filtered = filtered.filter(p => (p.metadata.tag || p.metadata.kategori || '') === activeTagFilter);
+                if (activeTagFilter) filtered = filtered.filter(p => (p.metadata.kategori || '') === activeTagFilter);
                 if (query) filtered = filtered.filter(p => {
                     const title = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
                     return title.includes(query);
@@ -1034,7 +1035,7 @@
             function cardHTML(post, index) {
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
-                const kategori = post.metadata.tag || post.metadata.kategori || '';
+                const kategori = post.metadata.kategori || ''; // gunakan kategori, bukan tag
                 const ver = post.metadata.versi || post.metadata.version || '';
                 const dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
                 const dateFormatted = formatDate(dateRaw);
@@ -1051,7 +1052,7 @@
                         <div class="card-meta">
                             ${ver ? `<span class="version-tag"><i class="fas fa-code-branch"></i> v${ver}</span>` : ''}
                             ${dateFormatted ? `<span class="date-tag"><i class="far fa-calendar-alt"></i> ${dateFormatted}</span>` : ''}
-                            ${kategori ? `<span class="badge"><i class="fas fa-tag"></i> ${kategori}</span>` : ''}
+                            ${kategori ? `<span class="badge" data-tag="${kategori}"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}
                         </div>
                         ${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}
                     </div>
@@ -1068,7 +1069,7 @@
                 document.querySelectorAll('.badge').forEach(badge => {
                     badge.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        activeTagFilter = badge.textContent.trim();
+                        activeTagFilter = badge.dataset.tag; // dataset.tag berisi kategori
                         searchInput.value = '';
                         resetAndApplyFilters();
                         renderCategoryBar();
@@ -1189,7 +1190,7 @@
                 const s = post.metadata.ukuran || post.metadata.size || '?';
                 const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
                 const dwn = post.metadata.download || post.metadata.link || '';
-                const kategori = post.metadata.tag || post.metadata.kategori || '';
+                const kategori = post.metadata.kategori || '';
                 const dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
                 const dateFormatted = formatDate(dateRaw);
                 const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
@@ -1207,7 +1208,7 @@
                         <div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ${v}</div>
                         <div class="meta-item"><i class="fas fa-weight-hanging"></i> <strong>Ukuran</strong> ${s}</div>
                         <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
-                        ${kategori ? `<div class="meta-item"><i class="fas fa-tag"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
+                        ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
                         ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
                     </div>
                     ${galleryHtml}
