@@ -7,8 +7,8 @@
     <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/189899710?v=4">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Font keren untuk title -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Font tebal untuk title -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Font utama -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
@@ -70,18 +70,18 @@
             border: 2px solid rgba(255,255,255,0.2);
             box-shadow: 0 0 15px rgba(168,127,255,0.4);
         }
-        /* Title dengan font keren */
+        /* Title super tebal dengan Outfit */
         .logo-text {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: -0.5px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 1.7rem;
+            letter-spacing: -1px;
             background: linear-gradient(135deg, #c084fc, #60a5fa, #34d399);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: gradientShift 3s ease infinite alternate;
-            text-shadow: 0 0 20px rgba(168,127,255,0.5);
+            text-shadow: 0 0 25px rgba(168,127,255,0.7), 0 0 40px rgba(96,165,250,0.5);
         }
         @keyframes gradientShift {
             0% { background-position: 0% center; }
@@ -606,7 +606,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v27';
+            const CACHE_KEY = 'destaseo_premium_cache_v28';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
