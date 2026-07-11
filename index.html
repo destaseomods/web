@@ -7,6 +7,9 @@
     <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/189899710?v=4">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Font keren untuk title -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Font utama -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -22,6 +25,7 @@
             --accent: #a87fff;
             --accent2: #3ee0ff;
             --grad1: linear-gradient(135deg, #a87fff, #3ee0ff);
+            --grad2: linear-gradient(135deg, #ff5ea0, #a87fff);
             --radius: 28px;
             --radius-sm: 20px;
             --nav-height: 76px;
@@ -66,11 +70,22 @@
             border: 2px solid rgba(255,255,255,0.2);
             box-shadow: 0 0 15px rgba(168,127,255,0.4);
         }
+        /* Title dengan font keren */
         .logo-text {
-            font-weight: 800; font-size: 1.4rem; letter-spacing: -0.6px;
-            background: var(--grad1);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #c084fc, #60a5fa, #34d399);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite alternate;
+            text-shadow: 0 0 20px rgba(168,127,255,0.5);
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% center; }
+            100% { background-position: 100% center; }
         }
         .telegram-wrapper { position: relative; }
         .telegram-btn {
@@ -591,7 +606,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v26';
+            const CACHE_KEY = 'destaseo_premium_cache_v27';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
