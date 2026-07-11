@@ -10,319 +10,236 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
-            --bg: #03030a;
-            --surface: rgba(18, 18, 32, 0.75);
-            --surface2: rgba(22, 22, 40, 0.85);
-            --border: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(255, 255, 255, 0.12);
-            --text: #f2f2ff;
-            --text2: #b5b5d0;
-            --accent: #9d6cff;
-            --accent2: #3cc6ff;
-            --accent3: #ff5ea0;
-            --grad1: linear-gradient(135deg, #9d6cff, #3cc6ff);
-            --grad2: linear-gradient(135deg, #ff5ea0, #9d6cff);
-            --grad3: linear-gradient(135deg, #3cc6ff, #9d6cff, #ff5ea0);
-            --radius: 24px;
-            --radius-sm: 18px;
-            --nav-height: 74px;
+            --bg: #04040e;
+            --surface: rgba(15, 15, 30, 0.7);
+            --surface2: rgba(25, 25, 45, 0.8);
+            --border: rgba(255, 255, 255, 0.07);
+            --text: #f5f5ff;
+            --text2: #b8b8d0;
+            --accent: #a87fff;
+            --accent2: #3ee0ff;
+            --accent3: #ff64a5;
+            --grad1: linear-gradient(135deg, #a87fff, #3ee0ff);
+            --grad2: linear-gradient(135deg, #ff64a5, #a87fff);
+            --radius: 28px;
+            --radius-sm: 20px;
+            --nav-height: 76px;
             --safe-bottom: env(safe-area-inset-bottom, 16px);
-            --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
-            --shadow-glow: 0 0 50px rgba(157, 108, 255, 0.3);
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-card: 0 16px 48px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06);
+            --glow: 0 0 60px rgba(168,127,255,0.4);
+            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
-            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 12px);
+            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
             -webkit-tap-highlight-color: transparent;
             overflow-x: hidden;
             position: relative;
         }
+        /* Partikel background */
+        canvas#particles {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; opacity: 0.7;
+        }
+        .container { max-width: 760px; margin: 0 auto; padding: 12px 20px; position: relative; z-index: 2; }
 
-        /* Dynamic background orbs */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -25%;
-            left: -15%;
-            width: 70vw;
-            height: 70vw;
-            max-width: 900px;
-            max-height: 900px;
-            background: radial-gradient(circle, rgba(157, 108, 255, 0.12) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            animation: orb1 20s ease-in-out infinite;
-        }
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -20%;
-            right: -10%;
-            width: 60vw;
-            height: 60vw;
-            max-width: 750px;
-            max-height: 750px;
-            background: radial-gradient(circle, rgba(60, 198, 255, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            animation: orb2 24s ease-in-out infinite;
-        }
-        @keyframes orb1 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(5%, -4%) scale(1.05); }
-            66% { transform: translate(-3%, 2%) scale(0.96); }
-        }
-        @keyframes orb2 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-6%, 4%) scale(1.08); }
-        }
-
-        .container { max-width: 750px; margin: 0 auto; padding: 10px 18px; position: relative; z-index: 2; }
-
-        /* Top bar */
+        /* Topbar */
         .topbar {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 12px 20px;
-            background: rgba(12, 12, 24, 0.65);
-            backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+            padding: 14px 22px;
+            background: rgba(12,12,25,0.65);
+            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--border);
-            border-radius: 32px;
-            margin: 10px auto;
+            border-radius: 34px;
+            margin: 12px auto;
             max-width: 700px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-            position: sticky; top: 10px; z-index: 99;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+            position: sticky; top: 14px; z-index: 99;
         }
         .logo {
-            font-weight: 800; font-size: 1.35rem; letter-spacing: -0.6px;
+            font-weight: 800; font-size: 1.4rem; letter-spacing: -0.6px;
             background: var(--grad1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
         }
         .search-btn {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text2);
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
+            background: var(--surface); border: 1px solid var(--border);
+            color: var(--text2); padding: 8px 18px; border-radius: 30px;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
             display: flex; align-items: center; gap: 6px;
-            transition: var(--transition);
-            backdrop-filter: blur(16px);
+            transition: var(--transition); backdrop-filter: blur(16px);
         }
-        .search-btn:hover { border-color: var(--accent2); color: #fff; background: rgba(255,255,255,0.05); }
+        .search-btn:hover { border-color: var(--accent2); color: #fff; box-shadow: 0 0 20px rgba(62,224,255,0.3); }
 
-        /* Search box */
-        .search-container {
-            margin: 8px 0 14px;
-            transition: 0.35s;
-            display: flex; gap: 8px;
-        }
+        /* Search */
+        .search-container { margin: 8px 0 16px; display: flex; gap: 8px; }
         .search-input {
-            flex: 1;
-            background: var(--surface);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            padding: 12px 20px;
-            color: #fff;
-            font-size: 0.95rem;
-            font-family: inherit;
-            outline: none;
-            transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            flex: 1; background: var(--surface); backdrop-filter: blur(16px);
+            border: 1px solid var(--border); border-radius: 30px;
+            padding: 12px 20px; color: #fff; font-size: 0.95rem;
+            font-family: inherit; outline: none; transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
         }
         .search-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 24px rgba(157,108,255,0.25);
+            border-color: var(--accent); box-shadow: 0 0 30px rgba(168,127,255,0.4);
         }
         .search-input::placeholder { color: var(--text2); }
 
-        /* Post grid */
+        /* Post grid dengan animasi stagger */
         .post-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
+            display: grid; grid-template-columns: 1fr; gap: 18px;
         }
-        @media (min-width: 520px) { .post-grid { grid-template-columns: 1fr 1fr; } }
+        @media (min-width: 540px) { .post-grid { grid-template-columns: 1fr 1fr; } }
         .post-card {
             background: var(--surface);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(22px);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.45s cubic-bezier(0.4,0,0.2,1);
             display: flex; flex-direction: column;
-            position: relative;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0; transform: translateY(25px);
         }
-        .post-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: var(--radius-sm);
-            padding: 1px;
-            background: var(--grad3);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            -webkit-mask-composite: xor;
-            opacity: 0;
-            transition: opacity 0.4s;
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
         }
-        .post-card:hover::before { opacity: 1; }
         .post-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-glow), 0 16px 40px rgba(0,0,0,0.7);
-            border-color: transparent;
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: var(--glow), 0 20px 50px rgba(0,0,0,0.9);
         }
-        .post-card:active { transform: scale(0.96); }
+        .post-card:active { transform: scale(0.97); }
         .card-img {
-            width: 100%; height: 150px; object-fit: cover;
-            background: linear-gradient(135deg, #1c1c30, #10101c);
+            width: 100%; height: 155px; object-fit: cover;
+            background: linear-gradient(135deg, #1e1e35, #10101c);
             display: flex; align-items: center; justify-content: center;
             color: var(--text2); font-size: 2.8rem;
         }
         .card-body { padding: 18px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
-        .card-title { font-weight: 800; font-size: 1.05rem; line-height: 1.3; color: #fff; letter-spacing: -0.2px; }
+        .card-title { font-weight: 800; font-size: 1.05rem; line-height: 1.3; color: #fff; }
         .card-meta { font-size: 0.75rem; color: var(--text2); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .badge {
-            background: rgba(157,108,255,0.2); color: #c8b4ff;
+            background: rgba(168,127,255,0.2); color: #cfc4ff;
             padding: 3px 12px; border-radius: 20px; font-weight: 700; font-size: 0.7rem;
-            letter-spacing: 0.3px;
         }
         .download-pill {
-            margin-top: auto;
-            background: var(--grad1);
-            border: none;
-            color: #0a0a14;
-            font-weight: 700;
-            font-size: 0.8rem;
-            padding: 9px 16px;
-            border-radius: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.2s;
-            letter-spacing: -0.2px;
-            align-self: flex-start;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            margin-top: auto; background: var(--grad1); border: none;
+            color: #0a0a14; font-weight: 700; font-size: 0.8rem; padding: 9px 16px;
+            border-radius: 30px; text-align: center; cursor: pointer;
+            transition: 0.2s; letter-spacing: -0.2px; align-self: flex-start;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.5);
         }
-        .download-pill:hover { filter: brightness(1.15); transform: scale(1.03); }
+        .download-pill:hover { filter: brightness(1.2); transform: scale(1.04); }
 
         /* Detail */
         .hidden { display: none !important; }
         .detail-header, .profile-card {
-            background: var(--surface);
-            backdrop-filter: blur(22px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 26px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-card);
+            background: var(--surface); backdrop-filter: blur(24px);
+            border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 28px; margin-bottom: 22px; box-shadow: var(--shadow-card);
         }
-        .detail-img { width: 100%; height: 220px; object-fit: cover; border-radius: 18px; background: var(--surface2); margin-bottom: 18px; }
-        .detail-title { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; }
-        .detail-meta-grid { display: flex; gap: 16px; margin: 16px 0; flex-wrap: wrap; }
-        .meta-item { background: var(--surface2); padding: 12px 16px; border-radius: 14px; font-size: 0.85rem; flex: 1; min-width: 80px; }
+        .detail-img { width: 100%; height: 230px; object-fit: cover; border-radius: 20px; background: var(--surface2); margin-bottom: 18px; }
+        .detail-title { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.5px; }
+        .detail-meta-grid { display: flex; gap: 18px; margin: 18px 0; flex-wrap: wrap; }
+        .meta-item { background: var(--surface2); padding: 12px 18px; border-radius: 16px; font-size: 0.85rem; flex: 1; min-width: 80px; }
         .meta-item strong { display: block; color: var(--accent2); font-size: 0.9rem; }
         .big-download {
             display: block; width: 100%; background: var(--grad1); border: none;
-            color: #06060c; font-weight: 700; font-size: 1rem; padding: 14px;
-            border-radius: 18px; margin: 18px 0 0; cursor: pointer; transition: 0.2s;
+            color: #04040e; font-weight: 700; font-size: 1rem; padding: 15px;
+            border-radius: 18px; margin: 20px 0 0; cursor: pointer; transition: 0.2s;
             letter-spacing: -0.3px; text-decoration: none; text-align: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.6);
         }
         .big-download:active { transform: scale(0.96); }
         .content-box {
-            background: var(--surface);
-            backdrop-filter: blur(22px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 26px;
-            line-height: 1.8;
-            box-shadow: var(--shadow-card);
+            background: var(--surface); backdrop-filter: blur(24px);
+            border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 28px; line-height: 1.8; box-shadow: var(--shadow-card);
         }
-        .content-box img { max-width: 100%; border-radius: 14px; margin: 10px 0; }
-        .content-box pre { background: #050510; padding: 14px; border-radius: 14px; overflow-x: auto; }
+        .content-box img { max-width: 100%; border-radius: 16px; margin: 12px 0; }
+        .content-box pre { background: #050510; padding: 16px; border-radius: 16px; overflow-x: auto; }
         .back-btn {
             background: none; border: none; color: var(--accent2); font-weight: 700;
-            display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px;
-            cursor: pointer; font-size: 0.95rem; padding: 8px 0;
+            display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
+            cursor: pointer; font-size: 0.95rem; padding: 10px 0;
             transition: opacity 0.2s;
         }
         .back-btn:hover { opacity: 0.8; }
 
-        /* Profile */
+        /* Profil */
         .profile-avatar {
-            width: 90px; height: 90px; border-radius: 50%;
-            background: var(--grad2); margin: 0 auto 18px;
+            width: 100px; height: 100px; border-radius: 50%;
+            background: var(--grad2); margin: 0 auto 20px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2.6rem; color: #fff; box-shadow: 0 8px 30px rgba(255,94,160,0.3);
+            font-size: 2.8rem; color: #fff;
+            box-shadow: 0 10px 40px rgba(255,100,165,0.4);
+            animation: pulse 2.5s ease-in-out infinite;
         }
-        .profile-name { text-align: center; font-size: 1.4rem; font-weight: 800; }
-        .profile-bio { text-align: center; color: var(--text2); margin: 8px 0 16px; }
-        .social-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        @keyframes pulse {
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .profile-name { text-align: center; font-size: 1.5rem; font-weight: 800; }
+        .profile-bio { text-align: center; color: var(--text2); margin: 10px 0 20px; }
+        .social-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
         .social-link {
-            background: var(--surface2); padding: 10px 18px; border-radius: 30px;
+            background: var(--surface2); padding: 10px 20px; border-radius: 30px;
             color: var(--accent2); text-decoration: none; font-weight: 600; font-size: 0.85rem;
             transition: var(--transition); border: 1px solid transparent;
         }
-        .social-link:hover { border-color: var(--accent2); background: rgba(60,198,255,0.08); }
+        .social-link:hover { border-color: var(--accent2); background: rgba(62,224,255,0.1); }
 
-        /* Bottom navigation */
+        /* Bottom nav */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; right: 0;
-            background: rgba(8, 8, 16, 0.85);
-            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            background: rgba(5,5,15,0.85); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px);
             border-top: 1px solid var(--border);
             display: flex; justify-content: space-around; align-items: center;
             height: var(--nav-height); padding-bottom: var(--safe-bottom);
-            z-index: 100;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.6);
+            z-index: 100; box-shadow: 0 -6px 30px rgba(0,0,0,0.8);
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center;
-            color: var(--text2); font-size: 0.7rem; font-weight: 600; gap: 5px;
+            color: var(--text2); font-size: 0.7rem; font-weight: 600; gap: 6px;
             transition: 0.25s; cursor: pointer; background: none; border: none;
-            padding: 8px 16px; border-radius: 22px;
+            padding: 10px 18px; border-radius: 24px;
         }
-        .nav-item.active { color: var(--accent2); background: rgba(60, 198, 255, 0.1); }
-        .nav-item svg { width: 22px; height: 22px; stroke-width: 2px; }
+        .nav-item.active { color: var(--accent2); background: rgba(62,224,255,0.12); }
+        .nav-item svg { width: 24px; height: 24px; }
 
         .spinner {
-            width: 38px; height: 38px; margin: 40px auto;
-            border: 3px solid rgba(255,255,255,0.08);
+            width: 44px; height: 44px; margin: 50px auto;
+            border: 3px solid rgba(255,255,255,0.06);
             border-top-color: var(--accent2); border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         .empty-text, .error-text {
-            text-align: center; padding: 40px; color: var(--text2);
-            background: rgba(255,0,0,0.08); border-radius: 20px; margin: 18px 0;
+            text-align: center; padding: 45px; color: var(--text2);
+            background: rgba(255,0,0,0.07); border-radius: 24px; margin: 20px 0;
         }
     </style>
 </head>
 <body>
+    <canvas id="particles"></canvas>
+
     <div class="topbar">
         <div class="logo">DestaseoMods</div>
-        <button class="search-btn" id="search-toggle">🔍 <span>Cari mod</span></button>
+        <button class="search-btn" id="search-toggle">🔍 <span>Cari</span></button>
     </div>
 
     <main class="container" id="app">
         <section id="home-section">
             <div class="search-container hidden" id="search-box">
-                <input type="text" class="search-input" id="search-input" placeholder="Cari mod, tutorial, atau tools...">
+                <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit...">
             </div>
             <div id="post-container" class="post-grid">
                 <div class="spinner"></div>
@@ -330,7 +247,7 @@
         </section>
 
         <section id="detail-section" class="hidden">
-            <button class="back-btn" id="detail-back">← Kembali ke Beranda</button>
+            <button class="back-btn" id="detail-back">← Kembali</button>
             <div id="detail-content"></div>
         </section>
 
@@ -338,24 +255,23 @@
             <div class="profile-card">
                 <div class="profile-avatar" id="profile-avatar">👑</div>
                 <div class="profile-name" id="profile-name">Destaseo</div>
-                <div class="profile-bio" id="profile-bio">Modding enthusiast & premium content creator.</div>
+                <div class="profile-bio" id="profile-bio">Premium modder & content creator.</div>
                 <div class="social-links" id="social-links"></div>
             </div>
             <div class="content-box">
-                <p style="color:var(--text2);">Bagikan mod APK terbaik dan ikuti panduan eksklusif. Update konten cukup dengan menambah file <code>.md</code> ke folder <code>posts/</code> repository.</p>
+                <p style="color:var(--text2);">Update konten otomatis dari folder <code>posts/</code> di repository GitHub. Cukup tambah file <code>.md</code>, langsung muncul.</p>
             </div>
         </section>
 
         <section id="about-section" class="hidden">
             <div class="content-box">
-                <h2 style="font-weight:800; margin-bottom:12px;">Tentang Platform</h2>
+                <h2 style="font-weight:800; margin-bottom:14px;">Tentang Destaseo Mods</h2>
                 <p style="color:var(--text2); margin-bottom:12px;">
-                    Destaseo Mods adalah hub premium untuk mod APK Android, tutorial mendalam, dan informasi modding. 
-                    Dirancang dengan UI modern mewah, didukung penuh oleh GitHub Pages.
+                    Platform premium berbagi mod APK, tutorial, dan informasi seputar modding Android. 
+                    Dirancang dengan UI modern, animasi halus, dan pengalaman layaknya aplikasi native.
                 </p>
                 <p style="color:var(--text2);">
-                    Cukup unggah file <code>.md</code> ke folder <code>posts/</code>, konten langsung muncul otomatis. 
-                    Pencarian instan membantu menemukan mod favoritmu.
+                    Konten diambil langsung dari folder <code>posts/</code> melalui GitHub API, dengan caching cerdas 10 menit.
                 </p>
             </div>
         </section>
@@ -382,20 +298,74 @@
 
     <script>
         (function() {
-            // ==================== KONFIGURASI PROFIL ====================
+            // ========== KONFIGURASI PROFIL ==========
             const PROFILE = {
-                avatar: "👑",              // emoji atau URL gambar
+                avatar: "👑",
                 name: "Destaseo",
-                bio: "Modding enthusiast & premium content creator.",
+                bio: "Premium modder & content creator.",
                 links: [
                     { label: "GitHub", url: "https://github.com" },
                     { label: "Telegram", url: "https://t.me" },
                     { label: "YouTube", url: "https://youtube.com" }
                 ]
             };
-            // ==================== CACHE ====================
-            const CACHE_KEY = 'destaseo_premium_cache';
-            const CACHE_TIME = 10 * 60 * 1000; // 10 menit
+
+            // ========== PARTIKEL BACKGROUND ==========
+            const canvas = document.getElementById('particles');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const maxParticles = 70;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.radius = Math.random() * 2.5 + 1;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(168,127,255,${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < maxParticles; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            // ========== CACHE & API ==========
+            const CACHE_KEY = 'destaseo_premium_cache_v3';
+            const CACHE_TIME = 10 * 60 * 1000;
 
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
@@ -412,14 +382,13 @@
             let postsData = [];
             let fetchedPosts = [];
 
-            // ==================== UI HELPERS ====================
             function showSection(section) {
                 [homeSection, detailSection, profileSection, aboutSection].forEach(s => s.classList.add('hidden'));
                 section.classList.remove('hidden');
             }
 
             function setActiveNav(page) {
-                navItems.forEach(item => item.classList.toggle('active', item.dataset.page === page));
+                navItems.forEach(i => i.classList.toggle('active', i.dataset.page === page));
             }
 
             function navigate(page) {
@@ -440,7 +409,7 @@
             }
 
             function renderProfile() {
-                document.getElementById('profile-avatar').textContent = PROFILE.avatar || '👤';
+                document.getElementById('profile-avatar').textContent = PROFILE.avatar;
                 document.getElementById('profile-name').textContent = PROFILE.name;
                 document.getElementById('profile-bio').textContent = PROFILE.bio;
                 document.getElementById('social-links').innerHTML = PROFILE.links.map(l =>
@@ -448,16 +417,16 @@
                 ).join('');
             }
 
-            // ==================== GITHUB API + CACHE ====================
             function getCache() {
                 const raw = localStorage.getItem(CACHE_KEY);
                 if (!raw) return null;
                 try {
-                    const data = JSON.parse(raw);
-                    if (Date.now() - data.t < CACHE_TIME) return data.posts;
-                } catch (e) {}
+                    const d = JSON.parse(raw);
+                    if (Date.now() - d.t < CACHE_TIME) return d.posts;
+                } catch(e) {}
                 return null;
             }
+
             function setCache(posts) {
                 localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), posts }));
             }
@@ -467,7 +436,7 @@
                 if (cached) { postsData = cached; return; }
 
                 if (!window.location.hostname.includes('github.io')) {
-                    throw new Error('Halaman hanya untuk GitHub Pages. Local dev? Gunakan Live Server & tambahkan daftar manual.');
+                    throw new Error('Hanya untuk GitHub Pages. Local dev? Gunakan Live Server.');
                 }
                 const parts = window.location.pathname.split('/').filter(p => p);
                 const user = window.location.hostname.split('.')[0];
@@ -475,11 +444,10 @@
                 const api = `https://api.github.com/repos/${user}/${repo}/contents/posts`;
 
                 const res = await fetch(api);
-                if (!res.ok) throw new Error(`Folder posts/ tidak ditemukan atau repo private (${res.status}).`);
+                if (!res.ok) throw new Error(`Folder posts/ tidak ditemukan (${res.status}).`);
                 const files = await res.json();
                 const mdFiles = files.filter(f => f.name.endsWith('.md'));
-                if (!mdFiles.length) throw new Error('Tidak ada file .md di folder posts/.');
-
+                if (!mdFiles.length) throw new Error('Tidak ada file .md di posts/.');
                 postsData = mdFiles.map(f => ({
                     filename: f.name,
                     name: f.name.replace('.md', ''),
@@ -494,7 +462,7 @@
                 const meta = {};
                 m[1].split('\n').forEach(line => {
                     const i = line.indexOf(':');
-                    if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i+1).trim().replace(/^["']|["']$/g, '');
+                    if (i > 0) meta[line.slice(0,i).trim()] = line.slice(i+1).trim().replace(/^["']|["']$/g, '');
                 });
                 return { metadata: meta, content: m[2] };
             }
@@ -506,16 +474,17 @@
                     const md = await r.text();
                     const { metadata, content } = parseFrontmatter(md);
                     return { ...p, metadata, content, html: marked.parse(content) };
-                } catch { return { ...p, metadata: {}, content: '', html: '<p>Gagal memuat konten.</p>' }; }
+                } catch { return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>' }; }
             }
 
-            function cardHTML(post) {
+            function cardHTML(post, index) {
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = post.metadata.gambar || post.metadata.image || '';
                 const tag = post.metadata.tag || post.metadata.kategori || '';
                 const ver = post.metadata.versi || post.metadata.version || '';
                 const dwn = post.metadata.download || post.metadata.link || '#';
-                return `<div class="post-card" data-name="${post.name}">
+                const delay = index * 0.06 + 's';
+                return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
                     <div class="card-img">${img ? `<img src="${img}" alt="${t}" style="width:100%;height:100%;object-fit:cover;">` : '📦'}</div>
                     <div class="card-body">
                         <div class="card-title">${t}</div>
@@ -534,7 +503,7 @@
                     const title = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
                     return title.includes(kw);
                 });
-                postContainer.innerHTML = filtered.length ? filtered.map(cardHTML).join('') : '<div class="empty-text">🔍 Mod tidak ditemukan.</div>';
+                postContainer.innerHTML = filtered.length ? filtered.map((p,i) => cardHTML(p,i)).join('') : '<div class="empty-text">🔍 Tidak ditemukan.</div>';
                 attachEvents();
             }
 
@@ -558,9 +527,9 @@
                 postContainer.innerHTML = '<div class="spinner"></div>';
                 try {
                     await fetchPostList();
-                    if (!postsData.length) { postContainer.innerHTML = '<div class="empty-text">📭 Belum ada postingan.</div>'; return; }
+                    if (!postsData.length) { postContainer.innerHTML = '<div class="empty-text">📭 Tidak ada postingan.</div>'; return; }
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
-                    postContainer.innerHTML = fetchedPosts.map(cardHTML).join('');
+                    postContainer.innerHTML = fetchedPosts.map((p,i) => cardHTML(p,i)).join('');
                     attachEvents();
                 } catch (err) {
                     postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`;
@@ -594,7 +563,6 @@
                 window.scrollTo({ top: 0 });
             }
 
-            // ==================== EVENT LISTENERS ====================
             detailBack.addEventListener('click', () => navigate('home'));
             navItems.forEach(item => item.addEventListener('click', () => navigate(item.dataset.page)));
             searchToggle.addEventListener('click', () => {
@@ -603,7 +571,6 @@
             });
             searchInput.addEventListener('input', () => filterPosts(searchInput.value));
 
-            // ==================== START ====================
             (async () => {
                 await renderHome();
                 navigate('home');
