@@ -1,156 +1,500 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destaseo Mods</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Marked.js -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    
-    <!-- Tailwind CSS CDN (untuk tampilan keren instan) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+  <title>Destaseo Mods • Modding Hub</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 untuk icon modern -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Library Marked -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    /* ========== GLOBAL RESET & VARIABLES ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0c10;
+      --bg-secondary: #13161d;
+      --surface-glass: rgba(22, 27, 34, 0.75);
+      --surface-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #e9edf2;
+      --text-secondary: #9aa4b8;
+      --accent: #6c5ce7;
+      --accent-soft: #a29bfe;
+      --gradient-hero: linear-gradient(135deg, #1a1e2b 0%, #0f1119 100%);
+      --card-shadow: 0 20px 35px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+      --blur-amount: 18px;
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
     body {
-        font-family: 'Inter', sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 10% 20%, #1a1e2b, #0a0c10 80%);
+      color: var(--text-primary);
+      line-height: 1.5;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      backdrop-filter: blur(4px);
+      padding-bottom: 2rem;
     }
-    
-    .glass {
-        background: rgba(15, 23, 42, 0.85);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      width: 100%;
     }
-    
+
+    /* ========== GLASS NAVBAR ========== */
+    #navbar {
+      position: sticky;
+      top: 16px;
+      z-index: 50;
+      padding: 0.8rem 0;
+      margin-top: 0.8rem;
+    }
+
+    .nav-inner {
+      background: var(--surface-glass);
+      backdrop-filter: blur(var(--blur-amount));
+      -webkit-backdrop-filter: blur(var(--blur-amount));
+      border: 1px solid var(--surface-border);
+      border-radius: 60px;
+      padding: 0.7rem 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+      transition: var(--transition);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 0%, #b9c2d9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: baseline;
+      gap: 0.3rem;
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, var(--accent-soft), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+    }
+
     .nav-link {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: var(--transition);
+      padding: 0.4rem 0.2rem;
+      border-bottom: 2px solid transparent;
     }
-    
+
+    .nav-link i {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
     .nav-link:hover {
-        color: #22d3ee;
-        transform: translateY(-2px);
+      color: white;
+      border-bottom-color: var(--accent-soft);
     }
-    
-    .post-card {
-        transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+    /* ========== CARDS & LIST ========== */
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 0;
+      color: var(--text-secondary);
     }
-    
-    .post-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    }
-    
-    .hero-bg {
-        background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%);
-    }
-    
+
     .spinner {
-        animation: spin 1s linear infinite;
+      width: 44px;
+      height: 44px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top: 3px solid var(--accent-soft);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      margin-bottom: 1.2rem;
     }
-    
-    @keyframes spin {
-        to { transform: rotate(360deg); }
+
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    #post-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2.2rem;
     }
-    </style>
+
+    .post-card {
+      background: var(--surface-glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-xl);
+      padding: 1.6rem 1.8rem;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.2s ease, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .post-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .post-card:hover {
+      border-color: rgba(108, 92, 231, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 24px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(108,92,231,0.3);
+    }
+
+    .post-card:hover::before {
+      opacity: 1;
+    }
+
+    .post-title {
+      font-size: 1.5rem;
+      font-weight: 650;
+      letter-spacing: -0.4px;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .post-title i {
+      color: var(--accent-soft);
+      font-size: 1.3rem;
+    }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .post-meta i {
+      margin-right: 0.2rem;
+      color: var(--accent-soft);
+    }
+
+    .post-excerpt {
+      color: #b9c2d9;
+      font-weight: 400;
+      line-height: 1.6;
+      margin-top: 0.2rem;
+    }
+
+    /* ========== DETAIL & BACK BUTTON ========== */
+    .btn-back {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--surface-border);
+      color: var(--text-primary);
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1.8rem 0 1.2rem;
+      transition: var(--transition);
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .btn-back:hover {
+      background: rgba(108,92,231,0.15);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    #detail-content {
+      background: var(--surface-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-xl);
+      padding: 2rem 2.2rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+    }
+
+    #detail-content h1, #detail-content h2 {
+      color: white;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 1rem;
+    }
+
+    #detail-content p {
+      color: #cdd6e9;
+      margin-bottom: 1rem;
+    }
+
+    /* About section */
+    #about {
+      background: var(--surface-glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-xl);
+      padding: 2rem 2.2rem;
+      margin-top: 2rem;
+      color: var(--text-primary);
+    }
+
+    #about h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(to right, white, #b9c2d9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    code {
+      background: rgba(108,92,231,0.2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: #d0bcff;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3.5rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-200 min-h-screen">
-    <!-- Navbar Modern -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-700">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-2 text-2xl font-bold tracking-tighter">
-                <span class="text-cyan-400">Destaseo</span>
-                <span class="text-white">Mods</span>
-            </a>
-            
-            <div class="flex items-center gap-8 text-sm font-medium">
-                <a href="#" class="nav-link text-slate-300 hover:text-cyan-400">Beranda</a>
-                <a href="#about" class="nav-link text-slate-300 hover:text-cyan-400">Tentang</a>
-                <a href="https://github.com" target="_blank" class="nav-link flex items-center gap-1 text-slate-300 hover:text-cyan-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577 0-.285-.01-1.044-.015-2.049-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.652 1.652.242 2.873.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.604-.015 2.896-.015 3.286 0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    GitHub
-                </a>
-            </div>
-        </div>
-    </nav>
+<body>
+<!-- Navigasi glass modern -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo"><i class="fas fa-cube" style="font-size: 1.6rem; background: none; -webkit-text-fill-color: #a29bfe;"></i> Destaseo<span>Mods</span></a>
+    <div class="nav-links">
+      <a href="#" class="nav-link"><i class="fas fa-home"></i> Beranda</a>
+      <a href="#about" class="nav-link"><i class="fas fa-circle-info"></i> Tentang</a>
+      <a href="https://github.com" target="_blank" class="nav-link"><i class="fab fa-github"></i> GitHub</a>
+    </div>
+  </div>
+</nav>
 
-    <!-- Hero -->
-    <header class="hero-bg pt-24 pb-12 border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h1 class="text-5xl md:text-6xl font-bold tracking-tighter mb-4">
-                Destaseo <span class="text-cyan-400">Mods</span>
-            </h1>
-            <p class="text-xl text-slate-400 max-w-2xl mx-auto">
-                Mod APK terbaik • Tutorial modding • Komunitas Android
-            </p>
-        </div>
-    </header>
+<!-- Konten Utama -->
+<main class="container">
+  <!-- Daftar Postingan -->
+  <section id="post-list">
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Mengambil postingan terbaru...</p>
+    </div>
+  </section>
 
-    <main class="max-w-7xl mx-auto px-6 py-10">
-        <!-- Daftar Postingan -->
-        <section id="post-list">
-            <div class="loading flex flex-col items-center justify-center py-20">
-                <div class="spinner w-10 h-10 border-4 border-cyan-400 border-t-transparent rounded-full mb-4"></div>
-                <p class="text-slate-400">Mengambil postingan keren...</p>
-            </div>
-            <!-- Cards akan di-generate oleh JS -->
-        </section>
+  <!-- Detail Postingan -->
+  <section id="post-detail" style="display: none;">
+    <button id="back-button" class="btn-back">
+      <i class="fas fa-arrow-left"></i> Kembali
+    </button>
+    <article id="detail-content"></article>
+  </section>
 
-        <!-- Detail Postingan -->
-        <section id="post-detail" class="hidden">
-            <button id="back-button" 
-                    class="group flex items-center gap-2 text-slate-400 hover:text-cyan-400 mb-8 transition-all">
-                <div class="w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 group-hover:border-cyan-400 transition-colors">
-                    ←
-                </div>
-                <span class="font-medium">Kembali ke Daftar</span>
-            </button>
-            <article id="detail-content" class="prose prose-invert max-w-none"></article>
-        </section>
+  <!-- Halaman Tentang -->
+  <section id="about" style="display: none;">
+    <button class="btn-back" onclick="window.location.hash='#'">
+      <i class="fas fa-arrow-left"></i> Kembali
+    </button>
+    <h2><i class="fas fa-bolt" style="margin-right: 0.8rem; color: var(--accent-soft);"></i>Tentang Destaseo Mods</h2>
+    <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+      Platform modding modern dengan antarmuka imersif. Destaseo Mods menyajikan mod APK, tutorial, dan info terkini seputar dunia Android.
+    </p>
+    <p>
+      Konten diambil otomatis dari folder <code>posts/</code> di repository. Cukup tambahkan file Markdown untuk update instan.
+    </p>
+  </section>
+</main>
 
-        <!-- Halaman Tentang -->
-        <section id="about" class="hidden">
-            <button onclick="window.location.hash='#'" 
-                    class="group flex items-center gap-2 text-slate-400 hover:text-cyan-400 mb-8 transition-all">
-                <div class="w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 group-hover:border-cyan-400 transition-colors">
-                    ←
-                </div>
-                <span class="font-medium">Kembali</span>
-            </button>
-            
-            <div class="max-w-3xl mx-auto">
-                <h2 class="text-4xl font-bold mb-6">Tentang Destaseo Mods</h2>
-                <div class="prose prose-invert text-slate-300 text-lg">
-                    <p>Destaseo Mods adalah platform berbagi mod APK, tutorial, dan informasi seputar dunia modding Android.</p>
-                    <p>Desain modern, elegan, dan sepenuhnya didukung GitHub Pages. Cukup tambah file Markdown di folder <code>posts/</code> untuk update konten.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p><i class="far fa-heart" style="color: #6c5ce7;"></i> 2025 Destaseo Mods — Dibuat dengan GitHub Pages.</p>
+  </div>
+</footer>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 border-t border-slate-800 py-10">
-        <div class="max-w-7xl mx-auto px-6 text-center text-slate-500">
-            <p>&copy; 2026 Destaseo Mods — Dibuat dengan 🔥 dan GitHub Pages.</p>
-        </div>
-    </footer>
+<script>
+  (function() {
+    // Simulasi daftar postingan dari folder posts/ (Markdown)
+    const samplePosts = [
+      {
+        id: 'post-1',
+        title: 'Cara Install Mod APK dengan Aman',
+        date: '2025-03-12',
+        excerpt: 'Panduan lengkap install mod APK tanpa risiko bootloop.',
+        content: `## 🔥 Cara Install Mod APK dengan Aman\n\nPastikan kamu mengunduh dari sumber terpercaya. Langkah-langkah:\n1. Backup data.\n2. Aktifkan *Unknown Sources*.\n3. Install dan uji coba.`
+      },
+      {
+        id: 'post-2',
+        title: '5 Game RPG Mod Terbaik 2025',
+        date: '2025-02-28',
+        excerpt: 'Rekomendasi game RPG dengan modifikasi unlimited resource.',
+        content: `## 🎮 5 Game RPG Mod Terbaik\n\n- **Genshin Impact Mod**\n- **Honkai Star Rail**\n- ...\n\nSemua sudah diuji dan berjalan mulus.`
+      },
+      {
+        id: 'post-3',
+        title: 'Tutorial: Root Aman Tanpa PC',
+        date: '2025-02-15',
+        excerpt: 'Rooting langsung dari HP dengan Magisk dan aplikasi pendukung.',
+        content: `## 📱 Root Aman Tanpa PC\n\nGunakan Magisk dan ikuti langkah berikut...`
+      }
+    ];
 
-    <script src="script.js"></script>
-    
-    <script>
-    // Tailwind script
-    tailwind.config = {
-        content: [],
-        theme: {
-            extend: {}
-        }
+    const postListEl = document.getElementById('post-list');
+    const postDetailEl = document.getElementById('post-detail');
+    const detailContentEl = document.getElementById('detail-content');
+    const aboutSection = document.getElementById('about');
+    const backButton = document.getElementById('back-button');
+
+    // Render postingan ke dalam card
+    function renderPostList() {
+      if (!postListEl) return;
+      postListEl.innerHTML = ''; 
+      samplePosts.forEach(post => {
+        const card = document.createElement('div');
+        card.className = 'post-card';
+        card.setAttribute('data-id', post.id);
+        card.innerHTML = `
+          <div class="post-title">
+            <i class="fas fa-file-alt"></i> ${post.title}
+          </div>
+          <div class="post-meta">
+            <span><i class="far fa-calendar-alt"></i> ${post.date}</span>
+            <span><i class="far fa-clock"></i> 5 menit baca</span>
+          </div>
+          <div class="post-excerpt">${post.excerpt}</div>
+          <div style="margin-top: 0.4rem; color: var(--accent-soft); font-weight: 500; font-size:0.9rem;">
+            <i class="fas fa-arrow-right"></i> Baca selengkapnya
+          </div>
+        `;
+        card.addEventListener('click', () => showPostDetail(post));
+        postListEl.appendChild(card);
+      });
     }
-    </script>
+
+    // Tampilkan detail post
+    function showPostDetail(post) {
+      if (!postDetailEl || !detailContentEl) return;
+      // Konversi markdown ke HTML pakai marked (jika tersedia)
+      let htmlContent = '';
+      if (typeof marked !== 'undefined' && marked.parse) {
+        htmlContent = marked.parse(post.content);
+      } else {
+        htmlContent = `<h2>${post.title}</h2><p>${post.content.replace(/\n/g, '<br>')}</p>`;
+      }
+      detailContentEl.innerHTML = htmlContent;
+      postListEl.style.display = 'none';
+      aboutSection.style.display = 'none';
+      postDetailEl.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Kembali ke daftar
+    function backToList() {
+      if (postDetailEl) postDetailEl.style.display = 'none';
+      if (aboutSection) aboutSection.style.display = 'none';
+      if (postListEl) postListEl.style.display = 'grid';
+      window.location.hash = '#';
+    }
+
+    // Handle hash routing manual
+    function handleHashChange() {
+      const hash = window.location.hash;
+      if (hash === '#about') {
+        if (postListEl) postListEl.style.display = 'none';
+        if (postDetailEl) postDetailEl.style.display = 'none';
+        if (aboutSection) aboutSection.style.display = 'block';
+      } else if (hash === '' || hash === '#') {
+        if (postListEl) postListEl.style.display = 'grid';
+        if (postDetailEl) postDetailEl.style.display = 'none';
+        if (aboutSection) aboutSection.style.display = 'none';
+      }
+    }
+
+    // Event listeners
+    if (backButton) {
+      backButton.addEventListener('click', backToList);
+    }
+
+    window.addEventListener('hashchange', handleHashChange);
+
+    // Inisialisasi
+    renderPostList();
+    handleHashChange(); // untuk load awal
+
+    // Klik logo juga kembali ke beranda
+    document.querySelector('.logo')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.hash = '#';
+      backToList();
+    });
+
+    // Handling manual link tentang (jika diklik dari nav)
+    document.querySelectorAll('a[href="#about"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.hash = '#about';
+        handleHashChange();
+      });
+    });
+
+  })();
+</script>
 </body>
 </html>
