@@ -148,9 +148,9 @@
 
     <script>
         (function() {
-            // ⚙️ Konfigurasi cache (10 menit) agar tidak kena rate limit
+            // Cache 10 menit untuk menghindari rate limit
             const CACHE_KEY = 'destaseo_posts_cache';
-            const CACHE_DURATION = 10 * 60 * 1000; // 10 menit
+            const CACHE_DURATION = 10 * 60 * 1000;
 
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
@@ -163,7 +163,6 @@
             let postsData = [];
             let fetchedPosts = [];
 
-            // --- Navigasi ---
             function showSection(section) {
                 homeSection.classList.add('hidden');
                 detailSection.classList.add('hidden');
@@ -177,7 +176,6 @@
                 });
             }
 
-            // --- Cache management ---
             function getCachedPosts() {
                 const raw = localStorage.getItem(CACHE_KEY);
                 if (!raw) return null;
@@ -197,32 +195,41 @@
                 }));
             }
 
-            // --- Fetch daftar postingan dari GitHub API ---
             async function fetchPostList() {
-                // 1. Cek cache
                 const cached = getCachedPosts();
                 if (cached) {
-                    console.log('✅ Pakai cache');
+                    console.log('✅ Menggunakan cache');
                     postsData = cached;
                     return postsData;
                 }
 
-                // 2. Ambil dari GitHub API
-                if (!window.location.hostname.includes('github.io')) {
-                    throw new Error('🔧 Buka halaman ini di GitHub Pages. Jika ingin development lokal, gunakan Live Server dan tambahkan daftar manual di LOCAL_POST_FILES (lihat komentar di script).');
+                // Deteksi lingkungan GitHub Pages
+                const host = window.location.hostname;
+                const path = window.location.pathname;
+                const pathParts = path.split('/').filter(p => p);
+
+                if (!host.includes('github.io')) {
+                    throw new Error('Halaman ini hanya bekerja di GitHub Pages. Untuk lokal, gunakan Live Server dan tambahkan daftar postingan manual.');
                 }
 
-                const pathParts = window.location.pathname.split('/').filter(p => p);
-                if (pathParts.length < 2) {
-                    throw new Error('Gagal membaca username/repo dari URL.');
+                let apiUrl = '';
+                const username = host.split('.')[0]; // ambil username dari subdomain
+
+                if (pathParts.length === 0) {
+                    // User site: username.github.io
+                    const repo = `${username}.github.io`;
+                    apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/posts`;
+                } else {
+                    // Project site: username.github.io/nama-repo
+                    const repo = pathParts[0];
+                    apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/posts`;
                 }
-                const apiUrl = `https://api.github.com/repos/${pathParts[0]}/${pathParts[1]}/contents/posts`;
 
                 const res = await fetch(apiUrl);
                 if (!res.ok) {
-                    if (res.status === 404) throw new Error('Folder "posts/" tidak ditemukan. Pastikan folder sudah ada di root repo dan berisi file .md.');
-                    if (res.status === 403) throw new Error('API limit tercapai atau repo private. Pastikan repo PUBLIC.');
-                    throw new Error(`Gagal fetch data (${res.status}).`);
+                    if (res.status === 404) throw new Error('Folder "posts/" tidak ditemukan di repository. Pastikan folder ada dan berisi file .md.');
+                    if (res.status === 403) throw new Error('Akses ditolak. Pastikan repository dalam mode PUBLIC.');
+                    throw new Error(`Gagal mengambil data (${res.status}). Cek kembali struktur repo.`);
                 }
 
                 const files = await res.json();
@@ -239,7 +246,6 @@
                 return postsData;
             }
 
-            // --- Parse frontmatter ---
             function parseFrontmatter(md) {
                 const match = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
                 if (!match) return { metadata: {}, content: md };
@@ -372,7 +378,6 @@
                 });
             });
 
-            // Mulai
             (async () => {
                 await renderHome();
                 goHome();
