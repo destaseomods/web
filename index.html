@@ -378,7 +378,7 @@
         }
         .back-btn:hover { opacity: 0.8; }
 
-        /* Avatar dengan border */
+        /* Avatar tanpa border */
         .profile-avatar {
             width: 100px; height: 100px; border-radius: 50%;
             background: var(--surface2); margin: 0 auto 20px;
@@ -386,7 +386,7 @@
             font-size: 2.8rem; color: #fff;
             box-shadow: 0 10px 40px rgba(255,100,165,0.4);
             background-size: cover; background-position: center;
-            border: 3px solid rgba(255,255,255,0.2);
+            /* border dihapus */
         }
         .profile-name { text-align: center; font-size: 1.5rem; font-weight: 800; }
         .profile-bio { text-align: center; color: var(--text2); margin: 10px 0 20px; }
@@ -443,8 +443,10 @@
         }
         .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255,255,255,0.1); }
 
+        /* Gallery scroll pasti */
         .screenshot-scroll {
             display: flex;
+            flex-wrap: nowrap;
             gap: 12px;
             overflow-x: auto;
             scroll-behavior: smooth;
@@ -651,7 +653,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v31';
+            const CACHE_KEY = 'destaseo_premium_cache_v32';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -708,14 +710,29 @@
                 if (e.target === qrisOverlay) qrisOverlay.classList.add('hidden');
             });
 
-            // Download QRIS
-            qrisDownloadBtn.addEventListener('click', () => {
-                const link = document.createElement('a');
-                link.href = QRIS_URL;
-                link.download = 'qris-destaseo.png';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+            // Download QRIS dengan fetch blob agar langsung download
+            qrisDownloadBtn.addEventListener('click', async () => {
+                try {
+                    const response = await fetch(QRIS_URL);
+                    const blob = await response.blob();
+                    const blobUrl = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = blobUrl;
+                    link.download = 'qris-destaseo.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(blobUrl);
+                } catch (err) {
+                    // fallback jika fetch gagal
+                    const link = document.createElement('a');
+                    link.href = QRIS_URL;
+                    link.download = 'qris-destaseo.png';
+                    link.target = '_blank';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
             });
 
             function getHashPage() {
@@ -784,7 +801,6 @@
                 document.getElementById('social-links').innerHTML = PROFILE.links.map(l =>
                     `<a href="${l.url}" target="_blank" class="social-link"><i class="${l.icon}"></i> ${l.label}</a>`
                 ).join('');
-                // Teks footer sudah diatur langsung di HTML
             }
 
             function getCache() {
