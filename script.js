@@ -1,6 +1,6 @@
 // ================= KONFIGURASI WAJIB =================
-const GITHUB_OWNER = 'username_kamu';    // Ganti!
-const GITHUB_REPO = 'nama_repo_kamu';    // Ganti!
+const GITHUB_OWNER = 'destaseomods';    // Ganti!
+const GITHUB_REPO = 'web';    // Ganti!
 const POSTS_DIR = 'posts';
 // =====================================================
 
