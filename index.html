@@ -109,56 +109,63 @@
         .search-input:focus { border-color: var(--accent); box-shadow: 0 0 30px rgba(168,127,255,0.4); }
         .search-input::placeholder { color: var(--text2); }
 
-        .popular-section {
-            margin-bottom: 24px;
-        }
+        /* Popular Carousel */
+        .popular-section { margin-bottom: 24px; }
         .popular-title {
             font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;
             display: flex; align-items: center; gap: 8px;
             color: var(--text);
         }
-        .popular-scroll {
-            display: flex;
-            gap: 14px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 8px;
-        }
-        .popular-card {
-            flex: 0 0 auto;
-            width: 200px;
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
             background: var(--surface);
             backdrop-filter: blur(22px);
             border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
             box-shadow: var(--shadow-card);
+            height: 220px;
         }
-        .popular-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(255,255,255,0.2);
-            box-shadow: var(--glow);
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
         }
-        .popular-card .card-img {
+        .carousel-slide {
+            flex: 0 0 100%;
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .carousel-slide img {
             width: 100%;
-            height: 120px;
+            height: 100%;
             object-fit: cover;
-            background: linear-gradient(135deg, #1e1e35, #10101c);
+            position: absolute;
+            top: 0; left: 0;
         }
-        .popular-card .card-body {
-            padding: 14px;
+        .carousel-slide .slide-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: #fff;
         }
-        .popular-card .card-title {
-            font-weight: 700; font-size: 0.9rem; line-height: 1.2; color: #fff;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        .carousel-slide .slide-title {
+            font-weight: 800; font-size: 1.2rem; line-height: 1.3;
+            margin-bottom: 4px;
         }
-        .popular-card .card-meta {
-            margin-top: 6px; font-size: 0.7rem; color: var(--text2);
-            display: flex; align-items: center; gap: 6px;
+        .carousel-dots {
+            display: flex; justify-content: center; gap: 8px;
+            margin-top: 10px;
         }
+        .carousel-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--text2); opacity: 0.4;
+            cursor: pointer; transition: opacity 0.2s;
+        }
+        .carousel-dot.active { opacity: 1; background: var(--accent2); }
 
         .category-bar {
             display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
@@ -425,7 +432,10 @@
             </div>
             <div class="popular-section" id="popular-section">
                 <div class="popular-title">🔥 Postingan Populer</div>
-                <div class="popular-scroll" id="popular-container"></div>
+                <div class="carousel-container" id="carousel-container">
+                    <div class="carousel-track" id="carousel-track"></div>
+                </div>
+                <div class="carousel-dots" id="carousel-dots"></div>
             </div>
             <div class="category-bar" id="category-bar"></div>
             <div id="filter-indicator" class="filter-indicator hidden"></div>
@@ -526,10 +536,11 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v16';
+            const CACHE_KEY = 'destaseo_premium_cache_v17';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
-            const popularContainer = document.getElementById('popular-container');
+            const carouselTrack = document.getElementById('carousel-track');
+            const carouselDots = document.getElementById('carousel-dots');
             const loadMoreContainer = document.getElementById('load-more-container');
             const homeSection = document.getElementById('home-section');
             const detailSection = document.getElementById('detail-section');
@@ -548,6 +559,8 @@
             let activeTagFilter = null;
             let currentDisplayCount = 0;
             const ITEMS_PER_PAGE = 10;
+            let carouselInterval = null;
+            let currentSlide = 0;
 
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) {
@@ -590,16 +603,18 @@
             function navigate(page, postName) {
                 if (page === 'home') {
                     showSection(homeSection);
-                    searchBox.classList.add('hidden'); // Sembunyikan pencarian di Beranda
+                    searchBox.classList.add('hidden');
                     categoryBar.classList.remove('hidden');
                     document.getElementById('popular-section').classList.remove('hidden');
                     setActiveNav('home');
+                    startCarousel();
                 } else if (page === 'search') {
                     showSection(homeSection);
-                    searchBox.classList.remove('hidden'); // Tampilkan kolom pencarian
+                    searchBox.classList.remove('hidden');
                     categoryBar.classList.remove('hidden');
                     document.getElementById('popular-section').classList.add('hidden');
                     setActiveNav('search');
+                    stopCarousel();
                     setTimeout(() => searchInput.focus(), 100);
                 } else if (page === 'profile') {
                     showSection(profileSection);
@@ -608,6 +623,7 @@
                     document.getElementById('popular-section').classList.add('hidden');
                     filterIndicator.classList.add('hidden');
                     setActiveNav('profile');
+                    stopCarousel();
                     renderProfile();
                 } else if (page === 'detail' && postName) {
                     showDetail(postName);
@@ -616,6 +632,7 @@
                     categoryBar.classList.add('hidden');
                     document.getElementById('popular-section').classList.add('hidden');
                     filterIndicator.classList.add('hidden');
+                    stopCarousel();
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
@@ -740,8 +757,6 @@
                     filterIndicator.classList.remove('hidden');
                     filterIndicator.innerHTML = `🔖 Kategori: <strong>${activeTagFilter}</strong> (${filtered.length} hasil)`;
                 } else filterIndicator.classList.add('hidden');
-
-                // Reset pagination
                 currentDisplayCount = Math.min(ITEMS_PER_PAGE, filtered.length);
                 displayPosts(filtered.slice(0, currentDisplayCount));
                 renderLoadMoreButton(filtered.length);
@@ -816,9 +831,54 @@
                 });
             }
 
+            // ===== Carousel Functions =====
+            function stopCarousel() {
+                if (carouselInterval) {
+                    clearInterval(carouselInterval);
+                    carouselInterval = null;
+                }
+            }
+
+            function startCarousel() {
+                stopCarousel();
+                const slides = document.querySelectorAll('.carousel-slide');
+                if (slides.length === 0) return;
+                currentSlide = 0;
+                updateCarousel(0);
+                carouselInterval = setInterval(() => {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    updateCarousel(currentSlide);
+                }, 4000);
+            }
+
+            function updateCarousel(index) {
+                const track = carouselTrack;
+                if (!track) return;
+                track.style.transform = `translateX(-${index * 100}%)`;
+                // Update dots
+                const dots = document.querySelectorAll('.carousel-dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+
+            function goToSlide(index) {
+                const slides = document.querySelectorAll('.carousel-slide');
+                if (slides.length === 0) return;
+                currentSlide = index;
+                updateCarousel(currentSlide);
+                // Reset interval
+                stopCarousel();
+                carouselInterval = setInterval(() => {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    updateCarousel(currentSlide);
+                }, 4000);
+            }
+
             function renderPopularSection() {
                 if (!fetchedPosts.length) {
-                    popularContainer.innerHTML = '';
+                    carouselTrack.innerHTML = '';
+                    carouselDots.innerHTML = '';
                     return;
                 }
                 let popular = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() === 'true');
@@ -827,23 +887,29 @@
                 } else {
                     popular = popular.slice(0, 4);
                 }
-                popularContainer.innerHTML = popular.map(p => {
+                carouselTrack.innerHTML = popular.map(p => {
                     const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
                     const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
-                    const tag = p.metadata.tag || p.metadata.kategori || '';
-                    return `<div class="popular-card" data-name="${p.name}">
-                        <img class="card-img" src="${img}" alt="${title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E📦%3C/text%3E%3C/svg%3E'">
-                        <div class="card-body">
-                            <div class="card-title">${title}</div>
-                            <div class="card-meta">
-                                ${tag ? `<span class="badge">${tag}</span>` : ''}
-                            </div>
+                    return `<div class="carousel-slide" data-name="${p.name}">
+                        ${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ''}
+                        <div class="slide-overlay">
+                            <div class="slide-title">${title}</div>
                         </div>
                     </div>`;
                 }).join('');
-                document.querySelectorAll('.popular-card').forEach(card => {
-                    card.addEventListener('click', () => {
-                        setHash('detail', card.dataset.name);
+                // Dots
+                carouselDots.innerHTML = popular.map((_, i) => `<span class="carousel-dot${i === 0 ? ' active' : ''}" data-index="${i}"></span>`).join('');
+
+                // Event listeners
+                document.querySelectorAll('.carousel-slide').forEach(slide => {
+                    slide.addEventListener('click', () => {
+                        setHash('detail', slide.dataset.name);
+                    });
+                });
+                document.querySelectorAll('.carousel-dot').forEach(dot => {
+                    dot.addEventListener('click', (e) => {
+                        const idx = parseInt(e.target.dataset.index);
+                        goToSlide(idx);
                     });
                 });
             }
@@ -852,7 +918,9 @@
                 postContainer.innerHTML = '<div class="spinner"></div>';
                 loadMoreContainer.innerHTML = '';
                 categoryBar.innerHTML = '';
-                popularContainer.innerHTML = '';
+                carouselTrack.innerHTML = '';
+                carouselDots.innerHTML = '';
+                stopCarousel();
                 try {
                     await fetchPostList();
                     if (!postsData.length) {
@@ -863,6 +931,7 @@
                     renderPopularSection();
                     renderCategoryBar();
                     resetAndApplyFilters();
+                    startCarousel();
                 } catch (err) {
                     postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`;
                 }
