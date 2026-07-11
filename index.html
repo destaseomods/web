@@ -7,8 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
             --bg: #0c0c14;
@@ -27,12 +26,7 @@
             --nav-height: 70px;
             --safe-bottom: env(safe-area-inset-bottom, 16px);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
@@ -43,270 +37,89 @@
             -webkit-tap-highlight-color: transparent;
             overflow-x: hidden;
         }
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 12px 16px;
-        }
-
-        /* Top bar */
+        .container { max-width: 700px; margin: 0 auto; padding: 12px 16px; }
         .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
             padding: 10px 16px;
             background: rgba(22, 22, 37, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            position: sticky;
-            top: 0;
-            z-index: 99;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: sticky; top: 0; z-index: 99;
             border-bottom: 1px solid var(--border);
         }
-        .logo {
-            font-weight: 800;
-            font-size: 1.4rem;
-            letter-spacing: -0.5px;
-        }
-        .logo span {
-            background: var(--grad);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Bottom navigation */
+        .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
+        .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            position: fixed; bottom: 0; left: 0; right: 0;
             background: rgba(18, 18, 28, 0.85);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: var(--nav-height);
-            padding-bottom: var(--safe-bottom);
+            display: flex; justify-content: space-around; align-items: center;
+            height: var(--nav-height); padding-bottom: var(--safe-bottom);
             z-index: 100;
         }
         .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text2);
-            font-size: 0.7rem;
-            font-weight: 500;
-            gap: 4px;
-            transition: 0.2s;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 16px;
+            display: flex; flex-direction: column; align-items: center;
+            color: var(--text2); font-size: 0.7rem; font-weight: 500;
+            gap: 4px; transition: 0.2s; cursor: pointer;
+            background: none; border: none; padding: 8px 12px; border-radius: 16px;
         }
-        .nav-item.active {
-            color: var(--accent2);
-            background: rgba(0, 229, 255, 0.1);
-        }
-        .nav-item svg {
-            width: 22px;
-            height: 22px;
-        }
-
-        /* Post card grid */
-        .post-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-            margin-top: 8px;
-        }
-        @media (min-width: 500px) {
-            .post-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
+        .nav-item.active { color: var(--accent2); background: rgba(0, 229, 255, 0.1); }
+        .nav-item svg { width: 22px; height: 22px; }
+        .post-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 8px; }
+        @media (min-width: 500px) { .post-grid { grid-template-columns: 1fr 1fr; } }
         .post-card {
-            background: var(--surface);
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            border: 1px solid var(--border);
-            transition: 0.25s;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
+            background: var(--surface); border-radius: var(--radius-sm);
+            overflow: hidden; border: 1px solid var(--border);
+            transition: 0.25s; cursor: pointer; display: flex; flex-direction: column;
         }
-        .post-card:active {
-            transform: scale(0.97);
-        }
-        .post-card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 24px rgba(124, 77, 255, 0.2);
-        }
+        .post-card:active { transform: scale(0.97); }
+        .post-card:hover { border-color: rgba(255,255,255,0.2); box-shadow: 0 8px 24px rgba(124,77,255,0.2); }
         .card-img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            background: var(--surface2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text2);
-            font-size: 2rem;
+            width: 100%; height: 140px; object-fit: cover;
+            background: var(--surface2); display: flex; align-items: center;
+            justify-content: center; color: var(--text2); font-size: 2rem;
         }
-        .card-body {
-            padding: 14px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .card-title {
-            font-weight: 700;
-            font-size: 1rem;
-            line-height: 1.3;
-        }
-        .card-meta {
-            font-size: 0.75rem;
-            color: var(--text2);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .badge {
-            background: rgba(124, 77, 255, 0.2);
-            color: #b388ff;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.7rem;
-        }
+        .card-body { padding: 14px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+        .card-title { font-weight: 700; font-size: 1rem; line-height: 1.3; }
+        .card-meta { font-size: 0.75rem; color: var(--text2); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .badge { background: rgba(124,77,255,0.2); color: #b388ff; padding: 2px 10px; border-radius: 20px; font-weight: 600; font-size: 0.7rem; }
         .download-btn {
-            margin-top: auto;
-            background: var(--grad);
-            border: none;
-            color: #000;
-            font-weight: 700;
-            font-size: 0.8rem;
-            padding: 8px 12px;
-            border-radius: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.2s;
-            letter-spacing: -0.2px;
+            margin-top: auto; background: var(--grad); border: none; color: #000;
+            font-weight: 700; font-size: 0.8rem; padding: 8px 12px;
+            border-radius: 30px; text-align: center; cursor: pointer;
+            transition: 0.2s; letter-spacing: -0.2px;
         }
-        .download-btn:hover {
-            filter: brightness(1.2);
-        }
-
-        /* Detail page */
-        .detail-header {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 20px;
-            margin-bottom: 16px;
-            border: 1px solid var(--border);
-        }
-        .detail-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 16px;
-            background: var(--surface2);
-            margin-bottom: 16px;
-        }
-        .detail-title {
-            font-size: 1.6rem;
-            font-weight: 800;
-        }
-        .detail-meta-grid {
-            display: flex;
-            gap: 16px;
-            margin: 12px 0;
-            flex-wrap: wrap;
-        }
-        .meta-item {
-            background: var(--surface2);
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-        }
-        .meta-item strong {
-            display: block;
-            color: var(--accent2);
-        }
+        .download-btn:hover { filter: brightness(1.2); }
+        .hidden { display: none !important; }
+        .detail-header { background: var(--surface); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); }
+        .detail-img { width: 100%; height: 200px; object-fit: cover; border-radius: 16px; background: var(--surface2); margin-bottom: 16px; }
+        .detail-title { font-size: 1.6rem; font-weight: 800; }
+        .detail-meta-grid { display: flex; gap: 16px; margin: 12px 0; flex-wrap: wrap; }
+        .meta-item { background: var(--surface2); padding: 10px 14px; border-radius: 12px; font-size: 0.8rem; }
+        .meta-item strong { display: block; color: var(--accent2); }
         .big-download {
-            display: block;
-            width: 100%;
-            background: var(--grad);
-            border: none;
-            color: #000;
-            font-weight: 700;
-            font-size: 1rem;
-            padding: 14px;
-            border-radius: 16px;
-            margin: 16px 0;
-            cursor: pointer;
-            transition: 0.2s;
-            letter-spacing: -0.2px;
+            display: block; width: 100%; background: var(--grad); border: none;
+            color: #000; font-weight: 700; font-size: 1rem; padding: 14px;
+            border-radius: 16px; margin: 16px 0; cursor: pointer; transition: 0.2s;
+            letter-spacing: -0.2px; text-decoration: none; text-align: center;
         }
-        .big-download:active {
-            transform: scale(0.97);
-        }
-        .content-box {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 20px;
-            border: 1px solid var(--border);
-            line-height: 1.7;
-        }
-        .content-box img {
-            max-width: 100%;
-            border-radius: 12px;
-            margin: 8px 0;
-        }
-        .content-box pre {
-            background: #0a0a14;
-            padding: 12px;
-            border-radius: 12px;
-            overflow-x: auto;
-        }
+        .big-download:active { transform: scale(0.97); }
+        .content-box { background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); line-height: 1.7; }
+        .content-box img { max-width: 100%; border-radius: 12px; margin: 8px 0; }
+        .content-box pre { background: #0a0a14; padding: 12px; border-radius: 12px; overflow-x: auto; }
         .back-btn {
-            background: none;
-            border: none;
-            color: var(--accent2);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            font-size: 0.9rem;
+            background: none; border: none; color: var(--accent2); font-weight: 600;
+            display: flex; align-items: center; gap: 6px; margin-bottom: 12px;
+            cursor: pointer; font-size: 0.9rem;
         }
-        .hidden {
-            display: none !important;
-        }
-        .loading-spinner {
-            display: flex;
-            justify-content: center;
-            padding: 40px;
-        }
+        .loading-spinner { display: flex; justify-content: center; padding: 40px; }
         .spinner {
-            width: 32px;
-            height: 32px;
-            border: 3px solid rgba(255,255,255,0.1);
-            border-top-color: var(--accent2);
-            border-radius: 50%;
+            width: 32px; height: 32px; border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: var(--accent2); border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .empty-text {
-            text-align: center;
-            color: var(--text2);
-            padding: 40px;
-        }
+        .empty-text, .error-text { text-align: center; padding: 40px; color: var(--text2); }
     </style>
 </head>
 <body>
@@ -315,14 +128,12 @@
     </div>
 
     <main class="container" id="app">
-        <!-- Beranda (post list) -->
         <section id="home-section">
             <div id="post-container" class="post-grid">
                 <div class="loading-spinner"><div class="spinner"></div></div>
             </div>
         </section>
 
-        <!-- Detail -->
         <section id="detail-section" class="hidden">
             <button class="back-btn" id="detail-back">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -331,16 +142,14 @@
             <div id="detail-content"></div>
         </section>
 
-        <!-- Tentang -->
         <section id="about-section" class="hidden">
             <div class="content-box">
                 <h2 style="font-weight:800;">Tentang Destaseo Mods</h2>
                 <p style="color:var(--text2); margin-top:12px;">
-                    Destaseo Mods adalah platform berbagi mod APK, tutorial, dan informasi seputar dunia modding Android.
-                    Dirancang dengan tampilan modern ala aplikasi, didukung penuh oleh GitHub Pages.
+                    Destaseo Mods adalah platform berbagi mod APK, tutorial, dan informasi seputar dunia modding Android. Dirancang dengan tampilan modern ala aplikasi, didukung penuh oleh GitHub Pages.
                 </p>
                 <p style="color:var(--text2);">
-                    Semua postingan diambil otomatis dari folder <code>posts/</code> repository, jadi kamu cukup menambah file Markdown untuk update konten.
+                    Semua postingan diambil otomatis dari folder <code>posts/</code> repository. Cukup tambah file <code>.md</code> untuk update konten.
                 </p>
             </div>
         </section>
@@ -359,6 +168,14 @@
 
     <script>
         (function() {
+            // =============================================
+            // 🌐 KONFIGURASI SATU KALI (untuk local dev)
+            // =============================================
+            // Isi dengan username/repo GitHub kamu (contoh: "destaseo/destaseo-mods")
+            // Biarkan kosong jika sudah deploy ke GitHub Pages.
+            const GITHUB_REPO = ''; // <<<< ISI DISINI UNTUK LOCAL DEVELOPMENT
+            // =============================================
+
             const POSTS_DIR = 'posts/';
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
@@ -371,7 +188,6 @@
             let postsData = [];
             let fetchedPosts = [];
 
-            // UI helpers
             function showSection(section) {
                 homeSection.classList.add('hidden');
                 detailSection.classList.add('hidden');
@@ -381,48 +197,47 @@
 
             function setActiveNav(page) {
                 navItems.forEach(item => {
-                    const isActive = item.dataset.page === page;
-                    item.classList.toggle('active', isActive);
+                    item.classList.toggle('active', item.dataset.page === page);
                 });
             }
 
-            // Fetch posts list
             async function fetchPostList() {
+                let apiUrl = '';
+                const isGitHubPages = window.location.hostname.includes('github.io');
+
+                if (isGitHubPages) {
+                    const parts = window.location.pathname.split('/').filter(p => p);
+                    if (parts.length >= 2) {
+                        const user = parts[0];
+                        const repo = parts[1];
+                        apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/posts`;
+                    }
+                } else if (GITHUB_REPO) {
+                    // Local development dengan repo yang di-set
+                    apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
+                }
+
+                if (!apiUrl) {
+                    throw new Error('Tidak dapat menentukan repo. Untuk local dev, isi variabel GITHUB_REPO.');
+                }
+
                 try {
-                    const isGitHub = window.location.hostname.includes('github.io');
-                    if (isGitHub) {
-                        const parts = window.location.pathname.split('/').filter(p => p);
-                        const user = parts[0] || '';
-                        const repo = parts[1] || '';
-                        const res = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/posts`);
-                        if (!res.ok) throw new Error('GitHub API gagal');
-                        const files = await res.json();
-                        postsData = files.filter(f => f.name.endsWith('.md')).map(f => ({
+                    const res = await fetch(apiUrl);
+                    if (!res.ok) throw new Error('GitHub API gagal. Pastikan repo publik dan folder posts/ ada.');
+                    const files = await res.json();
+                    if (!Array.isArray(files)) throw new Error('Response tidak valid.');
+                    postsData = files
+                        .filter(f => f.name.endsWith('.md'))
+                        .map(f => ({
                             filename: f.name,
                             name: f.name.replace('.md', ''),
                             download_url: f.download_url,
                         }));
-                    } else {
-                        // fallback local: coba index.json
-                        const res = await fetch(POSTS_DIR + 'index.json');
-                        if (res.ok) {
-                            const list = await res.json();
-                            postsData = list.filter(f => f.endsWith('.md')).map(f => ({
-                                filename: f,
-                                name: f.replace('.md', ''),
-                                download_url: POSTS_DIR + f,
-                            }));
-                        } else throw new Error('index.json missing');
-                    }
-                } catch (e) {
-                    console.warn('Pakai data contoh:', e.message);
-                    postsData = [
-                        { filename: 'spotify-premium.md', name: 'spotify-premium', download_url: POSTS_DIR + 'spotify-premium.md' },
-                        { filename: 'whatsapp-mod.md', name: 'whatsapp-mod', download_url: POSTS_DIR + 'whatsapp-mod.md' },
-                        { filename: 'pubg-mod.md', name: 'pubg-mod', download_url: POSTS_DIR + 'pubg-mod.md' },
-                    ];
+                    return postsData;
+                } catch (err) {
+                    console.error(err);
+                    throw err;
                 }
-                return postsData;
             }
 
             function parseFrontmatter(md) {
@@ -449,7 +264,8 @@
                     const md = await res.text();
                     const { metadata, content } = parseFrontmatter(md);
                     return { ...postInfo, metadata, content, html: marked.parse(content) };
-                } catch {
+                } catch (err) {
+                    console.error('Gagal fetch post:', postInfo.filename, err);
                     return { ...postInfo, metadata: {}, content: '', html: '<p>Gagal memuat konten.</p>' };
                 }
             }
@@ -479,31 +295,33 @@
 
             async function renderHome() {
                 postContainer.innerHTML = '<div class="loading-spinner"><div class="spinner"></div></div>';
-                if (postsData.length === 0) {
-                    postContainer.innerHTML = '<div class="empty-text">📭 Belum ada postingan.</div>';
-                    return;
+                try {
+                    await fetchPostList();
+                    if (postsData.length === 0) {
+                        postContainer.innerHTML = '<div class="empty-text">📭 Belum ada postingan. Tambahkan file .md ke folder posts/ repository.</div>';
+                        return;
+                    }
+                    fetchedPosts = await Promise.all(postsData.map(p => fetchPost(p)));
+                    const cards = fetchedPosts.map(p => renderCard(p)).join('');
+                    postContainer.innerHTML = cards;
+
+                    document.querySelectorAll('.post-card').forEach(card => {
+                        card.addEventListener('click', (e) => {
+                            if (e.target.classList.contains('download-btn')) return;
+                            showDetail(card.dataset.name);
+                        });
+                    });
+
+                    document.querySelectorAll('.download-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const link = btn.dataset.link;
+                            if (link && link !== '#') window.open(link, '_blank');
+                        });
+                    });
+                } catch (err) {
+                    postContainer.innerHTML = `<div class="error-text">⚠️ Gagal memuat postingan: ${err.message}<br><small>Untuk local dev: isi GITHUB_REPO di script. Untuk GitHub Pages: pastikan repo publik.</small></div>`;
                 }
-                fetchedPosts = await Promise.all(postsData.map(p => fetchPost(p)));
-                const cards = fetchedPosts.map(p => renderCard(p)).join('');
-                postContainer.innerHTML = cards;
-
-                // Event klik kartu -> detail
-                document.querySelectorAll('.post-card').forEach(card => {
-                    card.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('download-btn')) return; // tombol download sendiri
-                        const name = card.dataset.name;
-                        showDetail(name);
-                    });
-                });
-
-                // Event tombol download kecil (stop propagation)
-                document.querySelectorAll('.download-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const link = btn.dataset.link;
-                        if (link && link !== '#') window.open(link, '_blank');
-                    });
-                });
             }
 
             function showDetail(name) {
@@ -525,7 +343,7 @@
                         <div class="meta-item"><strong>Ukuran</strong> ${ukuran}</div>
                         <div class="meta-item"><strong>Developer</strong> ${developer}</div>
                     </div>
-                    <a href="${download}" target="_blank" class="big-download" style="text-decoration:none; display:block; text-align:center;">⬇ Download APK</a>
+                    <a href="${download}" target="_blank" class="big-download">⬇ Download APK</a>
                 </div>
                 <div class="content-box">${post.html || '<p>Tidak ada deskripsi.</p>'}</div>
                 `;
@@ -546,9 +364,7 @@
                 window.scrollTo({ top: 0 });
             }
 
-            // Event listeners
             detailBack.addEventListener('click', goHome);
-
             navItems.forEach(item => {
                 item.addEventListener('click', () => {
                     const page = item.dataset.page;
@@ -559,9 +375,7 @@
 
             // Init
             (async () => {
-                await fetchPostList();
                 await renderHome();
-                // default home
                 goHome();
             })();
         })();
