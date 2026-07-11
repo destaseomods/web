@@ -712,7 +712,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v45';
+            const CACHE_KEY = 'destaseo_premium_cache_v46';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -909,7 +909,9 @@
                     const { metadata, content } = parseFrontmatter(md);
                     const lastModified = r.headers.get('Last-Modified');
                     return { ...p, metadata, content, lastModified, html: marked.parse(content) };
-                } catch { return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>' }; }
+                } catch {
+                    return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>', lastModified: null };
+                }
             }
 
             function fixImageUrl(url) {
@@ -929,10 +931,14 @@
 
             function formatDate(dateStr) {
                 if (!dateStr) return '';
-                const d = new Date(dateStr);
-                if (isNaN(d.getTime())) return dateStr;
-                const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
-                return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+                try {
+                    const d = new Date(dateStr);
+                    if (isNaN(d.getTime())) return '';
+                    const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+                    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+                } catch {
+                    return '';
+                }
             }
 
             function getAllKategori() {
@@ -971,35 +977,34 @@
                 return filtered;
             }
 
+            // Perbaikan sort: gunakan timestamp numerik agar urut
             function sortPosts(posts) {
                 const sortBy = sortSelect.value;
                 const sorted = [...posts];
+                const getTime = (p) => {
+                    const dateStr = p.metadata.tanggal || p.metadata.date || p.lastModified;
+                    if (!dateStr) return 0; // epoch 1970
+                    const d = new Date(dateStr);
+                    return isNaN(d.getTime()) ? 0 : d.getTime();
+                };
                 switch (sortBy) {
                     case 'terbaru':
-                        sorted.sort((a, b) => {
-                            const dateA = a.metadata.tanggal || a.metadata.date || a.lastModified || '';
-                            const dateB = b.metadata.tanggal || b.metadata.date || b.lastModified || '';
-                            return new Date(dateB) - new Date(dateA);
-                        });
+                        sorted.sort((a, b) => getTime(b) - getTime(a));
                         break;
                     case 'terlama':
-                        sorted.sort((a, b) => {
-                            const dateA = a.metadata.tanggal || a.metadata.date || a.lastModified || '';
-                            const dateB = b.metadata.tanggal || b.metadata.date || b.lastModified || '';
-                            return new Date(dateA) - new Date(dateB);
-                        });
+                        sorted.sort((a, b) => getTime(a) - getTime(b));
                         break;
                     case 'az':
                         sorted.sort((a, b) => {
-                            const titleA = (a.metadata.judul || a.metadata.title || a.name).toLowerCase();
-                            const titleB = (b.metadata.judul || b.metadata.title || b.name).toLowerCase();
+                            const titleA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
+                            const titleB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
                             return titleA.localeCompare(titleB);
                         });
                         break;
                     case 'za':
                         sorted.sort((a, b) => {
-                            const titleA = (a.metadata.judul || a.metadata.title || a.name).toLowerCase();
-                            const titleB = (b.metadata.judul || b.metadata.title || b.name).toLowerCase();
+                            const titleA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
+                            const titleB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
                             return titleB.localeCompare(titleA);
                         });
                         break;
