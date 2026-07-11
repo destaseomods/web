@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Destaseo Mods • Premium Mod APK</title>
-    <link rel="icon" type="image/png" href="https://i.ibb.co/0VpHv0R/logo.png">
+    <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/189899710?v=4">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -188,9 +188,8 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 2.8rem; color: #fff;
             box-shadow: 0 10px 40px rgba(255,100,165,0.4);
-            animation: pulse 2.5s ease-in-out infinite;
+            /* animasi pulse dihapus */
         }
-        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .profile-name { text-align: center; font-size: 1.5rem; font-weight: 800; }
         .profile-bio { text-align: center; color: var(--text2); margin: 10px 0 20px; }
         .social-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
@@ -206,6 +205,39 @@
         }
         .donate-title { color: var(--text2); margin-bottom: 12px; font-weight: 600; }
         .donate-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+        /* Galeri Screenshot */
+        .screenshot-gallery {
+            display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px;
+        }
+        .screenshot-gallery img {
+            width: calc(33.333% - 8px);
+            border-radius: 12px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.2s;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+        }
+        .screenshot-gallery img:hover {
+            transform: scale(1.03);
+            border-color: var(--accent);
+        }
+        @media (max-width: 500px) {
+            .screenshot-gallery img {
+                width: calc(50% - 6px);
+            }
+        }
+        /* Lightbox sederhana */
+        .lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 200;
+            display: flex; align-items: center; justify-content: center;
+            cursor: zoom-out;
+        }
+        .lightbox img {
+            max-width: 95vw; max-height: 95vh; border-radius: 16px;
+        }
 
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; right: 0;
@@ -246,8 +278,7 @@
 
     <div class="topbar">
         <div class="logo-area">
-            <!-- Logo gambar, bisa diganti URL di konfigurasi -->
-            <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo" class="logo-img" id="logo-img">
+            <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo" class="logo-img">
             <span class="logo-text">DestaseoMods</span>
         </div>
         <a href="https://t.me/destaseo" target="_blank" class="telegram-btn">
@@ -261,7 +292,6 @@
             <div class="search-container hidden" id="search-box">
                 <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit...">
             </div>
-            <!-- Baris kategori -->
             <div class="category-bar" id="category-bar"></div>
             <div id="filter-indicator" class="filter-indicator hidden"></div>
             <div id="post-container" class="post-grid">
@@ -276,7 +306,7 @@
 
         <section id="profile-section" class="hidden">
             <div class="profile-card">
-                <div class="profile-avatar" id="profile-avatar">👑</div>
+                <div class="profile-avatar" id="profile-avatar" style="background-image: url('https://avatars.githubusercontent.com/u/189899710?v=4'); background-size: cover; background-position: center;"></div>
                 <div class="profile-name" id="profile-name">Destaseo</div>
                 <div class="profile-bio" id="profile-bio">Premium modder & content creator.</div>
                 <div class="social-links" id="social-links"></div>
@@ -311,10 +341,11 @@
 
     <script>
         (function() {
-            // ========== KONFIGURASI ==========
-            const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4"; // ganti dengan URL logo kamu
+            // Konfigurasi
+            const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
+            const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const PROFILE = {
-                avatar: "👑",
+                avatar: AVATAR_URL,
                 name: "Destaseo",
                 bio: "Premium modder & content creator.",
                 links: [
@@ -324,7 +355,7 @@
                 ]
             };
 
-            // ========== PARTIKEL ==========
+            // Partikel
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
             let particles = [];
@@ -361,8 +392,8 @@
             }
             animateParticles();
 
-            // ========== CACHE & API ==========
-            const CACHE_KEY = 'destaseo_premium_cache_v4';
+            // Cache & API
+            const CACHE_KEY = 'destaseo_premium_cache_v5';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
@@ -377,11 +408,16 @@
             const filterIndicator = document.getElementById('filter-indicator');
 
             let postsData = [], fetchedPosts = [];
-            let activeTagFilter = null; // menyimpan tag yang sedang aktif
+            let activeTagFilter = null;
 
-            // Set logo
+            // Set logo & avatar
             if (LOGO_URL) {
-                document.getElementById('logo-img').src = LOGO_URL;
+                document.querySelector('.logo-img').src = LOGO_URL;
+            }
+            if (AVATAR_URL) {
+                const avatarEl = document.getElementById('profile-avatar');
+                avatarEl.style.backgroundImage = `url('${AVATAR_URL}')`;
+                avatarEl.textContent = ''; // hapus emoji
             }
 
             function showSection(section) {
@@ -413,7 +449,6 @@
             }
 
             function renderProfile() {
-                document.getElementById('profile-avatar').textContent = PROFILE.avatar;
                 document.getElementById('profile-name').textContent = PROFILE.name;
                 document.getElementById('profile-bio').textContent = PROFILE.bio;
                 document.getElementById('social-links').innerHTML = PROFILE.links.map(l =>
@@ -467,7 +502,6 @@
                 } catch { return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>' }; }
             }
 
-            // Dapatkan semua tag unik
             function getAllTags() {
                 const tags = new Set();
                 fetchedPosts.forEach(p => {
@@ -477,7 +511,6 @@
                 return Array.from(tags).sort();
             }
 
-            // Render kategori chips
             function renderCategoryBar() {
                 const tags = getAllTags();
                 if (tags.length === 0) {
@@ -493,21 +526,14 @@
                 }
                 categoryBar.innerHTML = html;
 
-                // Event listener untuk chip
                 categoryBar.querySelectorAll('.category-chip').forEach(chip => {
                     chip.addEventListener('click', () => {
                         const tag = chip.dataset.tag;
-                        if (activeTagFilter === tag) {
-                            // Klik lagi untuk menonaktifkan
-                            activeTagFilter = null;
-                        } else {
-                            activeTagFilter = tag;
-                        }
+                        activeTagFilter = (activeTagFilter === tag) ? null : tag;
                         applyFilters();
                     });
                 });
 
-                // Tombol reset
                 const resetBtn = document.getElementById('reset-filter');
                 if (resetBtn) {
                     resetBtn.addEventListener('click', () => {
@@ -521,7 +547,6 @@
                 const query = searchInput.value.trim().toLowerCase();
                 let filtered = fetchedPosts;
 
-                // Filter tag
                 if (activeTagFilter) {
                     filtered = filtered.filter(p => {
                         const tag = p.metadata.tag || p.metadata.kategori || '';
@@ -529,7 +554,6 @@
                     });
                 }
 
-                // Filter pencarian
                 if (query) {
                     filtered = filtered.filter(p => {
                         const title = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
@@ -537,7 +561,6 @@
                     });
                 }
 
-                // Update indicator
                 if (activeTagFilter) {
                     filterIndicator.classList.remove('hidden');
                     filterIndicator.innerHTML = `🔖 Kategori: <strong>${activeTagFilter}</strong> (${filtered.length} hasil)`;
@@ -545,7 +568,6 @@
                     filterIndicator.classList.add('hidden');
                 }
 
-                // Render kartu
                 if (filtered.length === 0) {
                     postContainer.innerHTML = '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
                 } else {
@@ -575,11 +597,10 @@
             function attachCardEvents() {
                 document.querySelectorAll('.post-card').forEach(c => {
                     c.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('badge')) return; // jangan navigate jika klik badge
+                        if (e.target.classList.contains('badge')) return;
                         showDetail(c.dataset.name);
                     });
                 });
-                // Klik badge untuk filter
                 document.querySelectorAll('.badge').forEach(badge => {
                     badge.addEventListener('click', (e) => {
                         e.stopPropagation();
@@ -587,7 +608,6 @@
                         activeTagFilter = tag;
                         searchInput.value = '';
                         applyFilters();
-                        // Update kategori bar
                         renderCategoryBar();
                     });
                 });
@@ -610,6 +630,24 @@
                 }
             }
 
+            // Fungsi untuk membuat galeri screenshot
+            function buildScreenshotGallery(screenshotsStr) {
+                if (!screenshotsStr) return '';
+                const urls = screenshotsStr.split(',').map(url => url.trim()).filter(url => url.length > 0);
+                if (urls.length === 0) return '';
+                const imagesHtml = urls.map(url => `<img src="${url}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox('${url}')">`).join('');
+                return `<div class="screenshot-gallery">${imagesHtml}</div>`;
+            }
+
+            // Lightbox
+            window.openLightbox = function(url) {
+                const lb = document.createElement('div');
+                lb.className = 'lightbox';
+                lb.innerHTML = `<img src="${url}" alt="Screenshot">`;
+                lb.addEventListener('click', () => lb.remove());
+                document.body.appendChild(lb);
+            };
+
             function showDetail(name) {
                 const post = fetchedPosts.find(p => p.name === name);
                 if (!post) return;
@@ -619,6 +657,10 @@
                 const s = post.metadata.ukuran || post.metadata.size || '?';
                 const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
                 const dwn = post.metadata.download || post.metadata.link || '#';
+                const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
+
+                const galleryHtml = buildScreenshotGallery(screenshots);
+
                 detailContent.innerHTML = `
                 <div class="detail-header">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;">📱</div>'}
@@ -628,6 +670,7 @@
                         <div class="meta-item"><strong>Ukuran</strong> ${s}</div>
                         <div class="meta-item"><strong>Developer</strong> ${dev}</div>
                     </div>
+                    ${galleryHtml}
                     <a href="${dwn}" target="_blank" class="big-download">⬇ Download APK</a>
                 </div>
                 <div class="content-box">${post.html || '<p>Tidak ada deskripsi.</p>'}</div>`;
