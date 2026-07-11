@@ -109,14 +109,31 @@
         .search-input:focus { border-color: var(--accent); box-shadow: 0 0 30px rgba(168,127,255,0.4); }
         .search-input::placeholder { color: var(--text2); }
 
-        /* Popular Carousel */
-        .popular-section { margin-bottom: 24px; }
-        .popular-title {
-            font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;
-            display: flex; align-items: center; gap: 8px;
-            color: var(--text);
+        /* Category Bar - dipindah ke atas carousel */
+        .category-bar {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;
+            align-items: center;
         }
-        .carousel-container {
+        .category-chip {
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 6px 14px; border-radius: 20px;
+            color: var(--text2); font-size: 0.75rem; font-weight: 600;
+            cursor: pointer; transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        .category-chip.active, .category-chip:hover {
+            background: rgba(168,127,255,0.2); border-color: var(--accent);
+            color: #fff;
+        }
+        .reset-filter {
+            background: none; border: none; color: var(--accent2);
+            font-size: 0.75rem; font-weight: 600; cursor: pointer;
+            padding: 6px 12px;
+        }
+
+        /* Popular Carousel */
+        .popular-section { margin-bottom: 0; }
+        .carousel-wrapper {
             position: relative;
             overflow: hidden;
             border-radius: var(--radius-sm);
@@ -148,44 +165,40 @@
         .carousel-slide .slide-overlay {
             position: absolute;
             bottom: 0; left: 0; right: 0;
-            padding: 20px;
+            padding: 16px;
             background: linear-gradient(transparent, rgba(0,0,0,0.8));
             color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
         }
         .carousel-slide .slide-title {
-            font-weight: 800; font-size: 1.2rem; line-height: 1.3;
-            margin-bottom: 4px;
+            font-weight: 800; font-size: 1rem; line-height: 1.3;
+        }
+        .carousel-title-top {
+            position: absolute;
+            top: 14px; left: 16px;
+            font-size: 1rem; font-weight: 700;
+            color: #fff;
+            z-index: 5;
+            display: flex; align-items: center; gap: 6px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
         .carousel-dots {
-            display: flex; justify-content: center; gap: 8px;
-            margin-top: 10px;
+            display: flex; gap: 6px;
         }
         .carousel-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--text2); opacity: 0.4;
-            cursor: pointer; transition: opacity 0.2s;
+            width: 7px; height: 7px; border-radius: 50%;
+            background: rgba(255,255,255,0.5); cursor: pointer;
+            transition: background 0.2s;
         }
-        .carousel-dot.active { opacity: 1; background: var(--accent2); }
+        .carousel-dot.active { background: #fff; }
 
-        .category-bar {
-            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
-            align-items: center;
-        }
-        .category-chip {
-            background: var(--surface); border: 1px solid var(--border);
-            padding: 6px 14px; border-radius: 20px;
-            color: var(--text2); font-size: 0.75rem; font-weight: 600;
-            cursor: pointer; transition: var(--transition);
-            backdrop-filter: blur(10px);
-        }
-        .category-chip.active, .category-chip:hover {
-            background: rgba(168,127,255,0.2); border-color: var(--accent);
-            color: #fff;
-        }
-        .reset-filter {
-            background: none; border: none; color: var(--accent2);
-            font-size: 0.75rem; font-weight: 600; cursor: pointer;
-            padding: 6px 12px;
+        /* Divider */
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 20px 0 18px;
         }
 
         .post-grid {
@@ -430,14 +443,21 @@
             <div class="search-container hidden" id="search-box">
                 <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit...">
             </div>
+
+            <!-- Kategori Bar dipindah ke atas -->
+            <div class="category-bar" id="category-bar"></div>
+
+            <!-- Popular Carousel dengan indikator dan judul di dalam -->
             <div class="popular-section" id="popular-section">
-                <div class="popular-title">🔥 Postingan Populer</div>
-                <div class="carousel-container" id="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-title-top">🔥 Urutan Populer</div>
                     <div class="carousel-track" id="carousel-track"></div>
                 </div>
-                <div class="carousel-dots" id="carousel-dots"></div>
             </div>
-            <div class="category-bar" id="category-bar"></div>
+
+            <!-- Divider -->
+            <hr class="section-divider">
+
             <div id="filter-indicator" class="filter-indicator hidden"></div>
             <div id="post-container" class="post-grid"></div>
             <div id="load-more-container" style="text-align: center;"></div>
@@ -536,11 +556,10 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v17';
+            const CACHE_KEY = 'destaseo_premium_cache_v18';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
-            const carouselDots = document.getElementById('carousel-dots');
             const loadMoreContainer = document.getElementById('load-more-container');
             const homeSection = document.getElementById('home-section');
             const detailSection = document.getElementById('detail-section');
@@ -655,15 +674,7 @@
             async function fetchPostList() {
                 const cached = getCache();
                 if (cached) { postsData = cached; return; }
-                let apiUrl = '';
-                if (GITHUB_REPO) {
-                    apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
-                } else if (window.location.hostname.includes('github.io')) {
-                    const parts = window.location.pathname.split('/').filter(p => p);
-                    const user = window.location.hostname.split('.')[0];
-                    const repo = parts.length ? parts[0] : `${user}.github.io`;
-                    apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/posts`;
-                } else throw new Error('🔧 Isi GITHUB_REPO untuk custom domain.');
+                let apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
                 const res = await fetch(apiUrl);
                 if (!res.ok) throw new Error(`Gagal fetch (${res.status}).`);
                 const files = await res.json();
@@ -720,14 +731,13 @@
 
             function renderCategoryBar() {
                 const tags = getAllTags();
-                if (tags.length === 0) { categoryBar.innerHTML = ''; return; }
-                let html = '';
+                let html = '<span class="category-chip' + (!activeTagFilter ? ' active' : '') + '" data-tag="">Semua</span>';
                 tags.forEach(tag => html += `<span class="category-chip${activeTagFilter === tag ? ' active' : ''}" data-tag="${tag}">${tag}</span>`);
                 if (activeTagFilter) html += `<button class="reset-filter" id="reset-filter">✕ Hapus filter</button>`;
                 categoryBar.innerHTML = html;
                 categoryBar.querySelectorAll('.category-chip').forEach(chip => {
                     chip.addEventListener('click', () => {
-                        activeTagFilter = (activeTagFilter === chip.dataset.tag) ? null : chip.dataset.tag;
+                        activeTagFilter = chip.dataset.tag || null;
                         resetAndApplyFilters();
                     });
                 });
@@ -833,10 +843,7 @@
 
             // ===== Carousel Functions =====
             function stopCarousel() {
-                if (carouselInterval) {
-                    clearInterval(carouselInterval);
-                    carouselInterval = null;
-                }
+                if (carouselInterval) { clearInterval(carouselInterval); carouselInterval = null; }
             }
 
             function startCarousel() {
@@ -855,61 +862,52 @@
                 const track = carouselTrack;
                 if (!track) return;
                 track.style.transform = `translateX(-${index * 100}%)`;
-                // Update dots
-                const dots = document.querySelectorAll('.carousel-dot');
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                });
-            }
-
-            function goToSlide(index) {
-                const slides = document.querySelectorAll('.carousel-slide');
-                if (slides.length === 0) return;
-                currentSlide = index;
-                updateCarousel(currentSlide);
-                // Reset interval
-                stopCarousel();
-                carouselInterval = setInterval(() => {
-                    currentSlide = (currentSlide + 1) % slides.length;
-                    updateCarousel(currentSlide);
-                }, 4000);
             }
 
             function renderPopularSection() {
                 if (!fetchedPosts.length) {
                     carouselTrack.innerHTML = '';
-                    carouselDots.innerHTML = '';
                     return;
                 }
                 let popular = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() === 'true');
-                if (popular.length === 0) {
-                    popular = fetchedPosts.slice(0, 4);
-                } else {
-                    popular = popular.slice(0, 4);
-                }
-                carouselTrack.innerHTML = popular.map(p => {
+                if (popular.length === 0) popular = fetchedPosts.slice(0, 4);
+                else popular = popular.slice(0, 4);
+
+                // Bangun slide + dots di dalam slide overlay
+                carouselTrack.innerHTML = popular.map((p, i) => {
                     const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
                     const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
+                    const dotsHtml = popular.map((_, dotIdx) => `<span class="carousel-dot${dotIdx === i ? ' active' : ''}" data-index="${dotIdx}"></span>`).join('');
                     return `<div class="carousel-slide" data-name="${p.name}">
                         ${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ''}
                         <div class="slide-overlay">
                             <div class="slide-title">${title}</div>
+                            <div class="carousel-dots">${dotsHtml}</div>
                         </div>
                     </div>`;
                 }).join('');
-                // Dots
-                carouselDots.innerHTML = popular.map((_, i) => `<span class="carousel-dot${i === 0 ? ' active' : ''}" data-index="${i}"></span>`).join('');
 
                 // Event listeners
                 document.querySelectorAll('.carousel-slide').forEach(slide => {
-                    slide.addEventListener('click', () => {
+                    slide.addEventListener('click', (e) => {
+                        // Jangan pindah jika klik dot
+                        if (e.target.classList.contains('carousel-dot')) return;
                         setHash('detail', slide.dataset.name);
                     });
                 });
                 document.querySelectorAll('.carousel-dot').forEach(dot => {
                     dot.addEventListener('click', (e) => {
+                        e.stopPropagation();
                         const idx = parseInt(e.target.dataset.index);
-                        goToSlide(idx);
+                        currentSlide = idx;
+                        updateCarousel(currentSlide);
+                        // Reset interval
+                        stopCarousel();
+                        carouselInterval = setInterval(() => {
+                            const slides = document.querySelectorAll('.carousel-slide');
+                            currentSlide = (currentSlide + 1) % slides.length;
+                            updateCarousel(currentSlide);
+                        }, 4000);
                     });
                 });
             }
@@ -919,7 +917,6 @@
                 loadMoreContainer.innerHTML = '';
                 categoryBar.innerHTML = '';
                 carouselTrack.innerHTML = '';
-                carouselDots.innerHTML = '';
                 stopCarousel();
                 try {
                     await fetchPostList();
