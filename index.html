@@ -19,9 +19,7 @@
             --text2: #b8b8d0;
             --accent: #a87fff;
             --accent2: #3ee0ff;
-            --accent3: #ff64a5;
             --grad1: linear-gradient(135deg, #a87fff, #3ee0ff);
-            --grad2: linear-gradient(135deg, #ff64a5, #a87fff);
             --radius: 28px;
             --radius-sm: 20px;
             --nav-height: 76px;
@@ -229,7 +227,7 @@
 
         .profile-avatar {
             width: 100px; height: 100px; border-radius: 50%;
-            background: var(--grad2); margin: 0 auto 20px;
+            background: var(--surface2); margin: 0 auto 20px;
             display: flex; align-items: center; justify-content: center;
             font-size: 2.8rem; color: #fff;
             box-shadow: 0 10px 40px rgba(255,100,165,0.4);
@@ -251,24 +249,30 @@
         .donate-title { color: var(--text2); margin-bottom: 12px; font-weight: 600; }
         .donate-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-        .screenshot-gallery {
-            display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px;
+        /* Galeri horizontal */
+        .screenshot-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+            margin-top: 16px;
         }
-        .screenshot-gallery img {
-            width: calc(33.333% - 8px);
-            border-radius: 12px;
+        .screenshot-scroll img {
+            flex: 0 0 auto;
+            width: 150px;
+            height: 220px;
             object-fit: cover;
+            border-radius: 14px;
             cursor: pointer;
             transition: transform 0.2s;
             background: var(--surface2);
             border: 1px solid var(--border);
         }
-        .screenshot-gallery img:hover {
+        .screenshot-scroll img:hover {
             transform: scale(1.03);
             border-color: var(--accent);
-        }
-        @media (max-width: 500px) {
-            .screenshot-gallery img { width: calc(50% - 6px); }
         }
         .lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -402,6 +406,7 @@
                 ]
             };
 
+            // === PARTIKEL ===
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
             let particles = [];
@@ -438,7 +443,8 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v10';
+            // === DOM ===
+            const CACHE_KEY = 'destaseo_premium_cache_v11';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
@@ -468,11 +474,10 @@
                 e.stopPropagation();
                 telegramDropdown.classList.toggle('show');
             });
-            document.addEventListener('click', () => {
-                telegramDropdown.classList.remove('show');
-            });
+            document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
 
+            // === ROUTING ===
             function getHashPage() {
                 const hash = window.location.hash.slice(1);
                 if (!hash || hash === 'home') return { page: 'home' };
@@ -481,38 +486,29 @@
                 if (hash.startsWith('detail/')) return { page: 'detail', postName: hash.split('/')[1] };
                 return { page: 'home' };
             }
-
             function setHash(page, param) {
                 if (page === 'home') window.location.hash = 'home';
                 else if (page === 'search') window.location.hash = 'search';
                 else if (page === 'profile') window.location.hash = 'profile';
                 else if (page === 'detail' && param) window.location.hash = 'detail/' + param;
             }
-
             function showSection(section) {
                 [homeSection, detailSection, profileSection].forEach(s => s.classList.add('hidden'));
                 section.classList.remove('hidden');
             }
-
             function setActiveNav(page) {
                 navItems.forEach(i => {
                     const p = i.dataset.page;
                     i.classList.toggle('active', p === page || (page === 'detail' && p === 'home'));
                 });
             }
-
             function navigate(page, postName) {
-                if (page === 'home') {
+                if (page === 'home' || page === 'search') {
                     showSection(homeSection);
                     searchBox.classList.remove('hidden');
                     categoryBar.classList.remove('hidden');
-                    setActiveNav('home');
-                } else if (page === 'search') {
-                    showSection(homeSection);
-                    searchBox.classList.remove('hidden');
-                    categoryBar.classList.remove('hidden');
-                    setActiveNav('search');
-                    setTimeout(() => searchInput.focus(), 100);
+                    setActiveNav(page);
+                    if (page === 'search') setTimeout(() => searchInput.focus(), 100);
                 } else if (page === 'profile') {
                     showSection(profileSection);
                     searchBox.classList.add('hidden');
@@ -529,7 +525,6 @@
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-
             function renderProfile() {
                 document.getElementById('profile-name').textContent = PROFILE.name;
                 document.getElementById('profile-bio').textContent = PROFILE.bio;
@@ -538,6 +533,7 @@
                 ).join('');
             }
 
+            // === DATA ===
             function getCache() {
                 const raw = localStorage.getItem(CACHE_KEY);
                 if (!raw) return null;
@@ -549,7 +545,6 @@
             async function fetchPostList() {
                 const cached = getCache();
                 if (cached) { postsData = cached; return; }
-
                 let apiUrl = '';
                 if (GITHUB_REPO) {
                     apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
@@ -558,10 +553,7 @@
                     const user = window.location.hostname.split('.')[0];
                     const repo = parts.length ? parts[0] : `${user}.github.io`;
                     apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/posts`;
-                } else {
-                    throw new Error('🔧 Isi GITHUB_REPO untuk custom domain.');
-                }
-
+                } else throw new Error('🔧 Isi GITHUB_REPO untuk custom domain.');
                 const res = await fetch(apiUrl);
                 if (!res.ok) throw new Error(`Gagal fetch (${res.status}).`);
                 const files = await res.json();
@@ -592,6 +584,16 @@
                 } catch { return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>' }; }
             }
 
+            // === HELPERS ===
+            function fixImageUrl(url) {
+                if (!url) return '';
+                // Ubah github.com/blob/ menjadi raw.githubusercontent.com/
+                if (url.includes('github.com') && !url.includes('raw.githubusercontent.com')) {
+                    url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                return url;
+            }
+
             function getExcerpt(content) {
                 if (!content) return '';
                 let text = content.replace(/[#*`>\[\]()!|]/g, '').replace(/\n/g, ' ').trim();
@@ -617,8 +619,7 @@
                 categoryBar.innerHTML = html;
                 categoryBar.querySelectorAll('.category-chip').forEach(chip => {
                     chip.addEventListener('click', () => {
-                        const tag = chip.dataset.tag;
-                        activeTagFilter = (activeTagFilter === tag) ? null : tag;
+                        activeTagFilter = (activeTagFilter === chip.dataset.tag) ? null : chip.dataset.tag;
                         applyFilters();
                     });
                 });
@@ -644,17 +645,15 @@
 
             function cardHTML(post, index) {
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
-                const img = post.metadata.gambar || post.metadata.image || '';
+                const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
                 const tag = post.metadata.tag || post.metadata.kategori || '';
                 const ver = post.metadata.versi || post.metadata.version || '';
                 const excerpt = getExcerpt(post.content);
                 const delay = index * 0.04 + 's';
-                const imgHTML = img
-                    ? `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">`
-                    : '';
+                const imgTag = img ? `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">` : '';
                 return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
                     <div class="card-img${img ? '' : ' error'}">
-                        ${imgHTML}
+                        ${imgTag}
                         <span class="placeholder-icon">📦</span>
                     </div>
                     <div class="card-body">
@@ -705,10 +704,12 @@
 
             function buildScreenshotGallery(screenshotsStr) {
                 if (!screenshotsStr) return '';
-                const urls = screenshotsStr.split(',').map(url => url.trim()).filter(url => url.length > 0);
+                const urls = screenshotsStr.split(',').map(url => fixImageUrl(url.trim())).filter(url => url.length > 0);
                 if (urls.length === 0) return '';
-                const imagesHtml = urls.map(url => `<img src="${url}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox('${url}')">`).join('');
-                return `<div class="screenshot-gallery">${imagesHtml}</div>`;
+                // Maksimal 5 gambar
+                const limited = urls.slice(0, 5);
+                const imagesHtml = limited.map(url => `<img src="${url}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox('${url}')">`).join('');
+                return `<div class="screenshot-scroll">${imagesHtml}</div>`;
             }
 
             window.openLightbox = function(url) {
@@ -723,7 +724,7 @@
                 const post = fetchedPosts.find(p => p.name === name);
                 if (!post) return;
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
-                const img = post.metadata.gambar || post.metadata.image || '';
+                const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
                 const v = post.metadata.versi || post.metadata.version || '?';
                 const s = post.metadata.ukuran || post.metadata.size || '?';
                 const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
@@ -732,7 +733,7 @@
                 const galleryHtml = buildScreenshotGallery(screenshots);
                 detailContent.innerHTML = `
                 <div class="detail-header">
-                    ${img ? `<img src="${img}" class="detail-img" alt="${t}">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;">📱</div>'}
+                    ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;">📱</div>'}
                     <h1 class="detail-title">${t}</h1>
                     <div class="detail-meta-grid">
                         <div class="meta-item"><strong>Versi</strong> ${v}</div>
@@ -771,11 +772,8 @@
             (async () => {
                 await renderHome();
                 const { page, postName } = getHashPage();
-                if (page === 'detail' && postName) {
-                    navigate('detail', postName);
-                } else {
-                    navigate(page);
-                }
+                if (page === 'detail' && postName) navigate('detail', postName);
+                else navigate(page);
             })();
         })();
     </script>
