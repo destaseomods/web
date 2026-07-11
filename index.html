@@ -10,72 +10,54 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
-            --bg: #0c0c14;
-            --surface: #161625;
-            --surface2: #1e1e2e;
-            --border: rgba(255, 255, 255, 0.08);
-            --text: #f0f0f5;
-            --text2: #b0b0c0;
-            --accent: #7c4dff;
-            --accent2: #00e5ff;
-            --grad: linear-gradient(135deg, #7c4dff, #00e5ff);
-            --radius: 20px;
-            --radius-sm: 14px;
-            --nav-height: 70px;
+            --bg: #0c0c14; --surface: #161625; --surface2: #1e1e2e;
+            --border: rgba(255, 255, 255, 0.08); --text: #f0f0f5; --text2: #b0b0c0;
+            --accent: #7c4dff; --accent2: #00e5ff; --grad: linear-gradient(135deg, #7c4dff, #00e5ff);
+            --radius: 20px; --radius-sm: 14px; --nav-height: 70px;
             --safe-bottom: env(safe-area-inset-bottom, 16px);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.5;
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);
+            line-height: 1.5; min-height: 100vh;
             padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 10px);
-            -webkit-tap-highlight-color: transparent;
-            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent; overflow-x: hidden;
         }
         .container { max-width: 700px; margin: 0 auto; padding: 12px 16px; }
         .topbar {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 10px 16px;
-            background: rgba(22, 22, 37, 0.7);
+            padding: 10px 16px; background: rgba(22, 22, 37, 0.7);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            position: sticky; top: 0; z-index: 99;
-            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 99; border-bottom: 1px solid var(--border);
         }
         .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
         .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; right: 0;
-            background: rgba(18, 18, 28, 0.85);
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border-top: 1px solid var(--border);
-            display: flex; justify-content: space-around; align-items: center;
-            height: var(--nav-height); padding-bottom: var(--safe-bottom);
-            z-index: 100;
+            background: rgba(18, 18, 28, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-top: 1px solid var(--border); display: flex; justify-content: space-around;
+            align-items: center; height: var(--nav-height); padding-bottom: var(--safe-bottom); z-index: 100;
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center;
-            color: var(--text2); font-size: 0.7rem; font-weight: 500;
-            gap: 4px; transition: 0.2s; cursor: pointer;
-            background: none; border: none; padding: 8px 12px; border-radius: 16px;
+            color: var(--text2); font-size: 0.7rem; font-weight: 500; gap: 4px;
+            transition: 0.2s; cursor: pointer; background: none; border: none;
+            padding: 8px 12px; border-radius: 16px;
         }
         .nav-item.active { color: var(--accent2); background: rgba(0, 229, 255, 0.1); }
         .nav-item svg { width: 22px; height: 22px; }
         .post-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 8px; }
         @media (min-width: 500px) { .post-grid { grid-template-columns: 1fr 1fr; } }
         .post-card {
-            background: var(--surface); border-radius: var(--radius-sm);
-            overflow: hidden; border: 1px solid var(--border);
-            transition: 0.25s; cursor: pointer; display: flex; flex-direction: column;
+            background: var(--surface); border-radius: var(--radius-sm); overflow: hidden;
+            border: 1px solid var(--border); transition: 0.25s; cursor: pointer;
+            display: flex; flex-direction: column;
         }
         .post-card:active { transform: scale(0.97); }
         .post-card:hover { border-color: rgba(255,255,255,0.2); box-shadow: 0 8px 24px rgba(124,77,255,0.2); }
         .card-img {
-            width: 100%; height: 140px; object-fit: cover;
-            background: var(--surface2); display: flex; align-items: center;
-            justify-content: center; color: var(--text2); font-size: 2rem;
+            width: 100%; height: 140px; object-fit: cover; background: var(--surface2);
+            display: flex; align-items: center; justify-content: center; color: var(--text2); font-size: 2rem;
         }
         .card-body { padding: 14px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
         .card-title { font-weight: 700; font-size: 1rem; line-height: 1.3; }
@@ -83,9 +65,8 @@
         .badge { background: rgba(124,77,255,0.2); color: #b388ff; padding: 2px 10px; border-radius: 20px; font-weight: 600; font-size: 0.7rem; }
         .download-btn {
             margin-top: auto; background: var(--grad); border: none; color: #000;
-            font-weight: 700; font-size: 0.8rem; padding: 8px 12px;
-            border-radius: 30px; text-align: center; cursor: pointer;
-            transition: 0.2s; letter-spacing: -0.2px;
+            font-weight: 700; font-size: 0.8rem; padding: 8px 12px; border-radius: 30px;
+            text-align: center; cursor: pointer; transition: 0.2s; letter-spacing: -0.2px;
         }
         .download-btn:hover { filter: brightness(1.2); }
         .hidden { display: none !important; }
@@ -144,10 +125,11 @@
             <div class="content-box">
                 <h2 style="font-weight:800;">Tentang Destaseo Mods</h2>
                 <p style="color:var(--text2); margin-top:12px;">
-                    Destaseo Mods adalah platform berbagi mod APK, tutorial, dan informasi seputar dunia modding Android. Dirancang dengan tampilan modern ala aplikasi, didukung penuh oleh GitHub Pages.
+                    Destaseo Mods adalah platform berbagi mod APK, tutorial, dan informasi seputar dunia modding Android. 
+                    Tampilan modern ala aplikasi, didukung oleh GitHub Pages.
                 </p>
                 <p style="color:var(--text2);">
-                    Semua postingan diambil dari folder <code>posts/</code>. Cukup tambah file <code>.md</code> dan update <code>index.json</code>.
+                    Postingan diambil otomatis dari folder <code>posts/</code> repository. Cukup tambah file <code>.md</code> untuk update konten.
                 </p>
             </div>
         </section>
@@ -166,7 +148,10 @@
 
     <script>
         (function() {
-            const POSTS_DIR = 'posts/';
+            // ⚙️ Konfigurasi cache (10 menit) agar tidak kena rate limit
+            const CACHE_KEY = 'destaseo_posts_cache';
+            const CACHE_DURATION = 10 * 60 * 1000; // 10 menit
+
             const postContainer = document.getElementById('post-container');
             const homeSection = document.getElementById('home-section');
             const detailSection = document.getElementById('detail-section');
@@ -178,6 +163,7 @@
             let postsData = [];
             let fetchedPosts = [];
 
+            // --- Navigasi ---
             function showSection(section) {
                 homeSection.classList.add('hidden');
                 detailSection.classList.add('hidden');
@@ -191,22 +177,69 @@
                 });
             }
 
-            async function fetchPostList() {
-                // Fetch daftar dari index.json (lokal maupun GitHub Pages)
-                const res = await fetch(POSTS_DIR + 'index.json');
-                if (!res.ok) throw new Error('File posts/index.json tidak ditemukan. Pastikan file tersebut ada dan berisi daftar file .md.');
-                const list = await res.json();
-                if (!Array.isArray(list)) throw new Error('Format index.json salah, harus array string.');
-                const mdFiles = list.filter(f => typeof f === 'string' && f.endsWith('.md'));
-                if (mdFiles.length === 0) throw new Error('index.json tidak berisi file .md.');
-                postsData = mdFiles.map(f => ({
-                    filename: f,
-                    name: f.replace('.md', ''),
-                    download_url: POSTS_DIR + f,
+            // --- Cache management ---
+            function getCachedPosts() {
+                const raw = localStorage.getItem(CACHE_KEY);
+                if (!raw) return null;
+                try {
+                    const cache = JSON.parse(raw);
+                    if (Date.now() - cache.timestamp < CACHE_DURATION) {
+                        return cache.posts;
+                    }
+                } catch (e) {}
+                return null;
+            }
+
+            function setCachedPosts(posts) {
+                localStorage.setItem(CACHE_KEY, JSON.stringify({
+                    timestamp: Date.now(),
+                    posts: posts
                 }));
+            }
+
+            // --- Fetch daftar postingan dari GitHub API ---
+            async function fetchPostList() {
+                // 1. Cek cache
+                const cached = getCachedPosts();
+                if (cached) {
+                    console.log('✅ Pakai cache');
+                    postsData = cached;
+                    return postsData;
+                }
+
+                // 2. Ambil dari GitHub API
+                if (!window.location.hostname.includes('github.io')) {
+                    throw new Error('🔧 Buka halaman ini di GitHub Pages. Jika ingin development lokal, gunakan Live Server dan tambahkan daftar manual di LOCAL_POST_FILES (lihat komentar di script).');
+                }
+
+                const pathParts = window.location.pathname.split('/').filter(p => p);
+                if (pathParts.length < 2) {
+                    throw new Error('Gagal membaca username/repo dari URL.');
+                }
+                const apiUrl = `https://api.github.com/repos/${pathParts[0]}/${pathParts[1]}/contents/posts`;
+
+                const res = await fetch(apiUrl);
+                if (!res.ok) {
+                    if (res.status === 404) throw new Error('Folder "posts/" tidak ditemukan. Pastikan folder sudah ada di root repo dan berisi file .md.');
+                    if (res.status === 403) throw new Error('API limit tercapai atau repo private. Pastikan repo PUBLIC.');
+                    throw new Error(`Gagal fetch data (${res.status}).`);
+                }
+
+                const files = await res.json();
+                const mdFiles = files.filter(f => f.name.endsWith('.md'));
+                if (mdFiles.length === 0) throw new Error('Tidak ada file .md di folder posts/.');
+
+                postsData = mdFiles.map(f => ({
+                    filename: f.name,
+                    name: f.name.replace('.md', ''),
+                    download_url: f.download_url,
+                }));
+
+                setCachedPosts(postsData);
                 return postsData;
             }
 
+            // --- Parse frontmatter ---
             function parseFrontmatter(md) {
                 const match = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
                 if (!match) return { metadata: {}, content: md };
@@ -232,7 +265,6 @@
                     const { metadata, content } = parseFrontmatter(md);
                     return { ...postInfo, metadata, content, html: marked.parse(content) };
                 } catch (err) {
-                    console.error('Gagal fetch post:', postInfo.filename, err);
                     return { ...postInfo, metadata: {}, content: '', html: '<p>Gagal memuat konten.</p>' };
                 }
             }
@@ -340,6 +372,7 @@
                 });
             });
 
+            // Mulai
             (async () => {
                 await renderHome();
                 goHome();
