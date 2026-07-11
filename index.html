@@ -321,6 +321,10 @@
             box-shadow: 0 6px 24px rgba(0,0,0,0.6);
         }
         .big-download:active { transform: scale(0.96); }
+        .big-download.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
         .content-box {
             background: var(--surface); backdrop-filter: blur(24px);
             border: 1px solid var(--border); border-radius: var(--radius);
@@ -337,7 +341,6 @@
         }
         .back-btn:hover { opacity: 0.8; }
 
-        /* Overlay Iklan */
         .ad-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85);
@@ -468,7 +471,6 @@
 <body>
     <canvas id="particles"></canvas>
 
-    <!-- Overlay Iklan Countdown -->
     <div id="ad-overlay" class="ad-overlay hidden">
         <div class="ad-message">Iklan akan selesai dalam</div>
         <div class="ad-countdown" id="ad-countdown">5</div>
@@ -498,28 +500,22 @@
             <div class="search-container hidden" id="search-box">
                 <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit...">
             </div>
-
             <div class="category-bar" id="category-bar"></div>
-
             <div class="popular-section" id="popular-section">
                 <div class="carousel-wrapper">
                     <div class="carousel-title-top"># Urutan Populer</div>
                     <div class="carousel-track" id="carousel-track"></div>
                 </div>
             </div>
-
             <hr class="section-divider">
-
             <div id="filter-indicator" class="filter-indicator hidden"></div>
             <div id="post-container" class="post-grid"></div>
             <div id="load-more-container" style="text-align: center;"></div>
         </section>
-
         <section id="detail-section" class="hidden">
             <button class="back-btn" id="detail-back">← Kembali</button>
             <div id="detail-content"></div>
         </section>
-
         <section id="profile-section" class="hidden">
             <div class="profile-card">
                 <div class="profile-avatar" id="profile-avatar" style="background-image: url('https://avatars.githubusercontent.com/u/189899710?v=4');"></div>
@@ -607,7 +603,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v22';
+            const CACHE_KEY = 'destaseo_premium_cache_v23';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -652,8 +648,11 @@
             document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
 
-            // Fungsi overlay iklan
             function showAdOverlay(downloadUrl) {
+                if (!downloadUrl || downloadUrl === '#') {
+                    alert('Link download tidak tersedia.');
+                    return;
+                }
                 pendingDownloadUrl = downloadUrl;
                 let seconds = 5;
                 adCountdown.textContent = seconds;
@@ -675,7 +674,6 @@
                     }
                 }, 1000);
 
-                // Tampilkan tombol skip setelah 2 detik
                 setTimeout(() => {
                     adSkipBtn.style.display = 'block';
                 }, 2000);
@@ -1036,9 +1034,15 @@
                 const v = post.metadata.versi || post.metadata.version || '?';
                 const s = post.metadata.ukuran || post.metadata.size || '?';
                 const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
-                const dwn = post.metadata.download || post.metadata.link || '#';
+                const dwn = post.metadata.download || post.metadata.link || '';
                 const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
                 const galleryHtml = buildScreenshotGallery(screenshots);
+
+                const hasDownload = dwn && dwn !== '#';
+                const downloadButtonHtml = hasDownload ? 
+                    `<a href="${dwn}" target="_blank" class="big-download" id="detail-download-btn">⬇ Download APK</a>` : 
+                    `<div class="big-download disabled">Link Download Tidak Tersedia</div>`;
+
                 detailContent.innerHTML = `
                 <div class="detail-header">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;">📱</div>'}
@@ -1051,18 +1055,17 @@
                     ${galleryHtml}
                 </div>
                 <div class="content-box">${post.html || '<p>Tidak ada deskripsi.</p>'}</div>
-                <a href="${dwn}" target="_blank" class="big-download" id="detail-download-btn">⬇ Download APK</a>`;
+                ${downloadButtonHtml}`;
 
-                // Pasang event untuk tombol download agar melalui iklan
-                const downloadBtn = document.getElementById('detail-download-btn');
-                if (downloadBtn) {
-                    downloadBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const url = this.getAttribute('href');
-                        if (url && url !== '#') {
+                if (hasDownload) {
+                    const downloadBtn = document.getElementById('detail-download-btn');
+                    if (downloadBtn) {
+                        downloadBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const url = this.getAttribute('href');
                             showAdOverlay(url);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 showSection(detailSection);
