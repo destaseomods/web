@@ -10,9 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
+    </script>
     <style>
-        /* ... (CSS sama seperti sebelumnya, tanpa perubahan) ... */
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -27,11 +27,15 @@
             --radius-sm: 20px;
             --nav-height: 76px;
             --safe-bottom: env(safe-area-inset-bottom, 16px);
-            --shadow-card: 0 16px 48px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06);
-            --glow: 0 0 60px rgba(168,127,255,0.4);
+            --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06);
+            --glow: 0 0 60px rgba(168, 127, 255, 0.4);
             --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
@@ -44,28 +48,52 @@
             position: relative;
         }
         canvas#particles {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 0; opacity: 0.7;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.7;
         }
-        .container { max-width: 760px; margin: 0 auto; padding: 12px 20px; position: relative; z-index: 2; }
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            position: relative;
+            z-index: 2;
+        }
 
         .topbar {
-            display: flex; align-items: center; justify-content: space-between;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             padding: 14px 22px;
-            background: rgba(12,12,25,0.65);
-            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            background: rgba(12, 12, 25, 0.65);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--border);
             border-radius: 34px;
             margin: 12px auto;
             max-width: 700px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
-            position: sticky; top: 14px; z-index: 99;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            position: sticky;
+            top: 14px;
+            z-index: 99;
         }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         .logo-img {
-            width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.2);
-            box-shadow: 0 0 15px rgba(168,127,255,0.4);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(168, 127, 255, 0.4);
         }
         .logo-text {
             font-family: 'Outfit', sans-serif;
@@ -79,100 +107,178 @@
             animation: gradientShift 3s ease infinite alternate;
         }
         @keyframes gradientShift {
-            0% { background-position: 0% center; }
-            100% { background-position: 100% center; }
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 100% center;
+            }
         }
-        .telegram-wrapper { position: relative; }
+        .telegram-wrapper {
+            position: relative;
+        }
         .telegram-btn {
-            background: var(--surface); border: 1px solid var(--border);
-            color: var(--accent2); padding: 8px 18px; border-radius: 30px;
-            font-size: 0.85rem; font-weight: 600; cursor: pointer;
-            display: flex; align-items: center; gap: 8px;
-            transition: var(--transition); backdrop-filter: blur(16px);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--accent2);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            backdrop-filter: blur(16px);
             white-space: nowrap;
         }
         .telegram-btn:hover {
             border-color: var(--accent2);
-            box-shadow: 0 0 25px rgba(62,224,255,0.4);
-            background: rgba(62,224,255,0.1);
+            box-shadow: 0 0 25px rgba(62, 224, 255, 0.4);
+            background: rgba(62, 224, 255, 0.1);
         }
         .telegram-dropdown {
-            position: absolute; top: 100%; right: 0; margin-top: 8px;
-            background: var(--surface); backdrop-filter: blur(24px);
-            border: 1px solid var(--border); border-radius: 20px;
-            padding: 8px; min-width: 180px;
-            display: none; flex-direction: column; gap: 4px;
-            box-shadow: 0 12px 32px rgba(0,0,0,0.8);
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: var(--surface);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 8px;
+            min-width: 180px;
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
             z-index: 150;
         }
-        .telegram-dropdown.show { display: flex; }
+        .telegram-dropdown.show {
+            display: flex;
+        }
         .telegram-dropdown a {
-            color: var(--text); text-decoration: none;
-            padding: 10px 14px; border-radius: 14px;
-            font-size: 0.85rem; font-weight: 500;
-            display: flex; align-items: center; gap: 10px;
+            color: var(--text);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             transition: background 0.2s;
         }
         .telegram-dropdown a:hover {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
         }
-        .telegram-dropdown a i { width: 18px; text-align: center; }
+        .telegram-dropdown a i {
+            width: 18px;
+            text-align: center;
+        }
 
-        .search-container { margin: 8px 0 16px; display: flex; gap: 8px; }
+        .search-container {
+            margin: 8px 0 16px;
+            display: flex;
+            gap: 8px;
+        }
         .search-input {
-            flex: 1; background: var(--surface); backdrop-filter: blur(16px);
-            border: 1px solid var(--border); border-radius: 30px;
-            padding: 12px 20px; color: #fff; font-size: 0.95rem;
-            font-family: inherit; outline: none; transition: var(--transition);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+            flex: 1;
+            background: var(--surface);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 12px 20px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
         .search-input:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 30px rgba(168,127,255,0.5);
+            box-shadow: 0 0 30px rgba(168, 127, 255, 0.5);
         }
-        .search-input::placeholder { color: var(--text2); }
+        .search-input::placeholder {
+            color: var(--text2);
+        }
 
         .category-bar {
-            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
             align-items: center;
         }
         .category-chip {
-            background: var(--surface); border: 1px solid var(--border);
-            padding: 6px 14px; border-radius: 20px;
-            color: var(--text2); font-size: 0.75rem; font-weight: 600;
-            cursor: pointer; transition: var(--transition);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: var(--text2);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
             backdrop-filter: blur(10px);
         }
-        .category-chip i { margin-right: 4px; }
-        .category-chip.active, .category-chip:hover {
-            background: rgba(168,127,255,0.2); border-color: var(--accent);
+        .category-chip i {
+            margin-right: 4px;
+        }
+        .category-chip.active,
+        .category-chip:hover {
+            background: rgba(168, 127, 255, 0.2);
+            border-color: var(--accent);
             color: #fff;
         }
         .reset-filter {
-            background: none; border: none; color: var(--accent2);
-            font-size: 0.75rem; font-weight: 600; cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--accent2);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
             padding: 6px 12px;
         }
-        .reset-filter i { margin-right: 4px; }
+        .reset-filter i {
+            margin-right: 4px;
+        }
 
         .sort-bar {
-            display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
             justify-content: flex-end;
         }
         .sort-label {
-            color: var(--text2); font-size: 0.75rem; font-weight: 500;
+            color: var(--text2);
+            font-size: 0.75rem;
+            font-weight: 500;
         }
         .sort-select {
-            background: var(--surface); backdrop-filter: blur(10px);
-            border: 1px solid var(--border); border-radius: 20px;
-            padding: 6px 12px; color: #fff; font-size: 0.75rem;
-            font-family: inherit; outline: none; cursor: pointer;
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 6px 12px;
+            color: #fff;
+            font-size: 0.75rem;
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
             transition: var(--transition);
         }
-        .sort-select:hover { border-color: var(--accent2); }
+        .sort-select:hover {
+            border-color: var(--accent2);
+        }
 
-        .popular-section { margin-bottom: 0; }
+        .popular-section {
+            margin-bottom: 0;
+        }
         .carousel-wrapper {
             position: relative;
             overflow: hidden;
@@ -190,7 +296,8 @@
         }
         .carousel-slide {
             position: absolute;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             cursor: pointer;
@@ -207,37 +314,45 @@
             height: 100%;
             object-fit: cover;
             position: absolute;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
         }
         .carousel-slide .slide-overlay {
             position: absolute;
-            bottom: 0; left: 0; right: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
             padding: 16px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
             color: #fff;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
         }
         .carousel-slide .slide-title {
-            font-weight: 800; font-size: 1rem; line-height: 1.3;
+            font-weight: 800;
+            font-size: 1rem;
+            line-height: 1.3;
         }
         .carousel-title-top {
             position: absolute;
-            top: 14px; left: 16px;
+            top: 14px;
+            left: 16px;
             font-size: 0.8rem;
             font-weight: 700;
             color: #fff;
             z-index: 5;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(8px);
             padding: 5px 14px;
             border-radius: 20px;
-            display: flex; align-items: center; gap: 6px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
         }
         .carousel-counter {
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(6px);
             color: #fff;
             padding: 4px 12px;
@@ -259,50 +374,100 @@
             gap: 16px;
         }
         .post-card {
-            background: var(--surface); backdrop-filter: blur(22px);
-            border: 1px solid var(--border); border-radius: var(--radius-sm);
-            overflow: hidden; cursor: pointer;
-            transition: all 0.45s cubic-bezier(0.4,0,0.2,1);
-            display: flex; flex-direction: column;
+            background: var(--surface);
+            backdrop-filter: blur(22px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
             animation: fadeInUp 0.5s ease forwards;
-            opacity: 0; transform: translateY(25px);
+            opacity: 0;
+            transform: translateY(25px);
         }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
         .post-card:hover {
             transform: translateY(-8px) scale(1.02);
-            border-color: rgba(255,255,255,0.2);
-            box-shadow: var(--glow), 0 25px 50px rgba(0,0,0,0.9);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: var(--glow), 0 25px 50px rgba(0, 0, 0, 0.9);
         }
-        .post-card:active { transform: scale(0.97); }
+        .post-card:active {
+            transform: scale(0.97);
+        }
         .card-img {
-            width: 100%; height: 140px; object-fit: cover;
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
             background: linear-gradient(135deg, #1e1e35, #10101c);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text2); font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text2);
+            font-size: 2.5rem;
             position: relative;
             overflow: hidden;
         }
         .card-img img {
-            width: 100%; height: 100%; object-fit: cover;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
         .card-img .placeholder-icon {
             display: none;
             font-size: 2.5rem;
         }
-        .card-img.error .placeholder-icon { display: block; }
-        .card-img.error img { display: none; }
-        .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-        .card-title { font-weight: 800; font-size: 0.85rem; line-height: 1.3; color: #fff; }
-        .card-meta { font-size: 0.7rem; color: var(--text2); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-        .badge {
-            background: rgba(168,127,255,0.2); color: #cfc4ff;
-            padding: 2px 10px; border-radius: 20px; font-weight: 700; font-size: 0.65rem;
-            cursor: pointer; transition: 0.2s;
+        .card-img.error .placeholder-icon {
+            display: block;
         }
-        .badge:hover { background: rgba(168,127,255,0.4); color: #fff; }
-        .version-tag, .date-tag {
-            background: rgba(255,255,255,0.08);
+        .card-img.error img {
+            display: none;
+        }
+        .card-body {
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .card-title {
+            font-weight: 800;
+            font-size: 0.85rem;
+            line-height: 1.3;
+            color: #fff;
+        }
+        .card-meta {
+            font-size: 0.7rem;
+            color: var(--text2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: rgba(168, 127, 255, 0.2);
+            color: #cfc4ff;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.65rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .badge:hover {
+            background: rgba(168, 127, 255, 0.4);
+            color: #fff;
+        }
+        .version-tag,
+        .date-tag {
+            background: rgba(255, 255, 255, 0.08);
             padding: 2px 10px;
             border-radius: 14px;
             font-size: 0.65rem;
@@ -313,7 +478,8 @@
             gap: 4px;
         }
         .card-excerpt {
-            font-size: 0.72rem; color: var(--text2);
+            font-size: 0.72rem;
+            color: var(--text2);
             line-height: 1.4;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -335,15 +501,22 @@
         }
         .load-more-btn:hover {
             border-color: var(--accent2);
-            box-shadow: 0 0 25px rgba(62,224,255,0.4);
-            background: rgba(62,224,255,0.1);
+            box-shadow: 0 0 25px rgba(62, 224, 255, 0.4);
+            background: rgba(62, 224, 255, 0.1);
         }
 
-        .hidden { display: none !important; }
-        .detail-header, .profile-card {
-            background: var(--surface); backdrop-filter: blur(24px);
-            border: 1px solid var(--border); border-radius: var(--radius);
-            padding: 28px; margin-bottom: 12px; box-shadow: var(--shadow-card);
+        .hidden {
+            display: none !important;
+        }
+        .detail-header,
+        .profile-card {
+            background: var(--surface);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-card);
         }
         .detail-img {
             display: block;
@@ -353,9 +526,14 @@
             border-radius: 20px;
             background: var(--surface2);
             margin: 0 auto 16px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
         }
-        .detail-title { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.3px; text-align: center; }
+        .detail-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            text-align: center;
+        }
         .detail-meta-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -373,17 +551,39 @@
             align-items: center;
             justify-content: center;
         }
-        .meta-item i { color: var(--accent2); margin-bottom: 4px; font-size: 0.9rem; }
-        .meta-item strong { color: var(--accent2); font-size: 0.75rem; }
-        .big-download {
-            display: block; width: 100%; background: var(--grad1); border: none;
-            color: #04040e; font-weight: 700; font-size: 1rem; padding: 15px;
-            border-radius: 18px; margin: 20px 0 0; cursor: pointer; transition: 0.2s;
-            letter-spacing: -0.3px; text-decoration: none; text-align: center;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+        .meta-item i {
+            color: var(--accent2);
+            margin-bottom: 4px;
+            font-size: 0.9rem;
         }
-        .big-download i { margin-right: 6px; }
-        .big-download:active { transform: scale(0.96); }
+        .meta-item strong {
+            color: var(--accent2);
+            font-size: 0.75rem;
+        }
+        .big-download {
+            display: block;
+            width: 100%;
+            background: var(--grad1);
+            border: none;
+            color: #04040e;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 15px;
+            border-radius: 18px;
+            margin: 20px 0 0;
+            cursor: pointer;
+            transition: 0.2s;
+            letter-spacing: -0.3px;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+        }
+        .big-download i {
+            margin-right: 6px;
+        }
+        .big-download:active {
+            transform: scale(0.96);
+        }
         .big-download.disabled {
             opacity: 0.5;
             pointer-events: none;
@@ -396,57 +596,132 @@
             border: 1px solid var(--border);
         }
         .content-box {
-            background: var(--surface); backdrop-filter: blur(24px);
-            border: 1px solid var(--border); border-radius: var(--radius);
+            background: var(--surface);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             padding: 16px 28px;
-            line-height: 1.8; box-shadow: var(--shadow-card);
+            line-height: 1.8;
+            box-shadow: var(--shadow-card);
             white-space: pre-line;
         }
-        .content-box img { max-width: 100%; border-radius: 16px; margin: 12px 0; }
-        .content-box pre { background: #050510; padding: 16px; border-radius: 16px; overflow-x: auto; white-space: pre; }
+        .content-box img {
+            max-width: 100%;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+        .content-box pre {
+            background: #050510;
+            padding: 16px;
+            border-radius: 16px;
+            overflow-x: auto;
+            white-space: pre;
+        }
         .back-btn {
-            background: none; border: none; color: var(--accent2); font-weight: 700;
-            display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
-            cursor: pointer; font-size: 0.95rem; padding: 10px 0;
+            background: none;
+            border: none;
+            color: var(--accent2);
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            padding: 10px 0;
             transition: opacity 0.2s;
         }
-        .back-btn:hover { opacity: 0.8; }
+        .back-btn:hover {
+            opacity: 0.8;
+        }
 
         .profile-avatar {
-            width: 100px; height: 100px; border-radius: 50%;
-            background: var(--surface2); margin: 0 auto 20px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2.8rem; color: #fff;
-            box-shadow: 0 10px 40px rgba(255,100,165,0.4);
-            background-size: cover; background-position: center;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--surface2);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: #fff;
+            box-shadow: 0 10px 40px rgba(255, 100, 165, 0.4);
+            background-size: cover;
+            background-position: center;
         }
-        .profile-name { text-align: center; font-size: 1.5rem; font-weight: 800; }
-        .profile-bio { text-align: center; color: var(--text2); margin: 10px 0 20px; }
-        .social-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .profile-name {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        .profile-bio {
+            text-align: center;
+            color: var(--text2);
+            margin: 10px 0 20px;
+        }
+        .social-links {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
         .social-link {
-            background: var(--surface2); padding: 10px 20px; border-radius: 30px;
-            color: var(--accent2); text-decoration: none; font-weight: 600; font-size: 0.85rem;
-            transition: var(--transition); border: 1px solid transparent;
-            display: flex; align-items: center; gap: 8px;
+            background: var(--surface2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: var(--accent2);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .social-link i { font-size: 1rem; }
-        .social-link:hover { border-color: var(--accent2); background: rgba(62,224,255,0.1); }
+        .social-link i {
+            font-size: 1rem;
+        }
+        .social-link:hover {
+            border-color: var(--accent2);
+            background: rgba(62, 224, 255, 0.1);
+        }
         .donate-section {
-            margin-top: 24px; text-align: center;
-            border-top: 1px solid var(--border); padding-top: 20px;
+            margin-top: 24px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
         }
-        .donate-title { color: var(--text2); margin-bottom: 12px; font-weight: 600; }
-        .donate-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .donate-title {
+            color: var(--text2);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .donate-links {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
         .qris-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(10px);
             z-index: 250;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             flex-direction: column;
         }
-        .qris-overlay.hidden { display: none; }
+        .qris-overlay.hidden {
+            display: none;
+        }
         .qris-container {
             background: var(--surface2);
             border: 1px solid var(--border);
@@ -461,7 +736,8 @@
             border-radius: 16px;
             margin-bottom: 16px;
         }
-        .qris-close-btn, .qris-download-btn {
+        .qris-close-btn,
+        .qris-download-btn {
             background: var(--surface);
             border: 1px solid var(--border);
             color: #fff;
@@ -472,7 +748,10 @@
             transition: 0.2s;
             margin: 4px;
         }
-        .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255,255,255,0.1); }
+        .qris-close-btn:hover,
+        .qris-download-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
 
         .tags-container {
             margin-top: 12px;
@@ -481,7 +760,7 @@
             gap: 6px;
         }
         .tag-badge {
-            background: rgba(255,255,255,0.06);
+            background: rgba(255, 255, 255, 0.06);
             color: var(--text2);
             padding: 3px 10px;
             border-radius: 14px;
@@ -520,46 +799,94 @@
             border-color: var(--accent);
         }
         .lightbox {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 200;
-            display: flex; align-items: center; justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: zoom-out;
         }
         .lightbox img {
-            max-width: 95vw; max-height: 95vh; border-radius: 16px;
+            max-width: 95vw;
+            max-height: 95vh;
+            border-radius: 16px;
         }
 
         .bottom-nav {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: rgba(5,5,15,0.85); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(5, 5, 15, 0.85);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
             border-top: 1px solid var(--border);
-            display: flex; justify-content: space-around; align-items: center;
-            height: var(--nav-height); padding-bottom: var(--safe-bottom);
-            z-index: 100; box-shadow: 0 -6px 30px rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: var(--nav-height);
+            padding-bottom: var(--safe-bottom);
+            z-index: 100;
+            box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.8);
         }
         .nav-item {
-            display: flex; flex-direction: column; align-items: center;
-            color: var(--text2); font-size: 0.7rem; font-weight: 600; gap: 5px;
-            transition: 0.25s; cursor: pointer; background: none; border: none;
-            padding: 10px 18px; border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text2);
+            font-size: 0.7rem;
+            font-weight: 600;
+            gap: 5px;
+            transition: 0.25s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 24px;
         }
-        .nav-item.active { color: var(--accent2); background: rgba(62,224,255,0.12); }
-        .nav-item i { font-size: 1.3rem; }
+        .nav-item.active {
+            color: var(--accent2);
+            background: rgba(62, 224, 255, 0.12);
+        }
+        .nav-item i {
+            font-size: 1.3rem;
+        }
 
         .spinner {
-            width: 44px; height: 44px; margin: 50px auto;
-            border: 3px solid rgba(255,255,255,0.06);
-            border-top-color: var(--accent2); border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            margin: 50px auto;
+            border: 3px solid rgba(255, 255, 255, 0.06);
+            border-top-color: var(--accent2);
+            border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .empty-text, .error-text {
-            text-align: center; padding: 45px; color: var(--text2);
-            background: rgba(255,0,0,0.07); border-radius: 24px; margin: 20px 0;
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .empty-text,
+        .error-text {
+            text-align: center;
+            padding: 45px;
+            color: var(--text2);
+            background: rgba(255, 0, 0, 0.07);
+            border-radius: 24px;
+            margin: 20px 0;
         }
         .filter-indicator {
-            display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
-            font-size: 0.85rem; color: var(--accent2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            color: var(--accent2);
         }
     </style>
 </head>
@@ -660,10 +987,7 @@
 
     <script>
         (function() {
-            // ==================== KONFIGURASI ====================
             const GITHUB_REPO = "destaseomods/web";
-            // ⚠️ ISI TOKEN GITHUB KAMU DI SINI (hanya untuk development lokal)
-            const GITHUB_TOKEN = ""; // contoh: "ghp_xxxxxxx"
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
             const AD_INTERVAL = 1 * 60 * 60 * 1000;
             const AD_STORAGE_KEY = 'lastAdClickTimestamp';
@@ -679,14 +1003,15 @@
                     { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane" }
                 ]
             };
-            // ==================== END KONFIGURASI ====================
 
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
             let particles = [];
             const maxParticles = 70;
-            function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-            window.addEventListener('resize', resizeCanvas); resizeCanvas();
+            function resizeCanvas() { canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
             class Particle {
                 constructor() { this.reset(); }
                 reset() {
@@ -698,26 +1023,28 @@
                     this.opacity = Math.random() * 0.5 + 0.2;
                 }
                 update() {
-                    this.x += this.vx; this.y += this.vy;
+                    this.x += this.vx;
+                    this.y += this.vy;
                     if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                     if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
                 }
                 draw() {
                     ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                     ctx.fillStyle = `rgba(168,127,255,${this.opacity})`;
                     ctx.fill();
                 }
             }
-            for(let i=0; i<maxParticles; i++) particles.push(new Particle());
+            for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
             function animateParticles() {
-                ctx.clearRect(0,0,canvas.width,canvas.height);
-                particles.forEach(p => { p.update(); p.draw(); });
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update();
+                    p.draw(); });
                 requestAnimationFrame(animateParticles);
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v47';
+            const CACHE_KEY = 'destaseo_premium_cache_v48';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -741,7 +1068,8 @@
             const qrisDanaBtn = document.getElementById('qris-dana-btn');
             const qrisDownloadBtn = document.getElementById('qris-download-btn');
 
-            let postsData = [], fetchedPosts = [];
+            let postsData = [],
+                fetchedPosts = [];
             let activeKatFilter = null;
             let currentDisplayCount = 0;
             const ITEMS_PER_PAGE = 10;
@@ -764,16 +1092,12 @@
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
 
             if (qrisDanaBtn) {
-                qrisDanaBtn.addEventListener('click', () => {
-                    qrisOverlay.classList.remove('hidden');
-                });
+                qrisDanaBtn.addEventListener('click', () => { qrisOverlay.classList.remove(
+                    'hidden'); });
             }
-            qrisCloseBtn.addEventListener('click', () => {
-                qrisOverlay.classList.add('hidden');
-            });
-            qrisOverlay.addEventListener('click', (e) => {
-                if (e.target === qrisOverlay) qrisOverlay.classList.add('hidden');
-            });
+            qrisCloseBtn.addEventListener('click', () => { qrisOverlay.classList.add('hidden'); });
+            qrisOverlay.addEventListener('click', (e) => { if (e.target === qrisOverlay) qrisOverlay.classList
+                    .add('hidden'); });
 
             qrisDownloadBtn.addEventListener('click', async () => {
                 try {
@@ -798,9 +1122,7 @@
                 }
             });
 
-            sortSelect.addEventListener('change', () => {
-                resetAndApplyFilters();
-            });
+            sortSelect.addEventListener('change', () => { resetAndApplyFilters(); });
 
             function getHashPage() {
                 const hash = window.location.hash.slice(1);
@@ -821,10 +1143,8 @@
                 section.classList.remove('hidden');
             }
             function setActiveNav(page) {
-                navItems.forEach(i => {
-                    const p = i.dataset.page;
-                    i.classList.toggle('active', p === page || (page === 'detail' && p === 'home'));
-                });
+                navItems.forEach(i => { i.classList.toggle('active', i.dataset.page === page || (page ===
+                        'detail' && i.dataset.page === 'home')); });
             }
             function navigate(page, postName) {
                 if (page === 'home') {
@@ -877,25 +1197,22 @@
             function getCache() {
                 const raw = localStorage.getItem(CACHE_KEY);
                 if (!raw) return null;
-                try { const d = JSON.parse(raw); if (Date.now()-d.t < CACHE_TIME) return d.posts; } catch(e) {}
+                try { const d = JSON.parse(raw); if (Date.now() - d.t < CACHE_TIME) return d.posts; } catch (e) {}
                 return null;
             }
-            function setCache(posts) { localStorage.setItem(CACHE_KEY, JSON.stringify({t: Date.now(), posts})); }
+            function setCache(posts) { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), posts })); }
 
             async function fetchPostList() {
                 const cached = getCache();
                 if (cached) { postsData = cached; return; }
                 let apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
-                const headers = {};
-                if (GITHUB_TOKEN) {
-                    headers['Authorization'] = `token ${GITHUB_TOKEN}`;
-                }
-                const res = await fetch(apiUrl, { headers });
-                if (!res.ok) throw new Error(`Gagal fetch (${res.status}).${res.status === 403 ? ' Tambahkan token di variabel GITHUB_TOKEN.' : ''}`);
+                const res = await fetch(apiUrl);
+                if (!res.ok) throw new Error(`Gagal fetch (${res.status}). Pastikan repository PUBLIC.`);
                 const files = await res.json();
                 const mdFiles = files.filter(f => f.name.endsWith('.md'));
                 if (!mdFiles.length) throw new Error('Tidak ada file .md di posts/.');
-                postsData = mdFiles.map(f => ({ filename: f.name, name: f.name.replace('.md', ''), download_url: f.download_url }));
+                postsData = mdFiles.map(f => ({ filename: f.name, name: f.name.replace('.md', ''),
+                    download_url: f.download_url }));
                 setCache(postsData);
             }
 
@@ -905,7 +1222,8 @@
                 const meta = {};
                 m[1].split('\n').forEach(line => {
                     const i = line.indexOf(':');
-                    if (i>0) meta[line.slice(0,i).trim()] = line.slice(i+1).trim().replace(/^["']|["']$/g, '');
+                    if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim().replace(/^["']|["']$/g,
+                        '');
                 });
                 return { metadata: meta, content: m[2] };
             }
@@ -919,7 +1237,7 @@
                     const lastModified = r.headers.get('Last-Modified');
                     return { ...p, metadata, content, lastModified, html: marked.parse(content) };
                 } catch {
-                    return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>', lastModified: null };
+                    return { ...p, metadata: {}, content: '', html: '<p>Gagal memuat.</p>', lastModified: null };
                 }
             }
 
@@ -943,46 +1261,45 @@
                 try {
                     const d = new Date(dateStr);
                     if (isNaN(d.getTime())) return '';
-                    const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov',
+                    'Des'];
                     return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
-                } catch {
-                    return '';
-                }
+                } catch { return ''; }
             }
 
             function getAllKategori() {
                 const kats = new Set();
-                fetchedPosts.forEach(p => {
-                    const kat = p.metadata.kategori || '';
-                    if (kat) kats.add(kat);
-                });
+                fetchedPosts.forEach(p => { const kat = p.metadata.kategori || ''; if (kat) kats.add(kat); });
                 return Array.from(kats).sort();
             }
 
             function renderCategoryBar() {
                 const kats = getAllKategori();
-                let html = '<span class="category-chip' + (!activeKatFilter ? ' active' : '') + '" data-kat=""><i class="fas fa-globe"></i> Semua</span>';
-                kats.forEach(kat => html += `<span class="category-chip${activeKatFilter === kat ? ' active' : ''}" data-kat="${kat}"><i class="fas fa-tag"></i> ${kat}</span>`);
-                if (activeKatFilter) html += `<button class="reset-filter" id="reset-filter"><i class="fas fa-times"></i> Hapus filter</button>`;
+                let html =
+                    '<span class="category-chip' + (!activeKatFilter ? ' active' : '') +
+                    '" data-kat=""><i class="fas fa-globe"></i> Semua</span>';
+                kats.forEach(kat => html +=
+                    `<span class="category-chip${activeKatFilter === kat ? ' active' : ''}" data-kat="${kat}"><i class="fas fa-tag"></i> ${kat}</span>`
+                    );
+                if (activeKatFilter) html +=
+                    '<button class="reset-filter" id="reset-filter"><i class="fas fa-times"></i> Hapus filter</button>';
                 categoryBar.innerHTML = html;
                 categoryBar.querySelectorAll('.category-chip').forEach(chip => {
-                    chip.addEventListener('click', () => {
-                        activeKatFilter = chip.dataset.kat || null;
-                        resetAndApplyFilters();
-                    });
+                    chip.addEventListener('click', () => { activeKatFilter = chip.dataset.kat || null;
+                        resetAndApplyFilters(); });
                 });
                 const resetBtn = document.getElementById('reset-filter');
-                if (resetBtn) resetBtn.addEventListener('click', () => { activeKatFilter = null; resetAndApplyFilters(); });
+                if (resetBtn) resetBtn.addEventListener('click', () => { activeKatFilter = null;
+                    resetAndApplyFilters(); });
             }
 
             function getFilteredPosts() {
                 const query = searchInput.value.trim().toLowerCase();
                 let filtered = fetchedPosts;
-                if (activeKatFilter) filtered = filtered.filter(p => (p.metadata.kategori || '') === activeKatFilter);
-                if (query) filtered = filtered.filter(p => {
-                    const title = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
-                    return title.includes(query);
-                });
+                if (activeKatFilter) filtered = filtered.filter(p => (p.metadata.kategori || '') ===
+                activeKatFilter);
+                if (query) filtered = filtered.filter(p => { const title = (p.metadata.judul || p.metadata.title ||
+                        p.name).toLowerCase(); return title.includes(query); });
                 return filtered;
             }
 
@@ -1003,53 +1320,44 @@
                         sorted.sort((a, b) => getTime(a) - getTime(b));
                         break;
                     case 'az':
-                        sorted.sort((a, b) => {
-                            const titleA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
-                            const titleB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
-                            return titleA.localeCompare(titleB);
-                        });
+                        sorted.sort((a, b) => { const tA = (a.metadata.judul || a.metadata.title || a.name || '')
+                                .toLowerCase(); const tB = (b.metadata.judul || b.metadata.title || b.name || '')
+                                .toLowerCase(); return tA.localeCompare(tB); });
                         break;
                     case 'za':
-                        sorted.sort((a, b) => {
-                            const titleA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
-                            const titleB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
-                            return titleB.localeCompare(titleA);
-                        });
+                        sorted.sort((a, b) => { const tA = (a.metadata.judul || a.metadata.title || a.name || '')
+                                .toLowerCase(); const tB = (b.metadata.judul || b.metadata.title || b.name || '')
+                                .toLowerCase(); return tB.localeCompare(tA); });
                         break;
                 }
                 return sorted;
             }
 
-            function resetAndApplyFilters() {
-                currentDisplayCount = 0;
-                applyFilters();
-            }
+            function resetAndApplyFilters() { currentDisplayCount = 0;
+                applyFilters(); }
 
             function applyFilters() {
                 let filtered = getFilteredPosts();
                 filtered = sortPosts(filtered);
-                
-                if (activeKatFilter) {
-                    filterIndicator.classList.remove('hidden');
-                    filterIndicator.innerHTML = `<i class="fas fa-filter"></i> Kategori: <strong>${activeKatFilter}</strong> (${filtered.length} hasil)`;
-                } else filterIndicator.classList.add('hidden');
+                if (activeKatFilter) { filterIndicator.classList.remove('hidden');
+                    filterIndicator.innerHTML =
+                        `<i class="fas fa-filter"></i> Kategori: <strong>${activeKatFilter}</strong> (${filtered.length} hasil)`; } else
+                    filterIndicator.classList.add('hidden');
                 currentDisplayCount = Math.min(ITEMS_PER_PAGE, filtered.length);
                 displayPosts(filtered.slice(0, currentDisplayCount));
                 renderLoadMoreButton(filtered.length);
             }
 
-            function displayPosts(posts) {
-                postContainer.innerHTML = posts.length ? posts.map((p,i) => cardHTML(p,i)).join('') : '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
-                attachCardEvents();
-            }
+            function displayPosts(posts) { postContainer.innerHTML = posts.length ? posts.map((p, i) => cardHTML(p, i))
+                    .join('') : '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
+                attachCardEvents(); }
 
             function renderLoadMoreButton(totalItems) {
                 if (currentDisplayCount < totalItems) {
-                    loadMoreContainer.innerHTML = `<button class="load-more-btn" id="load-more-btn"><i class="fas fa-chevron-down"></i> Muat Lebih Banyak (${totalItems - currentDisplayCount})</button>`;
+                    loadMoreContainer.innerHTML =
+                        `<button class="load-more-btn" id="load-more-btn"><i class="fas fa-chevron-down"></i> Muat Lebih Banyak (${totalItems - currentDisplayCount})</button>`;
                     document.getElementById('load-more-btn').addEventListener('click', loadMorePosts);
-                } else {
-                    loadMoreContainer.innerHTML = '';
-                }
+                } else { loadMoreContainer.innerHTML = ''; }
             }
 
             function loadMorePosts() {
@@ -1058,10 +1366,8 @@
                 const nextCount = Math.min(currentDisplayCount + ITEMS_PER_PAGE, filtered.length);
                 const newPosts = filtered.slice(currentDisplayCount, nextCount);
                 currentDisplayCount = nextCount;
-                newPosts.forEach((p,i) => {
-                    const card = cardHTML(p, i);
-                    postContainer.insertAdjacentHTML('beforeend', card);
-                });
+                newPosts.forEach((p, i) => { const card = cardHTML(p, i);
+                    postContainer.insertAdjacentHTML('beforeend', card); });
                 attachCardEvents();
                 renderLoadMoreButton(filtered.length);
             }
@@ -1075,7 +1381,9 @@
                 const dateFormatted = formatDate(dateRaw);
                 const excerpt = getExcerpt(post.content);
                 const delay = index * 0.04 + 's';
-                const imgTag = img ? `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">` : '';
+                const imgTag = img ?
+                    `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">` :
+                    '';
                 return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
                     <div class="card-img${img ? '' : ' error'}">
                         ${imgTag}
@@ -1094,150 +1402,96 @@
             }
 
             function attachCardEvents() {
-                document.querySelectorAll('.post-card').forEach(c => {
-                    c.addEventListener('click', (e) => {
-                        if (e.target.closest('.badge')) return;
-                        setHash('detail', c.dataset.name);
-                    });
-                });
-                document.querySelectorAll('.badge').forEach(badge => {
-                    badge.addEventListener('click', (e) => {
-                        e.stopPropagation();
+                document.querySelectorAll('.post-card').forEach(c => { c.addEventListener('click', (e) => { if (e
+                            .target.closest('.badge')) return;
+                        setHash('detail', c.dataset.name); }); });
+                document.querySelectorAll('.badge').forEach(badge => { badge.addEventListener('click', (e) => { e
+                        .stopPropagation();
                         activeKatFilter = badge.dataset.kat;
                         searchInput.value = '';
                         resetAndApplyFilters();
-                        renderCategoryBar();
-                    });
-                });
+                        renderCategoryBar(); }); });
             }
 
-            function stopCarousel() { if (carouselInterval) { clearInterval(carouselInterval); carouselInterval = null; } }
-            function startCarousel() {
-                stopCarousel();
-                if (totalPopularSlides === 0) return;
+            function stopCarousel() { if (carouselInterval) { clearInterval(carouselInterval);
+                    carouselInterval = null; } }
+            function startCarousel() { stopCarousel(); if (totalPopularSlides === 0) return;
                 updateCarousel(0);
-                carouselInterval = setInterval(() => {
-                    currentSlide = (currentSlide + 1) % totalPopularSlides;
-                    updateCarousel(currentSlide);
-                }, 4000);
-            }
-            function updateCarousel(index) {
-                const slides = document.querySelectorAll('.carousel-slide');
-                slides.forEach((slide, i) => {
-                    slide.classList.toggle('active', i === index);
-                });
-                document.querySelectorAll('.carousel-counter').forEach((counter, i) => {
-                    counter.textContent = `${i+1}/${totalPopularSlides}`;
-                });
-            }
+                carouselInterval = setInterval(() => { currentSlide = (currentSlide + 1) % totalPopularSlides;
+                    updateCarousel(currentSlide); }, 4000); }
+            function updateCarousel(index) { const slides = document.querySelectorAll('.carousel-slide');
+                slides.forEach((slide, i) => { slide.classList.toggle('active', i === index); });
+                document.querySelectorAll('.carousel-counter').forEach((counter, i) => { counter.textContent =
+                        `${i+1}/${totalPopularSlides}`; }); }
 
-            function renderPopularSection() {
-                if (!fetchedPosts.length) { carouselTrack.innerHTML = ''; totalPopularSlides = 0; return; }
-                let popular = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() === 'true');
-                if (popular.length === 0) popular = fetchedPosts.slice(0, 4);
-                else popular = popular.slice(0, 4);
+            function renderPopularSection() { if (!fetchedPosts.length) { carouselTrack.innerHTML = '';
+                    totalPopularSlides = 0; return; } let popular = fetchedPosts.filter(p => p.metadata.populer &&
+                    p.metadata.populer.toLowerCase() === 'true'); if (popular.length === 0) popular = fetchedPosts
+                    .slice(0, 4); else popular = popular.slice(0, 4);
                 totalPopularSlides = popular.length;
-
-                carouselTrack.innerHTML = popular.map((p, i) => {
-                    const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
-                    const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
-                    return `<div class="carousel-slide${i === 0 ? ' active' : ''}" data-name="${p.name}">
+                carouselTrack.innerHTML = popular.map((p, i) => { const img = fixImageUrl(p.metadata.gambar || p
+                        .metadata.image || ''); const title = p.metadata.judul || p.metadata.title || p.name
+                        .replace(/[-_]/g, ' '); return `<div class="carousel-slide${i === 0 ? ' active' : ''}" data-name="${p.name}">
                         ${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ''}
                         <div class="slide-overlay">
                             <div class="slide-title">${title}</div>
                             <span class="carousel-counter">${i+1}/${popular.length}</span>
                         </div>
-                    </div>`;
-                }).join('');
+                    </div>`; }).join('');
+                document.querySelectorAll('.carousel-slide').forEach(slide => { slide.addEventListener('click',
+                        () => setHash('detail', slide.dataset.name)); }); }
 
-                document.querySelectorAll('.carousel-slide').forEach(slide => {
-                    slide.addEventListener('click', () => setHash('detail', slide.dataset.name));
-                });
-            }
-
-            async function renderHome() {
-                postContainer.innerHTML = '<div class="spinner"></div>';
+            async function renderHome() { postContainer.innerHTML = '<div class="spinner"></div>';
                 loadMoreContainer.innerHTML = '';
                 categoryBar.innerHTML = '';
                 carouselTrack.innerHTML = '';
-                stopCarousel();
-                try {
-                    await fetchPostList();
-                    if (!postsData.length) { postContainer.innerHTML = '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>'; return; }
+                stopCarousel(); try { await fetchPostList(); if (!postsData.length) { postContainer.innerHTML =
+                        '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>'; return; }
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
                     renderPopularSection();
                     renderCategoryBar();
                     resetAndApplyFilters();
-                    startCarousel();
-                } catch (err) { postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`; }
-            }
+                    startCarousel(); } catch (err) { postContainer.innerHTML =
+                        `<div class="error-text">⚠️ ${err.message}</div>`; } }
 
-            function buildScreenshotGallery(screenshotsStr) {
-                if (!screenshotsStr) return '';
-                const urls = screenshotsStr.split(',').map(url => fixImageUrl(url.trim())).filter(url => url.length > 0);
-                if (urls.length === 0) return '';
-                const limited = urls.slice(0, 5);
-                return `<div class="screenshot-scroll">${limited.map(url => `<img src="${url}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox('${url}')">`).join('')}</div>`;
-            }
+            function buildScreenshotGallery(screenshotsStr) { if (!screenshotsStr) return ''; const urls = screenshotsStr
+                    .split(',').map(url => fixImageUrl(url.trim())).filter(url => url.length > 0); if (urls.length ===
+                    0) return ''; const limited = urls.slice(0, 5); return `<div class="screenshot-scroll">${limited.map(url => `<img src="${url}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox('${url}')">`).join('')}</div>`; }
 
-            window.openLightbox = function(url) {
-                const lb = document.createElement('div');
+            window.openLightbox = function(url) { const lb = document.createElement('div');
                 lb.className = 'lightbox';
                 lb.innerHTML = `<img src="${url}" alt="Screenshot">`;
                 lb.addEventListener('click', () => lb.remove());
-                document.body.appendChild(lb);
-            };
+                document.body.appendChild(lb); };
 
-            function startDownloadWithAd(button, downloadUrl) {
-                const now = Date.now();
-                const lastClick = localStorage.getItem(AD_STORAGE_KEY);
-                
-                if (!lastClick || (now - parseInt(lastClick)) > AD_INTERVAL) {
-                    localStorage.setItem(AD_STORAGE_KEY, now.toString());
-                    if (AD_URL) window.open(AD_URL, '_blank');
-                    
+            function startDownloadWithAd(button, downloadUrl) { const now = Date.now(); const lastClick = localStorage
+                    .getItem(AD_STORAGE_KEY); if (!lastClick || (now - parseInt(lastClick)) > AD_INTERVAL) {
+                    localStorage.setItem(AD_STORAGE_KEY, now.toString()); if (AD_URL) window.open(AD_URL, '_blank');
                     let seconds = 5;
                     button.textContent = `⏳ ${seconds} detik`;
-                    button.classList.add('counting');
-                    const timer = setInterval(() => {
-                        seconds--;
-                        if (seconds <= 0) {
-                            clearInterval(timer);
+                    button.classList.add('counting'); const timer = setInterval(() => { seconds--; if (seconds <=
+                            0) { clearInterval(timer);
                             button.innerHTML = '<i class="fas fa-download"></i> Download APK';
                             button.classList.remove('counting');
-                            window.open(downloadUrl, '_blank');
-                        } else {
-                            button.textContent = `⏳ ${seconds} detik`;
-                        }
-                    }, 1000);
-                } else {
-                    window.open(downloadUrl, '_blank');
-                }
-            }
+                            window.open(downloadUrl, '_blank'); } else { button.textContent =
+                                `⏳ ${seconds} detik`; } }, 1000); } else { window.open(downloadUrl, '_blank'); } }
 
-            function showDetail(name) {
-                const post = fetchedPosts.find(p => p.name === name);
-                if (!post) return;
-                const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
-                const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
-                const v = post.metadata.versi || post.metadata.version || '?';
-                const s = post.metadata.ukuran || post.metadata.size || '?';
-                const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
-                const dwn = post.metadata.download || post.metadata.link || '';
-                const kategori = post.metadata.kategori || '';
-                const tags = post.metadata.tag ? post.metadata.tag.split(',').map(t => t.trim()).filter(t => t) : [];
-                const dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
-                const dateFormatted = formatDate(dateRaw);
-                const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
-                const galleryHtml = buildScreenshotGallery(screenshots);
-                const hasDownload = dwn && dwn !== '#';
-                const downloadButtonHtml = hasDownload ? 
-                    `<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` : 
+            function showDetail(name) { const post = fetchedPosts.find(p => p.name === name); if (!post) return; const t =
+                    post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' '); const img =
+                    fixImageUrl(post.metadata.gambar || post.metadata.image || ''); const v = post.metadata.versi || post
+                    .metadata.version || '?'; const s = post.metadata.ukuran || post.metadata.size || '?'; const dev = post
+                    .metadata.developer || post.metadata.dev || 'Destaseo'; const dwn = post.metadata.download || post
+                    .metadata.link || ''; const kategori = post.metadata.kategori || ''; const tags = post.metadata.tag ?
+                    post.metadata.tag.split(',').map(t => t.trim()).filter(t => t) : []; const dateRaw = post.metadata
+                    .tanggal || post.metadata.date || post.lastModified || ''; const dateFormatted = formatDate(dateRaw);
+                const screenshots = post.metadata.screenshot || post.metadata.screenshots || ''; const galleryHtml =
+                    buildScreenshotGallery(screenshots); const hasDownload = dwn && dwn !== '#'; const downloadButtonHtml =
+                    hasDownload ?
+                    `<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` :
                     `<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>`;
-
-                const tagsHtml = tags.length > 0 ? 
-                    `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` : '';
-
+                const tagsHtml = tags.length > 0 ?
+                    `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` :
+                    '';
                 detailContent.innerHTML = `
                 <div class="detail-header">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
@@ -1254,37 +1508,23 @@
                 </div>
                 <div class="content-box">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
                 ${downloadButtonHtml}`;
-
-                if (hasDownload) {
-                    const downloadBtn = document.getElementById('detail-download-btn');
-                    if (downloadBtn) downloadBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        if (this.classList.contains('counting')) return;
-                        startDownloadWithAd(this, dwn);
-                    });
-                }
+                if (hasDownload) { const downloadBtn = document.getElementById('detail-download-btn'); if (downloadBtn)
+                        downloadBtn.addEventListener('click', function(e) { e.preventDefault(); if (this.classList
+                                .contains('counting')) return;
+                            startDownloadWithAd(this, dwn); }); }
                 showSection(detailSection);
                 setActiveNav('detail');
-                window.scrollTo({ top: 0 });
-            }
+                window.scrollTo({ top: 0 }); }
 
             detailBack.addEventListener('click', () => setHash('home'));
             navItems.forEach(item => item.addEventListener('click', () => setHash(item.dataset.page)));
             searchInput.addEventListener('input', () => resetAndApplyFilters());
-            window.addEventListener('hashchange', () => {
-                const { page, postName } = getHashPage();
-                if (page === 'detail' && postName) {
-                    if (fetchedPosts.length === 0) renderHome().then(() => navigate('detail', postName));
-                    else navigate('detail', postName);
-                } else navigate(page);
-            });
+            window.addEventListener('hashchange', () => { const { page, postName } = getHashPage(); if (page ===
+                    'detail' && postName) { if (fetchedPosts.length === 0) { renderHome().then(() => navigate(
+                        'detail', postName)); } else { navigate('detail', postName); } } else navigate(page); });
 
-            (async () => {
-                await renderHome();
-                const { page, postName } = getHashPage();
-                if (page === 'detail' && postName) navigate('detail', postName);
-                else navigate(page);
-            })();
+            (async () => { await renderHome(); const { page, postName } = getHashPage(); if (page === 'detail' &&
+                    postName) navigate('detail', postName); else navigate(page); })();
         })();
     </script>
 </body>
