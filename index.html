@@ -109,7 +109,6 @@
         .search-input:focus { border-color: var(--accent); box-shadow: 0 0 30px rgba(168,127,255,0.4); }
         .search-input::placeholder { color: var(--text2); }
 
-        /* Category Bar - dipindah ke atas carousel */
         .category-bar {
             display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;
             align-items: center;
@@ -131,7 +130,6 @@
             padding: 6px 12px;
         }
 
-        /* Popular Carousel */
         .popular-section { margin-bottom: 0; }
         .carousel-wrapper {
             position: relative;
@@ -184,21 +182,22 @@
             display: flex; align-items: center; gap: 6px;
             text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
-        .carousel-dots {
-            display: flex; gap: 6px;
+        .carousel-counter {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 14px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
-        .carousel-dot {
-            width: 7px; height: 7px; border-radius: 50%;
-            background: rgba(255,255,255,0.5); cursor: pointer;
-            transition: background 0.2s;
-        }
-        .carousel-dot.active { background: #fff; }
 
-        /* Divider */
+        /* Divider lebih jelas */
         .section-divider {
             border: none;
-            border-top: 1px solid var(--border);
-            margin: 20px 0 18px;
+            border-top: 2px solid rgba(255, 255, 255, 0.15);
+            margin: 22px 0 20px;
         }
 
         .post-grid {
@@ -444,10 +443,8 @@
                 <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit...">
             </div>
 
-            <!-- Kategori Bar dipindah ke atas -->
             <div class="category-bar" id="category-bar"></div>
 
-            <!-- Popular Carousel dengan indikator dan judul di dalam -->
             <div class="popular-section" id="popular-section">
                 <div class="carousel-wrapper">
                     <div class="carousel-title-top">🔥 Urutan Populer</div>
@@ -455,7 +452,6 @@
                 </div>
             </div>
 
-            <!-- Divider -->
             <hr class="section-divider">
 
             <div id="filter-indicator" class="filter-indicator hidden"></div>
@@ -519,7 +515,6 @@
                 ]
             };
 
-            // Partikel
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
             let particles = [];
@@ -556,7 +551,7 @@
             }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v18';
+            const CACHE_KEY = 'destaseo_premium_cache_v19';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -580,6 +575,7 @@
             const ITEMS_PER_PAGE = 10;
             let carouselInterval = null;
             let currentSlide = 0;
+            let totalPopularSlides = 0;
 
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) {
@@ -841,19 +837,18 @@
                 });
             }
 
-            // ===== Carousel Functions =====
+            // Carousel
             function stopCarousel() {
                 if (carouselInterval) { clearInterval(carouselInterval); carouselInterval = null; }
             }
 
             function startCarousel() {
                 stopCarousel();
-                const slides = document.querySelectorAll('.carousel-slide');
-                if (slides.length === 0) return;
+                if (totalPopularSlides === 0) return;
                 currentSlide = 0;
                 updateCarousel(0);
                 carouselInterval = setInterval(() => {
-                    currentSlide = (currentSlide + 1) % slides.length;
+                    currentSlide = (currentSlide + 1) % totalPopularSlides;
                     updateCarousel(currentSlide);
                 }, 4000);
             }
@@ -862,53 +857,37 @@
                 const track = carouselTrack;
                 if (!track) return;
                 track.style.transform = `translateX(-${index * 100}%)`;
+                // Update nomor di setiap slide
+                document.querySelectorAll('.carousel-counter').forEach((counter, i) => {
+                    counter.textContent = `${i+1}/${totalPopularSlides}`;
+                });
             }
 
             function renderPopularSection() {
                 if (!fetchedPosts.length) {
                     carouselTrack.innerHTML = '';
+                    totalPopularSlides = 0;
                     return;
                 }
                 let popular = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() === 'true');
                 if (popular.length === 0) popular = fetchedPosts.slice(0, 4);
                 else popular = popular.slice(0, 4);
+                totalPopularSlides = popular.length;
 
-                // Bangun slide + dots di dalam slide overlay
                 carouselTrack.innerHTML = popular.map((p, i) => {
                     const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
                     const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
-                    const dotsHtml = popular.map((_, dotIdx) => `<span class="carousel-dot${dotIdx === i ? ' active' : ''}" data-index="${dotIdx}"></span>`).join('');
                     return `<div class="carousel-slide" data-name="${p.name}">
                         ${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ''}
                         <div class="slide-overlay">
                             <div class="slide-title">${title}</div>
-                            <div class="carousel-dots">${dotsHtml}</div>
+                            <span class="carousel-counter">${i+1}/${popular.length}</span>
                         </div>
                     </div>`;
                 }).join('');
 
-                // Event listeners
                 document.querySelectorAll('.carousel-slide').forEach(slide => {
-                    slide.addEventListener('click', (e) => {
-                        // Jangan pindah jika klik dot
-                        if (e.target.classList.contains('carousel-dot')) return;
-                        setHash('detail', slide.dataset.name);
-                    });
-                });
-                document.querySelectorAll('.carousel-dot').forEach(dot => {
-                    dot.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const idx = parseInt(e.target.dataset.index);
-                        currentSlide = idx;
-                        updateCarousel(currentSlide);
-                        // Reset interval
-                        stopCarousel();
-                        carouselInterval = setInterval(() => {
-                            const slides = document.querySelectorAll('.carousel-slide');
-                            currentSlide = (currentSlide + 1) % slides.length;
-                            updateCarousel(currentSlide);
-                        }, 4000);
-                    });
+                    slide.addEventListener('click', () => setHash('detail', slide.dataset.name));
                 });
             }
 
