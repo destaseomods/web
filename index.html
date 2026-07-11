@@ -4,19 +4,253 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Destaseo Mods</title>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Library Marked -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    
+    <!-- Marked.js -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+    :root {
+        --primary: #00ff9d;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+        color: #e0e0e0;
+        min-height: 100vh;
+        background-attachment: fixed;
+    }
+    
+    /* Navbar Modern */
+    nav {
+        background: rgba(10, 10, 20, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    .nav-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 5%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #00ff9d, #00b36b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-decoration: none;
+    }
+    
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+    
+    .nav-link {
+        color: #ddd;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .nav-link:hover {
+        color: var(--primary);
+        transform: translateY(-2px);
+    }
+    
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background: var(--primary);
+        transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+        width: 100%;
+    }
+    
+    /* Container */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 5%;
+    }
+    
+    /* Post Cards */
+    #post-list {
+        padding: 2rem 0;
+    }
+    
+    .post-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .post-card {
+        background: rgba(30, 30, 50, 0.7);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 255, 157, 0.15);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+    }
+    
+    .post-card:hover {
+        transform: translateY(-12px) scale(1.03);
+        box-shadow: 0 20px 40px rgba(0, 255, 157, 0.15);
+        border-color: var(--primary);
+    }
+    
+    .post-image {
+        height: 180px;
+        background: linear-gradient(45deg, #1a1a2e, #16213e);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: rgba(0, 255, 157, 0.3);
+    }
+    
+    .post-content {
+        padding: 1.5rem;
+    }
+    
+    .post-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.3;
+    }
+    
+    .post-date {
+        font-size: 0.85rem;
+        color: #888;
+        margin-bottom: 1rem;
+    }
+    
+    .post-excerpt {
+        color: #bbb;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    /* Detail Post */
+    #post-detail {
+        padding: 2rem 0;
+        animation: fadeIn 0.5s ease;
+    }
+    
+    .btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.1);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-bottom: 2rem;
+    }
+    
+    .btn-back:hover {
+        background: var(--primary);
+        color: black;
+        transform: translateX(-5px);
+    }
+    
+    #detail-content {
+        background: rgba(30, 30, 50, 0.8);
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 1px solid rgba(0, 255, 157, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Loading */
+    .loading {
+        text-align: center;
+        padding: 4rem 0;
+    }
+    
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(0, 255, 157, 0.2);
+        border-top: 4px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Footer */
+    footer {
+        background: rgba(10, 10, 20, 0.9);
+        border-top: 1px solid rgba(0, 255, 157, 0.2);
+        padding: 2rem 0;
+        margin-top: 4rem;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #666;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .nav-links {
+            gap: 1.2rem;
+            font-size: 0.95rem;
+        }
+        
+        .post-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    </style>
 </head>
 <body>
-    <!-- Navigasi Transparan -->
+    <!-- Navigasi -->
     <nav id="navbar">
         <div class="container nav-inner">
-            <a href="#" class="logo">Destaseo<span>Mods</span></a>
+            <a href="#" class="logo">Destaseo<span style="color:#00ff9d;">Mods</span></a>
             <div class="nav-links">
                 <a href="#" class="nav-link">Beranda</a>
                 <a href="#about" class="nav-link">Tentang</a>
@@ -25,23 +259,20 @@
         </div>
     </nav>
 
-    <!-- Konten Utama -->
     <main class="container">
         <!-- Daftar Postingan -->
         <section id="post-list">
             <div class="loading">
                 <div class="spinner"></div>
-                <p>Mengambil postingan...</p>
+                <p>Mengambil postingan keren...</p>
             </div>
+            <!-- Post cards akan di-generate oleh JS -->
         </section>
 
         <!-- Detail Postingan -->
         <section id="post-detail" style="display: none;">
             <button id="back-button" class="btn-back">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M19 12H5M12 19l-7-7 7-7"/>
-                </svg>
-                Kembali
+                ← Kembali
             </button>
             <article id="detail-content"></article>
         </section>
@@ -49,26 +280,26 @@
         <!-- Halaman Tentang -->
         <section id="about" style="display: none;">
             <button class="btn-back" onclick="window.location.hash='#'">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M19 12H5M12 19l-7-7 7-7"/>
-                </svg>
-                Kembali
+                ← Kembali
             </button>
-            <h2>Tentang Destaseo Mods</h2>
-            <p>
-                Destaseo Mods adalah platform berbagi mod APK, tutorial, dan informasi seputar dunia modding Android.
-                Dirancang dengan tampilan modern, elegan, dan didukung penuh oleh GitHub Pages.
-            </p>
-            <p>
-                Semua postingan diambil otomatis dari folder <code>posts/</code> repository, jadi kamu cukup menambah file Markdown untuk update konten.
-            </p>
+            <h2 style="font-size: 2.5rem; margin: 1.5rem 0 1rem; background: linear-gradient(90deg, #00ff9d, #00cc77); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Tentang Destaseo Mods
+            </h2>
+            <div style="background: rgba(30,30,50,0.7); padding: 2rem; border-radius: 20px; border: 1px solid rgba(0,255,157,0.2);">
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                    Destaseo Mods adalah platform terbaik untuk berbagi mod APK, tutorial modding, dan segala hal seputar Android customization.
+                </p>
+                <p style="color: #aaa; line-height: 1.7;">
+                    Semua konten diambil otomatis dari folder <code style="background:#1a1a2e; padding:2px 6px; border-radius:6px;">posts/</code>. Tinggal tambah file Markdown, langsung live!
+                </p>
+            </div>
         </section>
     </main>
 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 Destaseo Mods — Dibuat dengan ❤️ dan GitHub Pages.</p>
+            <p>&copy; 2026 Destaseo Mods — Dibuat dengan 🔥 dan GitHub Pages</p>
         </div>
     </footer>
 
