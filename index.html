@@ -1947,18 +1947,21 @@
             }
 
             // ===== VIEW COUNT =====
+            // Increment view count via API, fallback to local storage
             async function incrementViewCount(postName) {
                 try {
-                    const url = `${VIEW_API_BASE}/${encodeURIComponent(postName)}`;
-                    const resp = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
+                    const url = VIEW_API_BASE;
+                    const resp = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ slug: postName })
+                    });
                     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
                     const data = await resp.json();
-                    const raw = data.count ?? data.visits ?? data.views ?? data;
-                    const count = typeof raw === 'number' ? raw : parseInt(raw, 10);
-                    if (!isNaN(count) && count >= 0) return count;
-                    return 0;
+                    const count = data.count || data.visits || data.views || 0;
+                    return count;
                 } catch (e) {
-                    // fallback ke local
+                    // fallback local
                     return incrementViewCountLocal(postName);
                 }
             }
@@ -2540,7 +2543,7 @@
                 const galleryHtml = buildScreenshotGallery(screenshots);
                 const hasDownload = dwn && dwn !== '#';
 
-                // View count - increment and get total
+                // View count - increment via API
                 let viewCount = 0;
                 try {
                     viewCount = await incrementViewCount(name);
