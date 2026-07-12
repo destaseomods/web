@@ -141,8 +141,6 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         .empty-text, .error-text { text-align: center; padding: 45px; color: var(--text2); background: rgba(255,0,0,0.07); border-radius: 24px; margin: 20px 0; }
         .filter-indicator { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.85rem; color: var(--accent2); }
-        .debug-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text2); padding: 6px 14px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; margin-top: 8px; }
-        .debug-btn:hover { border-color: var(--accent2); color: #fff; }
     </style>
 </head>
 <body>
@@ -287,93 +285,71 @@
             if (AVATAR_URL) { const a = document.getElementById('profile-avatar'); a.style.backgroundImage = `url('${AVATAR_URL}')`; a.textContent = ''; }
 
             // ============================================================
-            // 🚀 GLOBAL COUNTER DENGAN counterapi.dev + FALLBACK LOKAL
+            // 🚀 GLOBAL COUNTER dengan Multi-Provider & Fallback
             // ============================================================
             async function getGlobalViewCount(postName) {
-                const clean = postName.replace(/[^a-zA-Z0-9]/g, '') || 'default';
-                const key = `destaseomods_${clean}`;
-                const storageKey = `view_${key}`;
+                const clean = postName.replace(/[^a-zA-Z0-9]/g, '_');
+                const storageKey = 'view_' + clean;
                 const today = new Date().toISOString().slice(0, 10);
 
-                // Baca data lokal
+                // Baca lokal
                 let localData = null;
                 try {
                     const raw = localStorage.getItem(storageKey);
                     if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
 
-                // Jika hari ini sudah tercatat di lokal, kita tidak perlu panggil API
-                // Tapi kita tetap coba ambil angka terbaru dari API (tanpa increment)
-                // Karena counterapi.dev tidak punya endpoint GET tanpa increment,
-                // kita skip dan pakai lokal saja agar tidak double count.
+                // Jika hari ini sudah tercatat, pakai lokal (tanpa API)
                 if (localData && localData.date === today) {
-                    console.log(`📊 [${postName}] Menggunakan cache hari ini: ${localData.count}`);
                     return localData.count;
                 }
 
-                // Hari baru → panggil counterapi.dev dengan POST (increment)
-                let apiSuccess = false;
-                let apiCount = 1;
-                try {
-                    const controller = new AbortController();
-                    const timeout = setTimeout(() => controller.abort(), 5000);
-                    const res = await fetch(`https://counterapi.dev/api/count/${key}`, {
-                        method: 'POST',
-                        signal: controller.signal,
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-                    clearTimeout(timeout);
-                    if (res.ok) {
-                        const data = await res.json();
-                        // Response: { count: number } atau { success: true, count: number }
-                        const count = data.count || data.value || 1;
-                        if (count > 0) {
-                            apiCount = count;
-                            apiSuccess = true;
-                        }
-                    } else {
-                        console.warn(`⚠️ counterapi.dev response ${res.status}`);
+                // Coba beberapa API secara berurutan
+                const providers = [
+                    {
+                        name: 'countapi.xyz',
+                        url: `https://api.countapi.xyz/hit/destaseo/${clean}`,
+                        parse: (data) => data.value
+                    },
+                    {
+                        name: 'counterapi.dev',
+                        url: `https://counterapi.dev/api/count/destaseo_${clean}`,
+                        parse: (data) => data.count || data.value
                     }
-                } catch (e) {
-                    console.warn(`⚠️ counterapi.dev error:`, e.message);
+                ];
+
+                let lastError = null;
+                for (const provider of providers) {
+                    try {
+                        const controller = new AbortController();
+                        const timeout = setTimeout(() => controller.abort(), 5000);
+                        const res = await fetch(provider.url, { 
+                            method: 'POST',
+                            signal: controller.signal,
+                            headers: { 'Content-Type': 'application/json' }
+                        });
+                        clearTimeout(timeout);
+                        if (res.ok) {
+                            const json = await res.json();
+                            const count = provider.parse(json);
+                            if (typeof count === 'number' && count > 0) {
+                                // Sukses, simpan dan return
+                                localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                                return count;
+                            }
+                        }
+                    } catch (e) {
+                        lastError = e;
+                        // Lanjut ke provider berikutnya
+                    }
                 }
 
-                if (apiSuccess) {
-                    console.log(`✅ [${postName}] counterapi.dev success → ${apiCount}`);
-                    localStorage.setItem(storageKey, JSON.stringify({ count: apiCount, date: today }));
-                    return apiCount;
-                }
-
-                // FALLBACK: increment dari lokal
+                // Jika semua API gagal, fallback ke localStorage
                 const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
                 const newCount = prevCount + 1;
-                console.log(`🔄 [${postName}] Fallback lokal → ${newCount}`);
                 localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
                 return newCount;
             }
-
-            // Tombol debug
-            function addDebugButton() {
-                const btn = document.createElement('button');
-                btn.className = 'debug-btn';
-                btn.innerHTML = '<i class="fas fa-bug"></i> Debug View';
-                btn.style.position = 'fixed';
-                btn.style.bottom = '80px';
-                btn.style.right = '16px';
-                btn.style.zIndex = '999';
-                btn.addEventListener('click', () => {
-                    let msg = '📦 Isi localStorage (view_*):\n\n';
-                    for (let i = 0; i < localStorage.length; i++) {
-                        const k = localStorage.key(i);
-                        if (k && k.startsWith('view_')) {
-                            msg += `${k} → ${localStorage.getItem(k)}\n`;
-                        }
-                    }
-                    alert(msg || 'Belum ada data view.');
-                });
-                document.body.appendChild(btn);
-            }
-            addDebugButton();
 
             // ============================================================
             // EVENT LISTENER & NAVIGASI
@@ -536,7 +512,7 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🔥 Ambil counter global dengan counterapi.dev
+                // 🔥 Ambil counter global (multi-provider)
                 const viewCount = await getGlobalViewCount(name);
 
                 detailContent.innerHTML = `
