@@ -1958,23 +1958,17 @@
                     if (!isNaN(count) && count >= 0) return count;
                     return 0;
                 } catch (e) {
+                    // fallback ke local
                     return incrementViewCountLocal(postName);
                 }
             }
 
             function incrementViewCountLocal(name) {
                 const KEY = `view_count_${name}`;
-                const TS_KEY = `view_ts_${name}`;
-                const now = Date.now();
-                const lastTs = parseInt(localStorage.getItem(TS_KEY) || '0', 10);
                 const current = parseInt(localStorage.getItem(KEY) || '0', 10);
-                if (!lastTs || (now - lastTs) > 86400000) {
-                    const nc = current + 1;
-                    localStorage.setItem(KEY, nc.toString());
-                    localStorage.setItem(TS_KEY, now.toString());
-                    return nc;
-                }
-                return current || 1;
+                const newCount = current + 1;
+                localStorage.setItem(KEY, newCount.toString());
+                return newCount;
             }
 
             // ===== UTILITY =====
@@ -2546,6 +2540,7 @@
                 const galleryHtml = buildScreenshotGallery(screenshots);
                 const hasDownload = dwn && dwn !== '#';
 
+                // View count - increment and get total
                 let viewCount = 0;
                 try {
                     viewCount = await incrementViewCount(name);
