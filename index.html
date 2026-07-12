@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* (CSS sama seperti sebelumnya, tidak diubah) */
+        /* CSS (sama seperti sebelumnya, tidak diubah) */
         :root {
             --bg: #04040e; --surface: rgba(15, 15, 30, 0.7); --surface2: rgba(25, 25, 45, 0.8);
             --border: rgba(255, 255, 255, 0.07); --text: #f5f5ff; --text2: #b8b8d0;
@@ -278,35 +278,14 @@
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) { const a = document.getElementById('profile-avatar'); a.style.backgroundImage = `url('${AVATAR_URL}')`; a.textContent = ''; }
 
-            // 🎯 COUNTER LOKAL (tanpa API) – daily unique view
-            function getLocalCount(name) {
-                const cleanName = name.replace(/[^a-zA-Z0-9]/g, '') || 'default';
-                const storageKey = `view_destaseo_${cleanName}`;
-                const today = new Date().toISOString().slice(0, 10);
-
-                let stored = null;
-                try {
-                    const raw = localStorage.getItem(storageKey);
-                    if (raw) {
-                        const parsed = JSON.parse(raw);
-                        if (parsed && typeof parsed.count === 'number' && typeof parsed.date === 'string') {
-                            stored = parsed;
-                        }
-                    }
-                } catch (_) {}
-
-                // Jika hari ini sudah tercatat, kembalikan angka
-                if (stored && stored.date === today) {
-                    console.log(`📊 [${name}] Cache hari ini: ${stored.count}`);
-                    return stored.count;
-                }
-
-                // Hari baru → increment (atau mulai 1)
-                const prevCount = (stored && typeof stored.count === 'number') ? stored.count : 0;
-                const newCount = prevCount + 1;
-                localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
-                console.log(`🔄 [${name}] Hari baru → ${newCount}`);
-                return newCount;
+            // 🎯 Counter paling sederhana: increment setiap kali dipanggil
+            function incrementViewCount(postName) {
+                const key = 'view_' + postName;
+                let current = parseInt(localStorage.getItem(key), 10) || 0;
+                current += 1;
+                localStorage.setItem(key, current);
+                console.log(`📈 [${postName}] view sekarang: ${current}`);
+                return current;
             }
 
             telegramBtn.addEventListener('click', (e) => { e.stopPropagation(); telegramDropdown.classList.toggle('show'); });
@@ -458,8 +437,8 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🎯 Ambil counter lokal
-                const globalCount = getLocalCount(name);
+                // 🎯 Increment view counter (setiap buka halaman +1)
+                const viewCount = incrementViewCount(name);
 
                 detailContent.innerHTML = `
                 <div class="detail-header">
@@ -471,7 +450,7 @@
                         <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
                         ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
                         ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
-                        <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ${globalCount} kali</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ${viewCount} kali</div>
                     </div>
                     ${galleryHtml}
                     ${tagsHtml}
