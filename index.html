@@ -277,14 +277,14 @@
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) { const a = document.getElementById('profile-avatar'); a.style.backgroundImage = `url('${AVATAR_URL}')`; a.textContent = ''; }
 
-            // ✅ Counter dengan daily unique & fallback aman (tidak pernah null)
+            // 🔧 COUNTER GLOBAL dengan fallback yang aman (tidak increment lokal)
             async function getGlobalCount(name) {
                 const cleanName = name.replace(/[^a-zA-Z0-9]/g, '') || 'default';
                 const apiKey = `destaseomods_${cleanName}`;
                 const storageKey = `view_${apiKey}`;
                 const today = new Date().toISOString().slice(0, 10);
 
-                // Baca data dari localStorage dengan aman
+                // Baca data lokal dengan aman
                 let storedData = null;
                 try {
                     const raw = localStorage.getItem(storageKey);
@@ -296,29 +296,46 @@
                     }
                 } catch (_) {}
 
-                // Jika hari ini sudah tercatat, kembalikan angka
+                // Jika hari ini sudah tercatat, pakai angka dari lokal (tidak perlu hit API lagi)
                 if (storedData && storedData.date === today) {
                     return storedData.count;
                 }
 
-                // Coba hit API (hanya jika belum ada data hari ini)
+                // Coba API dengan timeout (5 detik)
+                let apiSuccess = false;
+                let apiCount = 1;
                 try {
-                    const res = await fetch(`https://api.countapi.xyz/hit/${apiKey}`);
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), 5000);
+                    const res = await fetch(`https://api.countapi.xyz/hit/${apiKey}`, { signal: controller.signal });
+                    clearTimeout(timeout);
                     if (res.ok) {
                         const data = await res.json();
-                        const count = (typeof data.value === 'number') ? data.value : 1;
-                        localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
-                        return count;
+                        if (typeof data.value === 'number') {
+                            apiCount = data.value;
+                            apiSuccess = true;
+                        }
                     }
                 } catch (_) {
-                    // API gagal, lanjut ke fallback
+                    // API gagal atau timeout
                 }
 
-                // Fallback: increment dari storedData atau mulai dari 1
-                const previousCount = (storedData && typeof storedData.count === 'number') ? storedData.count : 0;
-                const newCount = previousCount + 1;
-                localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
-                return newCount;
+                if (apiSuccess) {
+                    // Simpan hasil API
+                    localStorage.setItem(storageKey, JSON.stringify({ count: apiCount, date: today }));
+                    return apiCount;
+                }
+
+                // Fallback: jika ada data sebelumnya (dari hari lain), gunakan angka itu (tidak di-increment)
+                if (storedData && typeof storedData.count === 'number') {
+                    // Tapi kita tetap update tanggal ke hari ini agar tidak mencoba API lagi dalam sehari
+                    localStorage.setItem(storageKey, JSON.stringify({ count: storedData.count, date: today }));
+                    return storedData.count;
+                }
+
+                // Jika tidak ada data sama sekali, mulai dari 1
+                localStorage.setItem(storageKey, JSON.stringify({ count: 1, date: today }));
+                return 1;
             }
 
             telegramBtn.addEventListener('click', (e) => { e.stopPropagation(); telegramDropdown.classList.toggle('show'); });
@@ -466,7 +483,7 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // Ambil counter – selalu angka, tidak pernah null
+                // Ambil counter global (tidak increment lokal)
                 const globalCount = await getGlobalCount(name);
 
                 detailContent.innerHTML = `
