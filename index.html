@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
+        /* CSS (sama seperti sebelumnya, tidak diubah) */
         :root {
             --bg: #04040e; --surface: rgba(15, 15, 30, 0.7); --surface2: rgba(25, 25, 45, 0.8);
             --border: rgba(255, 255, 255, 0.07); --text: #f5f5ff; --text2: #b8b8d0;
@@ -140,6 +141,9 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         .empty-text, .error-text { text-align: center; padding: 45px; color: var(--text2); background: rgba(255,0,0,0.07); border-radius: 24px; margin: 20px 0; }
         .filter-indicator { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.85rem; color: var(--accent2); }
+        /* Tombol debug */
+        .debug-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text2); padding: 6px 14px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; margin-top: 8px; }
+        .debug-btn:hover { border-color: var(--accent2); color: #fff; }
     </style>
 </head>
 <body>
@@ -227,6 +231,9 @@
             const QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
             const PROFILE = { avatar: AVATAR_URL, name: "Destaseo Mods", bio: "Premium modder & content creator.", links: [ { label: "Facebook", url: "https://fb.com/destaseo.id", icon: "fab fa-facebook" }, { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane" } ] };
 
+            // ============================================================
+            // PARTIKEL
+            // ============================================================
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
             let particles = []; const maxParticles = 70;
@@ -242,6 +249,9 @@
             function animateParticles() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateParticles); }
             animateParticles();
 
+            // ============================================================
+            // VARIABEL GLOBAL
+            // ============================================================
             const CACHE_KEY = 'destaseo_premium_cache_v69';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
@@ -277,59 +287,59 @@
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) { const a = document.getElementById('profile-avatar'); a.style.backgroundImage = `url('${AVATAR_URL}')`; a.textContent = ''; }
 
-            // 🚀 GLOBAL COUNTER + DAILY UNIQUE (API countapi.xyz + fallback localStorage)
-            async function getGlobalViewCount(postName) {
-                const clean = postName.replace(/[^a-zA-Z0-9]/g, '') || 'default';
-                const apiKey = `destaseomods_${clean}`;
-                const storageKey = `view_${apiKey}`;
+            // ============================================================
+            // 🎯 COUNTER SEDERHANA + DAILY UNIQUE (100% LOCAL STORAGE)
+            // ============================================================
+            function getDailyViewCount(postName) {
+                const key = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
                 const today = new Date().toISOString().slice(0, 10);
 
-                // Baca data lokal
-                let localData = null;
+                let data = null;
                 try {
-                    const raw = localStorage.getItem(storageKey);
-                    if (raw) localData = JSON.parse(raw);
+                    const raw = localStorage.getItem(key);
+                    if (raw) data = JSON.parse(raw);
                 } catch (_) {}
 
-                // Jika hari ini sudah tercatat, langsung return (tidak hit API)
-                if (localData && localData.date === today) {
-                    console.log(`📊 [${postName}] Local cache hari ini: ${localData.count}`);
-                    return localData.count;
+                // Jika data hari ini ada → return tanpa nambah
+                if (data && data.date === today) {
+                    console.log(`📊 [${postName}] Daily view hari ini: ${data.count}`);
+                    return data.count;
                 }
 
-                // Coba API countapi.xyz (hit = increment)
-                let apiSuccess = false;
-                let apiCount = 1;
-                try {
-                    const controller = new AbortController();
-                    const timeout = setTimeout(() => controller.abort(), 5000);
-                    const res = await fetch(`https://api.countapi.xyz/hit/${apiKey}`, { signal: controller.signal });
-                    clearTimeout(timeout);
-                    if (res.ok) {
-                        const data = await res.json();
-                        if (typeof data.value === 'number' && data.value > 0) {
-                            apiCount = data.value;
-                            apiSuccess = true;
-                        }
-                    }
-                } catch (e) {
-                    console.warn(`⚠️ API countapi error untuk ${postName}:`, e.message);
-                }
-
-                if (apiSuccess) {
-                    console.log(`✅ [${postName}] API success → ${apiCount}`);
-                    localStorage.setItem(storageKey, JSON.stringify({ count: apiCount, date: today }));
-                    return apiCount;
-                }
-
-                // FALLBACK: increment dari lokal (hanya per perangkat)
-                const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
+                // Hari baru → increment +1
+                const prevCount = (data && typeof data.count === 'number') ? data.count : 0;
                 const newCount = prevCount + 1;
-                console.log(`🔄 [${postName}] Fallback lokal → ${newCount}`);
-                localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
+                localStorage.setItem(key, JSON.stringify({ count: newCount, date: today }));
+                console.log(`📈 [${postName}] Daily view baru: ${newCount}`);
                 return newCount;
             }
 
+            // Tombol debug (untuk melihat isi localStorage)
+            function addDebugButton() {
+                const btn = document.createElement('button');
+                btn.className = 'debug-btn';
+                btn.innerHTML = '<i class="fas fa-bug"></i> Debug View';
+                btn.style.position = 'fixed';
+                btn.style.bottom = '80px';
+                btn.style.right = '16px';
+                btn.style.zIndex = '999';
+                btn.addEventListener('click', () => {
+                    let msg = '📦 Isi localStorage (view_*):\n\n';
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const k = localStorage.key(i);
+                        if (k && k.startsWith('view_')) {
+                            msg += `${k} → ${localStorage.getItem(k)}\n`;
+                        }
+                    }
+                    alert(msg || 'Belum ada data view.');
+                });
+                document.body.appendChild(btn);
+            }
+            addDebugButton();
+
+            // ============================================================
+            // EVENT LISTENER & NAVIGASI
+            // ============================================================
             telegramBtn.addEventListener('click', (e) => { e.stopPropagation(); telegramDropdown.classList.toggle('show'); });
             document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
@@ -352,6 +362,9 @@
             }
             function renderProfile() { document.getElementById('profile-name').textContent = PROFILE.name; document.getElementById('profile-bio').textContent = PROFILE.bio; document.getElementById('social-links').innerHTML = PROFILE.links.map(l => `<a href="${l.url}" target="_blank" class="social-link"><i class="${l.icon}"></i> ${l.label}</a>`).join(''); }
 
+            // ============================================================
+            // FETCH DATA DARI GITHUB
+            // ============================================================
             function getCache() { const r = localStorage.getItem(CACHE_KEY); if (!r) return null; try { const d = JSON.parse(r); if (Date.now()-d.t < CACHE_TIME) return d.posts; } catch(e) {} return null; }
             function setCache(posts) { localStorage.setItem(CACHE_KEY, JSON.stringify({t: Date.now(), posts})); }
 
@@ -378,6 +391,9 @@
             function getExcerpt(c) { if (!c) return ''; let t = c.replace(/[#*`>\[\]()!|]/g, '').replace(/\n/g, ' ').trim(); if (t.length > 80) t = t.slice(0, 80) + '...'; return t; }
             function formatDate(d) { if (!d) return ''; const dt = new Date(d); if (isNaN(dt.getTime())) return ''; const m = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des']; return `${dt.getDate()} ${m[dt.getMonth()]} ${dt.getFullYear()}`; }
 
+            // ============================================================
+            // RENDER HOME
+            // ============================================================
             function getAllKategori() { const k = new Set(); fetchedPosts.forEach(p => { const kat = p.metadata.kategori || ''; if (kat) k.add(kat); }); return Array.from(k).sort(); }
 
             function renderCategoryBar() {
@@ -446,6 +462,9 @@
 
             async function renderHome() { postContainer.innerHTML = '<div class="spinner"></div>'; loadMoreContainer.innerHTML = ''; categoryBar.innerHTML = ''; carouselTrack.innerHTML = ''; stopCarousel(); try { await fetchPostList(); if (!postsData.length) { postContainer.innerHTML = '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>'; return; } fetchedPosts = await Promise.all(postsData.map(fetchPost)); renderPopularSection(); renderCategoryBar(); resetAndApplyFilters(); startCarousel(); } catch (err) { postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`; } }
 
+            // ============================================================
+            // DETAIL & COUNTER
+            // ============================================================
             function buildScreenshotGallery(str) { if (!str) return ''; const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0); if (urls.length === 0) return ''; const lim = urls.slice(0, 5); return `<div class="screenshot-scroll">${lim.map(u => `<img src="${u}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox('${u}')">`).join('')}</div>`; }
 
             window.openLightbox = function(url) { const lb = document.createElement('div'); lb.className = 'lightbox'; lb.innerHTML = `<img src="${url}" alt="Screenshot">`; lb.addEventListener('click', () => lb.remove()); document.body.appendChild(lb); };
@@ -479,8 +498,8 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🔥 Ambil counter global (API + fallback)
-                const viewCount = await getGlobalViewCount(name);
+                // 🔥 Ambil counter daily (localStorage)
+                const viewCount = getDailyViewCount(name);
 
                 detailContent.innerHTML = `
                 <div class="detail-header">
@@ -508,7 +527,9 @@
             searchInput.addEventListener('input', () => resetAndApplyFilters());
             window.addEventListener('hashchange', () => { const { page, postName } = getHashPage(); if (page === 'detail' && postName) { if (fetchedPosts.length === 0) renderHome().then(() => navigate('detail', postName)); else navigate('detail', postName); } else navigate(page); });
 
-            // 📍 SITEMAP GENERATOR
+            // ============================================================
+            // SITEMAP GENERATOR
+            // ============================================================
             async function generateSitemap() {
                 if (window.location.search !== '?sitemap') return;
                 const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
@@ -533,6 +554,9 @@
                 throw new Error('SITEMAP_DISPLAY');
             }
 
+            // ============================================================
+            // START APLIKASI
+            // ============================================================
             (async () => {
                 try {
                     await generateSitemap();
