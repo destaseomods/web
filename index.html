@@ -12,1257 +12,165 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* ===== ROOT ===== */
         :root {
-            --bg: #04040e;
-            --surface: rgba(15, 15, 30, 0.7);
-            --surface2: rgba(25, 25, 45, 0.8);
-            --border: rgba(255, 255, 255, 0.07);
-            --text: #f5f5ff;
-            --text2: #b8b8d0;
-            --accent: #a87fff;
-            --accent2: #3ee0ff;
-            --grad1: linear-gradient(135deg, #a87fff, #3ee0ff);
-            --radius: 28px;
-            --radius-sm: 20px;
-            --nav-height: 76px;
+            --bg: #04040e; --surface: rgba(15, 15, 30, 0.7); --surface2: rgba(25, 25, 45, 0.8);
+            --border: rgba(255, 255, 255, 0.07); --text: #f5f5ff; --text2: #b8b8d0;
+            --accent: #a87fff; --accent2: #3ee0ff; --grad1: linear-gradient(135deg, #a87fff, #3ee0ff);
+            --radius: 28px; --radius-sm: 20px; --nav-height: 76px;
             --safe-bottom: env(safe-area-inset-bottom, 16px);
-            --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06);
-            --glow: 0 0 60px rgba(168, 127, 255, 0.4);
-            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-card: 0 16px 48px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06);
+            --glow: 0 0 60px rgba(168,127,255,0.4); --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        /* ===== RESET & BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
-            -webkit-tap-highlight-color: transparent;
-            overflow-x: hidden;
-            position: relative;
+            font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text);
+            line-height: 1.6; min-height: 100vh; padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
+            -webkit-tap-highlight-color: transparent; overflow-x: hidden; position: relative;
         }
-
-        /* ===== PARTICLES ===== */
-        canvas#particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.7;
-        }
-
-        /* ===== CONTAINER ===== */
-        .container {
-            max-width: 760px;
-            margin: 0 auto;
-            padding: 12px 16px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ===== TOPBAR ===== */
+        canvas#particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.7; }
+        .container { max-width: 760px; margin: 0 auto; padding: 12px 20px; position: relative; z-index: 2; }
         .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 18px;
-            background: rgba(12, 12, 25, 0.65);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--border);
-            border-radius: 34px;
-            margin: 12px auto;
-            max-width: 700px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
-            position: sticky;
-            top: 14px;
-            z-index: 99;
-            gap: 8px;
+            display: flex; align-items: center; justify-content: space-between; padding: 14px 22px;
+            background: rgba(12,12,25,0.65); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--border); border-radius: 34px; margin: 12px auto; max-width: 700px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.7); position: sticky; top: 14px; z-index: 99;
         }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-        .logo-img {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 15px rgba(168, 127, 255, 0.4);
-        }
-        .logo-text {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 900;
-            font-size: 1.3rem;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, #c084fc, #60a5fa, #34d399);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientShift 3s ease infinite alternate;
-        }
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% center;
-            }
-            100% {
-                background-position: 100% center;
-            }
-        }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 0 15px rgba(168,127,255,0.4); }
+        .logo-text { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.7rem; letter-spacing: -1px; background: linear-gradient(135deg, #c084fc, #60a5fa, #34d399); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 3s ease infinite alternate; }
+        @keyframes gradientShift { 0% { background-position: 0% center; } 100% { background-position: 100% center; } }
+        .telegram-wrapper { position: relative; }
+        .telegram-btn { background: var(--surface); border: 1px solid var(--border); color: var(--accent2); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: var(--transition); backdrop-filter: blur(16px); white-space: nowrap; }
+        .telegram-btn:hover { border-color: var(--accent2); box-shadow: 0 0 25px rgba(62,224,255,0.4); background: rgba(62,224,255,0.1); }
+        .telegram-dropdown { position: absolute; top: 100%; right: 0; margin-top: 8px; background: var(--surface); backdrop-filter: blur(24px); border: 1px solid var(--border); border-radius: 20px; padding: 8px; min-width: 180px; display: none; flex-direction: column; gap: 4px; box-shadow: 0 12px 32px rgba(0,0,0,0.8); z-index: 150; }
+        .telegram-dropdown.show { display: flex; }
+        .telegram-dropdown a { color: var(--text); text-decoration: none; padding: 10px 14px; border-radius: 14px; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 10px; transition: background 0.2s; }
+        .telegram-dropdown a:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .telegram-dropdown a i { width: 18px; text-align: center; }
+        .search-container { margin: 8px 0 16px; display: flex; gap: 8px; }
+        .search-input { flex: 1; background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 30px; padding: 12px 20px; color: #fff; font-size: 0.95rem; font-family: inherit; outline: none; transition: var(--transition); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+        .search-input:focus { border-color: var(--accent); box-shadow: 0 0 30px rgba(168,127,255,0.5); }
+        .search-input::placeholder { color: var(--text2); }
+        .category-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+        .category-chip { background: var(--surface); border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px; color: var(--text2); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: var(--transition); backdrop-filter: blur(10px); }
+        .category-chip i { margin-right: 4px; }
+        .category-chip.active, .category-chip:hover { background: rgba(168,127,255,0.2); border-color: var(--accent); color: #fff; }
+        .reset-filter { background: none; border: none; color: var(--accent2); font-size: 0.75rem; font-weight: 600; cursor: pointer; padding: 6px 12px; }
+        .reset-filter i { margin-right: 4px; }
+        .sort-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; justify-content: flex-end; }
+        .sort-label { color: var(--text2); font-size: 0.75rem; font-weight: 500; }
+        .sort-select { background: var(--surface); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 20px; padding: 6px 12px; color: #fff; font-size: 0.75rem; font-family: inherit; outline: none; cursor: pointer; transition: var(--transition); }
+        .sort-select:hover { border-color: var(--accent2); }
+        .popular-section { margin-bottom: 0; }
+        .carousel-wrapper { position: relative; overflow: hidden; border-radius: var(--radius-sm); background: var(--surface); backdrop-filter: blur(22px); border: 1px solid var(--border); box-shadow: var(--shadow-card); height: 220px; }
+        .carousel-track { display: flex; height: 100%; position: relative; }
+        .carousel-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer; overflow: hidden; opacity: 0; transition: opacity 0.8s ease-in-out; }
+        .carousel-slide.active { opacity: 1; z-index: 1; }
+        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+        .carousel-slide .slide-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: #fff; display: flex; justify-content: space-between; align-items: flex-end; }
+        .carousel-slide .slide-title { font-weight: 800; font-size: 1rem; line-height: 1.3; }
+        .carousel-title-top { position: absolute; top: 14px; left: 16px; font-size: 0.8rem; font-weight: 700; color: #fff; z-index: 5; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); padding: 5px 14px; border-radius: 20px; display: flex; align-items: center; gap: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
+        .carousel-counter { background: rgba(0,0,0,0.5); backdrop-filter: blur(6px); color: #fff; padding: 4px 12px; border-radius: 14px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; }
+        .section-divider { border: none; border-top: 3px solid rgba(255, 255, 255, 0.25); margin: 22px 0 20px; }
+        .post-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .post-card { background: var(--surface); backdrop-filter: blur(22px); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; cursor: pointer; transition: all 0.45s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; animation: fadeInUp 0.5s ease forwards; opacity: 0; transform: translateY(25px); }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .post-card:hover { transform: translateY(-8px) scale(1.02); border-color: rgba(255,255,255,0.2); box-shadow: var(--glow), 0 25px 50px rgba(0,0,0,0.9); }
+        .post-card:active { transform: scale(0.97); }
+        .card-img { width: 100%; height: 140px; object-fit: cover; background: linear-gradient(135deg, #1e1e35, #10101c); display: flex; align-items: center; justify-content: center; color: var(--text2); font-size: 2.5rem; position: relative; overflow: hidden; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .card-img .placeholder-icon { display: none; font-size: 2.5rem; }
+        .card-img.error .placeholder-icon { display: block; }
+        .card-img.error img { display: none; }
+        .version-badge-img { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.65); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); color: #fff; padding: 3px 10px; border-radius: 12px; font-size: 0.65rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; z-index: 2; }
+        .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+        .card-title { font-weight: 800; font-size: 0.85rem; line-height: 1.3; color: #fff; }
+        .card-meta { font-size: 0.7rem; color: var(--text2); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .badge { background: rgba(168,127,255,0.2); color: #cfc4ff; padding: 2px 10px; border-radius: 20px; font-weight: 700; font-size: 0.65rem; cursor: pointer; transition: 0.2s; }
+        .badge:hover { background: rgba(168,127,255,0.4); color: #fff; }
+        .card-excerpt { font-size: 0.72rem; color: var(--text2); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .load-more-btn { display: block; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border); color: var(--accent2); padding: 12px 24px; border-radius: 30px; font-weight: 700; cursor: pointer; transition: var(--transition); backdrop-filter: blur(16px); }
+        .load-more-btn:hover { border-color: var(--accent2); box-shadow: 0 0 25px rgba(62,224,255,0.4); background: rgba(62,224,255,0.1); }
+        .hidden { display: none !important; }
+        .detail-header, .profile-card { background: var(--surface); backdrop-filter: blur(24px); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 12px; box-shadow: var(--shadow-card); }
+        .detail-img { display: block; width: 100px; height: 100px; object-fit: cover; border-radius: 20px; background: var(--surface2); margin: 0 auto 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.6); }
+        .detail-title { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.3px; text-align: center; }
+        .detail-meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin: 14px 0; }
+        .meta-item { background: var(--surface2); padding: 10px 12px; border-radius: 12px; font-size: 0.75rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .meta-item i { color: var(--accent2); margin-bottom: 4px; font-size: 0.9rem; }
+        .meta-item strong { color: var(--accent2); font-size: 0.75rem; }
+        .big-download { display: block; width: 100%; background: var(--grad1); border: none; color: #04040e; font-weight: 700; font-size: 1rem; padding: 15px; border-radius: 18px; margin: 20px 0 0; cursor: pointer; transition: 0.2s; letter-spacing: -0.3px; text-decoration: none; text-align: center; box-shadow: 0 6px 24px rgba(0,0,0,0.6); }
+        .big-download i { margin-right: 6px; }
+        .big-download:active { transform: scale(0.96); }
+        .big-download.disabled { opacity: 0.5; pointer-events: none; }
+        .big-download.counting { opacity: 0.8; pointer-events: none; background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+        .content-box { background: var(--surface); backdrop-filter: blur(24px); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 28px; line-height: 1.8; box-shadow: var(--shadow-card); white-space: pre-line; }
+        .content-box img { max-width: 100%; border-radius: 16px; margin: 12px 0; }
+        .content-box pre { background: #050510; padding: 16px; border-radius: 16px; overflow-x: auto; white-space: pre; }
+        .back-btn { background: none; border: none; color: var(--accent2); font-weight: 700; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; cursor: pointer; font-size: 0.95rem; padding: 10px 0; transition: opacity 0.2s; }
+        .back-btn:hover { opacity: 0.8; }
+        .profile-avatar { width: 100px; height: 100px; border-radius: 50%; background: var(--surface2); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; color: #fff; box-shadow: 0 10px 40px rgba(255,100,165,0.4); background-size: cover; background-position: center; }
+        .profile-name { text-align: center; font-size: 1.5rem; font-weight: 800; }
+        .profile-bio { text-align: center; color: var(--text2); margin: 10px 0 20px; }
+        .social-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .social-link { background: var(--surface2); padding: 10px 20px; border-radius: 30px; color: var(--accent2); text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: var(--transition); border: 1px solid transparent; display: flex; align-items: center; gap: 8px; }
+        .social-link i { font-size: 1rem; }
+        .social-link:hover { border-color: var(--accent2); background: rgba(62,224,255,0.1); }
+        .donate-section { margin-top: 24px; text-align: center; border-top: 1px solid var(--border); padding-top: 20px; }
+        .donate-title { color: var(--text2); margin-bottom: 12px; font-weight: 600; }
+        .donate-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .qris-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 250; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .qris-overlay.hidden { display: none; }
+        .qris-container { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; text-align: center; max-width: 320px; width: 90%; }
+        .qris-container img { width: 100%; border-radius: 16px; margin-bottom: 16px; }
+        .qris-close-btn, .qris-download-btn { background: var(--surface); border: 1px solid var(--border); color: #fff; padding: 10px 24px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: 0.2s; margin: 4px; }
+        .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255,255,255,0.1); }
+        .tags-container { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+        .tag-badge { background: rgba(255,255,255,0.06); color: var(--text2); padding: 3px 10px; border-radius: 14px; font-size: 0.65rem; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
+        .screenshot-scroll { display: flex; flex-wrap: nowrap; gap: 12px; overflow-x: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 8px; margin-top: 16px; max-width: 100%; touch-action: pan-x; }
+        .screenshot-scroll img { flex: 0 0 auto; width: 150px; height: 220px; object-fit: cover; border-radius: 14px; cursor: pointer; transition: transform 0.2s; background: var(--surface2); border: 1px solid var(--border); }
+        .screenshot-scroll img:hover { transform: scale(1.03); border-color: var(--accent); }
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 200; display: flex; align-items: center; justify-content: center; cursor: zoom-out; }
+        .lightbox img { max-width: 95vw; max-height: 95vh; border-radius: 16px; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(5,5,15,0.85); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px); border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; height: var(--nav-height); padding-bottom: var(--safe-bottom); z-index: 100; box-shadow: 0 -6px 30px rgba(0,0,0,0.8); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text2); font-size: 0.7rem; font-weight: 600; gap: 5px; transition: 0.25s; cursor: pointer; background: none; border: none; padding: 10px 18px; border-radius: 24px; }
+        .nav-item.active { color: var(--accent2); background: rgba(62,224,255,0.12); }
+        .nav-item i { font-size: 1.3rem; }
+        .spinner { width: 44px; height: 44px; margin: 50px auto; border: 3px solid rgba(255,255,255,0.06); border-top-color: var(--accent2); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .empty-text, .error-text { text-align: center; padding: 45px; color: var(--text2); background: rgba(255,0,0,0.07); border-radius: 24px; margin: 20px 0; }
+        .filter-indicator { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.85rem; color: var(--accent2); }
 
-        .telegram-wrapper {
-            position: relative;
-            flex-shrink: 0;
-        }
-        .telegram-btn {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--accent2);
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: var(--transition);
-            backdrop-filter: blur(16px);
-            white-space: nowrap;
-        }
-        .telegram-btn:hover {
-            border-color: var(--accent2);
-            box-shadow: 0 0 25px rgba(62, 224, 255, 0.4);
-            background: rgba(62, 224, 255, 0.1);
-        }
-        .telegram-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 8px;
-            background: var(--surface);
-            backdrop-filter: blur(24px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 8px;
-            min-width: 170px;
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
-            z-index: 150;
-        }
-        .telegram-dropdown.show {
-            display: flex;
-        }
-        .telegram-dropdown a {
-            color: var(--text);
-            text-decoration: none;
-            padding: 10px 14px;
-            border-radius: 14px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: background 0.2s;
-        }
-        .telegram-dropdown a:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-        }
-        .telegram-dropdown a i {
-            width: 18px;
-            text-align: center;
-        }
-
-        /* ===== SEARCH ===== */
-        .search-container {
-            margin: 8px 0 16px;
-            display: flex;
-            gap: 8px;
-        }
-        .search-input {
-            flex: 1;
-            background: var(--surface);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            padding: 12px 20px;
-            color: #fff;
-            font-size: 0.95rem;
-            font-family: inherit;
-            outline: none;
-            transition: var(--transition);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-        }
-        .search-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 30px rgba(168, 127, 255, 0.5);
-        }
-        .search-input::placeholder {
-            color: var(--text2);
-        }
-
-        /* ===== CATEGORY ===== */
-        .category-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
-            align-items: center;
-        }
-        .category-chip {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 6px 14px;
-            border-radius: 20px;
-            color: var(--text2);
-            font-size: 0.7rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-            white-space: nowrap;
-        }
-        .category-chip i {
-            margin-right: 4px;
-        }
-        .category-chip.active,
-        .category-chip:hover {
-            background: rgba(168, 127, 255, 0.2);
-            border-color: var(--accent);
-            color: #fff;
-        }
-        .reset-filter {
-            background: none;
-            border: none;
-            color: var(--accent2);
-            font-size: 0.7rem;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 6px 12px;
-        }
-        .reset-filter i {
-            margin-right: 4px;
-        }
-
-        /* ===== SORT ===== */
-        .sort-bar {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-        }
-        .sort-label {
-            color: var(--text2);
-            font-size: 0.7rem;
-            font-weight: 500;
-        }
-        .sort-select {
-            background: var(--surface);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 6px 12px;
-            color: #fff;
-            font-size: 0.7rem;
-            font-family: inherit;
-            outline: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .sort-select:hover {
-            border-color: var(--accent2);
-        }
-
-        /* ===== CAROUSEL ===== */
-        .popular-section {
-            margin-bottom: 0;
-        }
-        .carousel-wrapper {
-            position: relative;
-            overflow: hidden;
-            border-radius: var(--radius-sm);
-            background: var(--surface);
-            backdrop-filter: blur(22px);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-card);
-            height: 200px;
-        }
-        .carousel-track {
-            display: flex;
-            height: 100%;
-            position: relative;
-        }
-        .carousel-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            overflow: hidden;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-        }
-        .carousel-slide.active {
-            opacity: 1;
-            z-index: 1;
-        }
-        .carousel-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .carousel-slide .slide-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 14px;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-        .carousel-slide .slide-title {
-            font-weight: 800;
-            font-size: 0.95rem;
-            line-height: 1.3;
-        }
-        .carousel-title-top {
-            position: absolute;
-            top: 12px;
-            left: 14px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: #fff;
-            z-index: 5;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            padding: 4px 12px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-        }
-        .carousel-counter {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(6px);
-            color: #fff;
-            padding: 3px 10px;
-            border-radius: 14px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        /* ===== DIVIDER ===== */
-        .section-divider {
-            border: none;
-            border-top: 3px solid rgba(255, 255, 255, 0.25);
-            margin: 22px 0 20px;
-        }
-
-        /* ===== POST GRID ===== */
-        .post-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-        }
-
-        /* ===== POST CARD ===== */
-        .post-card {
-            background: var(--surface);
-            backdrop-filter: blur(22px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            animation: fadeInUp 0.5s ease forwards;
-            opacity: 0;
-            transform: translateY(25px);
-        }
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .post-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: var(--glow), 0 25px 50px rgba(0, 0, 0, 0.9);
-        }
-        .post-card:active {
-            transform: scale(0.97);
-        }
-        .card-img {
-            width: 100%;
-            height: 130px;
-            object-fit: cover;
-            background: linear-gradient(135deg, #1e1e35, #10101c);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text2);
-            font-size: 2.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        .card-img .placeholder-icon {
-            display: none;
-            font-size: 2.5rem;
-        }
-        .card-img.error .placeholder-icon {
-            display: block;
-        }
-        .card-img.error img {
-            display: none;
-        }
-        .version-badge-img {
-            position: absolute;
-            top: 6px;
-            left: 6px;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            color: #fff;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.6rem;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            z-index: 2;
-        }
-        .card-body {
-            padding: 14px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .card-title {
-            font-weight: 800;
-            font-size: 0.8rem;
-            line-height: 1.3;
-            color: #fff;
-        }
-        .card-meta {
-            font-size: 0.65rem;
-            color: var(--text2);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .badge {
-            background: rgba(168, 127, 255, 0.2);
-            color: #cfc4ff;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.6rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .badge:hover {
-            background: rgba(168, 127, 255, 0.4);
-            color: #fff;
-        }
-        .card-excerpt {
-            font-size: 0.68rem;
-            color: var(--text2);
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* ===== LOAD MORE ===== */
-        .load-more-btn {
-            display: block;
-            margin: 20px auto 0;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--accent2);
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            backdrop-filter: blur(16px);
-            font-size: 0.9rem;
-        }
-        .load-more-btn:hover {
-            border-color: var(--accent2);
-            box-shadow: 0 0 25px rgba(62, 224, 255, 0.4);
-            background: rgba(62, 224, 255, 0.1);
-        }
-
-        /* ===== UTILITY ===== */
-        .hidden {
-            display: none !important;
-        }
-
-        /* ===== DETAIL ===== */
-        .detail-header,
-        .profile-card {
-            background: var(--surface);
-            backdrop-filter: blur(24px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 24px;
-            margin-bottom: 12px;
-            box-shadow: var(--shadow-card);
-        }
-        .detail-img {
-            display: block;
-            width: 90px;
-            height: 90px;
-            object-fit: cover;
-            border-radius: 20px;
-            background: var(--surface2);
-            margin: 0 auto 14px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-        }
-        .detail-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            letter-spacing: -0.3px;
-            text-align: center;
-        }
-        .detail-meta-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-            gap: 8px;
-            margin: 12px 0;
-        }
-        .meta-item {
-            background: var(--surface2);
-            padding: 8px 10px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .meta-item i {
-            color: var(--accent2);
-            margin-bottom: 3px;
-            font-size: 0.8rem;
-        }
-        .meta-item strong {
-            color: var(--accent2);
-            font-size: 0.7rem;
-        }
-
-        .big-download {
-            display: block;
-            width: 100%;
-            background: var(--grad1);
-            border: none;
-            color: #04040e;
-            font-weight: 700;
-            font-size: 0.95rem;
-            padding: 14px;
-            border-radius: 18px;
-            margin: 20px 0 0;
-            cursor: pointer;
-            transition: 0.2s;
-            letter-spacing: -0.3px;
-            text-decoration: none;
-            text-align: center;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
-        }
-        .big-download i {
-            margin-right: 6px;
-        }
-        .big-download:active {
-            transform: scale(0.96);
-        }
-        .big-download.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-        .big-download.counting {
-            opacity: 0.8;
-            pointer-events: none;
-            background: var(--surface2);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-
-        .content-box {
-            background: var(--surface);
-            backdrop-filter: blur(24px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px 22px;
-            line-height: 1.8;
-            box-shadow: var(--shadow-card);
-            white-space: pre-line;
-        }
-        .content-box img {
-            max-width: 100%;
-            border-radius: 16px;
-            margin: 12px 0;
-        }
-        .content-box pre {
-            background: #050510;
-            padding: 16px;
-            border-radius: 16px;
-            overflow-x: auto;
-            white-space: pre;
-        }
-
-        .back-btn {
-            background: none;
-            border: none;
-            color: var(--accent2);
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            padding: 10px 0;
-            transition: opacity 0.2s;
-        }
-        .back-btn:hover {
-            opacity: 0.8;
-        }
-
-        /* ===== RECOMMENDATIONS ===== */
-        .recommend-section {
-            margin-top: 20px;
-            border-top: 1px solid var(--border);
-            padding-top: 16px;
-        }
-        .recommend-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .recommend-title i {
-            color: var(--accent2);
-        }
-        .recommend-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 12px;
-        }
-        .recommend-item {
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-        }
-        .recommend-item:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-        }
-        .recommend-item img {
-            width: 100%;
-            height: 80px;
-            object-fit: cover;
-            background: var(--bg);
-        }
-        .recommend-item .rec-body {
-            padding: 8px 10px 10px;
-        }
-        .recommend-item .rec-title {
-            font-weight: 700;
-            font-size: 0.7rem;
-            color: #fff;
-            line-height: 1.2;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .recommend-item .rec-cat {
-            font-size: 0.55rem;
-            color: var(--text2);
-            margin-top: 3px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        /* ===== PROFILE ===== */
-        .profile-avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            background: var(--surface2);
-            margin: 0 auto 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: #fff;
-            box-shadow: 0 10px 40px rgba(255, 100, 165, 0.4);
-            background-size: cover;
-            background-position: center;
-        }
-        .profile-name {
-            text-align: center;
-            font-size: 1.3rem;
-            font-weight: 800;
-        }
-        .profile-bio {
-            text-align: center;
-            color: var(--text2);
-            margin: 8px 0 18px;
-        }
-        .social-links {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .social-link {
-            background: var(--surface2);
-            padding: 8px 18px;
-            border-radius: 30px;
-            color: var(--accent2);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: var(--transition);
-            border: 1px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .social-link i {
-            font-size: 0.9rem;
-        }
-        .social-link:hover {
-            border-color: var(--accent2);
-            background: rgba(62, 224, 255, 0.1);
-        }
-        .donate-section {
-            margin-top: 20px;
-            text-align: center;
-            border-top: 1px solid var(--border);
-            padding-top: 18px;
-        }
-        .donate-title {
-            color: var(--text2);
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        .donate-links {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* ===== QRIS OVERLAY ===== */
-        .qris-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 250;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        .qris-overlay.hidden {
-            display: none;
-        }
-        .qris-container {
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px;
-            text-align: center;
-            max-width: 300px;
-            width: 90%;
-        }
-        .qris-container img {
-            width: 100%;
-            border-radius: 16px;
-            margin-bottom: 14px;
-        }
-        .qris-close-btn,
-        .qris-download-btn {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: #fff;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            margin: 4px;
-            font-size: 0.8rem;
-        }
-        .qris-close-btn:hover,
-        .qris-download-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* ===== TAGS ===== */
-        .tags-container {
-            margin-top: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .tag-badge {
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text2);
-            padding: 3px 10px;
-            border-radius: 14px;
-            font-size: 0.6rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        /* ===== SCREENSHOT SCROLL ===== */
-        .screenshot-scroll {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 10px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 8px;
-            margin-top: 14px;
-            max-width: 100%;
-            touch-action: pan-x;
-        }
-        .screenshot-scroll img {
-            flex: 0 0 auto;
-            width: 130px;
-            height: 190px;
-            object-fit: cover;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-        }
-        .screenshot-scroll img:hover {
-            transform: scale(1.03);
-            border-color: var(--accent);
-        }
-
-        /* ===== LIGHTBOX ===== */
-        .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: zoom-out;
-        }
-        .lightbox img {
-            max-width: 95vw;
-            max-height: 95vh;
-            border-radius: 16px;
-        }
-
-        /* ===== BOTTOM NAV ===== */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(5, 5, 15, 0.85);
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: var(--nav-height);
-            padding-bottom: var(--safe-bottom);
-            z-index: 100;
-            box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.8);
-        }
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text2);
-            font-size: 0.65rem;
-            font-weight: 600;
-            gap: 4px;
-            transition: 0.25s;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 24px;
-        }
-        .nav-item.active {
-            color: var(--accent2);
-            background: rgba(62, 224, 255, 0.12);
-        }
-        .nav-item i {
-            font-size: 1.2rem;
-        }
-
-        /* ===== SPINNER / EMPTY ===== */
-        .spinner {
-            width: 44px;
-            height: 44px;
-            margin: 50px auto;
-            border: 3px solid rgba(255, 255, 255, 0.06);
-            border-top-color: var(--accent2);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        .empty-text,
-        .error-text {
-            text-align: center;
-            padding: 40px;
-            color: var(--text2);
-            background: rgba(255, 0, 0, 0.07);
-            border-radius: 24px;
-            margin: 20px 0;
-        }
-        .filter-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-            font-size: 0.8rem;
-            color: var(--accent2);
-        }
-
-        /* ============================================================
-                   RESPONSIVE TWEAKS
-                   ============================================================ */
-
-        /* --- Tablet & small laptop (max-width: 768px) --- */
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px 12px;
-            }
-            .topbar {
-                padding: 10px 14px;
-                margin: 8px auto;
-            }
-            .logo-text {
-                font-size: 1.1rem;
-            }
-            .logo-img {
-                width: 30px;
-                height: 30px;
-            }
-            .post-grid {
-                gap: 12px;
-            }
-            .card-img {
-                height: 110px;
-            }
-            .carousel-wrapper {
-                height: 170px;
-            }
-            .detail-header,
-            .profile-card {
-                padding: 18px;
-            }
-            .detail-title {
-                font-size: 1rem;
-            }
-            .detail-meta-grid {
-                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            }
-            .recommend-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
-            .content-box {
-                padding: 14px 16px;
-            }
-        }
-
-        /* --- Handphone (max-width: 480px) --- */
-        @media (max-width: 480px) {
-            .container {
-                padding: 8px 10px;
-            }
-            .topbar {
-                padding: 8px 12px;
-                border-radius: 28px;
-                margin: 6px auto;
-            }
-            .logo-text {
-                font-size: 0.95rem;
-            }
-            .logo-img {
-                width: 26px;
-                height: 26px;
-            }
-            .telegram-btn {
-                padding: 5px 10px;
-                font-size: 0.65rem;
-            }
-            .telegram-btn i {
-                font-size: 0.7rem;
-            }
-            .telegram-dropdown {
-                min-width: 150px;
-                right: -10px;
-            }
-
-            /* grid 1 kolom di hp */
-            .post-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            .card-img {
-                height: 150px;
-            }
-            .card-title {
-                font-size: 0.9rem;
-            }
-
-            .carousel-wrapper {
-                height: 150px;
-                border-radius: 16px;
-            }
-            .carousel-slide .slide-title {
-                font-size: 0.8rem;
-            }
-            .carousel-title-top {
-                font-size: 0.6rem;
-                padding: 3px 10px;
-                top: 8px;
-                left: 10px;
-            }
-            .carousel-counter {
-                font-size: 0.6rem;
-                padding: 2px 8px;
-            }
-
-            .detail-header,
-            .profile-card {
-                padding: 14px;
-                border-radius: 20px;
-            }
-            .detail-img {
-                width: 70px;
-                height: 70px;
-                border-radius: 16px;
-            }
-            .detail-title {
-                font-size: 0.95rem;
-            }
-            .detail-meta-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 6px;
-            }
-            .meta-item {
-                padding: 6px 8px;
-                font-size: 0.6rem;
-                border-radius: 10px;
-            }
-            .meta-item i {
-                font-size: 0.7rem;
-            }
-
-            .big-download {
-                font-size: 0.85rem;
-                padding: 12px;
-                border-radius: 14px;
-            }
-
-            .content-box {
-                padding: 12px 14px;
-                font-size: 0.9rem;
-                border-radius: 20px;
-            }
-            .screenshot-scroll img {
-                width: 100px;
-                height: 150px;
-            }
-
-            .recommend-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-            .recommend-item img {
-                height: 70px;
-            }
-            .recommend-item .rec-title {
-                font-size: 0.65rem;
-            }
-
-            .profile-avatar {
-                width: 70px;
-                height: 70px;
-                font-size: 2rem;
-            }
-            .profile-name {
-                font-size: 1.1rem;
-            }
-            .social-link {
-                padding: 6px 14px;
-                font-size: 0.7rem;
-            }
-
-            .bottom-nav {
-                height: 64px;
-            }
-            .nav-item {
-                padding: 4px 10px;
-                font-size: 0.55rem;
-            }
-            .nav-item i {
-                font-size: 1rem;
-            }
-
-            .search-input {
-                font-size: 0.85rem;
-                padding: 10px 16px;
-            }
-            .category-chip {
-                font-size: 0.6rem;
-                padding: 4px 10px;
-            }
-            .sort-label {
-                font-size: 0.6rem;
-            }
-            .sort-select {
-                font-size: 0.6rem;
-                padding: 4px 10px;
-            }
-            .load-more-btn {
-                font-size: 0.8rem;
-                padding: 10px 20px;
-            }
-            .qris-container {
-                padding: 16px;
-                max-width: 260px;
-            }
-        }
-
-        /* --- layar sangat kecil (max-width: 360px) --- */
-        @media (max-width: 360px) {
-            .logo-text {
-                font-size: 0.8rem;
-            }
-            .logo-img {
-                width: 22px;
-                height: 22px;
-            }
-            .telegram-btn {
-                font-size: 0.55rem;
-                padding: 4px 8px;
-            }
-            .post-grid {
-                gap: 10px;
-            }
-            .card-img {
-                height: 120px;
-            }
-            .card-body {
-                padding: 10px;
-            }
-            .card-title {
-                font-size: 0.75rem;
-            }
-            .carousel-wrapper {
-                height: 130px;
-            }
-            .detail-meta-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .recommend-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-            .recommend-item img {
-                height: 60px;
-            }
-        }
+        /* ----- REKOMENDASI POSTINGAN ----- */
+        .rekomendasi-wrap { margin-top: 24px; }
+        .rekomendasi-wrap h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--accent2); }
+        .rekomendasi-wrap h3 i { font-size: 1rem; }
+        .rekom-scroll { display: flex; flex-wrap: nowrap; gap: 14px; overflow-x: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 10px; }
+        .rekom-card { flex: 0 0 160px; background: var(--surface2); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; cursor: pointer; transition: var(--transition); }
+        .rekom-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 8px 30px rgba(0,0,0,0.6); }
+        .rekom-card:active { transform: scale(0.96); }
+        .rekom-card img { width: 100%; height: 100px; object-fit: cover; background: var(--bg); display: block; }
+        .rekom-card .rekom-body { padding: 10px 12px; }
+        .rekom-card .rekom-body .rekom-title { font-weight: 700; font-size: 0.75rem; line-height: 1.3; color: #fff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .rekom-card .rekom-body .rekom-kat { font-size: 0.6rem; color: var(--text2); margin-top: 4px; display: inline-block; background: rgba(255,255,255,0.06); padding: 2px 10px; border-radius: 10px; }
+        .rekom-card .rekom-body .rekom-kat i { margin-right: 3px; font-size: 0.5rem; }
+        .rekom-card .rekom-img-wrap { position: relative; overflow: hidden; height: 100px; background: var(--bg); }
+        .rekom-card .rekom-img-wrap .rekom-placeholder { display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text2); font-size: 2rem; }
+        .rekom-card .rekom-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+        .rekom-empty { color: var(--text2); font-size: 0.85rem; padding: 8px 0; }
     </style>
 </head>
 <body>
     <canvas id="particles"></canvas>
-
-    <!-- QRIS OVERLAY -->
     <div class="qris-overlay hidden" id="qris-overlay">
         <div class="qris-container">
             <img src="https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png" alt="QRIS Dana" id="qris-img">
             <div>
-                <button class="qris-download-btn" id="qris-download-btn"><i class="fas fa-download"></i> Download</button>
+                <button class="qris-download-btn" id="qris-download-btn"><i class="fas fa-download"></i> Download Gambar</button>
                 <button class="qris-close-btn" id="qris-close-btn"><i class="fas fa-times"></i> Tutup</button>
             </div>
         </div>
     </div>
-
-    <!-- TOPBAR -->
     <div class="topbar">
         <div class="logo-area">
             <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo" class="logo-img">
@@ -1276,25 +184,17 @@
             </div>
         </div>
     </div>
-
-    <!-- MAIN -->
     <main class="container" id="app">
-
-        <!-- HOME -->
         <section id="home-section">
-            <div class="search-container hidden" id="search-box">
-                <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit...">
-            </div>
+            <div class="search-container hidden" id="search-box"><input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit..."></div>
             <div class="category-bar" id="category-bar"></div>
-
             <div class="popular-section" id="popular-section">
                 <div class="carousel-wrapper">
                     <div class="carousel-title-top"><i class="fas fa-hashtag"></i> Urutan Populer</div>
                     <div class="carousel-track" id="carousel-track"></div>
                 </div>
             </div>
-
-            <div class="sort-bar" id="sort-bar" style="margin-top:12px; margin-bottom:0;">
+            <div class="sort-bar" id="sort-bar" style="margin-top: 12px; margin-bottom: 0;">
                 <span class="sort-label"><i class="fas fa-sort-amount-down"></i> Urutkan:</span>
                 <select class="sort-select" id="sort-select">
                     <option value="terbaru" selected>Terbaru</option>
@@ -1303,25 +203,20 @@
                     <option value="za">Judul Z-A</option>
                 </select>
             </div>
-
             <hr class="section-divider">
             <div id="filter-indicator" class="filter-indicator hidden"></div>
             <div id="post-container" class="post-grid"></div>
-            <div id="load-more-container" style="text-align:center;"></div>
+            <div id="load-more-container" style="text-align: center;"></div>
         </section>
-
-        <!-- DETAIL -->
         <section id="detail-section" class="hidden">
             <button class="back-btn" id="detail-back"><i class="fas fa-arrow-left"></i> Kembali</button>
             <div id="detail-content"></div>
         </section>
-
-        <!-- PROFILE -->
         <section id="profile-section" class="hidden">
             <div class="profile-card">
                 <div class="profile-avatar" id="profile-avatar" style="background-image: url('https://avatars.githubusercontent.com/u/189899710?v=4');"></div>
                 <div class="profile-name" id="profile-name">Destaseo Mods</div>
-                <div class="profile-bio" id="profile-bio">Premium modder &amp; content creator.</div>
+                <div class="profile-bio" id="profile-bio">Premium modder & content creator.</div>
                 <div class="social-links" id="social-links"></div>
                 <div class="donate-section">
                     <div class="donate-title"><i class="fas fa-mug-hot"></i> Dukung Saya</div>
@@ -1334,21 +229,13 @@
             <div class="content-box" id="profile-footer-text">Update aplikasi modifikasi premium.<br>Nganjuk - Jawa Timur - Indonesia 🇮🇩</div>
         </section>
     </main>
-
-    <!-- BOTTOM NAV -->
     <nav class="bottom-nav">
         <button class="nav-item active" data-page="home"><i class="fas fa-home"></i><span>Beranda</span></button>
         <button class="nav-item" data-page="search"><i class="fas fa-search"></i><span>Cari</span></button>
         <button class="nav-item" data-page="profile"><i class="fas fa-user-circle"></i><span>Profil</span></button>
     </nav>
-
     <script>
         (function() {
-            'use strict';
-
-            // ============================================================
-            // KONFIGURASI
-            // ============================================================
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
             const AD_INTERVAL = 1 * 60 * 60 * 1000;
@@ -1356,74 +243,67 @@
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
-            const PROFILE = {
-                avatar: AVATAR_URL,
-                name: "Destaseo Mods",
-                bio: "Premium modder & content creator.",
-                links: [
-                    { label: "Facebook", url: "https://fb.com/destaseo.id", icon: "fab fa-facebook" },
-                    { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane" }
-                ]
-            };
+            const PROFILE = { avatar: AVATAR_URL, name: "Destaseo Mods", bio: "Premium modder & content creator.", links: [ { label: "Facebook", url: "https://fb.com/destaseo.id", icon: "fab fa-facebook" }, { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane" } ] };
 
-            // COUNTER API (CountAPI)
-            const COUNTER_BASE = "https://countapi.mileshilliard.com/api/v1/hit/destaseomods.web.id";
+            // -------------------- COUNTAPI --------------------
+            const COUNTAPI_BASE = "https://countapi.mileshilliard.com/api/v1/hit/destaseomods.web.id";
 
-            // ============================================================
-            // PARTIKEL
-            // ============================================================
+            async function incrementViewCount(postName) {
+                try {
+                    const url = `${COUNTAPI_BASE}/${encodeURIComponent(postName)}`;
+                    const resp = await fetch(url);
+                    if (!resp.ok) throw new Error('CountAPI HTTP ' + resp.status);
+                    const data = await resp.json();
+                    return data.value || 0;
+                } catch (err) {
+                    console.warn('CountAPI fallback ke localStorage:', err);
+                    const key = `view_fb_${postName}`;
+                    const val = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+                    localStorage.setItem(key, String(val));
+                    return val;
+                }
+            }
+
+            async function getViewCount(postName) {
+                try {
+                    const url = `${COUNTAPI_BASE}/${encodeURIComponent(postName)}`;
+                    const resp = await fetch(url);
+                    if (!resp.ok) throw new Error('CountAPI HTTP ' + resp.status);
+                    const data = await resp.json();
+                    return data.value || 0;
+                } catch {
+                    const key = `view_fb_${postName}`;
+                    return parseInt(localStorage.getItem(key) || '0', 10);
+                }
+            }
+
+            // -------------------- UTILITY --------------------
+            function shuffleArray(arr) {
+                const a = [...arr];
+                for (let i = a.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [a[i], a[j]] = [a[j], a[i]];
+                }
+                return a;
+            }
+
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
-            let particles = [];
-            const maxParticles = 70;
-
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
+            let particles = []; const maxParticles = 70;
+            function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resizeCanvas); resizeCanvas();
             class Particle {
                 constructor() { this.reset(); }
-                reset() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.vx = (Math.random() - 0.5) * 0.5;
-                    this.vy = (Math.random() - 0.5) * 0.5;
-                    this.radius = Math.random() * 2.5 + 1;
-                    this.opacity = Math.random() * 0.5 + 0.2;
-                }
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(168,127,255,${this.opacity})`;
-                    ctx.fill();
-                }
+                reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.vx = (Math.random() - 0.5) * 0.5; this.vy = (Math.random() - 0.5) * 0.5; this.radius = Math.random() * 2.5 + 1; this.opacity = Math.random() * 0.5 + 0.2; }
+                update() { this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > canvas.width) this.vx *= -1; if (this.y < 0 || this.y > canvas.height) this.vy *= -1; }
+                draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2); ctx.fillStyle = `rgba(168,127,255,${this.opacity})`; ctx.fill(); }
             }
-            for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => { p.update();
-                    p.draw(); });
-                requestAnimationFrame(animateParticles);
-            }
+            for(let i=0; i<maxParticles; i++) particles.push(new Particle());
+            function animateParticles() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateParticles); }
             animateParticles();
 
-            // ============================================================
-            // STATE
-            // ============================================================
             const CACHE_KEY = 'destaseo_premium_cache_v68';
             const CACHE_TIME = 10 * 60 * 1000;
-            const ITEMS_PER_PAGE = 10;
-
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
             const loadMoreContainer = document.getElementById('load-more-container');
@@ -1446,233 +326,107 @@
             const qrisDanaBtn = document.getElementById('qris-dana-btn');
             const qrisDownloadBtn = document.getElementById('qris-download-btn');
 
-            let postsData = [];
-            let fetchedPosts = [];
+            let postsData = [], fetchedPosts = [];
             let activeKatFilter = null;
             let currentDisplayCount = 0;
+            const ITEMS_PER_PAGE = 10;
             let carouselInterval = null;
             let currentSlide = 0;
             let totalPopularSlides = 0;
 
-            // ============================================================
-            // HELPER
-            // ============================================================
-            function fixImageUrl(url) {
-                if (!url) return '';
-                if (url.includes('github.com') && !url.includes('raw.githubusercontent.com')) {
-                    url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-                }
-                return url;
-            }
+            if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
+            if (AVATAR_URL) { const a = document.getElementById('profile-avatar'); a.style.backgroundImage = `url('${AVATAR_URL}')`; a.textContent = ''; }
 
-            function getExcerpt(c) {
-                if (!c) return '';
-                let t = c.replace(/[#*`>\[\]()!|]/g, '').replace(/\n/g, ' ').trim();
-                if (t.length > 80) t = t.slice(0, 80) + '...';
-                return t;
-            }
+            telegramBtn.addEventListener('click', (e) => { e.stopPropagation(); telegramDropdown.classList.toggle('show'); });
+            document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
+            telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
+            if (qrisDanaBtn) qrisDanaBtn.addEventListener('click', () => qrisOverlay.classList.remove('hidden'));
+            qrisCloseBtn.addEventListener('click', () => qrisOverlay.classList.add('hidden'));
+            qrisOverlay.addEventListener('click', (e) => { if (e.target === qrisOverlay) qrisOverlay.classList.add('hidden'); });
+            qrisDownloadBtn.addEventListener('click', async () => { try { const r = await fetch(QRIS_URL); const b = await r.blob(); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = 'qris-destaseo.png'; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); } catch { window.open(QRIS_URL, '_blank'); } });
+            sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
-            function formatDate(d) {
-                if (!d) return '';
-                const dt = new Date(d);
-                if (isNaN(dt.getTime())) return '';
-                const m = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-                return `${dt.getDate()} ${m[dt.getMonth()]} ${dt.getFullYear()}`;
+            function getHashPage() { const h = window.location.hash.slice(1); if (!h || h === 'home') return { page: 'home' }; if (h === 'search') return { page: 'search' }; if (h === 'profile') return { page: 'profile' }; if (h.startsWith('detail/')) return { page: 'detail', postName: h.split('/')[1] }; return { page: 'home' }; }
+            function setHash(p, param) { if (p === 'home') window.location.hash = 'home'; else if (p === 'search') window.location.hash = 'search'; else if (p === 'profile') window.location.hash = 'profile'; else if (p === 'detail' && param) window.location.hash = 'detail/' + param; }
+            function showSection(s) { [homeSection, detailSection, profileSection].forEach(x => x.classList.add('hidden')); s.classList.remove('hidden'); }
+            function setActiveNav(p) { navItems.forEach(i => i.classList.toggle('active', i.dataset.page === p || (p === 'detail' && i.dataset.page === 'home'))); }
+            function navigate(p, postName) {
+                if (p === 'home') { showSection(homeSection); searchBox.classList.add('hidden'); categoryBar.classList.remove('hidden'); sortBar.classList.remove('hidden'); document.getElementById('popular-section').classList.remove('hidden'); setActiveNav('home'); startCarousel(); }
+                else if (p === 'search') { showSection(homeSection); searchBox.classList.remove('hidden'); categoryBar.classList.remove('hidden'); sortBar.classList.add('hidden'); document.getElementById('popular-section').classList.add('hidden'); setActiveNav('search'); stopCarousel(); setTimeout(() => searchInput.focus(), 100); }
+                else if (p === 'profile') { showSection(profileSection); searchBox.classList.add('hidden'); categoryBar.classList.add('hidden'); sortBar.classList.add('hidden'); document.getElementById('popular-section').classList.add('hidden'); filterIndicator.classList.add('hidden'); setActiveNav('profile'); stopCarousel(); renderProfile(); }
+                else if (p === 'detail' && postName) { showDetail(postName); setActiveNav('detail'); searchBox.classList.add('hidden'); categoryBar.classList.add('hidden'); sortBar.classList.add('hidden'); document.getElementById('popular-section').classList.add('hidden'); filterIndicator.classList.add('hidden'); stopCarousel(); }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
+            function renderProfile() { document.getElementById('profile-name').textContent = PROFILE.name; document.getElementById('profile-bio').textContent = PROFILE.bio; document.getElementById('social-links').innerHTML = PROFILE.links.map(l => `<a href="${l.url}" target="_blank" class="social-link"><i class="${l.icon}"></i> ${l.label}</a>`).join(''); }
 
-            // ============================================================
-            // COUNTER API — view count
-            // ============================================================
-            async function hitCounter(key) {
-                try {
-                    const url = `${COUNTER_BASE}/${encodeURIComponent(key)}`;
-                    const res = await fetch(url, { method: 'GET' });
-                    if (!res.ok) throw new Error('Counter API error');
-                    const data = await res.json();
-                    return data.value || 0;
-                } catch (e) {
-                    console.warn('Counter API gagal:', e.message);
-                    return 0;
-                }
-            }
+            function getCache() { const r = localStorage.getItem(CACHE_KEY); if (!r) return null; try { const d = JSON.parse(r); if (Date.now()-d.t < CACHE_TIME) return d.posts; } catch(e) {} return null; }
+            function setCache(posts) { localStorage.setItem(CACHE_KEY, JSON.stringify({t: Date.now(), posts})); }
 
-            // ============================================================
-            // CACHE
-            // ============================================================
-            function getCache() {
-                const r = localStorage.getItem(CACHE_KEY);
-                if (!r) return null;
-                try {
-                    const d = JSON.parse(r);
-                    if (Date.now() - d.t < CACHE_TIME) return d.posts;
-                } catch (e) {}
-                return null;
-            }
-
-            function setCache(posts) {
-                localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), posts }));
-            }
-
-            // ============================================================
-            // FETCH POSTS
-            // ============================================================
             async function fetchPostList() {
-                const cached = getCache();
-                if (cached) { postsData = cached; return; }
-                const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
+                const cached = getCache(); if (cached) { postsData = cached; return; }
+                let apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
                 const res = await fetch(apiUrl);
-                if (!res.ok) {
-                    const old = localStorage.getItem(CACHE_KEY);
-                    if (old) {
-                        try { const d = JSON.parse(old);
-                            postsData = d.posts; return; } catch (e) {}
-                    }
-                    throw new Error(`Gagal fetch (${res.status}). Repo publik? Rate limit?`);
-                }
+                if (!res.ok) { const old = localStorage.getItem(CACHE_KEY); if (old) { try { const d = JSON.parse(old); console.warn('⚠️ Gagal fetch, pakai cache kadaluarsa.'); postsData = d.posts; return; } catch(e) {} } throw new Error(`Gagal fetch (${res.status}). Repo publik? Rate limit?`); }
                 const files = await res.json();
                 const mdFiles = files.filter(f => f.name.endsWith('.md'));
                 if (!mdFiles.length) throw new Error('Tidak ada file .md di posts/.');
-                postsData = mdFiles.map(f => ({ filename: f.name, name: f.name.replace('.md', ''), download_url: f
-                        .download_url }));
+                postsData = mdFiles.map(f => ({ filename: f.name, name: f.name.replace('.md', ''), download_url: f.download_url }));
                 setCache(postsData);
             }
 
-            function parseFrontmatter(md) {
-                const m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
-                if (!m) return { metadata: {}, content: md };
-                const meta = {};
-                m[1].split('\n').forEach(line => {
-                    const i = line.indexOf(':');
-                    if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim().replace(/^["']|["']$/g, '');
-                });
-                return { metadata: meta, content: m[2] };
-            }
+            function parseFrontmatter(md) { const m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/); if (!m) return { metadata: {}, content: md }; const meta = {}; m[1].split('\n').forEach(line => { const i = line.indexOf(':'); if (i>0) meta[line.slice(0,i).trim()] = line.slice(i+1).trim().replace(/^["']|["']$/g, ''); }); return { metadata: meta, content: m[2] }; }
 
             async function fetchPost(p) {
-                try {
-                    const r = await fetch(p.download_url);
-                    if (!r.ok) throw new Error('fail');
-                    const md = await r.text();
-                    const { metadata, content } = parseFrontmatter(md);
-                    const lastModified = r.headers.get('Last-Modified');
-                    return { ...p, metadata, content, lastModified, html: marked.parse(content) };
-                } catch {
-                    return { ...p, metadata: {}, content: '', html: '<p>Gagal memuat.</p>', lastModified: null };
-                }
+                try { const r = await fetch(p.download_url); if (!r.ok) throw new Error('fail'); const md = await r.text(); const { metadata, content } = parseFrontmatter(md); const lastModified = r.headers.get('Last-Modified'); return { ...p, metadata, content, lastModified, html: marked.parse(content) }; }
+                catch { return { ...p, metadata:{}, content:'', html:'<p>Gagal memuat.</p>', lastModified: null }; }
             }
 
-            // ============================================================
-            // RENDER: KATEGORI
-            // ============================================================
-            function getAllKategori() {
-                const k = new Set();
-                fetchedPosts.forEach(p => {
-                    const kat = p.metadata.kategori || '';
-                    if (kat) k.add(kat);
-                });
-                return Array.from(k).sort();
-            }
+            function fixImageUrl(url) { if (!url) return ''; if (url.includes('github.com') && !url.includes('raw.githubusercontent.com')) url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/'); return url; }
+            function getExcerpt(c) { if (!c) return ''; let t = c.replace(/[#*`>\[\]()!|]/g, '').replace(/\n/g, ' ').trim(); if (t.length > 80) t = t.slice(0, 80) + '...'; return t; }
+            function formatDate(d) { if (!d) return ''; const dt = new Date(d); if (isNaN(dt.getTime())) return ''; const m = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des']; return `${dt.getDate()} ${m[dt.getMonth()]} ${dt.getFullYear()}`; }
+
+            function getAllKategori() { const k = new Set(); fetchedPosts.forEach(p => { const kat = p.metadata.kategori || ''; if (kat) k.add(kat); }); return Array.from(k).sort(); }
 
             function renderCategoryBar() {
                 const kats = getAllKategori();
                 let html = '<span class="category-chip' + (!activeKatFilter ? ' active' : '') + '" data-kat=""><i class="fas fa-globe"></i> Semua</span>';
-                kats.forEach(kat => {
-                    html += `<span class="category-chip${activeKatFilter === kat ? ' active' : ''}" data-kat="${kat}"><i class="fas fa-tag"></i> ${kat}</span>`;
-                });
-                if (activeKatFilter) {
-                    html += '<button class="reset-filter" id="reset-filter"><i class="fas fa-times"></i> Hapus filter</button>';
-                }
+                kats.forEach(kat => html += `<span class="category-chip${activeKatFilter === kat ? ' active' : ''}" data-kat="${kat}"><i class="fas fa-tag"></i> ${kat}</span>`);
+                if (activeKatFilter) html += '<button class="reset-filter" id="reset-filter"><i class="fas fa-times"></i> Hapus filter</button>';
                 categoryBar.innerHTML = html;
-                categoryBar.querySelectorAll('.category-chip').forEach(chip => {
-                    chip.addEventListener('click', () => {
-                        activeKatFilter = chip.dataset.kat || null;
-                        resetAndApplyFilters();
-                    });
-                });
-                const resetBtn = document.getElementById('reset-filter');
-                if (resetBtn) resetBtn.addEventListener('click', () => { activeKatFilter = null;
-                    resetAndApplyFilters(); });
+                categoryBar.querySelectorAll('.category-chip').forEach(chip => chip.addEventListener('click', () => { activeKatFilter = chip.dataset.kat || null; resetAndApplyFilters(); }));
+                const resetBtn = document.getElementById('reset-filter'); if (resetBtn) resetBtn.addEventListener('click', () => { activeKatFilter = null; resetAndApplyFilters(); });
             }
 
-            // ============================================================
-            // FILTER & SORT
-            // ============================================================
-            function getFilteredPosts() {
-                const q = searchInput.value.trim().toLowerCase();
-                let f = fetchedPosts;
-                if (activeKatFilter) f = f.filter(p => (p.metadata.kategori || '') === activeKatFilter);
-                if (q) f = f.filter(p => {
-                    const t = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
-                    return t.includes(q);
-                });
-                return f;
-            }
+            function getFilteredPosts() { const q = searchInput.value.trim().toLowerCase(); let f = fetchedPosts; if (activeKatFilter) f = f.filter(p => (p.metadata.kategori || '') === activeKatFilter); if (q) f = f.filter(p => { const t = (p.metadata.judul || p.metadata.title || p.name).toLowerCase(); return t.includes(q); }); return f; }
 
             function sortPosts(posts) {
                 const sortBy = sortSelect.value;
                 const sorted = [...posts];
-                const getTime = (p) => {
-                    const d = p.metadata.tanggal || p.metadata.date || p.lastModified;
-                    if (!d) return 0;
-                    const t = new Date(d);
-                    return isNaN(t.getTime()) ? 0 : t.getTime();
-                };
+                const getTime = (p) => { const d = p.metadata.tanggal || p.metadata.date || p.lastModified; if (!d) return 0; const t = new Date(d); return isNaN(t.getTime()) ? 0 : t.getTime(); };
                 switch (sortBy) {
-                    case 'terbaru':
-                        sorted.sort((a, b) => getTime(b) - getTime(a));
-                        break;
-                    case 'terlama':
-                        sorted.sort((a, b) => getTime(a) - getTime(b));
-                        break;
-                    case 'az':
-                        sorted.sort((a, b) => {
-                            const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
-                            const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
-                            return tA.localeCompare(tB);
-                        });
-                        break;
-                    case 'za':
-                        sorted.sort((a, b) => {
-                            const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
-                            const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
-                            return tB.localeCompare(tA);
-                        });
-                        break;
+                    case 'terbaru': sorted.sort((a, b) => getTime(b) - getTime(a)); break;
+                    case 'terlama': sorted.sort((a, b) => getTime(a) - getTime(b)); break;
+                    case 'az': sorted.sort((a, b) => { const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase(); const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase(); return tA.localeCompare(tB); }); break;
+                    case 'za': sorted.sort((a, b) => { const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase(); const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase(); return tB.localeCompare(tA); }); break;
                 }
                 return sorted;
             }
 
-            function resetAndApplyFilters() {
-                currentDisplayCount = 0;
-                applyFilters();
-            }
+            function resetAndApplyFilters() { currentDisplayCount = 0; applyFilters(); }
 
             function applyFilters() {
                 let filtered = getFilteredPosts();
                 filtered = sortPosts(filtered);
-                if (activeKatFilter) {
-                    filterIndicator.classList.remove('hidden');
-                    filterIndicator.innerHTML =
-                        `<i class="fas fa-filter"></i> Kategori: <strong>${activeKatFilter}</strong> (${filtered.length} hasil)`;
-                } else {
-                    filterIndicator.classList.add('hidden');
-                }
+                if (activeKatFilter) { filterIndicator.classList.remove('hidden'); filterIndicator.innerHTML = `<i class="fas fa-filter"></i> Kategori: <strong>${activeKatFilter}</strong> (${filtered.length} hasil)`; }
+                else filterIndicator.classList.add('hidden');
                 currentDisplayCount = Math.min(ITEMS_PER_PAGE, filtered.length);
                 displayPosts(filtered.slice(0, currentDisplayCount));
                 renderLoadMoreButton(filtered.length);
             }
 
-            // ============================================================
-            // RENDER: POST CARDS
-            // ============================================================
-            function displayPosts(posts) {
-                if (posts.length) {
-                    postContainer.innerHTML = posts.map((p, i) => cardHTML(p, i)).join('');
-                } else {
-                    postContainer.innerHTML = '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
-                }
-                attachCardEvents();
-            }
+            function displayPosts(posts) { postContainer.innerHTML = posts.length ? posts.map((p,i) => cardHTML(p,i)).join('') : '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>'; attachCardEvents(); }
+            function renderLoadMoreButton(t) { if (currentDisplayCount < t) { loadMoreContainer.innerHTML = `<button class="load-more-btn" id="load-more-btn"><i class="fas fa-chevron-down"></i> Muat Lebih Banyak (${t - currentDisplayCount})</button>`; document.getElementById('load-more-btn').addEventListener('click', loadMorePosts); } else { loadMoreContainer.innerHTML = ''; } }
+            function loadMorePosts() { let f = getFilteredPosts(); f = sortPosts(f); const n = Math.min(currentDisplayCount + ITEMS_PER_PAGE, f.length); const newPosts = f.slice(currentDisplayCount, n); currentDisplayCount = n; newPosts.forEach((p,i) => { const card = cardHTML(p, i); postContainer.insertAdjacentHTML('beforeend', card); }); attachCardEvents(); renderLoadMoreButton(f.length); }
 
             function cardHTML(post, index) {
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
@@ -1681,185 +435,100 @@
                 const ver = post.metadata.versi || post.metadata.version || '';
                 const excerpt = getExcerpt(post.content);
                 const delay = index * 0.04 + 's';
-                const imgTag = img ?
-                    `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">` :
-                    '';
-                const versionBadge = ver ? `<span class="version-badge-img"><i class="fas fa-code-branch"></i> v${ver}</span>` :
-                    '';
+                const imgTag = img ? `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">` : '';
+                const versionBadge = ver ? `<span class="version-badge-img"><i class="fas fa-code-branch"></i> v${ver}</span>` : '';
                 return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
                     <div class="card-img${img ? '' : ' error'}">${imgTag}<span class="placeholder-icon"><i class="fas fa-box-open"></i></span>${versionBadge}</div>
                     <div class="card-body"><div class="card-title">${t}</div><div class="card-meta">${kategori ? `<span class="badge" data-kat="${kategori}"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}</div>${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}</div>
                 </div>`;
             }
 
-            function attachCardEvents() {
-                document.querySelectorAll('.post-card').forEach(c => {
-                    c.addEventListener('click', (e) => {
-                        if (e.target.closest('.badge')) return;
-                        setHash('detail', c.dataset.name);
-                    });
-                });
-                document.querySelectorAll('.badge').forEach(b => {
-                    b.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        activeKatFilter = b.dataset.kat;
-                        searchInput.value = '';
-                        resetAndApplyFilters();
-                        renderCategoryBar();
-                    });
-                });
-            }
+            function attachCardEvents() { document.querySelectorAll('.post-card').forEach(c => c.addEventListener('click', (e) => { if (e.target.closest('.badge')) return; setHash('detail', c.dataset.name); })); document.querySelectorAll('.badge').forEach(b => b.addEventListener('click', (e) => { e.stopPropagation(); activeKatFilter = b.dataset.kat; searchInput.value = ''; resetAndApplyFilters(); renderCategoryBar(); })); }
 
-            function renderLoadMoreButton(total) {
-                if (currentDisplayCount < total) {
-                    loadMoreContainer.innerHTML =
-                        `<button class="load-more-btn" id="load-more-btn"><i class="fas fa-chevron-down"></i> Muat Lebih Banyak (${total - currentDisplayCount})</button>`;
-                    document.getElementById('load-more-btn').addEventListener('click', loadMorePosts);
-                } else {
-                    loadMoreContainer.innerHTML = '';
+            function stopCarousel() { if (carouselInterval) { clearInterval(carouselInterval); carouselInterval = null; } }
+            function startCarousel() { stopCarousel(); if (totalPopularSlides === 0) return; updateCarousel(0); carouselInterval = setInterval(() => { currentSlide = (currentSlide + 1) % totalPopularSlides; updateCarousel(currentSlide); }, 4000); }
+            function updateCarousel(i) { const slides = document.querySelectorAll('.carousel-slide'); slides.forEach((s, idx) => s.classList.toggle('active', idx === i)); document.querySelectorAll('.carousel-counter').forEach((c, idx) => { c.textContent = `${i+1}/${totalPopularSlides}`; }); }
+
+            function renderPopularSection() { if (!fetchedPosts.length) { carouselTrack.innerHTML = ''; totalPopularSlides = 0; return; } let pop = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() === 'true'); if (pop.length === 0) pop = fetchedPosts.slice(0, 4); else pop = pop.slice(0, 4); totalPopularSlides = pop.length; carouselTrack.innerHTML = pop.map((p, i) => { const img = fixImageUrl(p.metadata.gambar || p.metadata.image || ''); const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' '); return `<div class="carousel-slide${i === 0 ? ' active' : ''}" data-name="${p.name}">${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="slide-overlay"><div class="slide-title">${title}</div><span class="carousel-counter">${i+1}/${pop.length}</span></div></div>`; }).join(''); document.querySelectorAll('.carousel-slide').forEach(s => s.addEventListener('click', () => setHash('detail', s.dataset.name))); }
+
+            async function renderHome() { postContainer.innerHTML = '<div class="spinner"></div>'; loadMoreContainer.innerHTML = ''; categoryBar.innerHTML = ''; carouselTrack.innerHTML = ''; stopCarousel(); try { await fetchPostList(); if (!postsData.length) { postContainer.innerHTML = '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>'; return; } fetchedPosts = await Promise.all(postsData.map(fetchPost)); renderPopularSection(); renderCategoryBar(); resetAndApplyFilters(); startCarousel(); } catch (err) { postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`; } }
+
+            function buildScreenshotGallery(str) { if (!str) return ''; const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0); if (urls.length === 0) return ''; const lim = urls.slice(0, 5); return `<div class="screenshot-scroll">${lim.map(u => `<img src="${u}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox('${u}')">`).join('')}</div>`; }
+
+            window.openLightbox = function(url) { const lb = document.createElement('div'); lb.className = 'lightbox'; lb.innerHTML = `<img src="${url}" alt="Screenshot">`; lb.addEventListener('click', () => lb.remove()); document.body.appendChild(lb); };
+
+            function startDownloadWithAd(btn, url) { const now = Date.now(); const last = localStorage.getItem(AD_STORAGE_KEY); if (!last || (now - parseInt(last)) > AD_INTERVAL) { localStorage.setItem(AD_STORAGE_KEY, now.toString()); if (AD_URL) window.open(AD_URL, '_blank'); let sec = 5; btn.textContent = `⏳ ${sec} detik`; btn.classList.add('counting'); const timer = setInterval(() => { sec--; if (sec <= 0) { clearInterval(timer); btn.innerHTML = '<i class="fas fa-download"></i> Download APK'; btn.classList.remove('counting'); window.open(url, '_blank'); } else { btn.textContent = `⏳ ${sec} detik`; } }, 1000); } else { window.open(url, '_blank'); } }
+
+            // -------------------- REKOMENDASI POSTINGAN --------------------
+            function renderRecommended(currentPost, limit = 4) {
+                const container = document.getElementById('rekomendasi-container');
+                if (!container) return;
+                const kat = currentPost.metadata.kategori || '';
+                let candidates = [];
+
+                // 1) same category
+                if (kat) {
+                    const same = fetchedPosts.filter(p => p.name !== currentPost.name && (p.metadata.kategori || '') === kat);
+                    candidates = shuffleArray(same).slice(0, limit);
                 }
-            }
 
-            function loadMorePosts() {
-                let f = getFilteredPosts();
-                f = sortPosts(f);
-                const n = Math.min(currentDisplayCount + ITEMS_PER_PAGE, f.length);
-                const newPosts = f.slice(currentDisplayCount, n);
-                currentDisplayCount = n;
-                newPosts.forEach((p, i) => {
-                    const card = cardHTML(p, i);
-                    postContainer.insertAdjacentHTML('beforeend', card);
-                });
-                attachCardEvents();
-                renderLoadMoreButton(f.length);
-            }
+                // 2) fill with random others
+                if (candidates.length < limit) {
+                    const others = fetchedPosts.filter(p =>
+                        p.name !== currentPost.name &&
+                        !candidates.some(r => r.name === p.name)
+                    );
+                    const shuffled = shuffleArray(others);
+                    const needed = limit - candidates.length;
+                    candidates = [...candidates, ...shuffled.slice(0, needed)];
+                }
 
-            // ============================================================
-            // CAROUSEL
-            // ============================================================
-            function stopCarousel() {
-                if (carouselInterval) { clearInterval(carouselInterval);
-                    carouselInterval = null; }
-            }
+                if (!candidates.length) {
+                    container.innerHTML = '<div class="rekom-empty">Belum ada postingan lain.</div>';
+                    return;
+                }
 
-            function startCarousel() {
-                stopCarousel();
-                if (totalPopularSlides === 0) return;
-                updateCarousel(0);
-                carouselInterval = setInterval(() => {
-                    currentSlide = (currentSlide + 1) % totalPopularSlides;
-                    updateCarousel(currentSlide);
-                }, 4000);
-            }
-
-            function updateCarousel(i) {
-                const slides = document.querySelectorAll('.carousel-slide');
-                slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
-                document.querySelectorAll('.carousel-counter').forEach((c, idx) => {
-                    c.textContent = `${i+1}/${totalPopularSlides}`;
-                });
-            }
-
-            function renderPopularSection() {
-                if (!fetchedPosts.length) { carouselTrack.innerHTML = '';
-                    totalPopularSlides = 0; return; }
-                let pop = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() === 'true');
-                if (pop.length === 0) pop = fetchedPosts.slice(0, 4);
-                else pop = pop.slice(0, 4);
-                totalPopularSlides = pop.length;
-                carouselTrack.innerHTML = pop.map((p, i) => {
+                let html = `<div class="rekom-scroll">`;
+                candidates.forEach(p => {
+                    const t = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
                     const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
-                    const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
-                    return `<div class="carousel-slide${i === 0 ? ' active' : ''}" data-name="${p.name}">${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="slide-overlay"><div class="slide-title">${title}</div><span class="carousel-counter">${i+1}/${pop.length}</span></div></div>`;
-                }).join('');
-                document.querySelectorAll('.carousel-slide').forEach(s => {
-                    s.addEventListener('click', () => setHash('detail', s.dataset.name));
+                    const kat = p.metadata.kategori || '';
+                    const imgHtml = img ?
+                        `<img src="${img}" alt="${t}" loading="lazy" onerror="this.style.display='none';this.parentElement.querySelector('.rekom-placeholder').style.display='flex'">` :
+                        '';
+                    html += `
+                        <div class="rekom-card" data-name="${p.name}">
+                            <div class="rekom-img-wrap">
+                                ${imgHtml}
+                                <div class="rekom-placeholder" style="${img ? 'display:none' : 'display:flex'}"><i class="fas fa-box"></i></div>
+                            </div>
+                            <div class="rekom-body">
+                                <div class="rekom-title">${t}</div>
+                                ${kat ? `<span class="rekom-kat"><i class="fas fa-folder"></i> ${kat}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+                container.innerHTML = html;
+
+                container.querySelectorAll('.rekom-card').forEach(el => {
+                    el.addEventListener('click', () => setHash('detail', el.dataset.name));
                 });
             }
 
-            // ============================================================
-            // DETAIL — dengan Counter API & Rekomendasi
-            // ============================================================
-            function buildScreenshotGallery(str) {
-                if (!str) return '';
-                const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
-                if (urls.length === 0) return '';
-                const lim = urls.slice(0, 5);
-                return `<div class="screenshot-scroll">${lim.map(u => `<img src="${u}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox('${u}')">`).join('')}</div>`;
-            }
-
-            window.openLightbox = function(url) {
-                const lb = document.createElement('div');
-                lb.className = 'lightbox';
-                lb.innerHTML = `<img src="${url}" alt="Screenshot">`;
-                lb.addEventListener('click', () => lb.remove());
-                document.body.appendChild(lb);
-            };
-
-            // Rekomendasi: ambil dari kategori yang sama, atau random
-            function getRecommendations(currentPost, limit = 4) {
-                const sameCat = fetchedPosts.filter(p =>
-                    p.name !== currentPost.name &&
-                    (p.metadata.kategori || '') === (currentPost.metadata.kategori || '')
-                );
-                let pool = sameCat.length >= limit ? sameCat : fetchedPosts.filter(p => p.name !== currentPost.name);
-                // acak
-                const shuffled = pool.sort(() => Math.random() - 0.5);
-                return shuffled.slice(0, limit);
-            }
-
-            function renderRecommendations(posts) {
-                if (!posts.length) return '';
-                return `
-                    <div class="recommend-section">
-                        <div class="recommend-title"><i class="fas fa-thumbs-up"></i> Rekomendasi Lainnya</div>
-                        <div class="recommend-grid">
-                            ${posts.map(p => {
-                                const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
-                                const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
-                                const cat = p.metadata.kategori || '';
-                                return `<div class="recommend-item" data-name="${p.name}">
-                                    ${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : '<div style="height:80px;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:1.5rem;"><i class="fas fa-box"></i></div>'}
-                                    <div class="rec-body">
-                                        <div class="rec-title">${title}</div>
-                                        ${cat ? `<div class="rec-cat"><i class="fas fa-folder"></i> ${cat}</div>` : ''}
-                                    </div>
-                                </div>`;
-                            }).join('')}
-                        </div>
-                    </div>
-                `;
-            }
-
-            // Tombol download dengan iklan
-            function startDownloadWithAd(btn, url) {
-                const now = Date.now();
-                const last = localStorage.getItem(AD_STORAGE_KEY);
-                if (!last || (now - parseInt(last)) > AD_INTERVAL) {
-                    localStorage.setItem(AD_STORAGE_KEY, now.toString());
-                    if (AD_URL) window.open(AD_URL, '_blank');
-                    let sec = 5;
-                    btn.textContent = `⏳ ${sec} detik`;
-                    btn.classList.add('counting');
-                    const timer = setInterval(() => {
-                        sec--;
-                        if (sec <= 0) {
-                            clearInterval(timer);
-                            btn.innerHTML = '<i class="fas fa-download"></i> Download APK';
-                            btn.classList.remove('counting');
-                            window.open(url, '_blank');
-                        } else {
-                            btn.textContent = `⏳ ${sec} detik`;
-                        }
-                    }, 1000);
-                } else {
-                    window.open(url, '_blank');
-                }
-            }
-
+            // -------------------- SHOW DETAIL --------------------
             async function showDetail(name) {
                 const post = fetchedPosts.find(p => p.name === name);
                 if (!post) return;
+
+                // ambil view count via CountAPI
+                let viewCount = 0;
+                try {
+                    viewCount = await incrementViewCount(name);
+                } catch (e) {
+                    viewCount = 0;
+                }
 
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
@@ -1874,178 +543,63 @@
                 const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
                 const galleryHtml = buildScreenshotGallery(screenshots);
                 const hasDownload = dwn && dwn !== '#';
-
-                // Ambil jumlah dilihat dari Counter API
-                let viewCount = 0;
-                try {
-                    viewCount = await hitCounter(post.name);
-                } catch (e) { /* fallback ke 0 */ }
-
                 const downloadBtn = hasDownload ?
                     `<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` :
                     `<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>`;
-
-                const tagsHtml = tags.length > 0 ?
-                    `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` :
-                    '';
-
-                // Rekomendasi
-                const recs = getRecommendations(post, 4);
-                const recHtml = renderRecommendations(recs);
+                const tagsHtml = tags.length > 0 ? `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` : '';
 
                 detailContent.innerHTML = `
-                    <div class="detail-header">
-                        ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
-                        <h1 class="detail-title">${t}</h1>
-                        <div class="detail-meta-grid">
-                            <div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ${v}</div>
-                            <div class="meta-item"><i class="fas fa-weight-hanging"></i> <strong>Ukuran</strong> ${s}</div>
-                            <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
-                            ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
-                            ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
-                            <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ${viewCount} kali</div>
-                        </div>
-                        ${galleryHtml}
-                        ${tagsHtml}
+                <div class="detail-header">
+                    ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
+                    <h1 class="detail-title">${t}</h1>
+                    <div class="detail-meta-grid">
+                        <div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ${v}</div>
+                        <div class="meta-item"><i class="fas fa-weight-hanging"></i> <strong>Ukuran</strong> ${s}</div>
+                        <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
+                        ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
+                        ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
+                        <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> <span id="view-count-display">${viewCount}</span> kali</div>
                     </div>
-                    <div class="content-box">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
-                    ${downloadBtn}
-                    ${recHtml}
-                `;
+                    ${galleryHtml}
+                    ${tagsHtml}
+                </div>
+                <div class="content-box">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
+                ${downloadBtn}
+                <div class="rekomendasi-wrap" id="rekomendasi-wrap">
+                    <h3><i class="fas fa-lightbulb"></i> Rekomendasi Untuk Anda</h3>
+                    <div id="rekomendasi-container"></div>
+                </div>`;
 
+                // download button
                 if (hasDownload) {
                     const dBtn = document.getElementById('detail-download-btn');
-                    if (dBtn) {
-                        dBtn.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            if (this.classList.contains('counting')) return;
-                            startDownloadWithAd(this, dwn);
-                        });
-                    }
+                    if (dBtn) dBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        if (this.classList.contains('counting')) return;
+                        startDownloadWithAd(this, dwn);
+                    });
                 }
 
-                // Event klik rekomendasi
-                document.querySelectorAll('.recommend-item').forEach(el => {
-                    el.addEventListener('click', () => {
-                        setHash('detail', el.dataset.name);
-                    });
-                });
+                // render rekomendasi
+                renderRecommended(post);
 
                 showSection(detailSection);
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
             }
 
-            // ============================================================
-            // NAVIGASI
-            // ============================================================
-            function setHash(p, param) {
-                if (p === 'home') window.location.hash = 'home';
-                else if (p === 'search') window.location.hash = 'search';
-                else if (p === 'profile') window.location.hash = 'profile';
-                else if (p === 'detail' && param) window.location.hash = 'detail/' + param;
-            }
+            detailBack.addEventListener('click', () => setHash('home'));
+            navItems.forEach(i => i.addEventListener('click', () => setHash(i.dataset.page)));
+            searchInput.addEventListener('input', () => resetAndApplyFilters());
+            window.addEventListener('hashchange', () => {
+                const { page, postName } = getHashPage();
+                if (page === 'detail' && postName) {
+                    if (fetchedPosts.length === 0) renderHome().then(() => navigate('detail', postName));
+                    else navigate('detail', postName);
+                } else navigate(page);
+            });
 
-            function showSection(s) {
-                [homeSection, detailSection, profileSection].forEach(x => x.classList.add('hidden'));
-                s.classList.remove('hidden');
-            }
-
-            function setActiveNav(p) {
-                navItems.forEach(i => {
-                    i.classList.toggle('active', i.dataset.page === p || (p === 'detail' && i.dataset.page === 'home'));
-                });
-            }
-
-            function navigate(p, postName) {
-                if (p === 'home') {
-                    showSection(homeSection);
-                    searchBox.classList.add('hidden');
-                    categoryBar.classList.remove('hidden');
-                    sortBar.classList.remove('hidden');
-                    document.getElementById('popular-section').classList.remove('hidden');
-                    setActiveNav('home');
-                    startCarousel();
-                } else if (p === 'search') {
-                    showSection(homeSection);
-                    searchBox.classList.remove('hidden');
-                    categoryBar.classList.remove('hidden');
-                    sortBar.classList.add('hidden');
-                    document.getElementById('popular-section').classList.add('hidden');
-                    setActiveNav('search');
-                    stopCarousel();
-                    setTimeout(() => searchInput.focus(), 100);
-                } else if (p === 'profile') {
-                    showSection(profileSection);
-                    searchBox.classList.add('hidden');
-                    categoryBar.classList.add('hidden');
-                    sortBar.classList.add('hidden');
-                    document.getElementById('popular-section').classList.add('hidden');
-                    filterIndicator.classList.add('hidden');
-                    setActiveNav('profile');
-                    stopCarousel();
-                    renderProfile();
-                } else if (p === 'detail' && postName) {
-                    showDetail(postName);
-                    setActiveNav('detail');
-                    searchBox.classList.add('hidden');
-                    categoryBar.classList.add('hidden');
-                    sortBar.classList.add('hidden');
-                    document.getElementById('popular-section').classList.add('hidden');
-                    filterIndicator.classList.add('hidden');
-                    stopCarousel();
-                }
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-
-            function getHashPage() {
-                const h = window.location.hash.slice(1);
-                if (!h || h === 'home') return { page: 'home' };
-                if (h === 'search') return { page: 'search' };
-                if (h === 'profile') return { page: 'profile' };
-                if (h.startsWith('detail/')) return { page: 'detail', postName: h.split('/')[1] };
-                return { page: 'home' };
-            }
-
-            // ============================================================
-            // PROFILE
-            // ============================================================
-            function renderProfile() {
-                document.getElementById('profile-name').textContent = PROFILE.name;
-                document.getElementById('profile-bio').textContent = PROFILE.bio;
-                document.getElementById('social-links').innerHTML = PROFILE.links.map(l =>
-                    `<a href="${l.url}" target="_blank" class="social-link"><i class="${l.icon}"></i> ${l.label}</a>`
-                ).join('');
-            }
-
-            // ============================================================
-            // RENDER HOME
-            // ============================================================
-            async function renderHome() {
-                postContainer.innerHTML = '<div class="spinner"></div>';
-                loadMoreContainer.innerHTML = '';
-                categoryBar.innerHTML = '';
-                carouselTrack.innerHTML = '';
-                stopCarousel();
-                try {
-                    await fetchPostList();
-                    if (!postsData.length) {
-                        postContainer.innerHTML = '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
-                        return;
-                    }
-                    fetchedPosts = await Promise.all(postsData.map(fetchPost));
-                    renderPopularSection();
-                    renderCategoryBar();
-                    resetAndApplyFilters();
-                    startCarousel();
-                } catch (err) {
-                    postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`;
-                }
-            }
-
-            // ============================================================
-            // SITEMAP (opsional)
-            // ============================================================
+            // -------------------- SITEMAP --------------------
             async function generateSitemap() {
                 if (window.location.search !== '?sitemap') return;
                 const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
@@ -2061,67 +615,19 @@
                             urls.push(`${baseUrl}#detail/${name}`);
                         });
                     }
-                } catch (e) {}
+                } catch(e) {}
                 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-          ${urls.map(u => `<url><loc>${u}</loc><lastmod>${new Date().toISOString().split('T')[0]}</lastmod></url>`).join('\n  ')}
-        </urlset>`;
-                document.body.innerHTML =
-                    `<pre style="color:#fff;background:#111;padding:20px;font-family:monospace;">${sitemap.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>`;
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${urls.map(u => `<url><loc>${u}</loc><lastmod>${new Date().toISOString().split('T')[0]}</lastmod></url>`).join('\n  ')}
+</urlset>`;
+                document.body.innerHTML = `<pre style="color:#fff;background:#111;padding:20px;font-family:monospace;">${sitemap.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>`;
                 throw new Error('SITEMAP_DISPLAY');
             }
 
-            // ============================================================
-            // EVENT BINDING
-            // ============================================================
-            detailBack.addEventListener('click', () => setHash('home'));
-
-            navItems.forEach(i => {
-                i.addEventListener('click', () => setHash(i.dataset.page));
-            });
-
-            searchInput.addEventListener('input', () => resetAndApplyFilters());
-
-            sortSelect.addEventListener('change', () => resetAndApplyFilters());
-
-            telegramBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                telegramDropdown.classList.toggle('show');
-            });
-            document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
-            telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
-
-            if (qrisDanaBtn) {
-                qrisDanaBtn.addEventListener('click', () => qrisOverlay.classList.remove('hidden'));
-            }
-            qrisCloseBtn.addEventListener('click', () => qrisOverlay.classList.add('hidden'));
-            qrisOverlay.addEventListener('click', (e) => {
-                if (e.target === qrisOverlay) qrisOverlay.classList.add('hidden');
-            });
-            qrisDownloadBtn.addEventListener('click', async () => {
-                try {
-                    const r = await fetch(QRIS_URL);
-                    const b = await r.blob();
-                    const u = URL.createObjectURL(b);
-                    const a = document.createElement('a');
-                    a.href = u;
-                    a.download = 'qris-destaseo.png';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(u);
-                } catch {
-                    window.open(QRIS_URL, '_blank');
-                }
-            });
-
-            // ============================================================
-            // INIT
-            // ============================================================
             (async () => {
                 try {
                     await generateSitemap();
-                } catch (e) {
+                } catch(e) {
                     if (e.message === 'SITEMAP_DISPLAY') return;
                 }
                 await renderHome();
@@ -2129,7 +635,6 @@
                 if (page === 'detail' && postName) navigate('detail', postName);
                 else navigate(page);
             })();
-
         })();
     </script>
 </body>
