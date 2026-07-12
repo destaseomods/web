@@ -680,8 +680,8 @@
         }
         .detail-img {
             display: block;
-            width: clamp(100px, 18vw, 130px);
-            height: clamp(100px, 18vw, 130px);
+            width: clamp(140px, 22vw, 180px);
+            height: clamp(140px, 22vw, 180px);
             object-fit: cover;
             border-radius: 50%;
             margin: 0 auto 20px;
@@ -1153,7 +1153,6 @@
             flex-wrap: wrap;
         }
 
-        /* Avatar dengan border gradient dan jarak */
         .profile-avatar {
             width: 130px;
             height: 130px;
@@ -1164,12 +1163,11 @@
             background-clip: padding-box;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
             flex-shrink: 0;
-            /* padding tidak mempengaruhi karena background-image di dalam */
         }
         .profile-avatar::before {
             content: '';
             position: absolute;
-            inset: -6px; /* jarak border gradient */
+            inset: -6px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--accent), var(--accent2));
             z-index: -1;
@@ -1206,7 +1204,6 @@
         .badge-verified i {
             font-size: 0.7rem;
         }
-        /* badge-member dihapus */
         .profile-bio {
             color: var(--text2);
             font-size: 0.9rem;
@@ -1217,7 +1214,6 @@
             margin-right: 6px;
         }
 
-        /* ===== LINKS ===== */
         .profile-links {
             display: flex;
             flex-wrap: wrap;
@@ -1273,7 +1269,6 @@
             color: #fff;
         }
 
-        /* ===== FOOTER ===== */
         .profile-footer {
             margin-top: 16px;
             text-align: center;
@@ -1581,8 +1576,8 @@
                 height: 140px;
             }
             .detail-img {
-                width: 80px;
-                height: 80px;
+                width: clamp(100px, 20vw, 130px);
+                height: clamp(100px, 20vw, 130px);
             }
             .lightbox-overlay .lightbox-close {
                 top: 12px;
@@ -1624,6 +1619,10 @@
             }
             .profile-card {
                 padding: 16px 12px 14px;
+            }
+            .detail-img {
+                width: 80px;
+                height: 80px;
             }
         }
         @media (min-width: 768px) {
@@ -1754,7 +1753,7 @@
             <div id="detail-content"></div>
         </section>
 
-        <!-- PROFILE - ELEGAN & MODERN (REDESIGN) -->
+        <!-- PROFILE -->
         <section id="profile-section" class="hidden" aria-label="Profil">
             <div class="profile-card">
                 <div class="profile-container">
@@ -1942,6 +1941,7 @@
                     if (!isNaN(count) && count >= 0) return count;
                     return 0;
                 } catch (e) {
+                    // fallback ke local
                     return incrementViewCountLocal(postName);
                 }
             }
@@ -2530,6 +2530,7 @@
                 const galleryHtml = buildScreenshotGallery(screenshots);
                 const hasDownload = dwn && dwn !== '#';
 
+                // View count
                 let viewCount = 0;
                 try {
                     viewCount = await incrementViewCount(name);
@@ -2546,14 +2547,42 @@
                 const recPosts = getRecommendedPosts(post, 4);
                 const recHtml = renderRecommendedPosts(recPosts, post);
 
+                // Subtitle hanya kategori (tanpa tanggal)
                 const subtitleHtml = kategori ?
                     `<div class="detail-subtitle">
                         <span class="cat-badge-premium"><i class="fas fa-folder"></i> ${kategori}</span>
-                        ${dateFormatted ? `<span style="color:var(--text2);font-size:0.75rem;"><i class="far fa-calendar-alt"></i> ${dateFormatted}</span>` : ''}
                     </div>` :
-                    dateFormatted ?
-                    `<div class="detail-subtitle"><span style="color:var(--text2);font-size:0.75rem;"><i class="far fa-calendar-alt"></i> ${dateFormatted}</span></div>` :
                     '';
+
+                // Meta grid: versi, ukuran, developer, tanggal, dilihat
+                const metaItems = `
+                    <div class="meta-item">
+                        <div class="meta-icon"><i class="fas fa-code-branch"></i></div>
+                        <span class="meta-label">Versi</span>
+                        <span class="meta-value">${v}</span>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-icon"><i class="fas fa-weight-hanging"></i></div>
+                        <span class="meta-label">Ukuran</span>
+                        <span class="meta-value">${s}</span>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-icon"><i class="fas fa-user"></i></div>
+                        <span class="meta-label">Developer</span>
+                        <span class="meta-value">${dev}</span>
+                    </div>
+                    ${dateFormatted ? `
+                    <div class="meta-item">
+                        <div class="meta-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <span class="meta-label">Tanggal</span>
+                        <span class="meta-value">${dateFormatted}</span>
+                    </div>` : ''}
+                    <div class="meta-item">
+                        <div class="meta-icon"><i class="fas fa-eye"></i></div>
+                        <span class="meta-label">Dilihat</span>
+                        <span class="meta-value glow" id="view-count-display">${viewCount || 0}</span>
+                    </div>
+                `;
 
                 detailContent.innerHTML = `
                     <div class="detail-header">
@@ -2561,26 +2590,7 @@
                         <h1 class="detail-title">${t}</h1>
                         ${subtitleHtml}
                         <div class="detail-meta-grid">
-                            <div class="meta-item">
-                                <div class="meta-icon"><i class="fas fa-code-branch"></i></div>
-                                <span class="meta-label">Versi</span>
-                                <span class="meta-value">${v}</span>
-                            </div>
-                            <div class="meta-item">
-                                <div class="meta-icon"><i class="fas fa-weight-hanging"></i></div>
-                                <span class="meta-label">Ukuran</span>
-                                <span class="meta-value">${s}</span>
-                            </div>
-                            <div class="meta-item">
-                                <div class="meta-icon"><i class="fas fa-user"></i></div>
-                                <span class="meta-label">Developer</span>
-                                <span class="meta-value">${dev}</span>
-                            </div>
-                            <div class="meta-item">
-                                <div class="meta-icon"><i class="fas fa-eye"></i></div>
-                                <span class="meta-label">Dilihat</span>
-                                <span class="meta-value glow" id="view-count-display">${viewCount || 0}</span>
-                            </div>
+                            ${metaItems}
                         </div>
                         ${galleryHtml}
                         ${tagsHtml}
@@ -2684,7 +2694,6 @@
                     avatar.style.backgroundImage = `url('${PROFILE.avatar}')`;
                     avatar.textContent = '';
                 }
-                // footer sudah statis, tidak perlu diubah
             }
 
             // ===== EVENTS =====
