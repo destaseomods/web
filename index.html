@@ -13,27 +13,46 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
-            --bg: #04040e; --surface: rgba(15, 15, 30, 0.7); --surface2: rgba(25, 25, 45, 0.8);
-            --border: rgba(255, 255, 255, 0.07); --text: #f5f5ff; --text2: #b8b8d0;
-            --accent: #a87fff; --accent2: #3ee0ff; --grad1: linear-gradient(135deg, #a87fff, #3ee0ff);
-            --radius: 28px; --radius-sm: 20px; --nav-height: 76px;
+            --bg: #04040e;
+            --surface: rgba(15, 15, 30, 0.7);
+            --surface2: rgba(25, 25, 45, 0.8);
+            --border: rgba(255, 255, 255, 0.07);
+            --text: #f5f5ff;
+            --text2: #b8b8d0;
+            --accent: #a87fff;
+            --accent2: #3ee0ff;
+            --grad1: linear-gradient(135deg, #a87fff, #3ee0ff);
+            --radius: 28px;
+            --radius-sm: 20px;
+            --nav-height: 76px;
             --safe-bottom: env(safe-area-inset-bottom, 16px);
             --shadow-card: 0 16px 48px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06);
-            --glow: 0 0 60px rgba(168,127,255,0.4); --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --glow: 0 0 60px rgba(168,127,255,0.4);
+            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text);
-            line-height: 1.6; min-height: 100vh; padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
-            -webkit-tap-highlight-color: transparent; overflow-x: hidden; position: relative;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+            position: relative;
         }
         canvas#particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.7; }
         .container { max-width: 760px; margin: 0 auto; padding: 12px 20px; position: relative; z-index: 2; }
         .topbar {
-            display: flex; align-items: center; justify-content: space-between; padding: 14px 22px;
-            background: rgba(12,12,25,0.65); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--border); border-radius: 34px; margin: 12px auto; max-width: 700px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.7); position: sticky; top: 14px; z-index: 99;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 22px;
+            background: rgba(12,12,25,0.65);
+            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--border);
+            border-radius: 34px; margin: 12px auto; max-width: 700px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+            position: sticky; top: 14px; z-index: 99;
         }
         .logo-area { display: flex; align-items: center; gap: 10px; }
         .logo-img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 0 15px rgba(168,127,255,0.4); }
@@ -156,7 +175,7 @@
     <div class="topbar">
         <div class="logo-area">
             <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo" class="logo-img">
-            <span class="logo-text">DestaseoMods</span>
+            <span class="logo-text">Destaseo Mods</span>
         </div>
         <div class="telegram-wrapper">
             <button class="telegram-btn" id="telegram-btn"><i class="fab fa-telegram-plane"></i> Telegram</button>
@@ -242,7 +261,7 @@
             function animateParticles() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateParticles); }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v66';
+            const CACHE_KEY = 'destaseo_premium_cache_v67';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -284,15 +303,12 @@
                 const now = Date.now();
                 const lastTs = parseInt(localStorage.getItem(TS_KEY) || '0', 10);
                 const currentCount = parseInt(localStorage.getItem(VIEW_KEY) || '0', 10);
-                
-                // Jika belum pernah view, atau sudah lebih dari 24 jam (86400000 ms)
                 if (!lastTs || (now - lastTs) > 86400000) {
                     const newCount = currentCount + 1;
                     localStorage.setItem(VIEW_KEY, newCount.toString());
                     localStorage.setItem(TS_KEY, now.toString());
                     return newCount;
                 }
-                // Jika masih dalam 24 jam, kembalikan count yang sudah ada
                 return currentCount || 1;
             }
 
@@ -437,8 +453,6 @@
                 const hasDownload = dwn && dwn !== '#';
                 const downloadBtn = hasDownload ? `<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` : `<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>`;
                 const tagsHtml = tags.length > 0 ? `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` : '';
-
-                // Hitung view count dengan batasan 24 jam
                 const viewCount = incrementViewCount(name);
 
                 detailContent.innerHTML = `
@@ -467,6 +481,49 @@
             navItems.forEach(i => i.addEventListener('click', () => setHash(i.dataset.page)));
             searchInput.addEventListener('input', () => resetAndApplyFilters());
             window.addEventListener('hashchange', () => { const { page, postName } = getHashPage(); if (page === 'detail' && postName) { if (fetchedPosts.length === 0) renderHome().then(() => navigate('detail', postName)); else navigate('detail', postName); } else navigate(page); });
+
+            // 🌐 SITEMAP GENERATOR
+            async function generateSitemap() {
+                const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
+                let urls = [baseUrl];
+                try {
+                    const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
+                    const res = await fetch(apiUrl);
+                    if (res.ok) {
+                        const files = await res.json();
+                        const mdFiles = files.filter(f => f.name.endsWith('.md'));
+                        mdFiles.forEach(f => {
+                            const name = f.name.replace('.md', '');
+                            urls.push(`${baseUrl}#detail/${name}`);
+                        });
+                    }
+                } catch(e) {}
+                const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${urls.map(u => `<url><loc>${u}</loc><lastmod>${new Date().toISOString().split('T')[0]}</lastmod></url>`).join('\n  ')}
+</urlset>`;
+                const blob = new Blob([sitemap], {type: 'application/xml'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'sitemap.xml';
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                // Tidak auto download, hanya siapkan file
+                window.sitemapUrl = url;
+            }
+
+            // Sediakan sitemap sebagai file yang bisa diunduh manual via ?sitemap
+            if (window.location.search === '?sitemap') {
+                generateSitemap().then(() => {
+                    if (window.sitemapUrl) {
+                        window.location.href = window.sitemapUrl;
+                    }
+                });
+            } else {
+                // Tetap generate untuk keperluan indexing (disimpan di window)
+                generateSitemap();
+            }
 
             (async () => { await renderHome(); const { page, postName } = getHashPage(); if (page === 'detail' && postName) navigate('detail', postName); else navigate(page); })();
         })();
