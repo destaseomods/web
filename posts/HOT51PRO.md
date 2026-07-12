@@ -8,7 +8,7 @@ ukuran: "62 MB"
 developer: "HOT51 INC."
 screenshot: "https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/bg_start.jpg, https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/Screenshot_2026-07-11-10-49-13-841_com.sagadsg.user.mady501857.jpg, https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/Screenshot_2026-07-11-10-48-42-978_com.sagadsg.user.mady501857.jpg, https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/Screenshot_2026-07-11-10-48-32-278_com.sagadsg.user.mady501857.jpg"
 download: "https://sfile.co/68pElvSUQmf"
-tag: "Media"
+tag: "Media, Live Streaming, Permainan"
 kategori: "Streaming"
 ---
 
