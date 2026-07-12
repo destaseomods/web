@@ -285,7 +285,7 @@
             if (AVATAR_URL) { const a = document.getElementById('profile-avatar'); a.style.backgroundImage = `url('${AVATAR_URL}')`; a.textContent = ''; }
 
             // ============================================================
-            // 🚀 GLOBAL COUNTER dengan Multi-Provider & Fallback
+            // 🚀 GLOBAL COUNTER dengan countapi.mileshilliard.com + fallback
             // ============================================================
             async function getGlobalViewCount(postName) {
                 const clean = postName.replace(/[^a-zA-Z0-9]/g, '_');
@@ -307,8 +307,8 @@
                 // Coba beberapa API secara berurutan
                 const providers = [
                     {
-                        name: 'countapi.xyz',
-                        url: `https://api.countapi.xyz/hit/destaseo/${clean}`,
+                        name: 'countapi.mileshilliard.com',
+                        url: `https://countapi.mileshilliard.com/hit/destaseo/${clean}`,
                         parse: (data) => data.value
                     },
                     {
@@ -324,7 +324,7 @@
                         const controller = new AbortController();
                         const timeout = setTimeout(() => controller.abort(), 5000);
                         const res = await fetch(provider.url, { 
-                            method: 'POST',
+                            method: 'GET',
                             signal: controller.signal,
                             headers: { 'Content-Type': 'application/json' }
                         });
