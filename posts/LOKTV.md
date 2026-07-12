@@ -8,7 +8,7 @@ ukuran: "59 MB"
 developer: "LOKTV DEV"
 screenshot: "https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-12-10-50-24-295_com.novan.morpha.jpg, https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-12-10-49-50-381_com.novan.morpha.jpg, https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-12-10-50-15-727_com.novan.morpha.jpg, https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-12-10-49-57-077_com.novan.morpha.jpg"
 download: "https://sfile.co/tZ2yvsMhwFP"
-tag: "Media, Short"
+tag: "Media, Short, Drama, Film"
 kategori: "Media"
 ---
 
