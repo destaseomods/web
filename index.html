@@ -1522,7 +1522,7 @@
             .detail-subtitle { padding: 6px 0 8px 0; gap: 6px; }
             .bg-orb-1, .bg-orb-2, .bg-orb-3, .bg-orb-4 { display: none; }
             .bg-grid { background-size: 30px 30px; }
-            #particles-bg { display: none !important; }
+            /* partikel tetap muncul di mobile dengan jumlah lebih sedikit (diatur di JS) */
         }
         @media (max-width: 400px) {
             .profile-avatar { width: 80px; height: 80px; }
@@ -1745,19 +1745,19 @@
             // ANIMASI PARTIKEL BACKGROUND - ELEGANT & MOVING
             // ============================================================
             const canvas = document.getElementById('particles-bg');
-            if (canvas && window.innerWidth > 640) {
+            if (canvas) {
                 const ctx = canvas.getContext('2d');
                 let particles = [];
-                const maxParticles = 85;
+                let maxParticles = window.innerWidth > 640 ? 85 : 40; // lebih sedikit di mobile
                 let animId = null;
-                let mouseX = -1000,
-                    mouseY = -1000;
                 let connectionDistance = 150;
 
                 function resizeCanvas() {
                     canvas.width = window.innerWidth;
                     canvas.height = window.innerHeight;
                     connectionDistance = Math.min(canvas.width, canvas.height) * 0.15;
+                    // update maxParticles berdasarkan lebar
+                    maxParticles = window.innerWidth > 640 ? 85 : 40;
                 }
                 window.addEventListener('resize', resizeCanvas);
                 resizeCanvas();
@@ -1775,8 +1775,8 @@
                     reset() {
                         this.x = Math.random() * canvas.width;
                         this.y = Math.random() * canvas.height;
-                        this.vx = (Math.random() - 0.5) * 0.4;
-                        this.vy = (Math.random() - 0.5) * 0.4;
+                        this.vx = (Math.random() - 0.5) * 0.3;
+                        this.vy = (Math.random() - 0.5) * 0.3;
                         this.radius = Math.random() * 2.5 + 0.8;
                         this.baseRadius = this.radius;
                         this.opacity = Math.random() * 0.5 + 0.1;
@@ -1850,6 +1850,7 @@
                     }
                 }
 
+                // Buat partikel
                 for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
 
                 // Gambar koneksi antar partikel
@@ -1892,6 +1893,15 @@
                 // Resize handler dengan update origin
                 window.addEventListener('resize', () => {
                     resizeCanvas();
+                    // sesuaikan jumlah partikel
+                    const currentCount = particles.length;
+                    if (currentCount < maxParticles) {
+                        for (let i = currentCount; i < maxParticles; i++) {
+                            particles.push(new Particle());
+                        }
+                    } else if (currentCount > maxParticles) {
+                        particles = particles.slice(0, maxParticles);
+                    }
                     particles.forEach(p => {
                         p.originX = Math.min(p.originX, canvas.width);
                         p.originY = Math.min(p.originY, canvas.height);
