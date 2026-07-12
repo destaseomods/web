@@ -15,9 +15,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* ============================================================
-           ROOT VARIABLES
-           ============================================================ */
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -36,10 +33,6 @@
             --glow: 0 0 60px rgba(168,127,255,0.4);
             --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        /* ============================================================
-           RESET & BASE
-           ============================================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { font-size: 16px; -webkit-text-size-adjust: 100%; }
         body {
@@ -70,10 +63,6 @@
             position: relative;
             z-index: 2;
         }
-
-        /* ============================================================
-           TOPBAR & NAVIGATION (sama seperti sebelumnya)
-           ============================================================ */
         .topbar {
             display: flex;
             align-items: center;
@@ -165,9 +154,6 @@
         .telegram-dropdown a:hover { background: rgba(255,255,255,0.05); color: #fff; }
         .telegram-dropdown a i { width: 18px; text-align: center; }
 
-        /* ============================================================
-           SEARCH, CATEGORY, SORT (sama)
-           ============================================================ */
         .search-container { margin: 8px 0 16px; display: flex; gap: 8px; }
         .search-input {
             flex: 1;
@@ -246,9 +232,6 @@
         }
         .sort-select:hover { border-color: var(--accent2); }
 
-        /* ============================================================
-           CAROUSEL
-           ============================================================ */
         .popular-section { margin-bottom: 0; }
         .carousel-wrapper {
             position: relative;
@@ -320,9 +303,6 @@
         }
         @media (min-width: 500px) { .carousel-counter { font-size: 0.75rem; padding: 4px 12px; } }
 
-        /* ============================================================
-           POST GRID
-           ============================================================ */
         .section-divider { border: none; border-top: 3px solid rgba(255,255,255,0.25); margin: 22px 0 20px; }
         .post-grid {
             display: grid;
@@ -438,9 +418,6 @@
 
         .hidden { display: none !important; }
 
-        /* ============================================================
-           DETAIL & PROFILE (sama)
-           ============================================================ */
         .detail-header,
         .profile-card {
             background: var(--surface);
@@ -1228,9 +1205,6 @@
                 updateDailyVisitor();
             }
 
-            // ============================================================
-            // 🆕 UPDATE DAILY VISITOR
-            // ============================================================
             async function updateDailyVisitor() {
                 try {
                     const count = await getDailyVisitorCount();
@@ -1530,10 +1504,10 @@
                     else navigate('detail', postName); } else navigate(page); });
 
             // ============================================================
-            // 🔧 SITEMAP GENERATOR - VERSI FINAL
+            // 🗺️ SITEMAP GENERATOR - DUKUNGAN /sitemap.xml DAN ?sitemap
             // ============================================================
             async function generateSitemap() {
-                // Deteksi apakah request untuk sitemap
+                // Deteksi akses sitemap
                 const isSitemap = window.location.search === '?sitemap' || 
                                   window.location.pathname.endsWith('/sitemap.xml');
 
@@ -1543,7 +1517,7 @@
                     const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
                     let urls = [baseUrl];
 
-                    // Ambil daftar postingan
+                    // Ambil daftar postingan dari cache atau GitHub
                     let postNames = [];
                     try {
                         const cached = localStorage.getItem(CACHE_KEY);
@@ -1575,7 +1549,7 @@
           ${urls.map(u => `<url><loc>${u}</loc><lastmod>${now}</lastmod></url>`).join('\n  ')}
         </urlset>`;
 
-                    // Tulis XML murni
+                    // Ganti seluruh dokumen dengan XML murni
                     document.open('text/xml', 'replace');
                     document.write(xml);
                     document.close();
@@ -1585,6 +1559,7 @@
                     document.close();
                 }
 
+                // Hentikan eksekusi agar tidak merender HTML
                 throw new Error('SITEMAP_DISPLAY');
             }
 
