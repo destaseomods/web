@@ -1522,6 +1522,7 @@
             .detail-subtitle { padding: 6px 0 8px 0; gap: 6px; }
             .bg-orb-1, .bg-orb-2, .bg-orb-3, .bg-orb-4 { display: none; }
             .bg-grid { background-size: 30px 30px; }
+            #particles-bg { display: none !important; }
         }
         @media (max-width: 400px) {
             .profile-avatar { width: 80px; height: 80px; }
@@ -1550,9 +1551,6 @@
             .social-link:hover { transform: none !important; }
             .profile-avatar:hover { transform: none; }
             .logo-img:hover { transform: none; }
-        }
-        @media (max-width: 640px) {
-            #particles-bg { display: none !important; }
         }
     </style>
 </head>
@@ -1743,17 +1741,23 @@
             let totalPopularSlides = 0;
             let isDetailMode = false;
 
-            // ===== PARTICLES BACKGROUND - ELEGANT =====
+            // ============================================================
+            // ANIMASI PARTIKEL BACKGROUND - ELEGANT & MOVING
+            // ============================================================
             const canvas = document.getElementById('particles-bg');
             if (canvas && window.innerWidth > 640) {
                 const ctx = canvas.getContext('2d');
                 let particles = [];
-                const maxParticles = 65;
+                const maxParticles = 85;
                 let animId = null;
+                let mouseX = -1000,
+                    mouseY = -1000;
+                let connectionDistance = 150;
 
                 function resizeCanvas() {
                     canvas.width = window.innerWidth;
                     canvas.height = window.innerHeight;
+                    connectionDistance = Math.min(canvas.width, canvas.height) * 0.15;
                 }
                 window.addEventListener('resize', resizeCanvas);
                 resizeCanvas();
@@ -1762,7 +1766,8 @@
                     'rgba(168,127,255,',
                     'rgba(62,224,255,',
                     'rgba(255,255,255,',
-                    'rgba(130,100,200,'
+                    'rgba(200,180,255,',
+                    'rgba(100,200,255,'
                 ];
 
                 class Particle {
@@ -1770,60 +1775,130 @@
                     reset() {
                         this.x = Math.random() * canvas.width;
                         this.y = Math.random() * canvas.height;
-                        this.vx = (Math.random() - 0.5) * 0.25;
-                        this.vy = (Math.random() - 0.5) * 0.25;
-                        this.radius = Math.random() * 2.8 + 0.5;
-                        this.opacity = Math.random() * 0.4 + 0.08;
+                        this.vx = (Math.random() - 0.5) * 0.4;
+                        this.vy = (Math.random() - 0.5) * 0.4;
+                        this.radius = Math.random() * 2.5 + 0.8;
+                        this.baseRadius = this.radius;
+                        this.opacity = Math.random() * 0.5 + 0.1;
                         this.color = colors[Math.floor(Math.random() * colors.length)];
                         this.pulse = Math.random() * Math.PI * 2;
                         this.pulseSpeed = 0.015 + Math.random() * 0.025;
-                        this.targetRadius = this.radius;
+                        this.angle = Math.random() * Math.PI * 2;
+                        this.driftSpeed = 0.001 + Math.random() * 0.002;
+                        this.driftRadius = 20 + Math.random() * 40;
+                        this.originX = this.x;
+                        this.originY = this.y;
                     }
                     update() {
-                        this.x += this.vx;
-                        this.y += this.vy;
+                        // Gerakan melayang dengan drift halus
+                        this.angle += this.driftSpeed;
+                        this.x = this.originX + Math.sin(this.angle) * this.driftRadius;
+                        this.y = this.originY + Math.cos(this.angle * 0.7) * this.driftRadius * 0.6;
+
+                        // Tambahkan gerakan acak kecil
+                        this.x += (Math.random() - 0.5) * 0.1;
+                        this.y += (Math.random() - 0.5) * 0.1;
+
+                        // Batasi di dalam canvas
+                        if (this.x < 0) { this.x = 0;
+                            this.originX = 0; }
+                        if (this.x > canvas.width) { this.x = canvas.width;
+                            this.originX = canvas.width; }
+                        if (this.y < 0) { this.y = 0;
+                            this.originY = 0; }
+                        if (this.y > canvas.height) { this.y = canvas.height;
+                            this.originY = canvas.height; }
+
+                        // Denyut
                         this.pulse += this.pulseSpeed;
                         const pulseFactor = 0.7 + 0.3 * Math.sin(this.pulse);
-                        this.radius = this.targetRadius * (0.8 + 0.4 * Math.sin(this.pulse * 0.7));
+                        this.radius = this.baseRadius * (0.8 + 0.4 * Math.sin(this.pulse * 0.5));
 
-                        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
+                        // Gambar partikel dengan glow
                         const alpha = this.opacity * pulseFactor;
-                        // Draw glow
-                        const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius * 3);
-                        grad.addColorStop(0, this.color + alpha + ')');
+                        const r = this.radius * pulseFactor;
+
+                        // Glow luar
+                        const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r * 4);
+                        grad.addColorStop(0, this.color + (alpha * 0.8) + ')');
+                        grad.addColorStop(0.3, this.color + (alpha * 0.4) + ')');
                         grad.addColorStop(1, this.color + '0)');
                         ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.radius * 3, 0, Math.PI * 2);
+                        ctx.arc(this.x, this.y, r * 4, 0, Math.PI * 2);
                         ctx.fillStyle = grad;
                         ctx.fill();
 
-                        // Draw core
+                        // Inti partikel
                         ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.radius * pulseFactor, 0, Math.PI * 2);
+                        ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
                         ctx.fillStyle = this.color + (alpha * 1.2) + ')';
                         ctx.fill();
 
-                        // Extra glow for larger particles
-                        if (this.targetRadius > 1.8) {
+                        // Cahaya ekstra untuk partikel besar
+                        if (this.baseRadius > 1.8) {
                             ctx.beginPath();
-                            ctx.arc(this.x, this.y, this.radius * 5 * pulseFactor, 0, Math.PI * 2);
-                            ctx.fillStyle = this.color + (alpha * 0.06) + ')';
+                            ctx.arc(this.x, this.y, r * 0.4, 0, Math.PI * 2);
+                            ctx.fillStyle = 'rgba(255,255,255,' + (alpha * 0.3) + ')';
                             ctx.fill();
                         }
+
+                        // Simpan posisi untuk koneksi
+                        this._drawX = this.x;
+                        this._drawY = this.y;
+                        this._radius = r;
+                        this._alpha = alpha;
                     }
                 }
 
                 for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
 
+                // Gambar koneksi antar partikel
+                function drawConnections() {
+                    for (let i = 0; i < particles.length; i++) {
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const dx = particles[i]._drawX - particles[j]._drawX;
+                            const dy = particles[i]._drawY - particles[j]._drawY;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+
+                            if (dist < connectionDistance) {
+                                const alpha = 0.15 * (1 - dist / connectionDistance);
+                                const grad = ctx.createLinearGradient(
+                                    particles[i]._drawX, particles[i]._drawY,
+                                    particles[j]._drawX, particles[j]._drawY
+                                );
+                                grad.addColorStop(0, 'rgba(168,127,255,' + alpha + ')');
+                                grad.addColorStop(0.5, 'rgba(62,224,255,' + alpha * 0.7 + ')');
+                                grad.addColorStop(1, 'rgba(168,127,255,' + alpha + ')');
+                                ctx.beginPath();
+                                ctx.moveTo(particles[i]._drawX, particles[i]._drawY);
+                                ctx.lineTo(particles[j]._drawX, particles[j]._drawY);
+                                ctx.strokeStyle = grad;
+                                ctx.lineWidth = 1;
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                }
+
                 function animateParticles() {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     particles.forEach(p => p.update());
+                    drawConnections();
                     animId = requestAnimationFrame(animateParticles);
                 }
 
                 animateParticles();
+
+                // Resize handler dengan update origin
+                window.addEventListener('resize', () => {
+                    resizeCanvas();
+                    particles.forEach(p => {
+                        p.originX = Math.min(p.originX, canvas.width);
+                        p.originY = Math.min(p.originY, canvas.height);
+                        p.x = p.originX;
+                        p.y = p.originY;
+                    });
+                });
 
                 document.addEventListener('visibilitychange', () => {
                     if (document.hidden) {
