@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* CSS (sama seperti sebelumnya, tidak diubah) */
         :root {
             --bg: #04040e; --surface: rgba(15, 15, 30, 0.7); --surface2: rgba(25, 25, 45, 0.8);
             --border: rgba(255, 255, 255, 0.07); --text: #f5f5ff; --text2: #b8b8d0;
@@ -278,28 +277,56 @@
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) { const a = document.getElementById('profile-avatar'); a.style.backgroundImage = `url('${AVATAR_URL}')`; a.textContent = ''; }
 
-            // 🎯 DAILY UNIQUE VIEW (hanya bertambah 1x per hari per perangkat)
-            function getDailyViewCount(postName) {
-                const key = 'view_' + postName;
-                const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+            // 🚀 GLOBAL COUNTER + DAILY UNIQUE (API countapi.xyz + fallback localStorage)
+            async function getGlobalViewCount(postName) {
+                const clean = postName.replace(/[^a-zA-Z0-9]/g, '') || 'default';
+                const apiKey = `destaseomods_${clean}`;
+                const storageKey = `view_${apiKey}`;
+                const today = new Date().toISOString().slice(0, 10);
 
-                let data = null;
+                // Baca data lokal
+                let localData = null;
                 try {
-                    const raw = localStorage.getItem(key);
-                    if (raw) data = JSON.parse(raw);
+                    const raw = localStorage.getItem(storageKey);
+                    if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
 
-                // Jika data ada dan tanggalnya hari ini → kembalikan tanpa nambah
-                if (data && data.date === today) {
-                    console.log(`📊 [${postName}] Daily view hari ini: ${data.count}`);
-                    return data.count;
+                // Jika hari ini sudah tercatat, langsung return (tidak hit API)
+                if (localData && localData.date === today) {
+                    console.log(`📊 [${postName}] Local cache hari ini: ${localData.count}`);
+                    return localData.count;
                 }
 
-                // Hari baru atau belum ada data → increment +1
-                const prevCount = (data && typeof data.count === 'number') ? data.count : 0;
+                // Coba API countapi.xyz (hit = increment)
+                let apiSuccess = false;
+                let apiCount = 1;
+                try {
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), 5000);
+                    const res = await fetch(`https://api.countapi.xyz/hit/${apiKey}`, { signal: controller.signal });
+                    clearTimeout(timeout);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (typeof data.value === 'number' && data.value > 0) {
+                            apiCount = data.value;
+                            apiSuccess = true;
+                        }
+                    }
+                } catch (e) {
+                    console.warn(`⚠️ API countapi error untuk ${postName}:`, e.message);
+                }
+
+                if (apiSuccess) {
+                    console.log(`✅ [${postName}] API success → ${apiCount}`);
+                    localStorage.setItem(storageKey, JSON.stringify({ count: apiCount, date: today }));
+                    return apiCount;
+                }
+
+                // FALLBACK: increment dari lokal (hanya per perangkat)
+                const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
                 const newCount = prevCount + 1;
-                localStorage.setItem(key, JSON.stringify({ count: newCount, date: today }));
-                console.log(`📈 [${postName}] Daily view baru: ${newCount}`);
+                console.log(`🔄 [${postName}] Fallback lokal → ${newCount}`);
+                localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
                 return newCount;
             }
 
@@ -452,8 +479,8 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🎯 Ambil daily view
-                const viewCount = getDailyViewCount(name);
+                // 🔥 Ambil counter global (API + fallback)
+                const viewCount = await getGlobalViewCount(name);
 
                 detailContent.innerHTML = `
                 <div class="detail-header">
