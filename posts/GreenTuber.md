@@ -1,4 +1,5 @@
 ---
+date: 2026-07-11 13:30
 populer: true
 judul: "GREENTUBER MOD VIP"
 gambar: "https://image.winudf.com/v2/image1/YnkuZ3JlZW4udHViZXJfaWNvbl8xNzgxMDA3NTYyXzA4MA/icon.webp?w=280&fakeurl=1&type=.webp"
