@@ -102,7 +102,7 @@
         }
 
         /* ============================================================
-           TOPBAR PREMIUM
+           TOPBAR
            ============================================================ */
         .topbar {
             display: flex;
@@ -654,7 +654,7 @@
         }
 
         /* ============================================================
-           DETAIL (premium)
+           DETAIL
            ============================================================ */
         .detail-header {
             background: var(--surface);
@@ -1143,7 +1143,7 @@
         }
 
         /* ============================================================
-           PROFILE PREMIUM
+           PROFILE PREMIUM (NEW ULTRA MODERN)
            ============================================================ */
         .profile-card {
             background: var(--surface);
@@ -1151,82 +1151,146 @@
             -webkit-backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: var(--radius);
-            padding: clamp(28px, 4vw, 40px);
             box-shadow: var(--shadow-premium);
             position: relative;
             overflow: hidden;
             text-align: center;
-        }
-        .profile-card::before {
-            content: '';
-            position: absolute;
-            top: -60%;
-            left: -60%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at 30% 20%, rgba(168, 127, 255, 0.05), transparent 50%),
-                radial-gradient(ellipse at 70% 80%, rgba(62, 224, 255, 0.04), transparent 40%);
-            pointer-events: none;
-            z-index: 0;
-        }
-        .profile-card>* {
-            position: relative;
-            z-index: 1;
+            padding: 0;
         }
 
-        /* Avatar dengan border animasi gradient */
+        /* Cover Image */
+        .profile-cover {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #1a0b2e, #0d1b3e, #1a0b2e);
+            background-size: 400% 400%;
+            animation: coverGradient 8s ease-in-out infinite alternate;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes coverGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        /* Glowing orbs on cover */
+        .profile-cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 70%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(168, 127, 255, 0.25), transparent 70%);
+            pointer-events: none;
+        }
+        .profile-cover::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -20%;
+            width: 70%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(62, 224, 255, 0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Avatar with floating + spinning border */
         .profile-avatar-wrap {
             position: relative;
             display: inline-block;
-            margin: 0 auto 20px;
+            margin-top: -60px;
+            margin-bottom: 16px;
+            z-index: 2;
+            animation: floatAvatar 4s ease-in-out infinite;
+        }
+        @keyframes floatAvatar {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
         }
         .profile-avatar-wrap::before {
             content: '';
             position: absolute;
-            inset: -4px;
+            inset: -5px;
             border-radius: 50%;
-            padding: 3px;
-            background: conic-gradient(from 0deg, var(--accent), var(--accent2), var(--grad-warm), var(--accent));
+            padding: 4px;
+            background: conic-gradient(from 0deg, var(--accent), var(--accent2), #f093fb, #f5576c, var(--accent));
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
-            animation: spinBorder 6s linear infinite;
+            animation: spinBorder 5s linear infinite;
+            box-shadow: 0 0 40px rgba(168, 127, 255, 0.2);
         }
         @keyframes spinBorder {
             to {
                 transform: rotate(360deg);
             }
         }
+
         .profile-avatar {
             width: clamp(100px, 18vw, 130px);
             height: clamp(100px, 18vw, 130px);
             border-radius: 50%;
-            background: var(--surface2);
+            background-size: cover;
+            background-position: center;
+            border: 3px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            transition: 0.4s;
+            display: block;
+        }
+        .profile-avatar:hover {
+            transform: scale(1.04);
+            box-shadow: 0 15px 60px rgba(168, 127, 255, 0.25);
+        }
+
+        /* Main content area */
+        .profile-main {
+            padding: 0 24px 28px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Name & Verified Badge */
+        .profile-name-wrap {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.8rem;
-            color: #fff;
-            background-size: cover;
-            background-position: center;
-            border: 3px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 40px rgba(168, 127, 255, 0.15);
-            transition: 0.4s;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
         }
-        .profile-avatar:hover {
-            transform: scale(1.03);
-            box-shadow: 0 15px 60px rgba(168, 127, 255, 0.2);
-        }
-
         .profile-name {
-            font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+            font-size: clamp(1.5rem, 3.5vw, 2rem);
             font-weight: 800;
             letter-spacing: -0.3px;
             background: linear-gradient(135deg, #fff, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 4px;
+        }
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            font-size: 14px;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.4);
+            flex-shrink: 0;
         }
         .profile-bio {
             color: var(--text2);
@@ -1240,18 +1304,61 @@
             margin: 0 4px;
         }
 
+        /* Stats Grid Premium */
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+        .stat-item {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 14px 8px;
+            transition: all 0.3s ease;
+        }
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(168, 127, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        .stat-item .stat-icon {
+            font-size: 1.2rem;
+            color: var(--accent2);
+            margin-bottom: 4px;
+            display: block;
+        }
+        .stat-item .stat-number {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            font-weight: 800;
+            color: #fff;
+            display: block;
+            line-height: 1.2;
+        }
+        .stat-item .stat-label {
+            font-size: clamp(0.55rem, 0.8vw, 0.65rem);
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
         /* Social Links Premium */
         .social-links {
             display: flex;
             gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 8px;
+            margin-bottom: 20px;
         }
         .social-link {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 10px 22px;
+            padding: 10px 24px;
             border-radius: 40px;
             color: var(--text);
             text-decoration: none;
@@ -1262,28 +1369,50 @@
             align-items: center;
             gap: 10px;
             backdrop-filter: blur(8px);
+            flex: 0 1 auto;
         }
         .social-link i {
             font-size: clamp(0.9rem, 1.2vw, 1.1rem);
-            color: var(--accent2);
             transition: 0.3s;
         }
-        .social-link:hover {
-            background: rgba(168, 127, 255, 0.08);
-            border-color: rgba(168, 127, 255, 0.15);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(168, 127, 255, 0.05);
+        /* Brand hover colors */
+        .social-link[data-brand="facebook"]:hover {
+            background: rgba(24, 119, 242, 0.15);
+            border-color: #1877f2;
             color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(24, 119, 242, 0.15);
+        }
+        .social-link[data-brand="telegram"]:hover {
+            background: rgba(0, 136, 204, 0.15);
+            border-color: #0088cc;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 136, 204, 0.15);
+        }
+        .social-link[data-brand="saweria"]:hover {
+            background: rgba(255, 165, 0, 0.15);
+            border-color: #ffa500;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 165, 0, 0.15);
+        }
+        .social-link[data-brand="qris"]:hover {
+            background: rgba(62, 224, 255, 0.15);
+            border-color: var(--accent2);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(62, 224, 255, 0.15);
         }
         .social-link:hover i {
             transform: scale(1.1);
         }
 
-        /* Donasi Section Premium */
+        /* Donasi Section */
         .donate-section {
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
         }
         .donate-title {
             color: var(--text2);
@@ -1296,7 +1425,7 @@
             gap: 8px;
         }
         .donate-title i {
-            color: var(--grad-gold);
+            background: var(--grad-gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1311,16 +1440,15 @@
             background: rgba(255, 255, 255, 0.02);
             border-color: rgba(255, 255, 255, 0.04);
         }
-        .donate-links .social-link:hover {
-            border-color: var(--accent2);
-        }
 
-        /* Profile Footer */
+        /* Profile Footer Text */
         #profile-footer-text {
             margin-top: 16px;
             text-align: center;
             font-size: 0.85rem;
             color: var(--text2);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 16px;
         }
 
         /* ============================================================
@@ -1529,7 +1657,7 @@
         }
 
         /* ============================================================
-           RESPONSIVE
+           RESPONSIVE (Profile optimized)
            ============================================================ */
         @media (max-width: 480px) {
             .post-grid {
@@ -1597,20 +1725,45 @@
                 right: 16px;
                 font-size: 1.6rem;
             }
-            .profile-card {
-                padding: 20px 14px;
+
+            /* PROFILE RESPONSIVE */
+            .profile-cover {
+                height: 80px;
+            }
+            .profile-avatar-wrap {
+                margin-top: -45px;
             }
             .profile-avatar {
                 width: 80px;
                 height: 80px;
             }
             .profile-avatar-wrap::before {
-                inset: -3px;
-                padding: 2px;
+                inset: -4px;
+                padding: 3px;
+            }
+            .profile-main {
+                padding: 0 16px 20px;
+            }
+            .profile-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            .stat-item {
+                padding: 10px 4px;
+            }
+            .stat-item .stat-number {
+                font-size: 1rem;
             }
             .social-link {
                 padding: 8px 16px;
                 font-size: 0.7rem;
+                flex: 1 0 auto;
+                justify-content: center;
+            }
+            .verified-badge {
+                width: 20px;
+                height: 20px;
+                font-size: 10px;
             }
             .carousel-dots {
                 bottom: 8px;
@@ -1622,6 +1775,23 @@
             }
             .carousel-dot.active {
                 width: 18px;
+            }
+        }
+        @media (max-width: 380px) {
+            .profile-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+            .stat-item .stat-number {
+                font-size: 0.85rem;
+            }
+            .stat-item .stat-label {
+                font-size: 0.5rem;
+            }
+            .social-link {
+                padding: 6px 12px;
+                font-size: 0.6rem;
+                gap: 6px;
             }
         }
         @media (min-width: 768px) {
@@ -1666,12 +1836,15 @@
                 transform: none;
             }
             .social-link:hover {
-                transform: none;
+                transform: none !important;
             }
             .profile-avatar:hover {
                 transform: none;
             }
             .logo-img:hover {
+                transform: none;
+            }
+            .stat-item:hover {
                 transform: none;
             }
         }
@@ -1751,20 +1924,54 @@
             <div id="detail-content"></div>
         </section>
 
-        <!-- PROFILE PREMIUM -->
+        <!-- PROFILE PREMIUM ULTRA MODERN -->
         <section id="profile-section" class="hidden" aria-label="Profil">
             <div class="profile-card">
+                <!-- Cover -->
+                <div class="profile-cover"></div>
+
+                <!-- Avatar -->
                 <div class="profile-avatar-wrap">
                     <div class="profile-avatar" id="profile-avatar" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');"></div>
                 </div>
-                <h1 class="profile-name" id="profile-name">Destaseo Mods</h1>
-                <p class="profile-bio" id="profile-bio"><i class="fas fa-code"></i> Premium modder &amp; content creator <i class="fas fa-heart" style="color:#f5576c;"></i></p>
-                <div class="social-links" id="social-links"></div>
-                <div class="donate-section">
-                    <div class="donate-title"><i class="fas fa-hand-holding-heart"></i> Dukung Saya</div>
-                    <div class="donate-links">
-                        <a href="https://saweria.co/destaseomods" target="_blank" rel="noopener" class="social-link"><i class="fas fa-coffee"></i> Saweria</a>
-                        <button class="social-link" id="qris-dana-btn"><i class="fas fa-qrcode"></i> QRIS Dana</button>
+
+                <!-- Main Content -->
+                <div class="profile-main">
+                    <div class="profile-name-wrap">
+                        <h1 class="profile-name" id="profile-name">Destaseo Mods</h1>
+                        <span class="verified-badge"><i class="fas fa-check"></i></span>
+                    </div>
+                    <p class="profile-bio" id="profile-bio"><i class="fas fa-code"></i> Premium modder &amp; content creator <i class="fas fa-heart" style="color:#f5576c;"></i></p>
+
+                    <!-- Stats -->
+                    <div class="profile-stats" id="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon"><i class="fas fa-box"></i></span>
+                            <span class="stat-number" id="stat-mods">0</span>
+                            <span class="stat-label">Total Mods</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon"><i class="fas fa-download"></i></span>
+                            <span class="stat-number" id="stat-downloads">12.8K</span>
+                            <span class="stat-label">Downloads</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon"><i class="fas fa-star"></i></span>
+                            <span class="stat-number" id="stat-rating">4.9</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="social-links" id="social-links"></div>
+
+                    <!-- Donasi -->
+                    <div class="donate-section">
+                        <div class="donate-title"><i class="fas fa-hand-holding-heart"></i> Dukung Saya</div>
+                        <div class="donate-links">
+                            <a href="https://saweria.co/destaseomods" target="_blank" rel="noopener" class="social-link" data-brand="saweria"><i class="fas fa-coffee"></i> Saweria</a>
+                            <button class="social-link" id="qris-dana-btn" data-brand="qris"><i class="fas fa-qrcode"></i> QRIS Dana</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1797,8 +2004,9 @@
                 name: "Destaseo Mods",
                 bio: "Premium modder & content creator.",
                 links: [
-                    { label: "Facebook", url: "https://fb.com/destaseo.id", icon: "fab fa-facebook" },
-                    { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane" }
+                    { label: "Facebook", url: "https://fb.com/destaseo.id", icon: "fab fa-facebook", brand: "facebook" },
+                    { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane",
+                        brand: "telegram" }
                 ]
             };
             const VIEW_API_BASE = "https://abacus.jasoncameron.dev/hit/destaseomods.web.id/visits";
@@ -2212,7 +2420,7 @@
                 renderLoadMoreButton(f.length);
             }
 
-            // ===== CAROUSEL PREMIUM =====
+            // ===== CAROUSEL =====
             function stopCarousel() {
                 if (carouselInterval) { clearInterval(carouselInterval);
                     carouselInterval = null; }
@@ -2654,13 +2862,31 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
+            // ================================================================
+            // RENDER PROFILE - ULTRA PREMIUM
+            // ================================================================
             function renderProfile() {
+                // Name & Bio
                 document.getElementById('profile-name').textContent = PROFILE.name;
                 document.getElementById('profile-bio').innerHTML =
                     `<i class="fas fa-code"></i> Premium modder &amp; content creator <i class="fas fa-heart" style="color:#f5576c;"></i>`;
-                document.getElementById('social-links').innerHTML = PROFILE.links.map(l =>
-                    `<a href="${l.url}" target="_blank" rel="noopener" class="social-link"><i class="${l.icon}"></i> ${l.label}</a>`
+
+                // Stats (dynamic)
+                const totalMods = fetchedPosts.length || 0;
+                document.getElementById('stat-mods').textContent = totalMods + '+';
+
+                // Social Links
+                const socialContainer = document.getElementById('social-links');
+                socialContainer.innerHTML = PROFILE.links.map(l =>
+                    `<a href="${l.url}" target="_blank" rel="noopener" class="social-link" data-brand="${l.brand || 'default'}"><i class="${l.icon}"></i> ${l.label}</a>`
                 ).join('');
+
+                // Update avatar jika berubah
+                const avatar = document.getElementById('profile-avatar');
+                if (PROFILE.avatar) {
+                    avatar.style.backgroundImage = `url('${PROFILE.avatar}')`;
+                    avatar.textContent = '';
+                }
             }
 
             // ===== EVENTS =====
