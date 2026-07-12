@@ -1135,222 +1135,88 @@
         }
 
         /* ============================================================
-           PROFILE - REDESIGN TOTAL (BARU)
+           PROFILE - MINIMALIS & ELEGAN (REDESIGN TOTAL)
            ============================================================ */
         .profile-card {
             background: var(--surface);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: var(--radius);
+            padding: 32px 28px;
             box-shadow: var(--shadow-premium);
-            overflow: hidden;
-            position: relative;
-            transition: all 0.4s ease;
         }
 
-        /* ===== COVER ===== */
-        .profile-cover {
-            position: relative;
-            width: 100%;
-            height: 180px;
-            background: linear-gradient(145deg, #14082a 0%, #1a0b3e 30%, #0d1b4e 60%, #1a0b3e 100%);
-            background-size: 300% 300%;
-            animation: coverFlow 12s ease-in-out infinite alternate;
-            overflow: hidden;
-        }
-        @keyframes coverFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .cover-glow {
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 20% 30%, rgba(168, 127, 255, 0.35) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 70%, rgba(62, 224, 255, 0.25) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(168, 127, 255, 0.10) 0%, transparent 70%);
-            pointer-events: none;
-            animation: glowPulse 6s ease-in-out infinite alternate;
-        }
-        @keyframes glowPulse {
-            0% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-
-        .cover-pattern {
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.03) 1px, transparent 1px),
-                radial-gradient(circle at 80% 30%, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 40px 40px, 60px 60px;
-            pointer-events: none;
-        }
-
-        .cover-badge {
-            position: absolute;
-            top: 16px;
-            right: 20px;
-            background: rgba(0,0,0,0.45);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.06);
-            padding: 6px 18px;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: #fff;
+        /* ===== HEADER ===== */
+        .profile-header {
             display: flex;
             align-items: center;
-            gap: 8px;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            z-index: 5;
-        }
-        .cover-badge i {
-            background: linear-gradient(135deg, #f6d365, #fda085);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* ===== MAIN ===== */
-        .profile-main {
-            padding: 0 28px 32px;
-            position: relative;
-            z-index: 2;
-            margin-top: -52px;
-        }
-
-        /* ===== HEAD (Avatar + Nama + Bio) ===== */
-        .profile-head {
-            display: flex;
-            align-items: center;
-            gap: 28px;
+            gap: 24px;
+            margin-bottom: 24px;
             flex-wrap: wrap;
         }
-
-        .profile-avatar-wrap {
-            position: relative;
-            flex-shrink: 0;
-            animation: floatAvatar 5s ease-in-out infinite;
-        }
-        @keyframes floatAvatar {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
         .profile-avatar {
-            width: clamp(100px, 18vw, 130px);
-            height: clamp(100px, 18vw, 130px);
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             background-size: cover;
             background-position: center;
-            border: 3px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
-            transition: all 0.5s ease;
-            display: block;
-            background-color: var(--surface2);
-            position: relative;
-            z-index: 2;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            flex-shrink: 0;
         }
-        .profile-avatar:hover {
-            transform: scale(1.04);
-            box-shadow: 0 16px 60px rgba(168, 127, 255, 0.25);
-        }
-
-        .avatar-ring {
-            position: absolute;
-            inset: -6px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent2), #f093fb, #4facfe);
-            background-size: 300% 300%;
-            animation: ringSpin 6s linear infinite;
-            z-index: 1;
-            opacity: 0.6;
-            filter: blur(2px);
-        }
-        @keyframes ringSpin {
-            0% { background-position: 0% 50%; transform: rotate(0deg); }
-            100% { background-position: 100% 50%; transform: rotate(360deg); }
-        }
-
-        .profile-head-text {
+        .profile-info {
             flex: 1;
             min-width: 200px;
         }
-
         .profile-name {
-            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            font-size: 1.8rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #ffffff 0%, #c084fc 40%, #60a5fa 70%, #34d399 100%);
-            background-size: 300% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientTitle 4s ease infinite alternate;
-            line-height: 1.2;
+            color: #fff;
             margin-bottom: 4px;
+            letter-spacing: -0.3px;
         }
-        @keyframes gradientTitle {
-            0% { background-position: 0% center; }
-            100% { background-position: 100% center; }
-        }
-
-        .profile-badge-wrap {
+        .profile-badges {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 6px;
         }
-        .verified-badge {
+        .badge-verified {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(79, 172, 254, 0.12);
+            background: rgba(79, 172, 254, 0.1);
             border: 1px solid rgba(79, 172, 254, 0.15);
-            padding: 3px 14px;
-            border-radius: 40px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            color: #4facfe;
-            letter-spacing: 0.3px;
-        }
-        .verified-badge i {
+            padding: 2px 12px;
+            border-radius: 30px;
             font-size: 0.7rem;
+            font-weight: 600;
+            color: #4facfe;
         }
-        .member-badge {
+        .badge-member {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.04);
-            padding: 3px 14px;
-            border-radius: 40px;
-            font-size: 0.65rem;
-            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
             color: var(--text2);
         }
-        .member-badge i {
-            color: var(--accent2);
-        }
-
         .profile-bio {
             color: var(--text2);
-            font-size: clamp(0.85rem, 1.2vw, 1rem);
-            font-weight: 400;
+            font-size: 0.95rem;
             margin-bottom: 2px;
         }
         .profile-bio i {
             color: var(--accent2);
-            margin: 0 4px;
+            margin-right: 6px;
         }
         .profile-location {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--text2);
             opacity: 0.7;
             display: flex;
@@ -1366,41 +1232,37 @@
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
-            margin: 16px 0 22px;
+            margin-bottom: 28px;
         }
         .profile-actions .action-btn {
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
             font-size: 0.85rem;
             border: 1px solid rgba(255, 255, 255, 0.06);
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             color: var(--text);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             backdrop-filter: blur(8px);
         }
         .profile-actions .action-btn:hover {
-            background: rgba(168, 127, 255, 0.08);
-            border-color: rgba(168, 127, 255, 0.15);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
         }
         .profile-actions .action-btn.primary {
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            background: var(--grad-accent);
             border: none;
             color: #04040e;
-            box-shadow: 0 6px 24px rgba(168, 127, 255, 0.25);
+            box-shadow: 0 4px 16px rgba(168, 127, 255, 0.2);
         }
         .profile-actions .action-btn.primary:hover {
-            box-shadow: 0 10px 40px rgba(168, 127, 255, 0.35);
-            transform: translateY(-3px) scale(1.02);
-        }
-        .profile-actions .action-btn i {
-            font-size: 1rem;
+            box-shadow: 0 8px 24px rgba(168, 127, 255, 0.3);
+            transform: translateY(-2px);
         }
 
         /* ===== STATS ===== */
@@ -1408,188 +1270,103 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 16px;
-            margin-bottom: 12px;
+            margin-bottom: 24px;
         }
         .stat-item {
             background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 20px;
-            padding: 20px 12px;
+            border-radius: 16px;
+            padding: 16px 12px;
             text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .stat-item::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 20px;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(168, 127, 255, 0.08), transparent 50%, rgba(62, 224, 255, 0.08));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
+            transition: all 0.3s ease;
         }
         .stat-item:hover {
             background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(168, 127, 255, 0.08);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-        }
-        .stat-icon-box {
-            width: 44px;
-            height: 44px;
-            margin: 0 auto 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 14px;
-            background: linear-gradient(135deg, rgba(168, 127, 255, 0.10), rgba(62, 224, 255, 0.05));
-            font-size: 1.3rem;
-            color: var(--accent2);
-            transition: all 0.4s ease;
-        }
-        .stat-item:hover .stat-icon-box {
-            background: linear-gradient(135deg, rgba(168, 127, 255, 0.20), rgba(62, 224, 255, 0.10));
-            transform: scale(1.05) rotate(4deg);
-            box-shadow: 0 0 30px rgba(168, 127, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.08);
         }
         .stat-number {
-            font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+            font-size: 1.6rem;
             font-weight: 800;
             color: #fff;
             display: block;
             line-height: 1.2;
         }
         .stat-label {
-            font-size: clamp(0.6rem, 0.9vw, 0.7rem);
+            font-size: 0.7rem;
             color: var(--text2);
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
             font-weight: 600;
-        }
-
-        /* ===== DIVIDER ===== */
-        .profile-divider {
-            display: flex;
-            justify-content: center;
-            margin: 8px 0 18px;
-        }
-        .profile-divider span {
-            background: rgba(255, 255, 255, 0.04);
-            padding: 0 18px;
-            border-radius: 40px;
-            color: var(--text2);
-            font-size: 0.7rem;
-            letter-spacing: 4px;
         }
 
         /* ===== BOTTOM ===== */
         .profile-bottom {
             display: flex;
             flex-wrap: wrap;
-            gap: 24px 40px;
-            align-items: flex-start;
-            justify-content: space-between;
-        }
-        .social-section,
-        .donate-section {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .section-label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--text2);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            display: flex;
+            gap: 16px 24px;
             align-items: center;
-            gap: 8px;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
         }
-        .section-label i {
-            color: var(--accent2);
-        }
-
-        .social-links {
+        .social-links, .donate-links {
             display: flex;
-            gap: 10px;
             flex-wrap: wrap;
-        }
-        .donate-links {
-            display: flex;
             gap: 10px;
-            flex-wrap: wrap;
         }
-
         .social-link {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 8px 18px;
-            border-radius: 40px;
+            padding: 6px 16px;
+            border-radius: 30px;
             color: var(--text);
             text-decoration: none;
-            font-weight: 600;
-            font-size: clamp(0.7rem, 1vw, 0.8rem);
+            font-weight: 500;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(8px);
+            gap: 8px;
             cursor: pointer;
         }
-        .social-link i {
-            font-size: clamp(0.8rem, 1vw, 1rem);
-            transition: 0.3s;
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
         }
         .social-link[data-brand="facebook"]:hover {
-            background: rgba(24, 119, 242, 0.12);
+            background: rgba(24, 119, 242, 0.1);
             border-color: #1877f2;
             color: #fff;
-            transform: translateY(-3px);
         }
         .social-link[data-brand="telegram"]:hover {
-            background: rgba(0, 136, 204, 0.12);
+            background: rgba(0, 136, 204, 0.1);
             border-color: #0088cc;
             color: #fff;
-            transform: translateY(-3px);
         }
         .social-link[data-brand="saweria"]:hover {
-            background: rgba(255, 165, 0, 0.12);
+            background: rgba(255, 165, 0, 0.1);
             border-color: #ffa500;
             color: #fff;
-            transform: translateY(-3px);
         }
         .social-link[data-brand="qris"]:hover {
-            background: rgba(62, 224, 255, 0.12);
+            background: rgba(62, 224, 255, 0.1);
             border-color: var(--accent2);
             color: #fff;
-            transform: translateY(-3px);
-        }
-        .social-link:hover i {
-            transform: scale(1.1);
         }
 
         /* ===== FOOTER ===== */
-        .profile-footer-text {
-            margin-top: 24px;
+        .profile-footer {
+            margin-top: 20px;
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text2);
             border-top: 1px solid rgba(255, 255, 255, 0.03);
-            padding-top: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            padding-top: 16px;
         }
-        .profile-footer-text i {
+        .profile-footer i {
             color: var(--accent2);
+            margin-right: 6px;
         }
 
         /* ============================================================
@@ -1800,21 +1577,16 @@
         /* ============================================================
            RESPONSIVE
            ============================================================ */
-        @media (max-width: 600px) {
-            .profile-cover { height: 130px; }
-            .profile-main { padding: 0 16px 24px; margin-top: -40px; }
-            .profile-head { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
-            .profile-head-text { text-align: center; }
-            .profile-badge-wrap { justify-content: center; }
+        @media (max-width: 640px) {
+            .profile-card { padding: 20px 16px; }
+            .profile-header { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+            .profile-info { text-align: center; }
+            .profile-badges { justify-content: center; }
             .profile-actions { justify-content: center; }
             .profile-stats { gap: 10px; }
-            .stat-item { padding: 14px 8px; }
-            .stat-icon-box { width: 36px; height: 36px; font-size: 1rem; }
-            .profile-bottom { flex-direction: column; align-items: stretch; gap: 16px; }
-            .social-section, .donate-section { align-items: center; }
+            .stat-item { padding: 12px 8px; }
+            .profile-bottom { flex-direction: column; align-items: stretch; gap: 14px; }
             .social-links, .donate-links { justify-content: center; }
-            .profile-actions .action-btn { padding: 8px 16px; font-size: 0.75rem; }
-            .cover-badge { top: 10px; right: 12px; font-size: 0.6rem; padding: 4px 12px; }
             .post-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 10px;
@@ -1895,9 +1667,8 @@
         @media (max-width: 400px) {
             .profile-stats { grid-template-columns: repeat(3, 1fr); gap: 6px; }
             .stat-item { padding: 10px 4px; }
-            .stat-number { font-size: 0.9rem; }
+            .stat-number { font-size: 1rem; }
             .stat-label { font-size: 0.5rem; letter-spacing: 0.4px; }
-            .stat-icon-box { width: 30px; height: 30px; font-size: 0.9rem; }
         }
         @media (min-width: 768px) {
             .rekomendasi-grid {
@@ -2034,103 +1805,67 @@
             <div id="detail-content"></div>
         </section>
 
-        <!-- PROFILE - REDESIGN TOTAL (BARU) -->
+        <!-- PROFILE - REDESIGN MINIMALIS & ELEGAN -->
         <section id="profile-section" class="hidden" aria-label="Profil">
             <div class="profile-card">
-                <!-- Cover -->
-                <div class="profile-cover">
-                    <div class="cover-glow"></div>
-                    <div class="cover-pattern"></div>
-                    <div class="cover-badge">
-                        <i class="fas fa-crown"></i> Premium Modder
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profile-avatar" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');"></div>
+                    <div class="profile-info">
+                        <h1 class="profile-name" id="profile-name">Destaseo Mods</h1>
+                        <div class="profile-badges">
+                            <span class="badge-verified"><i class="fas fa-check-circle"></i> Terverifikasi</span>
+                            <span class="badge-member"><i class="fas fa-calendar-alt"></i> Sejak 2024</span>
+                        </div>
+                        <p class="profile-bio" id="profile-bio">
+                            <i class="fas fa-code"></i> Premium modder &amp; content creator
+                        </p>
+                        <div class="profile-location">
+                            <i class="fas fa-map-pin"></i> Nganjuk, Jawa Timur
+                        </div>
                     </div>
                 </div>
 
-                <!-- Main Content -->
-                <div class="profile-main">
-                    <!-- Avatar + Nama + Bio -->
-                    <div class="profile-head">
-                        <div class="profile-avatar-wrap">
-                            <div class="profile-avatar" id="profile-avatar" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');"></div>
-                            <div class="avatar-ring"></div>
-                        </div>
-                        <div class="profile-head-text">
-                            <h1 class="profile-name" id="profile-name">Destaseo Mods</h1>
-                            <div class="profile-badge-wrap">
-                                <span class="verified-badge"><i class="fas fa-check-circle"></i> Terverifikasi</span>
-                                <span class="member-badge"><i class="fas fa-calendar-alt"></i> Member sejak 2024</span>
-                            </div>
-                            <p class="profile-bio" id="profile-bio">
-                                <i class="fas fa-code"></i> Premium modder &amp; content creator
-                                <i class="fas fa-heart" style="color:#f5576c;"></i>
-                            </p>
-                            <div class="profile-location">
-                                <i class="fas fa-map-pin"></i> Nganjuk • Jawa Timur • Indonesia
-                            </div>
-                        </div>
-                    </div>
+                <div class="profile-actions">
+                    <button class="action-btn primary" id="qris-dana-btn">
+                        <i class="fas fa-qrcode"></i> Donasi
+                    </button>
+                    <a href="https://t.me/destaseo" target="_blank" rel="noopener" class="action-btn">
+                        <i class="fab fa-telegram-plane"></i> Hubungi
+                    </a>
+                    <button class="action-btn" id="share-profile-btn">
+                        <i class="fas fa-share-alt"></i> Bagikan
+                    </button>
+                </div>
 
-                    <!-- Tombol aksi -->
-                    <div class="profile-actions">
-                        <button class="action-btn primary" id="qris-dana-btn">
-                            <i class="fas fa-qrcode"></i> Donasi
-                        </button>
-                        <a href="https://t.me/destaseo" target="_blank" rel="noopener" class="action-btn">
-                            <i class="fab fa-telegram-plane"></i> Hubungi
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="stat-mods">0</span>
+                        <span class="stat-label">Total Mods</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="stat-downloads">12.8K</span>
+                        <span class="stat-label">Downloads</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="stat-rating">4.9</span>
+                        <span class="stat-label">Rating</span>
+                    </div>
+                </div>
+
+                <div class="profile-bottom">
+                    <div class="social-links" id="social-links"></div>
+                    <div class="donate-links">
+                        <a href="https://saweria.co/destaseomods" target="_blank" rel="noopener" class="social-link" data-brand="saweria">
+                            <i class="fas fa-coffee"></i> Saweria
                         </a>
-                        <button class="action-btn" id="share-profile-btn">
-                            <i class="fas fa-share-alt"></i> Bagikan
+                        <button class="social-link" id="qris-dana-btn-bottom" data-brand="qris">
+                            <i class="fas fa-qrcode"></i> QRIS
                         </button>
                     </div>
+                </div>
 
-                    <!-- Statistik -->
-                    <div class="profile-stats" id="profile-stats">
-                        <div class="stat-item">
-                            <div class="stat-icon-box"><i class="fas fa-box-open"></i></div>
-                            <span class="stat-number" id="stat-mods">0</span>
-                            <span class="stat-label">Total Mods</span>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-icon-box"><i class="fas fa-cloud-download-alt"></i></div>
-                            <span class="stat-number" id="stat-downloads">12.8K</span>
-                            <span class="stat-label">Downloads</span>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-icon-box"><i class="fas fa-star"></i></div>
-                            <span class="stat-number" id="stat-rating">4.9</span>
-                            <span class="stat-label">Rating</span>
-                        </div>
-                    </div>
-
-                    <!-- Divider -->
-                    <div class="profile-divider">
-                        <span><i class="fas fa-ellipsis-h"></i></span>
-                    </div>
-
-                    <!-- Bottom: Social & Donasi -->
-                    <div class="profile-bottom">
-                        <div class="social-section">
-                            <span class="section-label"><i class="fas fa-share-alt"></i> Sosial</span>
-                            <div class="social-links" id="social-links"></div>
-                        </div>
-
-                        <div class="donate-section">
-                            <span class="section-label"><i class="fas fa-hand-holding-heart"></i> Dukung</span>
-                            <div class="donate-links">
-                                <a href="https://saweria.co/destaseomods" target="_blank" rel="noopener" class="social-link" data-brand="saweria">
-                                    <i class="fas fa-coffee"></i> Saweria
-                                </a>
-                                <button class="social-link" id="qris-dana-btn-bottom" data-brand="qris">
-                                    <i class="fas fa-qrcode"></i> QRIS
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="profile-footer-text" id="profile-footer-text">
-                        <i class="fas fa-rocket"></i> Update aplikasi modifikasi premium setiap hari.
-                    </div>
+                <div class="profile-footer" id="profile-footer-text">
+                    <i class="fas fa-rocket"></i> Update mod premium setiap hari
                 </div>
             </div>
         </section>
@@ -3020,24 +2755,18 @@
 
             // ===== RENDER PROFILE =====
             function renderProfile() {
-                // Nama
                 document.getElementById('profile-name').textContent = PROFILE.name;
-
-                // Bio
                 document.getElementById('profile-bio').innerHTML =
-                    `<i class="fas fa-code"></i> Premium modder &amp; content creator <i class="fas fa-heart" style="color:#f5576c;"></i>`;
+                    `<i class="fas fa-code"></i> Premium modder &amp; content creator`;
 
-                // Stats
                 const totalMods = fetchedPosts.length || 0;
                 document.getElementById('stat-mods').textContent = totalMods + '+';
 
-                // Social Links
                 const socialContainer = document.getElementById('social-links');
                 socialContainer.innerHTML = PROFILE.links.map(l =>
                     `<a href="${l.url}" target="_blank" rel="noopener" class="social-link" data-brand="${l.brand || 'default'}"><i class="${l.icon}"></i> ${l.label}</a>`
                 ).join('');
 
-                // Avatar
                 const avatar = document.getElementById('profile-avatar');
                 if (PROFILE.avatar) {
                     avatar.style.backgroundImage = `url('${PROFILE.avatar}')`;
@@ -3058,7 +2787,6 @@
             document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
 
-            // QRIS buttons
             const qrisOpeners = [qrisDanaBtn, qrisDanaBtnBottom];
             qrisOpeners.forEach(btn => {
                 if (btn) btn.addEventListener('click', () => qrisOverlay.classList.remove('hidden'));
@@ -3081,7 +2809,6 @@
                 } catch { window.open(QRIS_URL, '_blank'); }
             });
 
-            // Share profile button (optional)
             if (shareProfileBtn) {
                 shareProfileBtn.addEventListener('click', () => {
                     if (navigator.share) {
