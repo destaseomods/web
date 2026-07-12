@@ -1194,21 +1194,7 @@
         .badge-verified i {
             font-size: 0.7rem;
         }
-        .badge-member {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 2px 14px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: var(--text2);
-        }
-        .badge-member i {
-            font-size: 0.7rem;
-        }
+        /* badge-member dihapus */
         .profile-bio {
             color: var(--text2);
             font-size: 0.9rem;
@@ -1218,7 +1204,22 @@
             color: var(--accent2);
             margin-right: 6px;
         }
-        /* location dihapus */
+
+        /* Kotak update */
+        .profile-update-box {
+            background: rgba(62, 224, 255, 0.06);
+            border: 1px solid rgba(62, 224, 255, 0.12);
+            border-radius: 16px;
+            padding: 10px 16px;
+            margin-top: 10px;
+            text-align: center;
+            color: var(--accent2);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .profile-update-box i {
+            margin-right: 8px;
+        }
 
         /* ===== LINKS ===== */
         .profile-links {
@@ -1288,6 +1289,11 @@
         .profile-footer i {
             color: var(--accent2);
             margin-right: 6px;
+        }
+        .profile-footer .location {
+            margin-top: 6px;
+            font-size: 0.8rem;
+            opacity: 0.7;
         }
 
         /* ============================================================
@@ -1755,12 +1761,15 @@
                         <h1 class="profile-name" id="profile-name">Destaseo Mods</h1>
                         <div class="profile-badges">
                             <span class="badge-verified"><i class="fas fa-check-circle"></i> Terverifikasi</span>
-                            <span class="badge-member"><i class="fas fa-calendar-alt"></i> Sejak 2024</span>
+                            <!-- badge-member dihapus -->
                         </div>
                         <p class="profile-bio" id="profile-bio">
-                            <i class="fas fa-code"></i> Premium modder &amp; content creator
+                            <i class="fas fa-code"></i> Modder
                         </p>
-                        <!-- location dihapus -->
+                        <!-- Kotak update setiap hari -->
+                        <div class="profile-update-box">
+                            <i class="fas fa-sync-alt"></i> Update setiap hari
+                        </div>
                     </div>
                 </div>
 
@@ -1778,6 +1787,7 @@
 
                 <div class="profile-footer" id="profile-footer-text">
                     <i class="fas fa-rocket"></i> Update mod premium setiap hari
+                    <div class="location">from Nganjuk • Jawatimur • Indonesia 🇮🇩</div>
                 </div>
             </div>
         </section>
@@ -1806,7 +1816,7 @@
             const PROFILE = {
                 avatar: AVATAR_URL,
                 name: "Destaseo Mods",
-                bio: "Premium modder & content creator.",
+                bio: "Modder", // diubah
                 links: [
                     { label: "Facebook", url: "https://fb.com/destaseo.id", icon: "fab fa-facebook", brand: "facebook" },
                     { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane",
@@ -2666,9 +2676,10 @@
             // ===== RENDER PROFILE =====
             function renderProfile() {
                 document.getElementById('profile-name').textContent = PROFILE.name;
-                document.getElementById('profile-bio').innerHTML =
-                    `<i class="fas fa-code"></i> Premium modder &amp; content creator`;
-
+                // bio diupdate dengan "Modder"
+                document.getElementById('profile-bio').innerHTML = `<i class="fas fa-code"></i> Modder`;
+                // update box sudah ada di HTML statis, tidak perlu diubah
+                // social links
                 const socialContainer = document.getElementById('social-links');
                 socialContainer.innerHTML = PROFILE.links.map(l =>
                     `<a href="${l.url}" target="_blank" rel="noopener" class="social-link" data-brand="${l.brand || 'default'}"><i class="${l.icon}"></i> ${l.label}</a>`
@@ -2679,6 +2690,7 @@
                     avatar.style.backgroundImage = `url('${PROFILE.avatar}')`;
                     avatar.textContent = '';
                 }
+                // footer location sudah statis
             }
 
             // ===== EVENTS =====
