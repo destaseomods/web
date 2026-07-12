@@ -695,11 +695,11 @@
             box-shadow: 0 0 0 4px rgba(168, 127, 255, 0.3), 0 0 0 14px rgba(168, 127, 255, 0.06), 0 20px 60px rgba(0, 0, 0, 0.6);
         }
         .detail-title {
-            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
             font-weight: 800;
             letter-spacing: -0.3px;
             text-align: center;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             background: linear-gradient(135deg, #ffffff 0%, #c084fc 30%, #60a5fa 60%, #34d399 100%);
             background-size: 300% auto;
             -webkit-background-clip: text;
@@ -722,11 +722,13 @@
             font-size: clamp(0.75rem, 1.2vw, 0.9rem);
             font-weight: 500;
             margin-bottom: 14px;
+            padding: 6px 0 10px 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
         .detail-subtitle .cat-badge-premium {
             background: linear-gradient(135deg, rgba(168, 127, 255, 0.15), rgba(62, 224, 255, 0.08));
@@ -739,6 +741,17 @@
             letter-spacing: 0.3px;
             text-transform: uppercase;
         }
+        .detail-subtitle .date-badge {
+            color: var(--text2);
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .detail-subtitle .date-badge i {
+            color: var(--accent2);
+        }
+
         .detail-meta-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -1604,6 +1617,10 @@
             }
             .profile-name {
                 font-size: 1.3rem;
+            }
+            .detail-subtitle {
+                padding: 6px 0 8px 0;
+                gap: 6px;
             }
         }
         @media (max-width: 400px) {
@@ -2545,12 +2562,17 @@
                 const recPosts = getRecommendedPosts(post, 4);
                 const recHtml = renderRecommendedPosts(recPosts, post);
 
-                const subtitleHtml = kategori ?
-                    `<div class="detail-subtitle">
-                        <span class="cat-badge-premium"><i class="fas fa-folder"></i> ${kategori}</span>
-                    </div>` :
-                    '';
+                // Subtitle: kategori + tanggal (dengan padding)
+                let subtitleHtml = `<div class="detail-subtitle">`;
+                if (kategori) {
+                    subtitleHtml += `<span class="cat-badge-premium"><i class="fas fa-folder"></i> ${kategori}</span>`;
+                }
+                if (dateFormatted) {
+                    subtitleHtml += `<span class="date-badge"><i class="far fa-calendar-alt"></i> ${dateFormatted}</span>`;
+                }
+                subtitleHtml += `</div>`;
 
+                // Meta grid tanpa tanggal (sudah di subtitle)
                 const metaItems = `
                     <div class="meta-item">
                         <div class="meta-icon"><i class="fas fa-code-branch"></i></div>
@@ -2567,12 +2589,6 @@
                         <span class="meta-label">Developer</span>
                         <span class="meta-value">${dev}</span>
                     </div>
-                    ${dateFormatted ? `
-                    <div class="meta-item">
-                        <div class="meta-icon"><i class="fas fa-calendar-alt"></i></div>
-                        <span class="meta-label">Tanggal</span>
-                        <span class="meta-value">${dateFormatted}</span>
-                    </div>` : ''}
                     <div class="meta-item">
                         <div class="meta-icon"><i class="fas fa-eye"></i></div>
                         <span class="meta-label">Dilihat</span>
