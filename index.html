@@ -317,40 +317,6 @@
         }
 
         /* ============================================================
-           SORT
-           ============================================================ */
-        .sort-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 16px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-        }
-        .sort-label {
-            color: var(--text2);
-            font-size: clamp(0.65rem, 1.2vw, 0.75rem);
-            font-weight: 500;
-        }
-        .sort-select {
-            background: rgba(15, 15, 30, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 30px;
-            padding: 5px 16px;
-            color: #fff;
-            font-size: clamp(0.65rem, 1.2vw, 0.75rem);
-            font-family: inherit;
-            outline: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .sort-select:hover {
-            border-color: rgba(168, 127, 255, 0.2);
-        }
-
-        /* ============================================================
            CAROUSEL PREMIUM
            ============================================================ */
         .popular-section {
@@ -476,6 +442,40 @@
             border: none;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
             margin: 22px 0 18px;
+        }
+
+        /* ============================================================
+           SORT BAR - dipindahkan ke bawah (sekarang di atas grid)
+           ============================================================ */
+        .sort-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        .sort-label {
+            color: var(--text2);
+            font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+            font-weight: 500;
+        }
+        .sort-select {
+            background: rgba(15, 15, 30, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 30px;
+            padding: 5px 16px;
+            color: #fff;
+            font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .sort-select:hover {
+            border-color: rgba(168, 127, 255, 0.2);
         }
 
         /* ============================================================
@@ -1143,7 +1143,7 @@
         }
 
         /* ============================================================
-           PROFILE PREMIUM (NEW ULTRA MODERN)
+           PROFILE PREMIUM (border berputar dihilangkan)
            ============================================================ */
         .profile-card {
             background: var(--surface);
@@ -1179,7 +1179,6 @@
                 background-position: 0% 50%;
             }
         }
-        /* Glowing orbs on cover */
         .profile-cover::before {
             content: '';
             position: absolute;
@@ -1201,7 +1200,7 @@
             pointer-events: none;
         }
 
-        /* Avatar with floating + spinning border */
+        /* Avatar dengan float, tanpa border berputar */
         .profile-avatar-wrap {
             position: relative;
             display: inline-block;
@@ -1219,23 +1218,20 @@
                 transform: translateY(-8px);
             }
         }
+
+        /* Hanya border gradien statis (tidak berputar) */
         .profile-avatar-wrap::before {
             content: '';
             position: absolute;
-            inset: -5px;
+            inset: -4px;
             border-radius: 50%;
-            padding: 4px;
-            background: conic-gradient(from 0deg, var(--accent), var(--accent2), #f093fb, #f5576c, var(--accent));
+            padding: 3px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2), #f093fb, #4facfe);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
-            animation: spinBorder 5s linear infinite;
-            box-shadow: 0 0 40px rgba(168, 127, 255, 0.2);
-        }
-        @keyframes spinBorder {
-            to {
-                transform: rotate(360deg);
-            }
+            box-shadow: 0 0 30px rgba(168, 127, 255, 0.15);
+            /* tidak ada animasi spin */
         }
 
         .profile-avatar {
@@ -1657,7 +1653,7 @@
         }
 
         /* ============================================================
-           RESPONSIVE (Profile optimized)
+           RESPONSIVE
            ============================================================ */
         @media (max-width: 480px) {
             .post-grid {
@@ -1739,7 +1735,7 @@
             }
             .profile-avatar-wrap::before {
                 inset: -4px;
-                padding: 3px;
+                padding: 2px;
             }
             .profile-main {
                 padding: 0 16px 20px;
@@ -1901,6 +1897,10 @@
                 </div>
             </section>
 
+            <!-- divider dipindahkan ke bawah, setelah carousel -->
+            <hr class="section-divider" />
+
+            <!-- SORT BAR sekarang berada di sini (di bawah divider, di atas grid) -->
             <div class="sort-bar" id="sort-bar">
                 <span class="sort-label"><i class="fas fa-sort-amount-down"></i> Urutkan:</span>
                 <select class="sort-select" id="sort-select" aria-label="Urutkan postingan">
@@ -1911,7 +1911,6 @@
                 </select>
             </div>
 
-            <hr class="section-divider" />
             <div id="filter-indicator" class="filter-indicator hidden"></div>
 
             <div id="post-container" class="post-grid" role="list"></div>
@@ -1924,18 +1923,15 @@
             <div id="detail-content"></div>
         </section>
 
-        <!-- PROFILE PREMIUM ULTRA MODERN -->
+        <!-- PROFILE PREMIUM -->
         <section id="profile-section" class="hidden" aria-label="Profil">
             <div class="profile-card">
-                <!-- Cover -->
                 <div class="profile-cover"></div>
 
-                <!-- Avatar -->
                 <div class="profile-avatar-wrap">
                     <div class="profile-avatar" id="profile-avatar" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');"></div>
                 </div>
 
-                <!-- Main Content -->
                 <div class="profile-main">
                     <div class="profile-name-wrap">
                         <h1 class="profile-name" id="profile-name">Destaseo Mods</h1>
@@ -1943,7 +1939,6 @@
                     </div>
                     <p class="profile-bio" id="profile-bio"><i class="fas fa-code"></i> Premium modder &amp; content creator <i class="fas fa-heart" style="color:#f5576c;"></i></p>
 
-                    <!-- Stats -->
                     <div class="profile-stats" id="profile-stats">
                         <div class="stat-item">
                             <span class="stat-icon"><i class="fas fa-box"></i></span>
@@ -1962,10 +1957,8 @@
                         </div>
                     </div>
 
-                    <!-- Social Links -->
                     <div class="social-links" id="social-links"></div>
 
-                    <!-- Donasi -->
                     <div class="donate-section">
                         <div class="donate-title"><i class="fas fa-hand-holding-heart"></i> Dukung Saya</div>
                         <div class="donate-links">
@@ -2830,7 +2823,6 @@
                     showSection(homeSection);
                     searchBox.classList.add('hidden');
                     categoryBar.classList.remove('hidden');
-                    sortBar.classList.remove('hidden');
                     document.getElementById('popular-section').classList.remove('hidden');
                     setActiveNav('home');
                     isDetailMode = false;
@@ -2839,7 +2831,6 @@
                     showSection(homeSection);
                     searchBox.classList.remove('hidden');
                     categoryBar.classList.remove('hidden');
-                    sortBar.classList.add('hidden');
                     document.getElementById('popular-section').classList.add('hidden');
                     setActiveNav('search');
                     isDetailMode = false;
@@ -2849,7 +2840,6 @@
                     showSection(profileSection);
                     searchBox.classList.add('hidden');
                     categoryBar.classList.add('hidden');
-                    sortBar.classList.add('hidden');
                     document.getElementById('popular-section').classList.add('hidden');
                     filterIndicator.classList.add('hidden');
                     setActiveNav('profile');
@@ -2863,25 +2853,21 @@
             }
 
             // ================================================================
-            // RENDER PROFILE - ULTRA PREMIUM
+            // RENDER PROFILE
             // ================================================================
             function renderProfile() {
-                // Name & Bio
                 document.getElementById('profile-name').textContent = PROFILE.name;
                 document.getElementById('profile-bio').innerHTML =
                     `<i class="fas fa-code"></i> Premium modder &amp; content creator <i class="fas fa-heart" style="color:#f5576c;"></i>`;
 
-                // Stats (dynamic)
                 const totalMods = fetchedPosts.length || 0;
                 document.getElementById('stat-mods').textContent = totalMods + '+';
 
-                // Social Links
                 const socialContainer = document.getElementById('social-links');
                 socialContainer.innerHTML = PROFILE.links.map(l =>
                     `<a href="${l.url}" target="_blank" rel="noopener" class="social-link" data-brand="${l.brand || 'default'}"><i class="${l.icon}"></i> ${l.label}</a>`
                 ).join('');
 
-                // Update avatar jika berubah
                 const avatar = document.getElementById('profile-avatar');
                 if (PROFILE.avatar) {
                     avatar.style.backgroundImage = `url('${PROFILE.avatar}')`;
