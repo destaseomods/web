@@ -6,8 +6,8 @@
     
     <!-- SEO Meta -->
     <title>Destaseo Mods • Premium Mod APK</title>
-    <meta name="description" content="Download mod APK premium terbaru dari Destaseo Mods. Dapatkan aplikasi modifikasi game dan android dengan fitur unlocked." />
-    <meta name="keywords" content="mod apk, destaseo, premium mod, game mod, android mod, aplikasi mod" />
+    <meta name="description" content="Download mod APK premium terbaru dari Destaseo Mods." />
+    <meta name="keywords" content="mod apk, destaseo, premium mod, game mod, android mod" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://destaseomods.web.id/" />
     
@@ -24,40 +24,36 @@
     <meta name="twitter:description" content="Download mod APK premium terbaru dari Destaseo Mods." />
     <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/189899710?v=4" />
     
-    <!-- JSON-LD Structured Data -->
+    <!-- JSON-LD -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Destaseo Mods",
-        "url": "https://destaseomods.web.id/",
-        "description": "Download mod APK premium terbaru dari Destaseo Mods.",
-        "publisher": {
-            "@type": "Person",
-            "name": "Destaseo Mods"
-        }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://destaseomods.web.id/" }
-        ]
+        "url": "https://destaseomods.web.id/"
     }
     </script>
 
     <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/189899710?v=4" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    </noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" /></noscript>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+
     <style>
         /* ===== RESET & VARIABLES ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -77,19 +73,11 @@
             --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             --container-max: 760px;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         html {
             scroll-behavior: smooth;
         }
-
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
@@ -97,10 +85,7 @@
             padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
             -webkit-tap-highlight-color: transparent;
             overflow-x: hidden;
-            position: relative;
         }
-
-        /* ===== PARTICLES ===== */
         canvas#particles {
             position: fixed;
             top: 0;
@@ -109,10 +94,9 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.6;
+            opacity: 0.5;
+            will-change: transform;
         }
-
-        /* ===== CONTAINER ===== */
         .container {
             max-width: var(--container-max);
             margin: 0 auto;
@@ -120,7 +104,6 @@
             position: relative;
             z-index: 2;
         }
-
         /* ===== TOPBAR ===== */
         .topbar {
             display: flex;
@@ -139,13 +122,11 @@
             top: 10px;
             z-index: 99;
         }
-
         .logo-area {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .logo-img {
             width: 34px;
             height: 34px;
@@ -155,9 +136,8 @@
             box-shadow: 0 0 15px rgba(168, 127, 255, 0.4);
             flex-shrink: 0;
         }
-
         .logo-text {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Outfit', system-ui, sans-serif;
             font-weight: 900;
             font-size: clamp(1.1rem, 4vw, 1.7rem);
             letter-spacing: -1px;
@@ -167,7 +147,6 @@
             -webkit-text-fill-color: transparent;
             animation: gradientShift 3s ease infinite alternate;
         }
-
         @keyframes gradientShift {
             0% {
                 background-position: 0% center;
@@ -176,11 +155,9 @@
                 background-position: 100% center;
             }
         }
-
         .telegram-wrapper {
             position: relative;
         }
-
         .telegram-btn {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -197,13 +174,11 @@
             backdrop-filter: blur(16px);
             white-space: nowrap;
         }
-
         .telegram-btn:hover {
             border-color: var(--accent2);
             box-shadow: 0 0 25px rgba(62, 224, 255, 0.4);
             background: rgba(62, 224, 255, 0.1);
         }
-
         .telegram-dropdown {
             position: absolute;
             top: 100%;
@@ -221,11 +196,9 @@
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
             z-index: 150;
         }
-
         .telegram-dropdown.show {
             display: flex;
         }
-
         .telegram-dropdown a {
             color: var(--text);
             text-decoration: none;
@@ -238,12 +211,10 @@
             gap: 10px;
             transition: background 0.2s;
         }
-
         .telegram-dropdown a:hover {
             background: rgba(255, 255, 255, 0.05);
             color: #fff;
         }
-
         .telegram-dropdown a i {
             width: 18px;
             text-align: center;
@@ -255,7 +226,6 @@
             display: flex;
             gap: 8px;
         }
-
         .search-input {
             flex: 1;
             background: var(--surface);
@@ -271,12 +241,10 @@
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
             width: 100%;
         }
-
         .search-input:focus {
             border-color: var(--accent);
             box-shadow: 0 0 30px rgba(168, 127, 255, 0.5);
         }
-
         .search-input::placeholder {
             color: var(--text2);
         }
@@ -289,7 +257,6 @@
             margin-bottom: 12px;
             align-items: center;
         }
-
         .category-chip {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -303,18 +270,15 @@
             backdrop-filter: blur(10px);
             white-space: nowrap;
         }
-
         .category-chip i {
             margin-right: 4px;
         }
-
         .category-chip.active,
         .category-chip:hover {
             background: rgba(168, 127, 255, 0.2);
             border-color: var(--accent);
             color: #fff;
         }
-
         .reset-filter {
             background: none;
             border: none;
@@ -323,10 +287,6 @@
             font-weight: 600;
             cursor: pointer;
             padding: 5px 10px;
-        }
-
-        .reset-filter i {
-            margin-right: 4px;
         }
 
         /* ===== SORT ===== */
@@ -338,13 +298,11 @@
             justify-content: flex-end;
             flex-wrap: wrap;
         }
-
         .sort-label {
             color: var(--text2);
             font-size: clamp(0.65rem, 1.2vw, 0.75rem);
             font-weight: 500;
         }
-
         .sort-select {
             background: var(--surface);
             backdrop-filter: blur(10px);
@@ -358,7 +316,6 @@
             cursor: pointer;
             transition: var(--transition);
         }
-
         .sort-select:hover {
             border-color: var(--accent2);
         }
@@ -367,7 +324,6 @@
         .popular-section {
             margin-bottom: 0;
         }
-
         .carousel-wrapper {
             position: relative;
             overflow: hidden;
@@ -378,13 +334,11 @@
             box-shadow: var(--shadow-card);
             height: clamp(160px, 30vw, 220px);
         }
-
         .carousel-track {
             display: flex;
             height: 100%;
             position: relative;
         }
-
         .carousel-slide {
             position: absolute;
             top: 0;
@@ -396,12 +350,10 @@
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
         }
-
         .carousel-slide.active {
             opacity: 1;
             z-index: 1;
         }
-
         .carousel-slide img {
             width: 100%;
             height: 100%;
@@ -410,7 +362,6 @@
             top: 0;
             left: 0;
         }
-
         .carousel-slide .slide-overlay {
             position: absolute;
             bottom: 0;
@@ -423,14 +374,12 @@
             justify-content: space-between;
             align-items: flex-end;
         }
-
         .carousel-slide .slide-title {
             font-weight: 800;
             font-size: clamp(0.85rem, 2vw, 1.1rem);
             line-height: 1.3;
             max-width: 70%;
         }
-
         .carousel-title-top {
             position: absolute;
             top: 12px;
@@ -448,7 +397,6 @@
             gap: 6px;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
         }
-
         .carousel-counter {
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(6px);
@@ -459,7 +407,6 @@
             font-weight: 600;
             letter-spacing: 0.5px;
         }
-
         .section-divider {
             border: none;
             border-top: 3px solid rgba(255, 255, 255, 0.2);
@@ -472,7 +419,6 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 14px;
         }
-
         .post-card {
             background: var(--surface);
             backdrop-filter: blur(22px);
@@ -487,24 +433,20 @@
             opacity: 0;
             transform: translateY(25px);
         }
-
         @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
         .post-card:hover {
             transform: translateY(-6px) scale(1.02);
             border-color: rgba(255, 255, 255, 0.2);
             box-shadow: var(--glow), 0 20px 40px rgba(0, 0, 0, 0.9);
         }
-
         .post-card:active {
             transform: scale(0.97);
         }
-
         .card-img {
             width: 100%;
             height: clamp(120px, 25vw, 150px);
@@ -518,27 +460,22 @@
             position: relative;
             overflow: hidden;
         }
-
         .card-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-
         .card-img .placeholder-icon {
             display: none;
             font-size: 2.5rem;
         }
-
         .card-img.error .placeholder-icon {
             display: block;
         }
-
         .card-img.error img {
             display: none;
         }
-
         .version-badge-img {
             position: absolute;
             top: 6px;
@@ -556,7 +493,6 @@
             gap: 3px;
             z-index: 2;
         }
-
         .card-body {
             padding: 12px 14px;
             flex: 1;
@@ -564,14 +500,12 @@
             flex-direction: column;
             gap: 6px;
         }
-
         .card-title {
             font-weight: 800;
             font-size: clamp(0.75rem, 1.6vw, 0.9rem);
             line-height: 1.3;
             color: #fff;
         }
-
         .card-meta {
             font-size: clamp(0.55rem, 1vw, 0.7rem);
             color: var(--text2);
@@ -580,7 +514,6 @@
             gap: 6px;
             flex-wrap: wrap;
         }
-
         .badge {
             background: rgba(168, 127, 255, 0.2);
             color: #cfc4ff;
@@ -591,12 +524,10 @@
             cursor: pointer;
             transition: 0.2s;
         }
-
         .badge:hover {
             background: rgba(168, 127, 255, 0.4);
             color: #fff;
         }
-
         .card-excerpt {
             font-size: clamp(0.6rem, 1vw, 0.72rem);
             color: var(--text2);
@@ -606,7 +537,6 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-
         .load-more-btn {
             display: block;
             margin: 18px auto 0;
@@ -621,13 +551,11 @@
             backdrop-filter: blur(16px);
             font-size: clamp(0.8rem, 1.5vw, 0.9rem);
         }
-
         .load-more-btn:hover {
             border-color: var(--accent2);
             box-shadow: 0 0 25px rgba(62, 224, 255, 0.4);
             background: rgba(62, 224, 255, 0.1);
         }
-
         .hidden {
             display: none !important;
         }
@@ -643,7 +571,6 @@
             margin-bottom: 12px;
             box-shadow: var(--shadow-card);
         }
-
         .detail-img {
             display: block;
             width: clamp(80px, 15vw, 100px);
@@ -654,21 +581,18 @@
             margin: 0 auto 16px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
         }
-
         .detail-title {
             font-size: clamp(1.1rem, 3vw, 1.4rem);
             font-weight: 800;
             letter-spacing: -0.3px;
             text-align: center;
         }
-
         .detail-meta-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
             gap: 8px;
             margin: 14px 0;
         }
-
         .meta-item {
             background: var(--surface2);
             padding: 8px 10px;
@@ -680,18 +604,15 @@
             align-items: center;
             justify-content: center;
         }
-
         .meta-item i {
             color: var(--accent2);
             margin-bottom: 3px;
             font-size: clamp(0.7rem, 1.2vw, 0.9rem);
         }
-
         .meta-item strong {
             color: var(--accent2);
             font-size: clamp(0.6rem, 1.2vw, 0.75rem);
         }
-
         .big-download {
             display: block;
             width: 100%;
@@ -706,24 +627,19 @@
             cursor: pointer;
             transition: 0.2s;
             letter-spacing: -0.3px;
-            text-decoration: none;
             text-align: center;
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
         }
-
         .big-download i {
             margin-right: 6px;
         }
-
         .big-download:active {
             transform: scale(0.96);
         }
-
         .big-download.disabled {
             opacity: 0.5;
             pointer-events: none;
         }
-
         .big-download.counting {
             opacity: 0.8;
             pointer-events: none;
@@ -731,7 +647,6 @@
             color: var(--text);
             border: 1px solid var(--border);
         }
-
         .content-box {
             background: var(--surface);
             backdrop-filter: blur(24px);
@@ -742,13 +657,11 @@
             box-shadow: var(--shadow-card);
             white-space: pre-line;
         }
-
         .content-box img {
             max-width: 100%;
             border-radius: 16px;
             margin: 12px 0;
         }
-
         .content-box pre {
             background: #050510;
             padding: 16px;
@@ -756,7 +669,6 @@
             overflow-x: auto;
             white-space: pre;
         }
-
         .back-btn {
             background: none;
             border: none;
@@ -771,7 +683,6 @@
             padding: 8px 0;
             transition: opacity 0.2s;
         }
-
         .back-btn:hover {
             opacity: 0.8;
         }
@@ -792,27 +703,23 @@
             background-size: cover;
             background-position: center;
         }
-
         .profile-name {
             text-align: center;
             font-size: clamp(1.2rem, 3vw, 1.6rem);
             font-weight: 800;
         }
-
         .profile-bio {
             text-align: center;
             color: var(--text2);
             margin: 8px 0 16px;
             font-size: clamp(0.8rem, 1.5vw, 0.95rem);
         }
-
         .social-links {
             display: flex;
             gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
         }
-
         .social-link {
             background: var(--surface2);
             padding: 8px 16px;
@@ -827,30 +734,25 @@
             align-items: center;
             gap: 6px;
         }
-
         .social-link i {
             font-size: clamp(0.8rem, 1.2vw, 1rem);
         }
-
         .social-link:hover {
             border-color: var(--accent2);
             background: rgba(62, 224, 255, 0.1);
         }
-
         .donate-section {
             margin-top: 20px;
             text-align: center;
             border-top: 1px solid var(--border);
             padding-top: 18px;
         }
-
         .donate-title {
             color: var(--text2);
             margin-bottom: 10px;
             font-weight: 600;
             font-size: clamp(0.8rem, 1.5vw, 0.95rem);
         }
-
         .donate-links {
             display: flex;
             gap: 10px;
@@ -873,11 +775,9 @@
             justify-content: center;
             flex-direction: column;
         }
-
         .qris-overlay.hidden {
             display: none;
         }
-
         .qris-container {
             background: var(--surface2);
             border: 1px solid var(--border);
@@ -887,13 +787,11 @@
             max-width: 320px;
             width: 90%;
         }
-
         .qris-container img {
             width: 100%;
             border-radius: 16px;
             margin-bottom: 14px;
         }
-
         .qris-close-btn,
         .qris-download-btn {
             background: var(--surface);
@@ -907,7 +805,6 @@
             margin: 4px;
             font-size: clamp(0.7rem, 1.2vw, 0.85rem);
         }
-
         .qris-close-btn:hover,
         .qris-download-btn:hover {
             background: rgba(255, 255, 255, 0.1);
@@ -920,7 +817,6 @@
             flex-wrap: wrap;
             gap: 5px;
         }
-
         .tag-badge {
             background: rgba(255, 255, 255, 0.06);
             color: var(--text2);
@@ -946,7 +842,6 @@
             max-width: 100%;
             touch-action: pan-x;
         }
-
         .screenshot-scroll img {
             flex: 0 0 auto;
             width: clamp(100px, 20vw, 150px);
@@ -958,12 +853,10 @@
             background: var(--surface2);
             border: 1px solid var(--border);
         }
-
         .screenshot-scroll img:hover {
             transform: scale(1.03);
             border-color: var(--accent);
         }
-
         .lightbox {
             position: fixed;
             top: 0;
@@ -977,7 +870,6 @@
             justify-content: center;
             cursor: zoom-out;
         }
-
         .lightbox img {
             max-width: 95vw;
             max-height: 95vh;
@@ -1002,7 +894,6 @@
             z-index: 100;
             box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.8);
         }
-
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -1018,12 +909,10 @@
             padding: 8px 14px;
             border-radius: 24px;
         }
-
         .nav-item.active {
             color: var(--accent2);
             background: rgba(62, 224, 255, 0.12);
         }
-
         .nav-item i {
             font-size: clamp(1.1rem, 2.5vw, 1.4rem);
         }
@@ -1038,13 +927,11 @@
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-
         @keyframes spin {
             to {
                 transform: rotate(360deg);
             }
         }
-
         .empty-text,
         .error-text {
             text-align: center;
@@ -1055,7 +942,6 @@
             margin: 20px 0;
             font-size: clamp(0.85rem, 1.5vw, 1rem);
         }
-
         .filter-indicator {
             display: flex;
             align-items: center;
@@ -1071,7 +957,6 @@
             border-top: 1px solid var(--border);
             padding-top: 18px;
         }
-
         .rekomendasi-title {
             font-weight: 700;
             font-size: clamp(0.9rem, 2vw, 1.1rem);
@@ -1081,13 +966,11 @@
             gap: 8px;
             color: var(--accent2);
         }
-
         .rekomendasi-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
         }
-
         .rekomendasi-card {
             background: var(--surface2);
             border: 1px solid var(--border);
@@ -1098,30 +981,24 @@
             display: flex;
             flex-direction: column;
         }
-
         .rekomendasi-card:hover {
             transform: translateY(-4px);
             border-color: var(--accent2);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
         }
-
         .rekomendasi-card .card-img {
             height: clamp(80px, 18vw, 120px);
         }
-
         .rekomendasi-card .card-body {
             padding: 8px 12px;
         }
-
         .rekomendasi-card .card-title {
             font-size: clamp(0.65rem, 1.2vw, 0.8rem);
             font-weight: 700;
         }
-
         .rekomendasi-card .card-meta {
             font-size: clamp(0.5rem, 0.8vw, 0.6rem);
         }
-
         .rekomendasi-card .badge {
             font-size: clamp(0.45rem, 0.7vw, 0.55rem);
             padding: 1px 6px;
@@ -1169,7 +1046,6 @@
                 font-size: clamp(0.7rem, 2.5vw, 0.85rem);
             }
         }
-
         @media (min-width: 768px) {
             .rekomendasi-grid {
                 grid-template-columns: repeat(4, 1fr);
@@ -1178,7 +1054,6 @@
                 gap: 18px;
             }
         }
-
         @media (min-width: 1024px) {
             .container {
                 padding: 16px 24px;
@@ -1187,8 +1062,6 @@
                 gap: 20px;
             }
         }
-
-        /* Touch-friendly */
         @media (hover: none) {
             .post-card:hover {
                 transform: none;
@@ -1200,15 +1073,21 @@
                 transform: none;
             }
         }
+        /* Matikan partikel di mobile untuk performa */
+        @media (max-width: 640px) {
+            canvas#particles {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
-    <canvas id="particles"></canvas>
+    <canvas id="particles" aria-hidden="true"></canvas>
 
     <!-- QRIS Overlay -->
     <div class="qris-overlay hidden" id="qris-overlay">
         <div class="qris-container">
-            <img src="https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png" alt="QRIS Dana" id="qris-img" />
+            <img src="https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png" alt="QRIS Dana" id="qris-img" loading="lazy" />
             <div>
                 <button class="qris-download-btn" id="qris-download-btn"><i class="fas fa-download"></i> Download Gambar</button>
                 <button class="qris-close-btn" id="qris-close-btn"><i class="fas fa-times"></i> Tutup</button>
@@ -1219,7 +1098,7 @@
     <!-- TOPBAR -->
     <header class="topbar" role="banner">
         <div class="logo-area">
-            <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Destaseo Mods Logo" class="logo-img" />
+            <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Destaseo Mods Logo" class="logo-img" width="34" height="34" loading="lazy" />
             <span class="logo-text">Destaseo Mods</span>
         </div>
         <div class="telegram-wrapper">
@@ -1299,6 +1178,9 @@
 
     <script>
         (function() {
+            'use strict';
+
+            // ===== KONFIGURASI =====
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
             const AD_INTERVAL = 1 * 60 * 60 * 1000;
@@ -1316,93 +1198,118 @@
                 ]
             };
             const VIEW_API_BASE = "https://abacus.jasoncameron.dev/hit/destaseomods.web.id/visits";
-
-            // ---- Particles ----
-            const canvas = document.getElementById('particles');
-            const ctx = canvas.getContext('2d');
-            let particles = [];
-            const maxParticles = 60;
-
-            function resizeCanvas() { canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight; }
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            class Particle {
-                constructor() { this.reset(); }
-                reset() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.vx = (Math.random() - 0.5) * 0.4;
-                    this.vy = (Math.random() - 0.5) * 0.4;
-                    this.radius = Math.random() * 2.5 + 1;
-                    this.opacity = Math.random() * 0.5 + 0.15;
-                }
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(168,127,255,${this.opacity})`;
-                    ctx.fill();
-                }
-            }
-            for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => { p.update();
-                    p.draw(); });
-                requestAnimationFrame(animateParticles);
-            }
-            animateParticles();
-
-            // ---- State ----
             const CACHE_KEY = 'destaseo_premium_cache_v68';
             const CACHE_TIME = 10 * 60 * 1000;
-            const postContainer = document.getElementById('post-container');
-            const carouselTrack = document.getElementById('carousel-track');
-            const loadMoreContainer = document.getElementById('load-more-container');
-            const homeSection = document.getElementById('home-section');
-            const detailSection = document.getElementById('detail-section');
-            const profileSection = document.getElementById('profile-section');
-            const detailContent = document.getElementById('detail-content');
-            const detailBack = document.getElementById('detail-back');
-            const navItems = document.querySelectorAll('.nav-item');
-            const searchBox = document.getElementById('search-box');
-            const searchInput = document.getElementById('search-input');
-            const categoryBar = document.getElementById('category-bar');
-            const sortBar = document.getElementById('sort-bar');
-            const sortSelect = document.getElementById('sort-select');
-            const filterIndicator = document.getElementById('filter-indicator');
-            const telegramBtn = document.getElementById('telegram-btn');
-            const telegramDropdown = document.getElementById('telegram-dropdown');
-            const qrisOverlay = document.getElementById('qris-overlay');
-            const qrisCloseBtn = document.getElementById('qris-close-btn');
-            const qrisDanaBtn = document.getElementById('qris-dana-btn');
-            const qrisDownloadBtn = document.getElementById('qris-download-btn');
+            const ITEMS_PER_PAGE = 10;
 
+            // ===== DOM REFS =====
+            const $ = id => document.getElementById(id);
+            const qs = (sel, ctx = document) => ctx.querySelector(sel);
+            const qsa = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+
+            const postContainer = $('post-container');
+            const carouselTrack = $('carousel-track');
+            const loadMoreContainer = $('load-more-container');
+            const homeSection = $('home-section');
+            const detailSection = $('detail-section');
+            const profileSection = $('profile-section');
+            const detailContent = $('detail-content');
+            const detailBack = $('detail-back');
+            const navItems = qsa('.nav-item');
+            const searchBox = $('search-box');
+            const searchInput = $('search-input');
+            const categoryBar = $('category-bar');
+            const sortBar = $('sort-bar');
+            const sortSelect = $('sort-select');
+            const filterIndicator = $('filter-indicator');
+            const telegramBtn = $('telegram-btn');
+            const telegramDropdown = $('telegram-dropdown');
+            const qrisOverlay = $('qris-overlay');
+            const qrisCloseBtn = $('qris-close-btn');
+            const qrisDanaBtn = $('qris-dana-btn');
+            const qrisDownloadBtn = $('qris-download-btn');
+
+            // ===== STATE =====
             let postsData = [],
                 fetchedPosts = [];
             let activeKatFilter = null;
             let currentDisplayCount = 0;
-            const ITEMS_PER_PAGE = 10;
             let carouselInterval = null;
             let currentSlide = 0;
             let totalPopularSlides = 0;
+            let isDetailMode = false;
+            let isInitialLoad = true;
 
-            if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
-            if (AVATAR_URL) {
-                const a = document.getElementById('profile-avatar');
-                a.style.backgroundImage = `url('${AVATAR_URL}')`;
-                a.textContent = '';
+            // ===== PARTICLES (optimized) =====
+            const canvas = document.getElementById('particles');
+            if (canvas && window.innerWidth > 640) {
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+                const maxParticles = 35;
+                let animId = null;
+
+                function resizeCanvas() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+                window.addEventListener('resize', resizeCanvas);
+                resizeCanvas();
+
+                class Particle {
+                    constructor() { this.reset(); }
+                    reset() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.vx = (Math.random() - 0.5) * 0.3;
+                        this.vy = (Math.random() - 0.5) * 0.3;
+                        this.radius = Math.random() * 2 + 0.8;
+                        this.opacity = Math.random() * 0.4 + 0.1;
+                    }
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(168,127,255,${this.opacity})`;
+                        ctx.fill();
+                    }
+                }
+                for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
+
+                function animateParticles() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    particles.forEach(p => { p.update();
+                        p.draw(); });
+                    animId = requestAnimationFrame(animateParticles);
+                }
+                animateParticles();
+
+                // Stop animasi saat tab tidak aktif untuk hemat CPU
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        if (animId) cancelAnimationFrame(animId);
+                    } else {
+                        if (!animId) animateParticles();
+                    }
+                });
             }
 
-            // ---- View Count API ----
+            // ===== SETUP LOGO & AVATAR =====
+            if (LOGO_URL) {
+                const logo = document.querySelector('.logo-img');
+                if (logo) logo.src = LOGO_URL;
+            }
+            if (AVATAR_URL) {
+                const a = $('profile-avatar');
+                if (a) { a.style.backgroundImage = `url('${AVATAR_URL}')`;
+                    a.textContent = ''; }
+            }
+
+            // ===== VIEW COUNT =====
             async function incrementViewCount(postName) {
                 try {
                     const url = `${VIEW_API_BASE}/${encodeURIComponent(postName)}`;
@@ -1412,112 +1319,28 @@
                     const raw = data.count ?? data.visits ?? data.views ?? data;
                     const count = typeof raw === 'number' ? raw : parseInt(raw, 10);
                     if (!isNaN(count) && count >= 0) return count;
-                    const text = await resp.text();
-                    const parsed = parseInt(text.trim(), 10);
-                    if (!isNaN(parsed) && parsed >= 0) return parsed;
                     return 0;
                 } catch (e) {
-                    console.warn('View API fallback ke localStorage:', e);
                     return incrementViewCountLocal(postName);
                 }
             }
 
             function incrementViewCountLocal(name) {
-                const VIEW_KEY = `view_count_${name}`;
+                const KEY = `view_count_${name}`;
                 const TS_KEY = `view_ts_${name}`;
                 const now = Date.now();
                 const lastTs = parseInt(localStorage.getItem(TS_KEY) || '0', 10);
-                const currentCount = parseInt(localStorage.getItem(VIEW_KEY) || '0', 10);
+                const current = parseInt(localStorage.getItem(KEY) || '0', 10);
                 if (!lastTs || (now - lastTs) > 86400000) {
-                    const newCount = currentCount + 1;
-                    localStorage.setItem(VIEW_KEY, newCount.toString());
+                    const nc = current + 1;
+                    localStorage.setItem(KEY, nc.toString());
                     localStorage.setItem(TS_KEY, now.toString());
-                    return newCount;
+                    return nc;
                 }
-                return currentCount || 1;
+                return current || 1;
             }
 
-            // ---- Recommended ----
-            function getRecommendedPosts(currentPost, limit = 4) {
-                if (!fetchedPosts.length) return [];
-                const currentName = currentPost.name;
-                const currentKat = currentPost.metadata.kategori || '';
-                const currentTags = (currentPost.metadata.tag || '')
-                    .split(',')
-                    .map(t => t.trim().toLowerCase())
-                    .filter(Boolean);
-
-                let candidates = fetchedPosts.filter(p =>
-                    p.name !== currentName &&
-                    (p.metadata.kategori || '') === currentKat
-                );
-
-                if (candidates.length < limit && currentTags.length) {
-                    const tagCandidates = fetchedPosts.filter(p =>
-                        p.name !== currentName &&
-                        (p.metadata.kategori || '') !== currentKat &&
-                        currentTags.some(tag => (p.metadata.tag || '').toLowerCase().includes(tag))
-                    );
-                    candidates = [...candidates, ...tagCandidates];
-                }
-
-                if (candidates.length < limit) {
-                    const others = fetchedPosts
-                        .filter(p => p.name !== currentName && !candidates.includes(p))
-                        .sort(() => Math.random() - 0.5);
-                    candidates = [...candidates, ...others];
-                }
-
-                const seen = new Set();
-                const unique = [];
-                for (const p of candidates) {
-                    if (!seen.has(p.name)) { seen.add(p.name);
-                        unique.push(p); }
-                }
-                return unique.slice(0, limit);
-            }
-
-            function renderRecommendedPosts(posts, currentPost) {
-                if (!posts.length) return '';
-                let html = `
-                    <div class="rekomendasi-section">
-                        <div class="rekomendasi-title"><i class="fas fa-lightbulb"></i> Rekomendasi untuk Anda</div>
-                        <div class="rekomendasi-grid">
-                `;
-                posts.forEach(p => {
-                    const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
-                    const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
-                    const kategori = p.metadata.kategori || '';
-                    const imgTag = img ?
-                        `<img src="${img}" alt="${title}" loading="lazy" onerror="this.parentElement.classList.add('error')">` :
-                        '';
-                    const catBadge = kategori ?
-                        `<span class="badge" data-kat="${kategori}"><i class="fas fa-folder"></i> ${kategori}</span>` :
-                        '';
-                    html += `
-                        <div class="rekomendasi-card" data-name="${p.name}">
-                            <div class="card-img${img ? '' : ' error'}">${imgTag}<span class="placeholder-icon"><i class="fas fa-box-open"></i></span></div>
-                            <div class="card-body">
-                                <div class="card-title">${title}</div>
-                                <div class="card-meta">${catBadge}</div>
-                            </div>
-                        </div>
-                    `;
-                });
-                html += `</div></div>`;
-                return html;
-            }
-
-            function attachRekomendasiEvents() {
-                document.querySelectorAll('.rekomendasi-card').forEach(card => {
-                    card.addEventListener('click', function() {
-                        const name = this.dataset.name;
-                        if (name) setHash('detail', name);
-                    });
-                });
-            }
-
-            // ---- Utility ----
+            // ===== UTILITY =====
             function fixImageUrl(url) {
                 if (!url) return '';
                 if (url.includes('github.com') && !url.includes('raw.githubusercontent.com')) {
@@ -1529,8 +1352,7 @@
             function getExcerpt(c) {
                 if (!c) return '';
                 let t = c.replace(/[#*`>\[\]()!|]/g, '').replace(/\n/g, ' ').trim();
-                if (t.length > 80) t = t.slice(0, 80) + '...';
-                return t;
+                return t.length > 80 ? t.slice(0, 80) + '...' : t;
             }
 
             function formatDate(d) {
@@ -1543,39 +1365,47 @@
 
             function getAllKategori() {
                 const k = new Set();
-                fetchedPosts.forEach(p => {
-                    const kat = p.metadata.kategori || '';
-                    if (kat) k.add(kat);
-                });
+                fetchedPosts.forEach(p => { const kat = p.metadata.kategori || '';
+                    if (kat) k.add(kat); });
                 return Array.from(k).sort();
             }
 
-            // ---- Cache ----
+            function debounce(fn, ms = 300) {
+                let timer;
+                return function(...args) {
+                    clearTimeout(timer);
+                    timer = setTimeout(() => fn.apply(this, args), ms);
+                };
+            }
+
+            // ===== CACHE =====
             function getCache() {
-                const r = localStorage.getItem(CACHE_KEY);
-                if (!r) return null;
                 try {
+                    const r = localStorage.getItem(CACHE_KEY);
+                    if (!r) return null;
                     const d = JSON.parse(r);
                     if (Date.now() - d.t < CACHE_TIME) return d.posts;
-                } catch (e) {}
-                return null;
+                    return null;
+                } catch { return null; }
             }
 
             function setCache(posts) {
-                localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), posts }));
+                try {
+                    localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), posts }));
+                } catch {}
             }
 
+            // ===== FETCH POSTS =====
             async function fetchPostList() {
                 const cached = getCache();
                 if (cached) { postsData = cached; return; }
                 const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
-                const res = await fetch(apiUrl);
+                const res = await fetch(apiUrl, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
                 if (!res.ok) {
                     const old = localStorage.getItem(CACHE_KEY);
                     if (old) {
                         try { const d = JSON.parse(old);
-                            console.warn('⚠️ Pakai cache kadaluarsa.');
-                            postsData = d.posts; return; } catch (e) {}
+                            postsData = d.posts; return; } catch {}
                     }
                     throw new Error(`Gagal fetch (${res.status}).`);
                 }
@@ -1605,13 +1435,14 @@
                     const md = await r.text();
                     const { metadata, content } = parseFrontmatter(md);
                     const lastModified = r.headers.get('Last-Modified');
-                    return { ...p, metadata, content, lastModified, html: marked.parse(content) };
+                    return { ...p, metadata, content, lastModified, html: marked ? marked.parse(content) :
+                            `<pre>${content}</pre>` };
                 } catch {
                     return { ...p, metadata: {}, content: '', html: '<p>Gagal memuat.</p>', lastModified: null };
                 }
             }
 
-            // ---- UI ----
+            // ===== RENDER FUNCTIONS =====
             function renderCategoryBar() {
                 const kats = getAllKategori();
                 let html = '<span class="category-chip' + (!activeKatFilter ? ' active' : '') + '" data-kat=""><i class="fas fa-globe"></i> Semua</span>';
@@ -1696,10 +1527,60 @@
             }
 
             function displayPosts(posts) {
-                postContainer.innerHTML = posts.length ?
-                    posts.map((p, i) => cardHTML(p, i)).join('') :
-                    '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
+                if (!posts.length) {
+                    postContainer.innerHTML = '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
+                    return;
+                }
+                const fragment = document.createDocumentFragment();
+                posts.forEach((p, i) => {
+                    const card = createCardElement(p, i);
+                    fragment.appendChild(card);
+                });
+                postContainer.innerHTML = '';
+                postContainer.appendChild(fragment);
                 attachCardEvents();
+            }
+
+            function createCardElement(post, index) {
+                const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
+                const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
+                const kategori = post.metadata.kategori || '';
+                const ver = post.metadata.versi || post.metadata.version || '';
+                const excerpt = getExcerpt(post.content);
+                const delay = index * 0.04 + 's';
+                const imgTag = img ?
+                    `<img src="${img}" alt="${t}" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('error')">` :
+                    '';
+                const versionBadge = ver ? `<span class="version-badge-img"><i class="fas fa-code-branch"></i> v${ver}</span>` :
+                    '';
+                const div = document.createElement('div');
+                div.className = 'post-card';
+                div.dataset.name = post.name;
+                div.style.animationDelay = delay;
+                div.setAttribute('role', 'listitem');
+                div.innerHTML = `
+                    <div class="card-img${img ? '' : ' error'}">${imgTag}<span class="placeholder-icon"><i class="fas fa-box-open"></i></span>${versionBadge}</div>
+                    <div class="card-body"><div class="card-title">${t}</div><div class="card-meta">${kategori ? `<span class="badge" data-kat="${kategori}"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}</div>${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}</div>
+                `;
+                return div;
+            }
+
+            function attachCardEvents() {
+                postContainer.querySelectorAll('.post-card').forEach(c => {
+                    c.addEventListener('click', (e) => {
+                        if (e.target.closest('.badge')) return;
+                        setHash('detail', c.dataset.name);
+                    });
+                });
+                postContainer.querySelectorAll('.badge').forEach(b => {
+                    b.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        activeKatFilter = b.dataset.kat;
+                        searchInput.value = '';
+                        resetAndApplyFilters();
+                        renderCategoryBar();
+                    });
+                });
             }
 
             function renderLoadMoreButton(total) {
@@ -1718,51 +1599,17 @@
                 const n = Math.min(currentDisplayCount + ITEMS_PER_PAGE, f.length);
                 const newPosts = f.slice(currentDisplayCount, n);
                 currentDisplayCount = n;
+                const fragment = document.createDocumentFragment();
                 newPosts.forEach((p, i) => {
-                    const card = cardHTML(p, i);
-                    postContainer.insertAdjacentHTML('beforeend', card);
+                    const card = createCardElement(p, i);
+                    fragment.appendChild(card);
                 });
+                postContainer.appendChild(fragment);
                 attachCardEvents();
                 renderLoadMoreButton(f.length);
             }
 
-            function cardHTML(post, index) {
-                const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
-                const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
-                const kategori = post.metadata.kategori || '';
-                const ver = post.metadata.versi || post.metadata.version || '';
-                const excerpt = getExcerpt(post.content);
-                const delay = index * 0.04 + 's';
-                const imgTag = img ?
-                    `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">` :
-                    '';
-                const versionBadge = ver ? `<span class="version-badge-img"><i class="fas fa-code-branch"></i> v${ver}</span>` :
-                    '';
-                return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};" role="listitem">
-                    <div class="card-img${img ? '' : ' error'}">${imgTag}<span class="placeholder-icon"><i class="fas fa-box-open"></i></span>${versionBadge}</div>
-                    <div class="card-body"><div class="card-title">${t}</div><div class="card-meta">${kategori ? `<span class="badge" data-kat="${kategori}"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}</div>${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}</div>
-                </div>`;
-            }
-
-            function attachCardEvents() {
-                document.querySelectorAll('.post-card').forEach(c => {
-                    c.addEventListener('click', (e) => {
-                        if (e.target.closest('.badge')) return;
-                        setHash('detail', c.dataset.name);
-                    });
-                });
-                document.querySelectorAll('.badge').forEach(b => {
-                    b.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        activeKatFilter = b.dataset.kat;
-                        searchInput.value = '';
-                        resetAndApplyFilters();
-                        renderCategoryBar();
-                    });
-                });
-            }
-
-            // ---- Carousel ----
+            // ===== CAROUSEL =====
             function stopCarousel() {
                 if (carouselInterval) { clearInterval(carouselInterval);
                     carouselInterval = null; }
@@ -1770,7 +1617,7 @@
 
             function startCarousel() {
                 stopCarousel();
-                if (totalPopularSlides === 0) return;
+                if (totalPopularSlides === 0 || isDetailMode) return;
                 updateCarousel(0);
                 carouselInterval = setInterval(() => {
                     currentSlide = (currentSlide + 1) % totalPopularSlides;
@@ -1779,9 +1626,9 @@
             }
 
             function updateCarousel(i) {
-                const slides = document.querySelectorAll('.carousel-slide');
+                const slides = carouselTrack.querySelectorAll('.carousel-slide');
                 slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
-                document.querySelectorAll('.carousel-counter').forEach((c, idx) => {
+                carouselTrack.querySelectorAll('.carousel-counter').forEach((c) => {
                     c.textContent = `${i+1}/${totalPopularSlides}`;
                 });
             }
@@ -1796,53 +1643,56 @@
                 carouselTrack.innerHTML = pop.map((p, i) => {
                     const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
                     const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
-                    return `<div class="carousel-slide${i === 0 ? ' active' : ''}" data-name="${p.name}">${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="slide-overlay"><div class="slide-title">${title}</div><span class="carousel-counter">${i+1}/${pop.length}</span></div></div>`;
+                    return `<div class="carousel-slide${i === 0 ? ' active' : ''}" data-name="${p.name}">${img ? `<img src="${img}" alt="${title}" loading="lazy" decoding="async" onerror="this.style.display='none'">` : ''}<div class="slide-overlay"><div class="slide-title">${title}</div><span class="carousel-counter">${i+1}/${pop.length}</span></div></div>`;
                 }).join('');
-                document.querySelectorAll('.carousel-slide').forEach(s => {
+                carouselTrack.querySelectorAll('.carousel-slide').forEach(s => {
                     s.addEventListener('click', () => setHash('detail', s.dataset.name));
                 });
+                startCarousel();
             }
 
-            // ---- Home ----
+            // ===== HOME =====
             async function renderHome() {
                 postContainer.innerHTML = '<div class="spinner"></div>';
                 loadMoreContainer.innerHTML = '';
                 categoryBar.innerHTML = '';
                 carouselTrack.innerHTML = '';
                 stopCarousel();
+                isDetailMode = false;
                 try {
                     await fetchPostList();
                     if (!postsData.length) {
                         postContainer.innerHTML = '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
                         return;
                     }
-                    fetchedPosts = await Promise.all(postsData.map(fetchPost));
+                    // Fetch all posts in parallel
+                    const fetchPromises = postsData.map(fetchPost);
+                    fetchedPosts = await Promise.all(fetchPromises);
                     renderPopularSection();
                     renderCategoryBar();
                     resetAndApplyFilters();
-                    startCarousel();
                 } catch (err) {
                     postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`;
                 }
             }
 
-            // ---- Screenshot ----
+            // ===== SCREENSHOT =====
             function buildScreenshotGallery(str) {
                 if (!str) return '';
                 const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
                 if (urls.length === 0) return '';
                 const lim = urls.slice(0, 5);
-                return `<div class="screenshot-scroll">${lim.map(u => `<img src="${u}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox('${u}')">`).join('')}</div>`;
+                return `<div class="screenshot-scroll">${lim.map(u => `<img src="${u}" alt="Screenshot" loading="lazy" decoding="async" onclick="event.stopPropagation(); openLightbox('${u}')">`).join('')}</div>`;
             }
             window.openLightbox = function(url) {
                 const lb = document.createElement('div');
                 lb.className = 'lightbox';
-                lb.innerHTML = `<img src="${url}" alt="Screenshot">`;
+                lb.innerHTML = `<img src="${url}" alt="Screenshot" loading="lazy">`;
                 lb.addEventListener('click', () => lb.remove());
                 document.body.appendChild(lb);
             };
 
-            // ---- Download ----
+            // ===== DOWNLOAD =====
             function startDownloadWithAd(btn, url) {
                 const now = Date.now();
                 const last = localStorage.getItem(AD_STORAGE_KEY);
@@ -1868,10 +1718,93 @@
                 }
             }
 
-            // ---- Detail ----
+            // ===== REKOMENDASI =====
+            function getRecommendedPosts(currentPost, limit = 4) {
+                if (!fetchedPosts.length) return [];
+                const currentName = currentPost.name;
+                const currentKat = currentPost.metadata.kategori || '';
+                const currentTags = (currentPost.metadata.tag || '')
+                    .split(',')
+                    .map(t => t.trim().toLowerCase())
+                    .filter(Boolean);
+
+                let candidates = fetchedPosts.filter(p =>
+                    p.name !== currentName &&
+                    (p.metadata.kategori || '') === currentKat
+                );
+
+                if (candidates.length < limit && currentTags.length) {
+                    const tagCandidates = fetchedPosts.filter(p =>
+                        p.name !== currentName &&
+                        (p.metadata.kategori || '') !== currentKat &&
+                        currentTags.some(tag => (p.metadata.tag || '').toLowerCase().includes(tag))
+                    );
+                    candidates = [...candidates, ...tagCandidates];
+                }
+
+                if (candidates.length < limit) {
+                    const others = fetchedPosts
+                        .filter(p => p.name !== currentName && !candidates.includes(p))
+                        .sort(() => Math.random() - 0.5);
+                    candidates = [...candidates, ...others];
+                }
+
+                const seen = new Set();
+                const unique = [];
+                for (const p of candidates) {
+                    if (!seen.has(p.name)) { seen.add(p.name);
+                        unique.push(p); }
+                }
+                return unique.slice(0, limit);
+            }
+
+            function renderRecommendedPosts(posts, currentPost) {
+                if (!posts.length) return '';
+                let html = `
+                    <div class="rekomendasi-section">
+                        <div class="rekomendasi-title"><i class="fas fa-lightbulb"></i> Rekomendasi untuk Anda</div>
+                        <div class="rekomendasi-grid">
+                `;
+                posts.forEach(p => {
+                    const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
+                    const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
+                    const kategori = p.metadata.kategori || '';
+                    const imgTag = img ?
+                        `<img src="${img}" alt="${title}" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('error')">` :
+                        '';
+                    const catBadge = kategori ?
+                        `<span class="badge" data-kat="${kategori}"><i class="fas fa-folder"></i> ${kategori}</span>` :
+                        '';
+                    html += `
+                        <div class="rekomendasi-card" data-name="${p.name}">
+                            <div class="card-img${img ? '' : ' error'}">${imgTag}<span class="placeholder-icon"><i class="fas fa-box-open"></i></span></div>
+                            <div class="card-body">
+                                <div class="card-title">${title}</div>
+                                <div class="card-meta">${catBadge}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+                return html;
+            }
+
+            function attachRekomendasiEvents() {
+                document.querySelectorAll('.rekomendasi-card').forEach(card => {
+                    card.addEventListener('click', function() {
+                        const name = this.dataset.name;
+                        if (name) setHash('detail', name);
+                    });
+                });
+            }
+
+            // ===== DETAIL =====
             async function showDetail(name) {
                 const post = fetchedPosts.find(p => p.name === name);
                 if (!post) return;
+
+                isDetailMode = true;
+                stopCarousel();
 
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
@@ -1902,7 +1835,7 @@
 
                 detailContent.innerHTML = `
                     <div class="detail-header">
-                        ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
+                        ${img ? `<img src="${img}" class="detail-img" alt="${t}" loading="lazy" decoding="async" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
                         <h1 class="detail-title">${t}</h1>
                         <div class="detail-meta-grid">
                             <div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ${v}</div>
@@ -1937,7 +1870,7 @@
                 window.scrollTo({ top: 0 });
             }
 
-            // ---- Navigation ----
+            // ===== NAVIGATION =====
             function getHashPage() {
                 const h = window.location.hash.slice(1);
                 if (!h || h === 'home') return { page: 'home' };
@@ -1962,7 +1895,7 @@
             function setActiveNav(p) {
                 navItems.forEach(i => {
                     i.classList.toggle('active', i.dataset.page === p || (p === 'detail' && i.dataset.page ===
-                    'home'));
+                        'home'));
                 });
             }
 
@@ -1974,6 +1907,7 @@
                     sortBar.classList.remove('hidden');
                     document.getElementById('popular-section').classList.remove('hidden');
                     setActiveNav('home');
+                    isDetailMode = false;
                     startCarousel();
                 } else if (p === 'search') {
                     showSection(homeSection);
@@ -1982,6 +1916,7 @@
                     sortBar.classList.add('hidden');
                     document.getElementById('popular-section').classList.add('hidden');
                     setActiveNav('search');
+                    isDetailMode = false;
                     stopCarousel();
                     setTimeout(() => searchInput.focus(), 100);
                 } else if (p === 'profile') {
@@ -1992,6 +1927,7 @@
                     document.getElementById('popular-section').classList.add('hidden');
                     filterIndicator.classList.add('hidden');
                     setActiveNav('profile');
+                    isDetailMode = false;
                     stopCarousel();
                     renderProfile();
                 } else if (p === 'detail' && postName) {
@@ -2015,10 +1951,12 @@
                 ).join('');
             }
 
-            // ---- Events ----
+            // ===== EVENTS =====
             detailBack.addEventListener('click', () => setHash('home'));
             navItems.forEach(i => i.addEventListener('click', () => setHash(i.dataset.page)));
-            searchInput.addEventListener('input', () => resetAndApplyFilters());
+
+            const debouncedSearch = debounce(() => resetAndApplyFilters(), 300);
+            searchInput.addEventListener('input', debouncedSearch);
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
             telegramBtn.addEventListener('click', (e) => { e.stopPropagation();
@@ -2053,7 +1991,7 @@
                 } else navigate(page);
             });
 
-            // ---- Sitemap ----
+            // ===== SITEMAP =====
             async function generateSitemap() {
                 if (window.location.search !== '?sitemap') return;
                 const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
@@ -2079,7 +2017,7 @@
                 throw new Error('SITEMAP_DISPLAY');
             }
 
-            // ---- Boot ----
+            // ===== BOOT =====
             (async () => {
                 try { await generateSitemap(); } catch (e) {
                     if (e.message === 'SITEMAP_DISPLAY') return;
