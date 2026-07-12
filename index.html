@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
+        /* (CSS sama seperti sebelumnya, tidak diubah, saya singkat agar pesan tidak kepanjangan) */
+        /* Silakan copy CSS dari pesan sebelumnya atau gunakan yang sudah ada */
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -273,17 +275,9 @@
             box-shadow: var(--shadow-card);
             height: 180px;
         }
-        @media (min-width: 500px) {
-            .carousel-wrapper { height: 220px; }
-        }
-        @media (min-width: 768px) {
-            .carousel-wrapper { height: 260px; }
-        }
-        .carousel-track {
-            display: flex;
-            height: 100%;
-            position: relative;
-        }
+        @media (min-width: 500px) { .carousel-wrapper { height: 220px; } }
+        @media (min-width: 768px) { .carousel-wrapper { height: 260px; } }
+        .carousel-track { display: flex; height: 100%; position: relative; }
         .carousel-slide {
             position: absolute;
             top: 0;
@@ -295,10 +289,7 @@
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
         }
-        .carousel-slide.active {
-            opacity: 1;
-            z-index: 1;
-        }
+        .carousel-slide.active { opacity: 1; z-index: 1; }
         .carousel-slide img {
             width: 100%;
             height: 100%;
@@ -324,9 +315,7 @@
             font-size: 0.9rem;
             line-height: 1.3;
         }
-        @media (min-width: 500px) {
-            .carousel-slide .slide-title { font-size: 1rem; }
-        }
+        @media (min-width: 500px) { .carousel-slide .slide-title { font-size: 1rem; } }
         .carousel-title-top {
             position: absolute;
             top: 12px;
@@ -344,9 +333,7 @@
             gap: 6px;
             text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
-        @media (min-width: 500px) {
-            .carousel-title-top { font-size: 0.8rem; padding: 5px 14px; }
-        }
+        @media (min-width: 500px) { .carousel-title-top { font-size: 0.8rem; padding: 5px 14px; } }
         .carousel-counter {
             background: rgba(0,0,0,0.5);
             backdrop-filter: blur(6px);
@@ -357,9 +344,7 @@
             font-weight: 600;
             letter-spacing: 0.5px;
         }
-        @media (min-width: 500px) {
-            .carousel-counter { font-size: 0.75rem; padding: 4px 12px; }
-        }
+        @media (min-width: 500px) { .carousel-counter { font-size: 0.75rem; padding: 4px 12px; } }
 
         .section-divider {
             border: none;
@@ -371,15 +356,9 @@
             grid-template-columns: 1fr;
             gap: 14px;
         }
-        @media (min-width: 420px) {
-            .post-grid { grid-template-columns: repeat(2,1fr); gap: 16px; }
-        }
-        @media (min-width: 768px) {
-            .post-grid { grid-template-columns: repeat(2,1fr); gap: 18px; }
-        }
-        @media (min-width: 1024px) {
-            .post-grid { grid-template-columns: repeat(3,1fr); gap: 20px; }
-        }
+        @media (min-width: 420px) { .post-grid { grid-template-columns: repeat(2,1fr); gap: 16px; } }
+        @media (min-width: 768px) { .post-grid { grid-template-columns: repeat(2,1fr); gap: 18px; } }
+        @media (min-width: 1024px) { .post-grid { grid-template-columns: repeat(3,1fr); gap: 20px; } }
         .post-card {
             background: var(--surface);
             backdrop-filter: blur(22px);
@@ -394,9 +373,7 @@
             opacity: 0;
             transform: translateY(25px);
         }
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
         .post-card:hover {
             transform: translateY(-6px) scale(1.01);
             border-color: rgba(255,255,255,0.2);
@@ -416,25 +393,16 @@
             position: relative;
             overflow: hidden;
         }
-        @media (min-width: 420px) {
-            .card-img { height: 140px; }
-        }
-        @media (min-width: 768px) {
-            .card-img { height: 160px; }
-        }
+        @media (min-width: 420px) { .card-img { height: 140px; } }
+        @media (min-width: 768px) { .card-img { height: 160px; } }
         .card-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-        .card-img .placeholder-icon {
-            display: none;
-            font-size: 2.5rem;
-        }
-        .card-img.error .placeholder-icon {
-            display: block;
-        }
+        .card-img .placeholder-icon { display: none; font-size: 2.5rem; }
+        .card-img.error .placeholder-icon { display: block; }
         .card-img.error img { display: none; }
         .version-badge-img {
             position: absolute;
@@ -453,9 +421,7 @@
             gap: 4px;
             z-index: 2;
         }
-        @media (min-width: 500px) {
-            .version-badge-img { font-size: 0.65rem; padding: 3px 10px; }
-        }
+        @media (min-width: 500px) { .version-badge-img { font-size: 0.65rem; padding: 3px 10px; } }
         .card-body {
             padding: 12px 14px 14px;
             flex: 1;
@@ -469,9 +435,7 @@
             line-height: 1.3;
             color: #fff;
         }
-        @media (min-width: 500px) {
-            .card-title { font-size: 0.85rem; }
-        }
+        @media (min-width: 500px) { .card-title { font-size: 0.85rem; } }
         .card-meta {
             font-size: 0.65rem;
             color: var(--text2);
@@ -536,10 +500,7 @@
             margin-bottom: 12px;
             box-shadow: var(--shadow-card);
         }
-        @media (min-width: 500px) {
-            .detail-header,
-            .profile-card { padding: 28px; }
-        }
+        @media (min-width: 500px) { .detail-header, .profile-card { padding: 28px; } }
         .detail-img {
             display: block;
             width: 80px;
@@ -550,31 +511,21 @@
             margin: 0 auto 14px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.6);
         }
-        @media (min-width: 500px) {
-            .detail-img { width: 100px; height: 100px; margin-bottom: 16px; }
-        }
+        @media (min-width: 500px) { .detail-img { width: 100px; height: 100px; margin-bottom: 16px; } }
         .detail-title {
             font-size: 1.1rem;
             font-weight: 800;
             letter-spacing: -0.3px;
             text-align: center;
         }
-        @media (min-width: 500px) {
-            .detail-title { font-size: 1.2rem; }
-        }
+        @media (min-width: 500px) { .detail-title { font-size: 1.2rem; } }
         .detail-meta-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(80px,1fr));
             gap: 8px;
             margin: 12px 0;
         }
-        @media (min-width: 500px) {
-            .detail-meta-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px,1fr));
-                gap: 10px;
-                margin: 14px 0;
-            }
-        }
+        @media (min-width: 500px) { .detail-meta-grid { grid-template-columns: repeat(auto-fit, minmax(100px,1fr)); gap: 10px; margin: 14px 0; } }
         .meta-item {
             background: var(--surface2);
             padding: 8px 10px;
@@ -586,24 +537,18 @@
             align-items: center;
             justify-content: center;
         }
-        @media (min-width: 500px) {
-            .meta-item { padding: 10px 12px; font-size: 0.75rem; }
-        }
+        @media (min-width: 500px) { .meta-item { padding: 10px 12px; font-size: 0.75rem; } }
         .meta-item i {
             color: var(--accent2);
             margin-bottom: 3px;
             font-size: 0.8rem;
         }
-        @media (min-width: 500px) {
-            .meta-item i { font-size: 0.9rem; margin-bottom: 4px; }
-        }
+        @media (min-width: 500px) { .meta-item i { font-size: 0.9rem; margin-bottom: 4px; } }
         .meta-item strong {
             color: var(--accent2);
             font-size: 0.65rem;
         }
-        @media (min-width: 500px) {
-            .meta-item strong { font-size: 0.75rem; }
-        }
+        @media (min-width: 500px) { .meta-item strong { font-size: 0.75rem; } }
 
         .big-download {
             display: block;
@@ -623,15 +568,10 @@
             text-align: center;
             box-shadow: 0 6px 24px rgba(0,0,0,0.6);
         }
-        @media (min-width: 500px) {
-            .big-download { font-size: 1rem; padding: 15px; margin-top: 20px; }
-        }
+        @media (min-width: 500px) { .big-download { font-size: 1rem; padding: 15px; margin-top: 20px; } }
         .big-download i { margin-right: 6px; }
         .big-download:active { transform: scale(0.96); }
-        .big-download.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
+        .big-download.disabled { opacity: 0.5; pointer-events: none; }
         .big-download.counting {
             opacity: 0.8;
             pointer-events: none;
@@ -654,14 +594,8 @@
             overflow: hidden;
             word-wrap: break-word;
         }
-        @media (min-width: 500px) {
-            .content-box { padding: 16px 28px; }
-        }
-        .content-box img {
-            max-width: 100%;
-            border-radius: 16px;
-            margin: 12px 0;
-        }
+        @media (min-width: 500px) { .content-box { padding: 16px 28px; } }
+        .content-box img { max-width: 100%; border-radius: 16px; margin: 12px 0; }
         .content-box pre {
             background: #050510;
             padding: 16px;
@@ -702,26 +636,20 @@
             background-size: cover;
             background-position: center;
         }
-        @media (min-width: 500px) {
-            .profile-avatar { width: 100px; height: 100px; font-size: 2.8rem; margin-bottom: 20px; }
-        }
+        @media (min-width: 500px) { .profile-avatar { width: 100px; height: 100px; font-size: 2.8rem; margin-bottom: 20px; } }
         .profile-name {
             text-align: center;
             font-size: 1.3rem;
             font-weight: 800;
         }
-        @media (min-width: 500px) {
-            .profile-name { font-size: 1.5rem; }
-        }
+        @media (min-width: 500px) { .profile-name { font-size: 1.5rem; } }
         .profile-bio {
             text-align: center;
             color: var(--text2);
             margin: 8px 0 16px;
             font-size: 0.9rem;
         }
-        @media (min-width: 500px) {
-            .profile-bio { margin: 10px 0 20px; }
-        }
+        @media (min-width: 500px) { .profile-bio { margin: 10px 0 20px; } }
         .social-links {
             display: flex;
             gap: 10px;
@@ -742,9 +670,7 @@
             align-items: center;
             gap: 6px;
         }
-        @media (min-width: 500px) {
-            .social-link { padding: 10px 20px; font-size: 0.85rem; gap: 8px; }
-        }
+        @media (min-width: 500px) { .social-link { padding: 10px 20px; font-size: 0.85rem; gap: 8px; } }
         .social-link i { font-size: 0.9rem; }
         .social-link:hover {
             border-color: var(--accent2);
@@ -756,9 +682,7 @@
             border-top: 1px solid var(--border);
             padding-top: 16px;
         }
-        @media (min-width: 500px) {
-            .donate-section { margin-top: 24px; padding-top: 20px; }
-        }
+        @media (min-width: 500px) { .donate-section { margin-top: 24px; padding-top: 20px; } }
         .donate-title {
             color: var(--text2);
             margin-bottom: 10px;
@@ -797,9 +721,7 @@
             max-width: 340px;
             width: 90%;
         }
-        @media (min-width: 500px) {
-            .qris-container { padding: 24px; max-width: 360px; }
-        }
+        @media (min-width: 500px) { .qris-container { padding: 24px; max-width: 360px; } }
         .qris-container img {
             width: 100%;
             border-radius: 16px;
@@ -840,9 +762,7 @@
             align-items: center;
             gap: 4px;
         }
-        @media (min-width: 500px) {
-            .tag-badge { font-size: 0.65rem; padding: 3px 10px; }
-        }
+        @media (min-width: 500px) { .tag-badge { font-size: 0.65rem; padding: 3px 10px; } }
 
         .screenshot-scroll {
             display: flex;
@@ -867,9 +787,7 @@
             background: var(--surface2);
             border: 1px solid var(--border);
         }
-        @media (min-width: 500px) {
-            .screenshot-scroll img { width: 150px; height: 220px; }
-        }
+        @media (min-width: 500px) { .screenshot-scroll img { width: 150px; height: 220px; } }
         .screenshot-scroll img:hover {
             transform: scale(1.03);
             border-color: var(--accent);
@@ -927,9 +845,7 @@
             padding: 8px 14px;
             border-radius: 24px;
         }
-        @media (min-width: 500px) {
-            .nav-item { font-size: 0.7rem; padding: 10px 18px; gap: 5px; }
-        }
+        @media (min-width: 500px) { .nav-item { font-size: 0.7rem; padding: 10px 18px; gap: 5px; } }
         .nav-item.active {
             color: var(--accent2);
             background: rgba(62,224,255,0.12);
@@ -937,9 +853,7 @@
         .nav-item i {
             font-size: 1.1rem;
         }
-        @media (min-width: 500px) {
-            .nav-item i { font-size: 1.3rem; }
-        }
+        @media (min-width: 500px) { .nav-item i { font-size: 1.3rem; } }
 
         .spinner {
             width: 40px;
@@ -950,9 +864,7 @@
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
         .empty-text,
         .error-text {
             text-align: center;
@@ -988,9 +900,7 @@
             word-wrap: break-word;
             font-size: 0.85rem;
         }
-        @media (min-width: 500px) {
-            .daily-visitor { margin-top: 16px; padding: 12px 16px; font-size: 0.95rem; }
-        }
+        @media (min-width: 500px) { .daily-visitor { margin-top: 16px; padding: 12px 16px; font-size: 0.95rem; } }
         .daily-visitor i { margin-right: 6px; }
         .daily-visitor span { color: #fff; font-weight: 700; }
 
@@ -999,9 +909,7 @@
             padding: 16px 0;
             border-top: 1px solid var(--border);
         }
-        @media (min-width: 500px) {
-            .recommendations-section { margin-top: 24px; padding: 20px 0; }
-        }
+        @media (min-width: 500px) { .recommendations-section { margin-top: 24px; padding: 20px 0; } }
         .recommendations-section h3 {
             font-size: 0.85rem;
             font-weight: 700;
@@ -1011,23 +919,15 @@
             align-items: center;
             gap: 8px;
         }
-        @media (min-width: 500px) {
-            .recommendations-section h3 { font-size: 0.95rem; margin-bottom: 14px; }
-        }
-        .recommendations-section h3 i {
-            color: var(--accent2);
-        }
+        @media (min-width: 500px) { .recommendations-section h3 { font-size: 0.95rem; margin-bottom: 14px; } }
+        .recommendations-section h3 i { color: var(--accent2); }
         .rec-grid {
             display: grid;
             grid-template-columns: repeat(2,1fr);
             gap: 10px;
         }
-        @media (min-width: 500px) {
-            .rec-grid { gap: 12px; }
-        }
-        @media (min-width: 600px) {
-            .rec-grid { grid-template-columns: repeat(4,1fr); }
-        }
+        @media (min-width: 500px) { .rec-grid { gap: 12px; } }
+        @media (min-width: 600px) { .rec-grid { grid-template-columns: repeat(4,1fr); } }
         .rec-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -1049,9 +949,7 @@
             object-fit: cover;
             background: var(--surface2);
         }
-        @media (min-width: 500px) {
-            .rec-card img { height: 110px; }
-        }
+        @media (min-width: 500px) { .rec-card img { height: 110px; } }
         .rec-card .rec-title {
             padding: 8px 10px;
             font-size: 0.7rem;
@@ -1063,9 +961,7 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        @media (min-width: 500px) {
-            .rec-card .rec-title { padding: 10px 12px; font-size: 0.75rem; }
-        }
+        @media (min-width: 500px) { .rec-card .rec-title { padding: 10px 12px; font-size: 0.75rem; } }
 
         #profile-footer-text,
         .profile-card,
@@ -1755,15 +1651,16 @@
                     else navigate('detail', postName); } else navigate(page); });
 
             // ============================================================
-            // 🔧 SITEMAP GENERATOR - XML murni tanpa HTML
+            // 🔧 SITEMAP GENERATOR - XML murni (perbaikan akhir)
             // ============================================================
             async function generateSitemap() {
                 if (window.location.search !== '?sitemap') return;
 
-                const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
-                let urls = [baseUrl];
-
                 try {
+                    const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
+                    let urls = [baseUrl];
+
+                    // Ambil daftar postingan dari cache atau fetch
                     let postNames = [];
                     const cached = localStorage.getItem(CACHE_KEY);
                     if (cached) {
@@ -1784,22 +1681,26 @@
                     postNames.forEach(name => {
                         urls.push(`${baseUrl}#detail/${name}`);
                     });
-                } catch (e) {
-                    console.warn('Gagal ambil daftar postingan untuk sitemap', e);
-                }
 
-                const now = new Date().toISOString().split('T')[0];
-                const xml = `<?xml version="1.0" encoding="UTF-8"?>
+                    const now = new Date().toISOString().split('T')[0];
+                    const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   ${urls.map(u => `<url><loc>${u}</loc><lastmod>${now}</lastmod></url>`).join('\n  ')}
 </urlset>`;
 
-                // Bersihkan dokumen dan kirim XML
-                document.documentElement.innerHTML = '';
-                document.open('text/xml');
-                document.write(xml);
-                document.close();
+                    // 🔥 METODE PALING AMAN: buka dokumen baru dengan tipe XML
+                    document.open('text/xml', 'replace');
+                    document.write(xml);
+                    document.close();
+                } catch (e) {
+                    // Jika error, tampilkan error di console
+                    console.error('Sitemap error:', e);
+                    document.open('text/plain', 'replace');
+                    document.write('Error generating sitemap: ' + e.message);
+                    document.close();
+                }
 
+                // Hentikan eksekusi lebih lanjut
                 throw new Error('SITEMAP_DISPLAY');
             }
 
@@ -1811,6 +1712,7 @@
                     await generateSitemap();
                 } catch (e) {
                     if (e.message === 'SITEMAP_DISPLAY') return;
+                    console.error('Error:', e);
                 }
                 await renderHome();
                 const { page, postName } = getHashPage();
