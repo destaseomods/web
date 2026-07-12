@@ -1,6 +1,6 @@
 ---
 populer: true
-judul: "GreenTuber MOD VIP"
+judul: "GREENTUBER MOD VIP"
 gambar: "https://image.winudf.com/v2/image1/YnkuZ3JlZW4udHViZXJfaWNvbl8xNzgxMDA3NTYyXzA4MA/icon.webp?w=280&fakeurl=1&type=.webp"
 versi: "0.1.9.5"
 ukuran: "15 MB"
