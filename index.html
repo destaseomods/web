@@ -15,7 +15,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* (CSS sama seperti sebelumnya, saya singkat agar pesan tidak terlalu panjang, tapi tetap lengkap) */
+        /* ============================================================
+           ROOT VARIABLES
+           ============================================================ */
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -34,6 +36,10 @@
             --glow: 0 0 60px rgba(168,127,255,0.4);
             --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { font-size: 16px; -webkit-text-size-adjust: 100%; }
         body {
@@ -64,6 +70,10 @@
             position: relative;
             z-index: 2;
         }
+
+        /* ============================================================
+           TOPBAR & NAVIGATION (sama seperti sebelumnya)
+           ============================================================ */
         .topbar {
             display: flex;
             align-items: center;
@@ -155,6 +165,9 @@
         .telegram-dropdown a:hover { background: rgba(255,255,255,0.05); color: #fff; }
         .telegram-dropdown a i { width: 18px; text-align: center; }
 
+        /* ============================================================
+           SEARCH, CATEGORY, SORT (sama)
+           ============================================================ */
         .search-container { margin: 8px 0 16px; display: flex; gap: 8px; }
         .search-input {
             flex: 1;
@@ -233,6 +246,9 @@
         }
         .sort-select:hover { border-color: var(--accent2); }
 
+        /* ============================================================
+           CAROUSEL
+           ============================================================ */
         .popular-section { margin-bottom: 0; }
         .carousel-wrapper {
             position: relative;
@@ -304,6 +320,9 @@
         }
         @media (min-width: 500px) { .carousel-counter { font-size: 0.75rem; padding: 4px 12px; } }
 
+        /* ============================================================
+           POST GRID
+           ============================================================ */
         .section-divider { border: none; border-top: 3px solid rgba(255,255,255,0.25); margin: 22px 0 20px; }
         .post-grid {
             display: grid;
@@ -313,6 +332,7 @@
         @media (min-width: 420px) { .post-grid { grid-template-columns: repeat(2,1fr); gap: 16px; } }
         @media (min-width: 768px) { .post-grid { grid-template-columns: repeat(2,1fr); gap: 18px; } }
         @media (min-width: 1024px) { .post-grid { grid-template-columns: repeat(3,1fr); gap: 20px; } }
+
         .post-card {
             background: var(--surface);
             backdrop-filter: blur(22px);
@@ -418,6 +438,9 @@
 
         .hidden { display: none !important; }
 
+        /* ============================================================
+           DETAIL & PROFILE (sama)
+           ============================================================ */
         .detail-header,
         .profile-card {
             background: var(--surface);
@@ -1507,10 +1530,14 @@
                     else navigate('detail', postName); } else navigate(page); });
 
             // ============================================================
-            // 🔧 SITEMAP GENERATOR - VERSI PALING SEDERHANA DAN AMAN
+            // 🔧 SITEMAP GENERATOR - VERSI FINAL
             // ============================================================
             async function generateSitemap() {
-                if (window.location.search !== '?sitemap') return;
+                // Deteksi apakah request untuk sitemap
+                const isSitemap = window.location.search === '?sitemap' || 
+                                  window.location.pathname.endsWith('/sitemap.xml');
+
+                if (!isSitemap) return;
 
                 try {
                     const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
@@ -1553,13 +1580,11 @@
                     document.write(xml);
                     document.close();
                 } catch (e) {
-                    // Jika ada error, tampilkan pesan
                     document.open('text/plain', 'replace');
                     document.write('Sitemap error: ' + e.message);
                     document.close();
                 }
 
-                // Hentikan eksekusi
                 throw new Error('SITEMAP_DISPLAY');
             }
 
