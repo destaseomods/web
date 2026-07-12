@@ -285,60 +285,8 @@
             if (AVATAR_URL) { const a = document.getElementById('profile-avatar'); a.style.backgroundImage = `url('${AVATAR_URL}')`; a.textContent = ''; }
 
             // ============================================================
-            // 🚀 GLOBAL COUNTER - Mencoba SEMUA kombinasi abacus
+            // 🚀 GLOBAL COUNTER - PAKAI URL YANG DIBERIKAN
             // ============================================================
-            // Cache untuk menyimpan endpoint yang berhasil
-            let ABACUS_ENDPOINT = null;
-
-            async function discoverAbacusEndpoint(key) {
-                const basePaths = ['/hit', '/count', '/api/hit', '/api/count'];
-                const methods = ['GET', 'POST'];
-                const domain = 'https://abacus.jasoncameron.dev';
-
-                for (const path of basePaths) {
-                    for (const method of methods) {
-                        const url = `${domain}${path}/${key}`;
-                        try {
-                            console.log(`🔍 Mencoba ${method} ${url} ...`);
-                            const controller = new AbortController();
-                            const timeout = setTimeout(() => controller.abort(), 3000);
-                            const res = await fetch(url, { 
-                                method: method,
-                                signal: controller.signal,
-                                headers: { 'Content-Type': 'application/json' }
-                            });
-                            clearTimeout(timeout);
-                            if (res.ok) {
-                                const data = await res.json();
-                                console.log(`✅ BERHASIL: ${method} ${url} ->`, data);
-                                // Cek apakah ada field value atau count
-                                const count = data.value || data.count || data.views || data.hits;
-                                if (typeof count === 'number' && count > 0) {
-                                    // Simpan endpoint yang berhasil
-                                    ABACUS_ENDPOINT = { url, method, parseKey: 'value' in data ? 'value' : ( 'count' in data ? 'count' : null ) };
-                                    if (!ABACUS_ENDPOINT.parseKey) {
-                                        // coba cari field numerik
-                                        for (const k of Object.keys(data)) {
-                                            if (typeof data[k] === 'number') {
-                                                ABACUS_ENDPOINT.parseKey = k;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    return { url, method, data };
-                                }
-                            } else {
-                                console.warn(`⚠️ ${method} ${url} -> ${res.status}`);
-                            }
-                        } catch(e) {
-                            console.warn(`❌ ${method} ${url} -> ${e.message}`);
-                        }
-                    }
-                }
-                return null;
-            }
-
-            // Fungsi untuk mendapatkan counter global
             async function getGlobalViewCount(postName) {
                 const clean = postName.replace(/[^a-zA-Z0-9]/g, '_');
                 const storageKey = 'view_' + clean;
@@ -351,53 +299,41 @@
                     if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
 
-                // Jika hari ini sudah tercatat, pakai lokal
+                // Jika hari ini sudah tercatat, pakai lokal (tanpa API)
                 if (localData && localData.date === today) {
                     console.log(`📊 [${postName}] Pakai cache hari ini: ${localData.count}`);
                     return localData.count;
                 }
 
-                // Coba discovery jika belum pernah
-                if (!ABACUS_ENDPOINT) {
-                    console.log(`🔎 Mencoba menemukan endpoint abacus...`);
-                    const result = await discoverAbacusEndpoint(clean);
-                    if (result) {
-                        console.log(`✅ Endpoint ditemukan: ${ABACUS_ENDPOINT.method} ${ABACUS_ENDPOINT.url}`);
-                        // Simpan discovery di localStorage agar tidak diulang
-                        try {
-                            localStorage.setItem('abacus_endpoint', JSON.stringify(ABACUS_ENDPOINT));
-                        } catch(e) {}
-                    } else {
-                        console.warn(`❌ Tidak ada endpoint abacus yang berfungsi.`);
-                    }
-                }
+                // 🔥 PAKAI URL YANG DIBERIKAN
+                const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/visits`;
 
-                // Jika ada endpoint, gunakan
-                if (ABACUS_ENDPOINT) {
-                    try {
-                        const { url, method, parseKey } = ABACUS_ENDPOINT;
-                        const controller = new AbortController();
-                        const timeout = setTimeout(() => controller.abort(), 5000);
-                        const res = await fetch(url, { 
-                            method: method,
-                            signal: controller.signal,
-                            headers: { 'Content-Type': 'application/json' }
-                        });
-                        clearTimeout(timeout);
-                        if (res.ok) {
-                            const data = await res.json();
-                            const count = parseKey ? data[parseKey] : (data.value || data.count);
-                            if (typeof count === 'number' && count > 0) {
-                                localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
-                                return count;
-                            }
+                try {
+                    console.log(`⏳ Memanggil abacus: ${url}`);
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), 5000);
+                    const res = await fetch(url, { 
+                        method: 'GET',
+                        signal: controller.signal,
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    clearTimeout(timeout);
+                    if (res.ok) {
+                        const data = await res.json();
+                        console.log(`✅ Abacus respons:`, data);
+                        // Coba ambil nilai dari berbagai kemungkinan field
+                        const count = data.value || data.count || data.views || data.hits || 1;
+                        if (typeof count === 'number' && count > 0) {
+                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                            return count;
+                        } else {
+                            console.warn(`⚠️ Abacus mengembalikan count tidak valid:`, count);
                         }
-                    } catch(e) {
-                        console.warn(`❌ Gagal memanggil endpoint abacus:`, e.message);
-                        // reset endpoint jika gagal
-                        ABACUS_ENDPOINT = null;
-                        localStorage.removeItem('abacus_endpoint');
+                    } else {
+                        console.warn(`⚠️ Abacus response ${res.status}`);
                     }
+                } catch (e) {
+                    console.warn(`❌ Abacus error:`, e.message);
                 }
 
                 // Fallback ke localStorage
@@ -407,18 +343,6 @@
                 localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
                 return newCount;
             }
-
-            // Coba muat endpoint dari localStorage
-            try {
-                const saved = localStorage.getItem('abacus_endpoint');
-                if (saved) {
-                    const ep = JSON.parse(saved);
-                    if (ep && ep.url && ep.method) {
-                        ABACUS_ENDPOINT = ep;
-                        console.log(`📦 Endpoint abacus dimuat dari cache: ${ep.method} ${ep.url}`);
-                    }
-                }
-            } catch(e) {}
 
             // ============================================================
             // EVENT LISTENER & NAVIGASI
@@ -581,7 +505,7 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🔥 Ambil counter global dengan abacus discovery
+                // 🔥 Ambil counter global dari abacus
                 const viewCount = await getGlobalViewCount(name);
 
                 detailContent.innerHTML = `
