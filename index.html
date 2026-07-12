@@ -1140,32 +1140,34 @@
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: var(--radius);
-            padding: 32px 28px;
+            padding: 28px 24px 20px;
             box-shadow: var(--shadow-premium);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .profile-container {
             display: flex;
             align-items: center;
-            gap: 32px;
+            gap: 24px;
             flex-wrap: wrap;
         }
         .profile-avatar {
-            width: 110px;
-            height: 110px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             background-size: cover;
             background-position: center;
-            border: 2px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            /* border dihapus */
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
             flex-shrink: 0;
         }
         .profile-info {
             flex: 1;
-            min-width: 200px;
+            min-width: 160px;
         }
         .profile-name {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: #fff;
             margin-bottom: 2px;
@@ -1174,7 +1176,7 @@
         .profile-badges {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             margin-bottom: 4px;
         }
         .badge-verified {
@@ -1196,8 +1198,8 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.04);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             padding: 2px 14px;
             border-radius: 30px;
             font-size: 0.7rem;
@@ -1209,49 +1211,39 @@
         }
         .profile-bio {
             color: var(--text2);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin-bottom: 2px;
         }
         .profile-bio i {
             color: var(--accent2);
             margin-right: 6px;
         }
-        .profile-location {
-            font-size: 0.8rem;
-            color: var(--text2);
-            opacity: 0.7;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .profile-location i {
-            color: var(--accent2);
-        }
+        /* location dihapus */
 
         /* ===== LINKS ===== */
         .profile-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px 20px;
+            gap: 10px 16px;
             justify-content: center;
-            padding-top: 24px;
-            margin-top: 24px;
+            padding-top: 18px;
+            margin-top: 18px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
         }
         .link-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
         .social-link {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 6px 18px;
+            padding: 5px 16px;
             border-radius: 40px;
             color: var(--text);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             transition: all 0.25s ease;
             display: flex;
             align-items: center;
@@ -1286,12 +1278,12 @@
 
         /* ===== FOOTER ===== */
         .profile-footer {
-            margin-top: 20px;
+            margin-top: 16px;
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: var(--text2);
             border-top: 1px solid rgba(255, 255, 255, 0.02);
-            padding-top: 16px;
+            padding-top: 14px;
         }
         .profile-footer i {
             color: var(--accent2);
@@ -1507,12 +1499,14 @@
            RESPONSIVE
            ============================================================ */
         @media (max-width: 640px) {
-            .profile-card { padding: 20px 16px; }
+            .profile-card {
+                padding: 20px 16px 16px;
+            }
             .profile-container {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
-                gap: 16px;
+                gap: 12px;
             }
             .profile-info {
                 text-align: center;
@@ -1523,7 +1517,7 @@
             .profile-links {
                 flex-direction: column;
                 align-items: center;
-                gap: 12px;
+                gap: 10px;
             }
             .link-group {
                 justify-content: center;
@@ -1604,10 +1598,25 @@
             .carousel-dot.active {
                 width: 18px;
             }
+            .profile-avatar {
+                width: 72px;
+                height: 72px;
+            }
+            .profile-name {
+                font-size: 1.3rem;
+            }
         }
         @media (max-width: 400px) {
-            .profile-avatar { width: 80px; height: 80px; }
-            .profile-name { font-size: 1.4rem; }
+            .profile-avatar {
+                width: 64px;
+                height: 64px;
+            }
+            .profile-name {
+                font-size: 1.1rem;
+            }
+            .profile-card {
+                padding: 16px 12px 14px;
+            }
         }
         @media (min-width: 768px) {
             .rekomendasi-grid {
@@ -1737,7 +1746,7 @@
             <div id="detail-content"></div>
         </section>
 
-        <!-- PROFILE - ELEGAN & MODERN -->
+        <!-- PROFILE - ELEGAN & MODERN (REDESIGN) -->
         <section id="profile-section" class="hidden" aria-label="Profil">
             <div class="profile-card">
                 <div class="profile-container">
@@ -1751,9 +1760,7 @@
                         <p class="profile-bio" id="profile-bio">
                             <i class="fas fa-code"></i> Premium modder &amp; content creator
                         </p>
-                        <div class="profile-location">
-                            <i class="fas fa-map-pin"></i> Nganjuk, Jawa Timur
-                        </div>
+                        <!-- location dihapus -->
                     </div>
                 </div>
 
