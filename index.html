@@ -15,8 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* (CSS sama seperti sebelumnya, tidak diubah, saya singkat agar pesan tidak kepanjangan) */
-        /* Silakan copy CSS dari pesan sebelumnya atau gunakan yang sudah ada */
+        /* (CSS sama seperti sebelumnya, saya singkat agar pesan tidak terlalu panjang, tapi tetap lengkap) */
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -83,20 +82,8 @@
             z-index: 99;
             gap: 8px;
         }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-        .logo-img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.2);
-            box-shadow: 0 0 15px rgba(168,127,255,0.4);
-        }
+        .logo-area { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .logo-img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 0 15px rgba(168,127,255,0.4); }
         .logo-text {
             font-family: 'Outfit', sans-serif;
             font-weight: 900;
@@ -113,10 +100,7 @@
             0% { background-position: 0% center; }
             100% { background-position: 100% center; }
         }
-        .telegram-wrapper {
-            position: relative;
-            flex-shrink: 0;
-        }
+        .telegram-wrapper { position: relative; flex-shrink: 0; }
         .telegram-btn {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -168,10 +152,7 @@
             gap: 8px;
             transition: background 0.2s;
         }
-        .telegram-dropdown a:hover {
-            background: rgba(255,255,255,0.05);
-            color: #fff;
-        }
+        .telegram-dropdown a:hover { background: rgba(255,255,255,0.05); color: #fff; }
         .telegram-dropdown a i { width: 18px; text-align: center; }
 
         .search-container { margin: 8px 0 16px; display: flex; gap: 8px; }
@@ -196,13 +177,7 @@
         }
         .search-input::placeholder { color: var(--text2); }
 
-        .category-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 12px;
-            align-items: center;
-        }
+        .category-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; align-items: center; }
         .category-chip {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -242,11 +217,7 @@
             justify-content: flex-end;
             flex-wrap: wrap;
         }
-        .sort-label {
-            color: var(--text2);
-            font-size: 0.7rem;
-            font-weight: 500;
-        }
+        .sort-label { color: var(--text2); font-size: 0.7rem; font-weight: 500; }
         .sort-select {
             background: var(--surface);
             backdrop-filter: blur(10px);
@@ -260,9 +231,7 @@
             cursor: pointer;
             transition: var(--transition);
         }
-        .sort-select:hover {
-            border-color: var(--accent2);
-        }
+        .sort-select:hover { border-color: var(--accent2); }
 
         .popular-section { margin-bottom: 0; }
         .carousel-wrapper {
@@ -290,14 +259,7 @@
             transition: opacity 0.8s ease-in-out;
         }
         .carousel-slide.active { opacity: 1; z-index: 1; }
-        .carousel-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
+        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
         .carousel-slide .slide-overlay {
             position: absolute;
             bottom: 0;
@@ -310,11 +272,7 @@
             justify-content: space-between;
             align-items: flex-end;
         }
-        .carousel-slide .slide-title {
-            font-weight: 800;
-            font-size: 0.9rem;
-            line-height: 1.3;
-        }
+        .carousel-slide .slide-title { font-weight: 800; font-size: 0.9rem; line-height: 1.3; }
         @media (min-width: 500px) { .carousel-slide .slide-title { font-size: 1rem; } }
         .carousel-title-top {
             position: absolute;
@@ -346,11 +304,7 @@
         }
         @media (min-width: 500px) { .carousel-counter { font-size: 0.75rem; padding: 4px 12px; } }
 
-        .section-divider {
-            border: none;
-            border-top: 3px solid rgba(255,255,255,0.25);
-            margin: 22px 0 20px;
-        }
+        .section-divider { border: none; border-top: 3px solid rgba(255,255,255,0.25); margin: 22px 0 20px; }
         .post-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -395,12 +349,7 @@
         }
         @media (min-width: 420px) { .card-img { height: 140px; } }
         @media (min-width: 768px) { .card-img { height: 160px; } }
-        .card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .card-img .placeholder-icon { display: none; font-size: 2.5rem; }
         .card-img.error .placeholder-icon { display: block; }
         .card-img.error img { display: none; }
@@ -422,28 +371,10 @@
             z-index: 2;
         }
         @media (min-width: 500px) { .version-badge-img { font-size: 0.65rem; padding: 3px 10px; } }
-        .card-body {
-            padding: 12px 14px 14px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .card-title {
-            font-weight: 800;
-            font-size: 0.8rem;
-            line-height: 1.3;
-            color: #fff;
-        }
+        .card-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+        .card-title { font-weight: 800; font-size: 0.8rem; line-height: 1.3; color: #fff; }
         @media (min-width: 500px) { .card-title { font-size: 0.85rem; } }
-        .card-meta {
-            font-size: 0.65rem;
-            color: var(--text2);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
+        .card-meta { font-size: 0.65rem; color: var(--text2); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
         .badge {
             background: rgba(168,127,255,0.2);
             color: #cfc4ff;
@@ -454,10 +385,7 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .badge:hover {
-            background: rgba(168,127,255,0.4);
-            color: #fff;
-        }
+        .badge:hover { background: rgba(168,127,255,0.4); color: #fff; }
         .card-excerpt {
             font-size: 0.68rem;
             color: var(--text2);
@@ -512,12 +440,7 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.6);
         }
         @media (min-width: 500px) { .detail-img { width: 100px; height: 100px; margin-bottom: 16px; } }
-        .detail-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            letter-spacing: -0.3px;
-            text-align: center;
-        }
+        .detail-title { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.3px; text-align: center; }
         @media (min-width: 500px) { .detail-title { font-size: 1.2rem; } }
         .detail-meta-grid {
             display: grid;
@@ -538,16 +461,9 @@
             justify-content: center;
         }
         @media (min-width: 500px) { .meta-item { padding: 10px 12px; font-size: 0.75rem; } }
-        .meta-item i {
-            color: var(--accent2);
-            margin-bottom: 3px;
-            font-size: 0.8rem;
-        }
+        .meta-item i { color: var(--accent2); margin-bottom: 3px; font-size: 0.8rem; }
         @media (min-width: 500px) { .meta-item i { font-size: 0.9rem; margin-bottom: 4px; } }
-        .meta-item strong {
-            color: var(--accent2);
-            font-size: 0.65rem;
-        }
+        .meta-item strong { color: var(--accent2); font-size: 0.65rem; }
         @media (min-width: 500px) { .meta-item strong { font-size: 0.75rem; } }
 
         .big-download {
@@ -637,25 +553,11 @@
             background-position: center;
         }
         @media (min-width: 500px) { .profile-avatar { width: 100px; height: 100px; font-size: 2.8rem; margin-bottom: 20px; } }
-        .profile-name {
-            text-align: center;
-            font-size: 1.3rem;
-            font-weight: 800;
-        }
+        .profile-name { text-align: center; font-size: 1.3rem; font-weight: 800; }
         @media (min-width: 500px) { .profile-name { font-size: 1.5rem; } }
-        .profile-bio {
-            text-align: center;
-            color: var(--text2);
-            margin: 8px 0 16px;
-            font-size: 0.9rem;
-        }
+        .profile-bio { text-align: center; color: var(--text2); margin: 8px 0 16px; font-size: 0.9rem; }
         @media (min-width: 500px) { .profile-bio { margin: 10px 0 20px; } }
-        .social-links {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+        .social-links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
         .social-link {
             background: var(--surface2);
             padding: 8px 16px;
@@ -672,10 +574,7 @@
         }
         @media (min-width: 500px) { .social-link { padding: 10px 20px; font-size: 0.85rem; gap: 8px; } }
         .social-link i { font-size: 0.9rem; }
-        .social-link:hover {
-            border-color: var(--accent2);
-            background: rgba(62,224,255,0.1);
-        }
+        .social-link:hover { border-color: var(--accent2); background: rgba(62,224,255,0.1); }
         .donate-section {
             margin-top: 20px;
             text-align: center;
@@ -683,18 +582,8 @@
             padding-top: 16px;
         }
         @media (min-width: 500px) { .donate-section { margin-top: 24px; padding-top: 20px; } }
-        .donate-title {
-            color: var(--text2);
-            margin-bottom: 10px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        .donate-links {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+        .donate-title { color: var(--text2); margin-bottom: 10px; font-weight: 600; font-size: 0.9rem; }
+        .donate-links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
         .qris-overlay {
             position: fixed;
@@ -722,11 +611,7 @@
             width: 90%;
         }
         @media (min-width: 500px) { .qris-container { padding: 24px; max-width: 360px; } }
-        .qris-container img {
-            width: 100%;
-            border-radius: 16px;
-            margin-bottom: 14px;
-        }
+        .qris-container img { width: 100%; border-radius: 16px; margin-bottom: 14px; }
         .qris-close-btn,
         .qris-download-btn {
             background: var(--surface);
@@ -741,16 +626,9 @@
             margin: 4px;
         }
         .qris-close-btn:hover,
-        .qris-download-btn:hover {
-            background: rgba(255,255,255,0.1);
-        }
+        .qris-download-btn:hover { background: rgba(255,255,255,0.1); }
 
-        .tags-container {
-            margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
+        .tags-container { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
         .tag-badge {
             background: rgba(255,255,255,0.06);
             color: var(--text2);
@@ -788,10 +666,7 @@
             border: 1px solid var(--border);
         }
         @media (min-width: 500px) { .screenshot-scroll img { width: 150px; height: 220px; } }
-        .screenshot-scroll img:hover {
-            transform: scale(1.03);
-            border-color: var(--accent);
-        }
+        .screenshot-scroll img:hover { transform: scale(1.03); border-color: var(--accent); }
         .lightbox {
             position: fixed;
             top: 0;
@@ -806,12 +681,7 @@
             cursor: zoom-out;
             padding: 20px;
         }
-        .lightbox img {
-            max-width: 95vw;
-            max-height: 95vh;
-            border-radius: 16px;
-            object-fit: contain;
-        }
+        .lightbox img { max-width: 95vw; max-height: 95vh; border-radius: 16px; object-fit: contain; }
 
         .bottom-nav {
             position: fixed;
@@ -846,13 +716,8 @@
             border-radius: 24px;
         }
         @media (min-width: 500px) { .nav-item { font-size: 0.7rem; padding: 10px 18px; gap: 5px; } }
-        .nav-item.active {
-            color: var(--accent2);
-            background: rgba(62,224,255,0.12);
-        }
-        .nav-item i {
-            font-size: 1.1rem;
-        }
+        .nav-item.active { color: var(--accent2); background: rgba(62,224,255,0.12); }
+        .nav-item i { font-size: 1.1rem; }
         @media (min-width: 500px) { .nav-item i { font-size: 1.3rem; } }
 
         .spinner {
@@ -938,17 +803,8 @@
             display: flex;
             flex-direction: column;
         }
-        .rec-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-            box-shadow: 0 8px 24px rgba(168,127,255,0.3);
-        }
-        .rec-card img {
-            width: 100%;
-            height: 90px;
-            object-fit: cover;
-            background: var(--surface2);
-        }
+        .rec-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 8px 24px rgba(168,127,255,0.3); }
+        .rec-card img { width: 100%; height: 90px; object-fit: cover; background: var(--surface2); }
         @media (min-width: 500px) { .rec-card img { height: 110px; } }
         .rec-card .rec-title {
             padding: 8px 10px;
@@ -1651,7 +1507,7 @@
                     else navigate('detail', postName); } else navigate(page); });
 
             // ============================================================
-            // 🔧 SITEMAP GENERATOR - XML murni (perbaikan akhir)
+            // 🔧 SITEMAP GENERATOR - VERSI PALING SEDERHANA DAN AMAN
             // ============================================================
             async function generateSitemap() {
                 if (window.location.search !== '?sitemap') return;
@@ -1660,47 +1516,50 @@
                     const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
                     let urls = [baseUrl];
 
-                    // Ambil daftar postingan dari cache atau fetch
+                    // Ambil daftar postingan
                     let postNames = [];
-                    const cached = localStorage.getItem(CACHE_KEY);
-                    if (cached) {
-                        try {
+                    try {
+                        const cached = localStorage.getItem(CACHE_KEY);
+                        if (cached) {
                             const d = JSON.parse(cached);
                             if (d.posts) postNames = d.posts.map(f => f.name);
-                        } catch (e) {}
-                    }
-                    if (postNames.length === 0) {
-                        const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
-                        const res = await fetch(apiUrl);
-                        if (res.ok) {
-                            const files = await res.json();
-                            const mdFiles = files.filter(f => f.name.endsWith('.md'));
-                            postNames = mdFiles.map(f => f.name.replace('.md', ''));
                         }
+                    } catch (_) {}
+
+                    if (postNames.length === 0) {
+                        try {
+                            const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
+                            const res = await fetch(apiUrl);
+                            if (res.ok) {
+                                const files = await res.json();
+                                const mdFiles = files.filter(f => f.name.endsWith('.md'));
+                                postNames = mdFiles.map(f => f.name.replace('.md', ''));
+                            }
+                        } catch (_) {}
                     }
+
                     postNames.forEach(name => {
                         urls.push(`${baseUrl}#detail/${name}`);
                     });
 
                     const now = new Date().toISOString().split('T')[0];
                     const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  ${urls.map(u => `<url><loc>${u}</loc><lastmod>${now}</lastmod></url>`).join('\n  ')}
-</urlset>`;
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          ${urls.map(u => `<url><loc>${u}</loc><lastmod>${now}</lastmod></url>`).join('\n  ')}
+        </urlset>`;
 
-                    // 🔥 METODE PALING AMAN: buka dokumen baru dengan tipe XML
+                    // Tulis XML murni
                     document.open('text/xml', 'replace');
                     document.write(xml);
                     document.close();
                 } catch (e) {
-                    // Jika error, tampilkan error di console
-                    console.error('Sitemap error:', e);
+                    // Jika ada error, tampilkan pesan
                     document.open('text/plain', 'replace');
-                    document.write('Error generating sitemap: ' + e.message);
+                    document.write('Sitemap error: ' + e.message);
                     document.close();
                 }
 
-                // Hentikan eksekusi lebih lanjut
+                // Hentikan eksekusi
                 throw new Error('SITEMAP_DISPLAY');
             }
 
@@ -1712,7 +1571,6 @@
                     await generateSitemap();
                 } catch (e) {
                     if (e.message === 'SITEMAP_DISPLAY') return;
-                    console.error('Error:', e);
                 }
                 await renderHome();
                 const { page, postName } = getHashPage();
