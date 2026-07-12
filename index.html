@@ -277,7 +277,7 @@
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) { const a = document.getElementById('profile-avatar'); a.style.backgroundImage = `url('${AVATAR_URL}')`; a.textContent = ''; }
 
-            // 🔧 COUNTER FINAL – API priority, fallback increment lokal jika API gagal
+            // 🔧 COUNTER SEDERHANA & ROBUST
             async function getGlobalCount(name) {
                 const cleanName = name.replace(/[^a-zA-Z0-9]/g, '') || 'default';
                 const apiKey = `destaseomods_${cleanName}`;
@@ -296,8 +296,9 @@
                     }
                 } catch (_) {}
 
-                // Jika hari ini sudah tercatat, langsung return (tidak perlu API)
+                // Jika hari ini sudah tercatat, kembalikan angka (tidak nambah)
                 if (storedData && storedData.date === today) {
+                    console.log(`📊 [${name}] Menggunakan cache hari ini: ${storedData.count}`);
                     return storedData.count;
                 }
 
@@ -305,10 +306,7 @@
                 let apiSuccess = false;
                 let apiCount = 1;
                 try {
-                    const controller = new AbortController();
-                    const timeout = setTimeout(() => controller.abort(), 5000);
-                    const res = await fetch(`https://api.countapi.xyz/hit/${apiKey}`, { signal: controller.signal });
-                    clearTimeout(timeout);
+                    const res = await fetch(`https://api.countapi.xyz/hit/${apiKey}`);
                     if (res.ok) {
                         const data = await res.json();
                         if (typeof data.value === 'number' && data.value > 0) {
@@ -316,16 +314,20 @@
                             apiSuccess = true;
                         }
                     }
-                } catch (_) {}
+                } catch (e) {
+                    console.warn(`⚠️ API gagal untuk ${name}:`, e.message);
+                }
 
                 if (apiSuccess) {
+                    console.log(`✅ [${name}] API berhasil → ${apiCount}`);
                     localStorage.setItem(storageKey, JSON.stringify({ count: apiCount, date: today }));
                     return apiCount;
                 }
 
-                // ⚠️ API GAGAL → fallback: increment dari data lokal
+                // FALLBACK: increment dari data lokal terakhir
                 const previousCount = (storedData && typeof storedData.count === 'number') ? storedData.count : 0;
                 const newCount = previousCount + 1;
+                console.log(`🔄 [${name}] Fallback lokal → ${newCount} (sebelumnya ${previousCount})`);
                 localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
                 return newCount;
             }
