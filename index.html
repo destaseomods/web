@@ -3,28 +3,20 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    
-    <!-- SEO Meta -->
     <title>Destaseo Mods • Premium Mod APK</title>
     <meta name="description" content="Download mod APK premium terbaru dari Destaseo Mods." />
     <meta name="keywords" content="mod apk, destaseo, premium mod, game mod, android mod" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://destaseomods.web.id/" />
-    
-    <!-- Open Graph -->
     <meta property="og:title" content="Destaseo Mods • Premium Mod APK" />
     <meta property="og:description" content="Download mod APK premium terbaru dari Destaseo Mods." />
     <meta property="og:image" content="https://avatars.githubusercontent.com/u/189899710?v=4" />
     <meta property="og:url" content="https://destaseomods.web.id/" />
     <meta property="og:type" content="website" />
-    
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Destaseo Mods • Premium Mod APK" />
     <meta name="twitter:description" content="Download mod APK premium terbaru dari Destaseo Mods." />
     <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/189899710?v=4" />
-    
-    <!-- JSON-LD -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -33,20 +25,16 @@
         "url": "https://destaseomods.web.id/"
     }
     </script>
-
     <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/189899710?v=4" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    </noscript>
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" /></noscript>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
 
     <style>
-        /* ===== RESET & VARIABLES ===== */
         *,
         *::before,
         *::after {
@@ -90,6 +78,9 @@
             -webkit-tap-highlight-color: transparent;
             overflow-x: hidden;
         }
+        body.no-scroll {
+            overflow: hidden !important;
+        }
         canvas#particles {
             position: fixed;
             top: 0;
@@ -108,7 +99,6 @@
             position: relative;
             z-index: 2;
         }
-        /* ===== TOPBAR ===== */
         .topbar {
             display: flex;
             align-items: center;
@@ -223,8 +213,6 @@
             width: 18px;
             text-align: center;
         }
-
-        /* ===== SEARCH ===== */
         .search-container {
             margin: 8px 0 14px;
             display: flex;
@@ -252,8 +240,6 @@
         .search-input::placeholder {
             color: var(--text2);
         }
-
-        /* ===== CATEGORY ===== */
         .category-bar {
             display: flex;
             flex-wrap: wrap;
@@ -292,8 +278,6 @@
             cursor: pointer;
             padding: 5px 10px;
         }
-
-        /* ===== SORT ===== */
         .sort-bar {
             display: flex;
             align-items: center;
@@ -323,8 +307,6 @@
         .sort-select:hover {
             border-color: var(--accent2);
         }
-
-        /* ===== CAROUSEL ===== */
         .popular-section {
             margin-bottom: 0;
         }
@@ -416,8 +398,6 @@
             border-top: 3px solid rgba(255, 255, 255, 0.2);
             margin: 18px 0 16px;
         }
-
-        /* ===== POST GRID ===== */
         .post-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -564,11 +544,7 @@
             display: none !important;
         }
 
-        /* ================================================================
-           DETAIL PAGE - PREMIUM STYLE
-           ================================================================ */
-
-        /* --- Header Detail Premium --- */
+        /* ===== DETAIL PREMIUM ===== */
         .detail-header {
             background: var(--surface);
             backdrop-filter: blur(30px);
@@ -581,7 +557,6 @@
             position: relative;
             overflow: hidden;
         }
-        /* Efek glowing background */
         .detail-header::before {
             content: '';
             position: absolute;
@@ -598,8 +573,6 @@
             position: relative;
             z-index: 1;
         }
-
-        /* Gambar detail premium */
         .detail-img {
             display: block;
             width: clamp(100px, 18vw, 130px);
@@ -616,8 +589,6 @@
             transform: scale(1.04);
             box-shadow: 0 0 0 4px rgba(168, 127, 255, 0.5), 0 0 0 12px rgba(168, 127, 255, 0.12), 0 20px 60px rgba(0, 0, 0, 0.7);
         }
-
-        /* Judul detail premium */
         .detail-title {
             font-size: clamp(1.5rem, 4vw, 2rem);
             font-weight: 800;
@@ -640,8 +611,6 @@
                 background-position: 100% center;
             }
         }
-
-        /* Subtitle / badge kategori premium di bawah judul */
         .detail-subtitle {
             text-align: center;
             color: var(--text2);
@@ -665,8 +634,6 @@
             letter-spacing: 0.3px;
             text-transform: uppercase;
         }
-
-        /* --- Meta Grid Premium --- */
         .detail-meta-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
@@ -690,7 +657,6 @@
             overflow: hidden;
             min-height: 80px;
         }
-        /* Efek gradien border */
         .meta-item::before {
             content: '';
             position: absolute;
@@ -713,8 +679,6 @@
         .meta-item:hover::before {
             background: linear-gradient(135deg, var(--accent), var(--accent2));
         }
-
-        /* Icon meta dengan gradient background */
         .meta-item .meta-icon {
             width: 38px;
             height: 38px;
@@ -733,7 +697,6 @@
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(168, 127, 255, 0.2);
         }
-
         .meta-item .meta-label {
             font-size: clamp(0.55rem, 0.9vw, 0.65rem);
             font-weight: 600;
@@ -758,7 +721,7 @@
             background-clip: text;
         }
 
-        /* --- Screenshot premium --- */
+        /* Screenshot Gallery - FIXED */
         .screenshot-scroll {
             display: flex;
             flex-wrap: nowrap;
@@ -801,7 +764,70 @@
             border-color: rgba(168, 127, 255, 0.3);
         }
 
-        /* --- Tags premium --- */
+        /* LIGHTBOX - FIXED */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 300;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: fadeIn 0.3s ease;
+            padding: 20px;
+        }
+        .lightbox-overlay .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2.2rem;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            background: none;
+            border: none;
+            opacity: 0.7;
+            z-index: 301;
+        }
+        .lightbox-overlay .lightbox-close:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+        }
+        .lightbox-overlay img {
+            max-width: 95vw;
+            max-height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            object-fit: contain;
+            animation: zoomIn 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.85);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Tags */
         .tags-container {
             margin-top: 16px;
             display: flex;
@@ -833,7 +859,7 @@
             transform: translateY(-2px);
         }
 
-        /* --- Tombol Download Premium --- */
+        /* Download */
         .big-download {
             display: flex;
             align-items: center;
@@ -889,7 +915,7 @@
             box-shadow: none;
         }
 
-        /* --- Konten Deskripsi Premium --- */
+        /* Content */
         .content-box {
             background: var(--surface);
             backdrop-filter: blur(24px);
@@ -979,8 +1005,6 @@
             color: #c8c8e0;
             font-style: italic;
         }
-
-        /* --- Back Button Premium --- */
         .back-btn {
             background: none;
             border: none;
@@ -1131,7 +1155,7 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
-        /* ===== REKOMENDASI PREMIUM ===== */
+        /* ===== REKOMENDASI ===== */
         .rekomendasi-section {
             margin-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -1230,8 +1254,6 @@
         .nav-item i {
             font-size: clamp(1.1rem, 2.5vw, 1.4rem);
         }
-
-        /* ===== LOADING ===== */
         .spinner {
             width: 40px;
             height: 40px;
@@ -1326,6 +1348,11 @@
             .detail-img {
                 width: 80px;
                 height: 80px;
+            }
+            .lightbox-overlay .lightbox-close {
+                top: 10px;
+                right: 16px;
+                font-size: 1.8rem;
             }
         }
         @media (min-width: 768px) {
@@ -1536,7 +1563,7 @@
             let isDetailMode = false;
             let isInitialLoad = true;
 
-            // ===== PARTICLES (optimized) =====
+            // ===== PARTICLES =====
             const canvas = document.getElementById('particles');
             if (canvas && window.innerWidth > 640) {
                 const ctx = canvas.getContext('2d');
@@ -1970,21 +1997,83 @@
                 }
             }
 
-            // ===== SCREENSHOT =====
+            // ===== LIGHTBOX (FIXED) =====
+            function openLightbox(url) {
+                // remove existing lightbox if any
+                const existing = document.querySelector('.lightbox-overlay');
+                if (existing) existing.remove();
+
+                const overlay = document.createElement('div');
+                overlay.className = 'lightbox-overlay';
+                overlay.innerHTML = `
+                    <button class="lightbox-close" aria-label="Tutup"><i class="fas fa-times"></i></button>
+                    <img src="${url}" alt="Screenshot" loading="lazy" />
+                `;
+                document.body.appendChild(overlay);
+                document.body.classList.add('no-scroll');
+
+                // close on background click
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay || e.target.closest('.lightbox-close')) {
+                        closeLightbox(overlay);
+                    }
+                });
+
+                // close with Escape key
+                const escHandler = function(e) {
+                    if (e.key === 'Escape') {
+                        closeLightbox(overlay);
+                        document.removeEventListener('keydown', escHandler);
+                    }
+                };
+                document.addEventListener('keydown', escHandler);
+
+                // close button
+                overlay.querySelector('.lightbox-close').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    closeLightbox(overlay);
+                });
+            }
+
+            function closeLightbox(overlay) {
+                if (overlay && overlay.parentNode) {
+                    overlay.remove();
+                    document.body.classList.remove('no-scroll');
+                } else {
+                    const existing = document.querySelector('.lightbox-overlay');
+                    if (existing) {
+                        existing.remove();
+                        document.body.classList.remove('no-scroll');
+                    }
+                }
+            }
+
+            // ===== SCREENSHOT GALLERY (FIXED - no inline onclick) =====
             function buildScreenshotGallery(str) {
                 if (!str) return '';
                 const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
                 if (urls.length === 0) return '';
                 const lim = urls.slice(0, 5);
-                return `<div class="screenshot-scroll">${lim.map(u => `<img src="${u}" alt="Screenshot" loading="lazy" decoding="async" onclick="event.stopPropagation(); openLightbox('${u}')">`).join('')}</div>`;
+                return `<div class="screenshot-scroll" data-gallery="true">
+                    ${lim.map(u => `<img src="${u}" alt="Screenshot" loading="lazy" decoding="async" data-src="${u}">`).join('')}
+                </div>`;
             }
-            window.openLightbox = function(url) {
-                const lb = document.createElement('div');
-                lb.className = 'lightbox';
-                lb.innerHTML = `<img src="${url}" alt="Screenshot" loading="lazy">`;
-                lb.addEventListener('click', () => lb.remove());
-                document.body.appendChild(lb);
-            };
+
+            function attachGalleryEvents(container) {
+                const gallery = container.querySelector('.screenshot-scroll[data-gallery="true"]');
+                if (gallery) {
+                    gallery.addEventListener('click', function(e) {
+                        const img = e.target.closest('img');
+                        if (img) {
+                            const src = img.dataset.src || img.src;
+                            if (src && src !== '#') {
+                                e.stopPropagation();
+                                openLightbox(src);
+                            }
+                        }
+                    });
+                }
+            }
 
             // ===== DOWNLOAD =====
             function startDownloadWithAd(btn, url) {
@@ -2137,7 +2226,6 @@
                 const recPosts = getRecommendedPosts(post, 4);
                 const recHtml = renderRecommendedPosts(recPosts, post);
 
-                // Subtitle dengan kategori premium
                 const subtitleHtml = kategori ?
                     `<div class="detail-subtitle">
                         <span class="cat-badge-premium"><i class="fas fa-folder"></i> ${kategori}</span>
@@ -2181,6 +2269,9 @@
                     ${downloadBtn}
                     ${recHtml}
                 `;
+
+                // Attach gallery events (FIXED)
+                attachGalleryEvents(detailContent);
 
                 if (hasDownload) {
                     const dBtn = document.getElementById('detail-download-btn');
