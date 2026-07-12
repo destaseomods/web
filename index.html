@@ -278,14 +278,29 @@
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) { const a = document.getElementById('profile-avatar'); a.style.backgroundImage = `url('${AVATAR_URL}')`; a.textContent = ''; }
 
-            // 🎯 Counter paling sederhana: increment setiap kali dipanggil
-            function incrementViewCount(postName) {
+            // 🎯 DAILY UNIQUE VIEW (hanya bertambah 1x per hari per perangkat)
+            function getDailyViewCount(postName) {
                 const key = 'view_' + postName;
-                let current = parseInt(localStorage.getItem(key), 10) || 0;
-                current += 1;
-                localStorage.setItem(key, current);
-                console.log(`📈 [${postName}] view sekarang: ${current}`);
-                return current;
+                const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+                let data = null;
+                try {
+                    const raw = localStorage.getItem(key);
+                    if (raw) data = JSON.parse(raw);
+                } catch (_) {}
+
+                // Jika data ada dan tanggalnya hari ini → kembalikan tanpa nambah
+                if (data && data.date === today) {
+                    console.log(`📊 [${postName}] Daily view hari ini: ${data.count}`);
+                    return data.count;
+                }
+
+                // Hari baru atau belum ada data → increment +1
+                const prevCount = (data && typeof data.count === 'number') ? data.count : 0;
+                const newCount = prevCount + 1;
+                localStorage.setItem(key, JSON.stringify({ count: newCount, date: today }));
+                console.log(`📈 [${postName}] Daily view baru: ${newCount}`);
+                return newCount;
             }
 
             telegramBtn.addEventListener('click', (e) => { e.stopPropagation(); telegramDropdown.classList.toggle('show'); });
@@ -437,8 +452,8 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🎯 Increment view counter (setiap buka halaman +1)
-                const viewCount = incrementViewCount(name);
+                // 🎯 Ambil daily view
+                const viewCount = getDailyViewCount(name);
 
                 detailContent.innerHTML = `
                 <div class="detail-header">
