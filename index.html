@@ -560,6 +560,38 @@
             display: none !important;
         }
 
+        /* ===== SPINNER & EMPTY/ERROR DI TENGAH ===== */
+        #post-container .spinner,
+        #post-container .empty-text,
+        #post-container .error-text {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin: 40px auto;
+        }
+        #post-container .spinner {
+            margin: 60px auto;
+        }
+        #post-container .empty-text,
+        #post-container .error-text {
+            margin: 40px auto;
+            max-width: 100%;
+        }
+        .empty-text,
+        .error-text {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text2);
+            background: rgba(255, 0, 0, 0.07);
+            border-radius: 24px;
+            font-size: clamp(0.85rem, 1.5vw, 1rem);
+        }
+        .empty-text {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
         /* ===== DETAIL ===== */
         .detail-header,
         .profile-card {
@@ -917,11 +949,9 @@
             font-size: clamp(1.1rem, 2.5vw, 1.4rem);
         }
 
-        /* ===== LOADING ===== */
         .spinner {
             width: 40px;
             height: 40px;
-            margin: 40px auto;
             border: 3px solid rgba(255, 255, 255, 0.06);
             border-top-color: var(--accent2);
             border-radius: 50%;
@@ -932,16 +962,7 @@
                 transform: rotate(360deg);
             }
         }
-        .empty-text,
-        .error-text {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text2);
-            background: rgba(255, 0, 0, 0.07);
-            border-radius: 24px;
-            margin: 20px 0;
-            font-size: clamp(0.85rem, 1.5vw, 1rem);
-        }
+
         .filter-indicator {
             display: flex;
             align-items: center;
@@ -1044,6 +1065,9 @@
             }
             .carousel-slide .slide-title {
                 font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+            }
+            #post-container .spinner {
+                margin: 40px auto;
             }
         }
         @media (min-width: 768px) {
@@ -1795,9 +1819,8 @@
                 });
             }
 
-            // ===== DETAIL (FIX: langsung tampilkan loading) =====
+            // ===== DETAIL (langsung tampilkan loading) =====
             async function showDetail(name) {
-                // Langsung tampilkan section detail dengan spinner
                 showSection(detailSection);
                 detailContent.innerHTML = '<div class="spinner"></div>';
                 setActiveNav('detail');
@@ -1825,7 +1848,6 @@
                 const galleryHtml = buildScreenshotGallery(screenshots);
                 const hasDownload = dwn && dwn !== '#';
 
-                // View count (async, tidak menghalangi render)
                 let viewCount = 0;
                 try {
                     viewCount = await incrementViewCount(name);
@@ -1938,7 +1960,6 @@
                     renderProfile();
                 } else if (p === 'detail' && postName) {
                     showDetail(postName);
-                    // setActiveNav dan lainnya sudah di dalam showDetail
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
