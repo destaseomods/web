@@ -1073,7 +1073,6 @@
                 transform: none;
             }
         }
-        /* Matikan partikel di mobile untuk performa */
         @media (max-width: 640px) {
             canvas#particles {
                 display: none !important;
@@ -1288,7 +1287,6 @@
                 }
                 animateParticles();
 
-                // Stop animasi saat tab tidak aktif untuk hemat CPU
                 document.addEventListener('visibilitychange', () => {
                     if (document.hidden) {
                         if (animId) cancelAnimationFrame(animId);
@@ -1665,7 +1663,6 @@
                         postContainer.innerHTML = '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
                         return;
                     }
-                    // Fetch all posts in parallel
                     const fetchPromises = postsData.map(fetchPost);
                     fetchedPosts = await Promise.all(fetchPromises);
                     renderPopularSection();
@@ -1798,13 +1795,21 @@
                 });
             }
 
-            // ===== DETAIL =====
+            // ===== DETAIL (FIX: langsung tampilkan loading) =====
             async function showDetail(name) {
-                const post = fetchedPosts.find(p => p.name === name);
-                if (!post) return;
-
-                isDetailMode = true;
+                // Langsung tampilkan section detail dengan spinner
+                showSection(detailSection);
+                detailContent.innerHTML = '<div class="spinner"></div>';
+                setActiveNav('detail');
                 stopCarousel();
+                isDetailMode = true;
+                window.scrollTo({ top: 0 });
+
+                const post = fetchedPosts.find(p => p.name === name);
+                if (!post) {
+                    detailContent.innerHTML = '<p class="error-text">Postingan tidak ditemukan.</p>';
+                    return;
+                }
 
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
@@ -1820,7 +1825,11 @@
                 const galleryHtml = buildScreenshotGallery(screenshots);
                 const hasDownload = dwn && dwn !== '#';
 
-                let viewCount = await incrementViewCount(name);
+                // View count (async, tidak menghalangi render)
+                let viewCount = 0;
+                try {
+                    viewCount = await incrementViewCount(name);
+                } catch (e) { viewCount = 0; }
 
                 const tagsHtml = tags.length > 0 ?
                     `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` :
@@ -1865,9 +1874,6 @@
                 }
 
                 attachRekomendasiEvents();
-                showSection(detailSection);
-                setActiveNav('detail');
-                window.scrollTo({ top: 0 });
             }
 
             // ===== NAVIGATION =====
@@ -1932,13 +1938,7 @@
                     renderProfile();
                 } else if (p === 'detail' && postName) {
                     showDetail(postName);
-                    setActiveNav('detail');
-                    searchBox.classList.add('hidden');
-                    categoryBar.classList.add('hidden');
-                    sortBar.classList.add('hidden');
-                    document.getElementById('popular-section').classList.add('hidden');
-                    filterIndicator.classList.add('hidden');
-                    stopCarousel();
+                    // setActiveNav dan lainnya sudah di dalam showDetail
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
@@ -1986,9 +1986,14 @@
             window.addEventListener('hashchange', () => {
                 const { page, postName } = getHashPage();
                 if (page === 'detail' && postName) {
-                    if (fetchedPosts.length === 0) renderHome().then(() => navigate('detail', postName));
-                    else navigate('detail', postName);
-                } else navigate(page);
+                    if (fetchedPosts.length === 0) {
+                        renderHome().then(() => navigate('detail', postName));
+                    } else {
+                        navigate('detail', postName);
+                    }
+                } else {
+                    navigate(page);
+                }
             });
 
             // ===== SITEMAP =====
