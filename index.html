@@ -81,8 +81,10 @@
             overflow: hidden !important;
         }
 
-        /* ===== ANIMATED BACKGROUND ===== */
-        .bg-canvas {
+        /* ============================================================
+           ANIMATED BACKGROUND - ELEGANT
+           ============================================================ */
+        .bg-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -91,74 +93,116 @@
             z-index: 0;
             pointer-events: none;
             overflow: hidden;
+            background: #05050f;
         }
-        .bg-canvas canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-        .bg-gradient {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at 20% 50%, rgba(168, 127, 255, 0.08) 0%, transparent 60%),
-                        radial-gradient(ellipse at 80% 20%, rgba(62, 224, 255, 0.06) 0%, transparent 50%),
-                        radial-gradient(ellipse at 50% 80%, rgba(168, 127, 255, 0.04) 0%, transparent 50%);
-            animation: bgFloat 20s ease-in-out infinite alternate;
-            z-index: 1;
-        }
-        @keyframes bgFloat {
-            0% { transform: scale(1) rotate(0deg); opacity: 0.6; }
-            50% { transform: scale(1.1) rotate(2deg); opacity: 1; }
-            100% { transform: scale(1) rotate(-2deg); opacity: 0.7; }
-        }
+
+        /* Gradient orb animasi */
         .bg-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
-            animation: orbFloat 15s ease-in-out infinite alternate;
-            z-index: 0;
+            filter: blur(100px);
+            will-change: transform, opacity;
+            animation: orbFloat 20s ease-in-out infinite alternate;
         }
         .bg-orb-1 {
-            width: 400px;
-            height: 400px;
-            top: -100px;
+            width: 500px;
+            height: 500px;
+            top: -150px;
             right: -100px;
-            background: radial-gradient(circle, rgba(168, 127, 255, 0.3), transparent 70%);
-            animation-duration: 18s;
+            background: radial-gradient(circle, rgba(168, 127, 255, 0.35), transparent 70%);
+            animation-duration: 22s;
         }
         .bg-orb-2 {
-            width: 350px;
-            height: 350px;
-            bottom: -50px;
-            left: -80px;
+            width: 450px;
+            height: 450px;
+            bottom: -100px;
+            left: -120px;
             background: radial-gradient(circle, rgba(62, 224, 255, 0.25), transparent 70%);
-            animation-duration: 22s;
-            animation-delay: -5s;
+            animation-duration: 26s;
+            animation-delay: -6s;
         }
         .bg-orb-3 {
-            width: 300px;
-            height: 300px;
-            top: 40%;
+            width: 350px;
+            height: 350px;
+            top: 30%;
             left: 50%;
             transform: translateX(-50%);
-            background: radial-gradient(circle, rgba(168, 127, 255, 0.15), transparent 70%);
-            animation-duration: 25s;
-            animation-delay: -10s;
+            background: radial-gradient(circle, rgba(168, 127, 255, 0.18), transparent 70%);
+            animation-duration: 30s;
+            animation-delay: -12s;
         }
-        @keyframes orbFloat {
-            0% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(40px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.95); }
-            100% { transform: translate(10px, -10px) scale(1.05); }
+        .bg-orb-4 {
+            width: 300px;
+            height: 300px;
+            top: 60%;
+            right: 10%;
+            background: radial-gradient(circle, rgba(62, 224, 255, 0.12), transparent 70%);
+            animation-duration: 24s;
+            animation-delay: -4s;
         }
 
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.6; }
+            25% { transform: translate(60px, -40px) scale(1.15) rotate(5deg); opacity: 1; }
+            50% { transform: translate(-30px, 30px) scale(0.9) rotate(-3deg); opacity: 0.7; }
+            75% { transform: translate(20px, -60px) scale(1.1) rotate(4deg); opacity: 0.9; }
+            100% { transform: translate(-10px, 10px) scale(1) rotate(-2deg); opacity: 0.6; }
+        }
+
+        /* Grid halus di belakang */
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+            animation: gridPulse 15s ease-in-out infinite alternate;
+        }
+        @keyframes gridPulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+            100% { opacity: 0.3; }
+        }
+
+        /* Partikel bercahaya via canvas */
+        #particles-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            display: block;
+        }
+
+        /* Lapisan gradien dinamis tambahan */
+        .bg-gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(168, 127, 255, 0.06), transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(62, 224, 255, 0.04), transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(168, 127, 255, 0.03), transparent 50%);
+            z-index: 2;
+            animation: gradientShift 25s ease-in-out infinite alternate;
+        }
+        @keyframes gradientShift {
+            0% { opacity: 0.5; transform: scale(1) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.05) rotate(2deg); }
+            100% { opacity: 0.6; transform: scale(1) rotate(-2deg); }
+        }
+
+        /* ============================================================
+           CONTENT WRAPPER
+           ============================================================ */
         .container {
             max-width: var(--container-max);
             margin: 0 auto;
@@ -224,12 +268,8 @@
             animation: gradientText 4s ease-in-out infinite alternate;
         }
         @keyframes gradientText {
-            0% {
-                background-position: 0% center;
-            }
-            100% {
-                background-position: 100% center;
-            }
+            0% { background-position: 0% center; }
+            100% { background-position: 100% center; }
         }
         .telegram-wrapper {
             position: relative;
@@ -277,9 +317,7 @@
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8);
             z-index: 150;
         }
-        .telegram-dropdown.show {
-            display: flex;
-        }
+        .telegram-dropdown.show { display: flex; }
         .telegram-dropdown a {
             color: var(--text);
             text-decoration: none;
@@ -331,9 +369,7 @@
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(168, 127, 255, 0.1), 0 4px 30px rgba(168, 127, 255, 0.1);
         }
-        .search-input::placeholder {
-            color: var(--text2);
-        }
+        .search-input::placeholder { color: var(--text2); }
 
         .category-bar {
             display: flex;
@@ -355,10 +391,7 @@
             backdrop-filter: blur(8px);
             white-space: nowrap;
         }
-        .category-chip i {
-            margin-right: 6px;
-            font-size: 0.7rem;
-        }
+        .category-chip i { margin-right: 6px; font-size: 0.7rem; }
         .category-chip.active,
         .category-chip:hover {
             background: rgba(168, 127, 255, 0.12);
@@ -378,16 +411,12 @@
             opacity: 0.7;
             transition: 0.3s;
         }
-        .reset-filter:hover {
-            opacity: 1;
-        }
+        .reset-filter:hover { opacity: 1; }
 
         /* ============================================================
            CAROUSEL
            ============================================================ */
-        .popular-section {
-            margin-bottom: 0;
-        }
+        .popular-section { margin-bottom: 0; }
         .carousel-wrapper {
             position: relative;
             overflow: hidden;
@@ -430,9 +459,7 @@
             left: 0;
             transition: transform 6s ease;
         }
-        .carousel-slide.active img {
-            transform: scale(1.05);
-        }
+        .carousel-slide.active img { transform: scale(1.05); }
         .carousel-slide .slide-overlay {
             position: absolute;
             bottom: 0;
@@ -540,9 +567,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .sort-select:hover {
-            border-color: rgba(168, 127, 255, 0.2);
-        }
+        .sort-select:hover { border-color: rgba(168, 127, 255, 0.2); }
 
         .post-grid {
             display: grid;
@@ -583,18 +608,10 @@
             border-color: rgba(255, 255, 255, 0.08);
             box-shadow: var(--glow), 0 24px 60px rgba(0, 0, 0, 0.8);
         }
-        .post-card:hover::before {
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-        }
-        .post-card:active {
-            transform: scale(0.97);
-        }
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        .post-card:hover::before { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+        .post-card:active { transform: scale(0.97); }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
         .card-img {
             width: 100%;
             height: clamp(120px, 25vw, 150px);
@@ -615,19 +632,10 @@
             display: block;
             transition: transform 0.6s ease;
         }
-        .post-card:hover .card-img img {
-            transform: scale(1.04);
-        }
-        .card-img .placeholder-icon {
-            display: none;
-            font-size: 2.5rem;
-        }
-        .card-img.error .placeholder-icon {
-            display: block;
-        }
-        .card-img.error img {
-            display: none;
-        }
+        .post-card:hover .card-img img { transform: scale(1.04); }
+        .card-img .placeholder-icon { display: none; font-size: 2.5rem; }
+        .card-img.error .placeholder-icon { display: block; }
+        .card-img.error img { display: none; }
         .version-badge-img {
             position: absolute;
             top: 8px;
@@ -712,9 +720,7 @@
             background: rgba(62, 224, 255, 0.05);
             transform: translateY(-2px);
         }
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
 
         /* ============================================================
            DETAIL
@@ -743,10 +749,7 @@
             pointer-events: none;
             z-index: 0;
         }
-        .detail-header>* {
-            position: relative;
-            z-index: 1;
-        }
+        .detail-header>* { position: relative; z-index: 1; }
         .detail-img {
             display: block;
             width: clamp(140px, 22vw, 180px);
@@ -778,12 +781,8 @@
             line-height: 1.2;
         }
         @keyframes gradientTitle {
-            0% {
-                background-position: 0% center;
-            }
-            100% {
-                background-position: 100% center;
-            }
+            0% { background-position: 0% center; }
+            100% { background-position: 100% center; }
         }
         .detail-subtitle {
             text-align: center;
@@ -817,9 +816,7 @@
             align-items: center;
             gap: 4px;
         }
-        .detail-subtitle .date-badge i {
-            color: var(--accent2);
-        }
+        .detail-subtitle .date-badge i { color: var(--accent2); }
 
         .detail-meta-grid {
             display: grid;
@@ -863,9 +860,7 @@
             box-shadow: 0 8px 30px rgba(168, 127, 255, 0.06);
             background: rgba(255, 255, 255, 0.04);
         }
-        .meta-item:hover::before {
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-        }
+        .meta-item:hover::before { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
         .meta-item .meta-icon {
             width: 32px;
             height: 32px;
@@ -922,16 +917,12 @@
             scrollbar-width: thin;
             scrollbar-color: var(--accent2) transparent;
         }
-        .screenshot-scroll::-webkit-scrollbar {
-            height: 4px;
-        }
+        .screenshot-scroll::-webkit-scrollbar { height: 4px; }
         .screenshot-scroll::-webkit-scrollbar-thumb {
             background: linear-gradient(90deg, var(--accent), var(--accent2));
             border-radius: 10px;
         }
-        .screenshot-scroll::-webkit-scrollbar-track {
-            background: transparent;
-        }
+        .screenshot-scroll::-webkit-scrollbar-track { background: transparent; }
         .screenshot-scroll img {
             flex: 0 0 auto;
             width: clamp(120px, 22vw, 170px);
@@ -993,24 +984,8 @@
             animation: zoomIn 0.35s ease;
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.9);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         .tags-container {
             margin-top: 16px;
@@ -1032,10 +1007,7 @@
             transition: all 0.3s ease;
             backdrop-filter: blur(8px);
         }
-        .tag-badge i {
-            color: var(--accent2);
-            font-size: 0.6rem;
-        }
+        .tag-badge i { color: var(--accent2); font-size: 0.6rem; }
         .tag-badge:hover {
             background: rgba(168, 127, 255, 0.08);
             border-color: rgba(168, 127, 255, 0.15);
@@ -1076,12 +1048,8 @@
             transform: scale(1.02) translateY(-2px);
             box-shadow: 0 10px 50px rgba(62, 224, 255, 0.3);
         }
-        .big-download:active {
-            transform: scale(0.97);
-        }
-        .big-download i {
-            font-size: 1.3rem;
-        }
+        .big-download:active { transform: scale(0.97); }
+        .big-download i { font-size: 1.3rem; }
         .big-download.disabled {
             opacity: 0.4;
             pointer-events: none;
@@ -1111,9 +1079,7 @@
             color: #e8e8f0;
             font-size: clamp(0.9rem, 1.4vw, 1.02rem);
         }
-        .content-box h1,
-        .content-box h2,
-        .content-box h3 {
+        .content-box h1, .content-box h2, .content-box h3 {
             color: #fff;
             margin: 1.2em 0 0.5em;
             font-weight: 800;
@@ -1126,34 +1092,18 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .content-box h2 {
-            font-size: 1.4rem;
-            color: var(--accent2);
-        }
-        .content-box h3 {
-            font-size: 1.15rem;
-        }
-        .content-box p {
-            margin: 0.7em 0;
-        }
-        .content-box ul,
-        .content-box ol {
-            padding-left: 1.8rem;
-            margin: 0.6em 0;
-        }
-        .content-box li {
-            margin: 0.3em 0;
-        }
+        .content-box h2 { font-size: 1.4rem; color: var(--accent2); }
+        .content-box h3 { font-size: 1.15rem; }
+        .content-box p { margin: 0.7em 0; }
+        .content-box ul, .content-box ol { padding-left: 1.8rem; margin: 0.6em 0; }
+        .content-box li { margin: 0.3em 0; }
         .content-box a {
             color: var(--accent2);
             text-decoration: none;
             border-bottom: 1px dotted var(--accent2);
             transition: 0.2s;
         }
-        .content-box a:hover {
-            border-bottom: 1px solid var(--accent2);
-            color: #fff;
-        }
+        .content-box a:hover { border-bottom: 1px solid var(--accent2); color: #fff; }
         .content-box img {
             max-width: 100%;
             border-radius: 20px;
@@ -1214,7 +1164,7 @@
         }
 
         /* ============================================================
-           PROFILE - ELEGAN & MODERN (REDESIGN)
+           PROFILE
            ============================================================ */
         .profile-card {
             background: var(--surface);
@@ -1227,14 +1177,12 @@
             max-width: 600px;
             margin: 0 auto;
         }
-
         .profile-container {
             display: flex;
             align-items: center;
             gap: 24px;
             flex-wrap: wrap;
         }
-
         .profile-avatar {
             width: 130px;
             height: 130px;
@@ -1254,10 +1202,7 @@
             background: linear-gradient(135deg, var(--accent), var(--accent2));
             z-index: -1;
         }
-        .profile-info {
-            flex: 1;
-            min-width: 160px;
-        }
+        .profile-info { flex: 1; min-width: 160px; }
         .profile-name {
             font-size: 1.6rem;
             font-weight: 800;
@@ -1283,18 +1228,13 @@
             font-weight: 600;
             color: #4facfe;
         }
-        .badge-verified i {
-            font-size: 0.7rem;
-        }
+        .badge-verified i { font-size: 0.7rem; }
         .profile-bio {
             color: var(--text2);
             font-size: 0.9rem;
             margin-bottom: 2px;
         }
-        .profile-bio i {
-            color: var(--accent2);
-            margin-right: 6px;
-        }
+        .profile-bio i { color: var(--accent2); margin-right: 6px; }
 
         .profile-links {
             display: flex;
@@ -1359,15 +1299,8 @@
             border-top: 1px solid rgba(255, 255, 255, 0.02);
             padding-top: 14px;
         }
-        .profile-footer i {
-            color: var(--accent2);
-            margin-right: 6px;
-        }
-        .profile-footer .location {
-            margin-top: 4px;
-            font-weight: 500;
-            color: var(--text);
-        }
+        .profile-footer i { color: var(--accent2); margin-right: 6px; }
+        .profile-footer .location { margin-top: 4px; font-weight: 500; color: var(--text); }
 
         /* ============================================================
            REKOMENDASI
@@ -1410,24 +1343,11 @@
             border-color: rgba(168, 127, 255, 0.15);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(168, 127, 255, 0.03);
         }
-        .rekomendasi-card .card-img {
-            height: clamp(90px, 20vw, 130px);
-        }
-        .rekomendasi-card .card-body {
-            padding: 10px 14px;
-        }
-        .rekomendasi-card .card-title {
-            font-size: clamp(0.7rem, 1.2vw, 0.85rem);
-            font-weight: 700;
-            line-height: 1.3;
-        }
-        .rekomendasi-card .card-meta {
-            font-size: clamp(0.5rem, 0.8vw, 0.65rem);
-        }
-        .rekomendasi-card .badge {
-            font-size: clamp(0.45rem, 0.7vw, 0.6rem);
-            padding: 2px 8px;
-        }
+        .rekomendasi-card .card-img { height: clamp(90px, 20vw, 130px); }
+        .rekomendasi-card .card-body { padding: 10px 14px; }
+        .rekomendasi-card .card-title { font-size: clamp(0.7rem, 1.2vw, 0.85rem); font-weight: 700; line-height: 1.3; }
+        .rekomendasi-card .card-meta { font-size: clamp(0.5rem, 0.8vw, 0.65rem); }
+        .rekomendasi-card .badge { font-size: clamp(0.45rem, 0.7vw, 0.6rem); padding: 2px 8px; }
 
         /* ============================================================
            QRIS
@@ -1447,9 +1367,7 @@
             justify-content: center;
             flex-direction: column;
         }
-        .qris-overlay.hidden {
-            display: none;
-        }
+        .qris-overlay.hidden { display: none; }
         .qris-container {
             background: var(--surface2);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -1533,9 +1451,7 @@
             transform: translateY(-2px);
             text-shadow: 0 0 30px rgba(62, 224, 255, 0.2);
         }
-        .nav-item:not(.active):hover {
-            color: #fff;
-        }
+        .nav-item:not(.active):hover { color: #fff; }
 
         /* ============================================================
            LOADING & UTILITY
@@ -1549,11 +1465,7 @@
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
         .empty-text,
         .error-text {
             text-align: center;
@@ -1578,208 +1490,82 @@
            RESPONSIVE
            ============================================================ */
         @media (max-width: 640px) {
-            .profile-card {
-                padding: 20px 16px 16px;
-            }
-            .profile-container {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 12px;
-            }
-            .profile-info {
-                text-align: center;
-            }
-            .profile-badges {
-                justify-content: center;
-            }
-            .profile-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-            .link-group {
-                justify-content: center;
-            }
-            .post-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-            .rekomendasi-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-            .detail-header {
-                padding: 18px 14px;
-            }
-            .detail-meta-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
-            .meta-item {
-                padding: 8px 4px;
-                min-height: 60px;
-            }
-            .meta-item .meta-icon {
-                width: 28px;
-                height: 28px;
-                font-size: 0.75rem;
-            }
-            .content-box {
-                padding: 14px 16px;
-            }
-            .container {
-                padding: 8px 10px;
-            }
-            .topbar {
-                padding: 8px 14px;
-                margin: 6px 6px;
-                border-radius: 30px;
-            }
-            .logo-text {
-                font-size: clamp(0.9rem, 4vw, 1.1rem);
-            }
-            .logo-img {
-                width: 30px;
-                height: 30px;
-            }
-            .telegram-btn {
-                font-size: 0.6rem;
-                padding: 4px 12px;
-            }
-            .carousel-wrapper {
-                height: clamp(140px, 35vw, 170px);
-            }
-            .carousel-slide .slide-title {
-                font-size: clamp(0.7rem, 2.5vw, 0.85rem);
-            }
-            .screenshot-scroll img {
-                width: 100px;
-                height: 140px;
-            }
-            .detail-img {
-                width: clamp(100px, 20vw, 130px);
-                height: clamp(100px, 20vw, 130px);
-            }
-            .lightbox-overlay .lightbox-close {
-                top: 12px;
-                right: 16px;
-                font-size: 1.6rem;
-            }
-            .carousel-dots {
-                bottom: 8px;
-                gap: 6px;
-            }
-            .carousel-dot {
-                width: 6px;
-                height: 6px;
-            }
-            .carousel-dot.active {
-                width: 18px;
-            }
-            .profile-avatar {
-                width: 100px;
-                height: 100px;
-            }
-            .profile-avatar::before {
-                inset: -5px;
-            }
-            .profile-name {
-                font-size: 1.3rem;
-            }
-            .detail-subtitle {
-                padding: 6px 0 8px 0;
-                gap: 6px;
-            }
-            .bg-orb-1, .bg-orb-2, .bg-orb-3 {
-                display: none;
-            }
+            .profile-card { padding: 20px 16px 16px; }
+            .profile-container { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+            .profile-info { text-align: center; }
+            .profile-badges { justify-content: center; }
+            .profile-links { flex-direction: column; align-items: center; gap: 10px; }
+            .link-group { justify-content: center; }
+            .post-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .rekomendasi-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .detail-header { padding: 18px 14px; }
+            .detail-meta-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .meta-item { padding: 8px 4px; min-height: 60px; }
+            .meta-item .meta-icon { width: 28px; height: 28px; font-size: 0.75rem; }
+            .content-box { padding: 14px 16px; }
+            .container { padding: 8px 10px; }
+            .topbar { padding: 8px 14px; margin: 6px 6px; border-radius: 30px; }
+            .logo-text { font-size: clamp(0.9rem, 4vw, 1.1rem); }
+            .logo-img { width: 30px; height: 30px; }
+            .telegram-btn { font-size: 0.6rem; padding: 4px 12px; }
+            .carousel-wrapper { height: clamp(140px, 35vw, 170px); }
+            .carousel-slide .slide-title { font-size: clamp(0.7rem, 2.5vw, 0.85rem); }
+            .screenshot-scroll img { width: 100px; height: 140px; }
+            .detail-img { width: clamp(100px, 20vw, 130px); height: clamp(100px, 20vw, 130px); }
+            .lightbox-overlay .lightbox-close { top: 12px; right: 16px; font-size: 1.6rem; }
+            .carousel-dots { bottom: 8px; gap: 6px; }
+            .carousel-dot { width: 6px; height: 6px; }
+            .carousel-dot.active { width: 18px; }
+            .profile-avatar { width: 100px; height: 100px; }
+            .profile-avatar::before { inset: -5px; }
+            .profile-name { font-size: 1.3rem; }
+            .detail-subtitle { padding: 6px 0 8px 0; gap: 6px; }
+            .bg-orb-1, .bg-orb-2, .bg-orb-3, .bg-orb-4 { display: none; }
+            .bg-grid { background-size: 30px 30px; }
         }
         @media (max-width: 400px) {
-            .profile-avatar {
-                width: 80px;
-                height: 80px;
-            }
-            .profile-avatar::before {
-                inset: -4px;
-            }
-            .profile-name {
-                font-size: 1.1rem;
-            }
-            .profile-card {
-                padding: 16px 12px 14px;
-            }
-            .detail-img {
-                width: 80px;
-                height: 80px;
-            }
+            .profile-avatar { width: 80px; height: 80px; }
+            .profile-avatar::before { inset: -4px; }
+            .profile-name { font-size: 1.1rem; }
+            .profile-card { padding: 16px 12px 14px; }
+            .detail-img { width: 80px; height: 80px; }
         }
         @media (min-width: 768px) {
-            .rekomendasi-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            .post-grid {
-                gap: 18px;
-            }
-            .detail-meta-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
+            .rekomendasi-grid { grid-template-columns: repeat(4, 1fr); }
+            .post-grid { gap: 18px; }
+            .detail-meta-grid { grid-template-columns: repeat(4, 1fr); }
         }
         @media (min-width: 1024px) {
-            .container {
-                padding: 16px 24px;
-            }
-            .post-grid {
-                gap: 20px;
-            }
+            .container { padding: 16px 24px; }
+            .post-grid { gap: 20px; }
         }
         @media (hover: none) {
-            .post-card:hover {
-                transform: none;
-            }
-            .post-card:active {
-                transform: scale(0.97);
-            }
-            .rekomendasi-card:hover {
-                transform: none;
-            }
-            .screenshot-scroll img:hover {
-                transform: none;
-            }
-            .big-download:hover {
-                transform: none;
-            }
-            .meta-item:hover {
-                transform: none;
-            }
-            .detail-img:hover {
-                transform: none;
-            }
-            .social-link:hover {
-                transform: none !important;
-            }
-            .profile-avatar:hover {
-                transform: none;
-            }
-            .logo-img:hover {
-                transform: none;
-            }
+            .post-card:hover { transform: none; }
+            .post-card:active { transform: scale(0.97); }
+            .rekomendasi-card:hover { transform: none; }
+            .screenshot-scroll img:hover { transform: none; }
+            .big-download:hover { transform: none; }
+            .meta-item:hover { transform: none; }
+            .detail-img:hover { transform: none; }
+            .social-link:hover { transform: none !important; }
+            .profile-avatar:hover { transform: none; }
+            .logo-img:hover { transform: none; }
         }
         @media (max-width: 640px) {
-            canvas#particles {
-                display: none !important;
-            }
+            #particles-bg { display: none !important; }
         }
     </style>
 </head>
 <body>
-    <!-- ===== ANIMATED BACKGROUND ===== -->
-    <div class="bg-canvas" aria-hidden="true">
+    <!-- ===== ANIMATED BACKGROUND - ELEGANT ===== -->
+    <div class="bg-container" aria-hidden="true">
         <div class="bg-orb bg-orb-1"></div>
         <div class="bg-orb bg-orb-2"></div>
         <div class="bg-orb bg-orb-3"></div>
-        <div class="bg-gradient"></div>
-        <canvas id="particles"></canvas>
+        <div class="bg-orb bg-orb-4"></div>
+        <div class="bg-grid"></div>
+        <div class="bg-gradient-overlay"></div>
+        <canvas id="particles-bg"></canvas>
     </div>
 
     <!-- QRIS Overlay -->
@@ -1957,12 +1743,12 @@
             let totalPopularSlides = 0;
             let isDetailMode = false;
 
-            // ===== PARTICLES (ELEGANT) =====
-            const canvas = document.getElementById('particles');
-            if (canvas) {
+            // ===== PARTICLES BACKGROUND - ELEGANT =====
+            const canvas = document.getElementById('particles-bg');
+            if (canvas && window.innerWidth > 640) {
                 const ctx = canvas.getContext('2d');
                 let particles = [];
-                const maxParticles = 60;
+                const maxParticles = 65;
                 let animId = null;
 
                 function resizeCanvas() {
@@ -1972,42 +1758,58 @@
                 window.addEventListener('resize', resizeCanvas);
                 resizeCanvas();
 
-                const colors = ['rgba(168,127,255,', 'rgba(62,224,255,', 'rgba(255,255,255,'];
+                const colors = [
+                    'rgba(168,127,255,',
+                    'rgba(62,224,255,',
+                    'rgba(255,255,255,',
+                    'rgba(130,100,200,'
+                ];
 
                 class Particle {
                     constructor() { this.reset(); }
                     reset() {
                         this.x = Math.random() * canvas.width;
                         this.y = Math.random() * canvas.height;
-                        this.vx = (Math.random() - 0.5) * 0.3;
-                        this.vy = (Math.random() - 0.5) * 0.3;
-                        this.radius = Math.random() * 2.5 + 0.5;
-                        this.opacity = Math.random() * 0.4 + 0.1;
+                        this.vx = (Math.random() - 0.5) * 0.25;
+                        this.vy = (Math.random() - 0.5) * 0.25;
+                        this.radius = Math.random() * 2.8 + 0.5;
+                        this.opacity = Math.random() * 0.4 + 0.08;
                         this.color = colors[Math.floor(Math.random() * colors.length)];
                         this.pulse = Math.random() * Math.PI * 2;
-                        this.pulseSpeed = 0.02 + Math.random() * 0.03;
+                        this.pulseSpeed = 0.015 + Math.random() * 0.025;
+                        this.targetRadius = this.radius;
                     }
                     update() {
                         this.x += this.vx;
                         this.y += this.vy;
                         this.pulse += this.pulseSpeed;
                         const pulseFactor = 0.7 + 0.3 * Math.sin(this.pulse);
+                        this.radius = this.targetRadius * (0.8 + 0.4 * Math.sin(this.pulse * 0.7));
 
                         if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                         if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
 
-                        // Draw
                         const alpha = this.opacity * pulseFactor;
+                        // Draw glow
+                        const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius * 3);
+                        grad.addColorStop(0, this.color + alpha + ')');
+                        grad.addColorStop(1, this.color + '0)');
                         ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.radius * pulseFactor, 0, Math.PI * 2);
-                        ctx.fillStyle = this.color + alpha + ')';
+                        ctx.arc(this.x, this.y, this.radius * 3, 0, Math.PI * 2);
+                        ctx.fillStyle = grad;
                         ctx.fill();
 
-                        // Glow effect
-                        if (this.radius > 1.5) {
+                        // Draw core
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius * pulseFactor, 0, Math.PI * 2);
+                        ctx.fillStyle = this.color + (alpha * 1.2) + ')';
+                        ctx.fill();
+
+                        // Extra glow for larger particles
+                        if (this.targetRadius > 1.8) {
                             ctx.beginPath();
-                            ctx.arc(this.x, this.y, this.radius * 2.5 * pulseFactor, 0, Math.PI * 2);
-                            ctx.fillStyle = this.color + (alpha * 0.15) + ')';
+                            ctx.arc(this.x, this.y, this.radius * 5 * pulseFactor, 0, Math.PI * 2);
+                            ctx.fillStyle = this.color + (alpha * 0.06) + ')';
                             ctx.fill();
                         }
                     }
@@ -2021,41 +1823,13 @@
                     animId = requestAnimationFrame(animateParticles);
                 }
 
-                // Only animate on desktop (for performance)
-                if (window.innerWidth > 640) {
-                    animateParticles();
-                } else {
-                    // fallback: static particles with minimal animation
-                    let frame = 0;
-                    function simpleAnimate() {
-                        frame++;
-                        if (frame % 3 === 0) {
-                            ctx.clearRect(0, 0, canvas.width, canvas.height);
-                            particles.forEach(p => {
-                                p.x += p.vx * 0.2;
-                                p.y += p.vy * 0.2;
-                                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                                const alpha = p.opacity * (0.7 + 0.3 * Math.sin(frame * 0.02 + p.pulse));
-                                ctx.beginPath();
-                                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                                ctx.fillStyle = p.color + alpha + ')';
-                                ctx.fill();
-                            });
-                        }
-                        animId = requestAnimationFrame(simpleAnimate);
-                    }
-                    simpleAnimate();
-                }
+                animateParticles();
 
                 document.addEventListener('visibilitychange', () => {
                     if (document.hidden) {
                         if (animId) cancelAnimationFrame(animId);
                     } else {
-                        if (!animId) {
-                            if (window.innerWidth > 640) animateParticles();
-                            else simpleAnimate();
-                        }
+                        if (!animId) animateParticles();
                     }
                 });
             }
