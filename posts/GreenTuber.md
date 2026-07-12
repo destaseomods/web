@@ -8,7 +8,7 @@ ukuran: "15 MB"
 developer: "Markshortube"
 screenshot: "https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-11-18-59-30-833_by.green.tuber.jpg, https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-11-19-00-05-912_by.green.tuber.jpg, https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-11-18-59-51-476_by.green.tuber.jpg"
 download: "https://sfile.co/eJZWlfdhVnd"
-tag: "Media"
+tag: "Media, Youtube, Youtube Music"
 kategori: "Media"
 ---
 
