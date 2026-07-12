@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* CSS (sama seperti sebelumnya, tidak diubah) */
+        /* CSS (sama seperti sebelumnya) */
         :root {
             --bg: #04040e; --surface: rgba(15, 15, 30, 0.7); --surface2: rgba(25, 25, 45, 0.8);
             --border: rgba(255, 255, 255, 0.07); --text: #f5f5ff; --text2: #b8b8d0;
@@ -141,7 +141,6 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         .empty-text, .error-text { text-align: center; padding: 45px; color: var(--text2); background: rgba(255,0,0,0.07); border-radius: 24px; margin: 20px 0; }
         .filter-indicator { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.85rem; color: var(--accent2); }
-        /* Tombol debug */
         .debug-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text2); padding: 6px 14px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; margin-top: 8px; }
         .debug-btn:hover { border-color: var(--accent2); color: #fff; }
     </style>
@@ -288,33 +287,72 @@
             if (AVATAR_URL) { const a = document.getElementById('profile-avatar'); a.style.backgroundImage = `url('${AVATAR_URL}')`; a.textContent = ''; }
 
             // ============================================================
-            // 🎯 COUNTER SEDERHANA + DAILY UNIQUE (100% LOCAL STORAGE)
+            // 🚀 GLOBAL COUNTER DENGAN counterapi.dev + FALLBACK LOKAL
             // ============================================================
-            function getDailyViewCount(postName) {
-                const key = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
+            async function getGlobalViewCount(postName) {
+                const clean = postName.replace(/[^a-zA-Z0-9]/g, '') || 'default';
+                const key = `destaseomods_${clean}`;
+                const storageKey = `view_${key}`;
                 const today = new Date().toISOString().slice(0, 10);
 
-                let data = null;
+                // Baca data lokal
+                let localData = null;
                 try {
-                    const raw = localStorage.getItem(key);
-                    if (raw) data = JSON.parse(raw);
+                    const raw = localStorage.getItem(storageKey);
+                    if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
 
-                // Jika data hari ini ada → return tanpa nambah
-                if (data && data.date === today) {
-                    console.log(`📊 [${postName}] Daily view hari ini: ${data.count}`);
-                    return data.count;
+                // Jika hari ini sudah tercatat di lokal, kita tidak perlu panggil API
+                // Tapi kita tetap coba ambil angka terbaru dari API (tanpa increment)
+                // Karena counterapi.dev tidak punya endpoint GET tanpa increment,
+                // kita skip dan pakai lokal saja agar tidak double count.
+                if (localData && localData.date === today) {
+                    console.log(`📊 [${postName}] Menggunakan cache hari ini: ${localData.count}`);
+                    return localData.count;
                 }
 
-                // Hari baru → increment +1
-                const prevCount = (data && typeof data.count === 'number') ? data.count : 0;
+                // Hari baru → panggil counterapi.dev dengan POST (increment)
+                let apiSuccess = false;
+                let apiCount = 1;
+                try {
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), 5000);
+                    const res = await fetch(`https://counterapi.dev/api/count/${key}`, {
+                        method: 'POST',
+                        signal: controller.signal,
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    clearTimeout(timeout);
+                    if (res.ok) {
+                        const data = await res.json();
+                        // Response: { count: number } atau { success: true, count: number }
+                        const count = data.count || data.value || 1;
+                        if (count > 0) {
+                            apiCount = count;
+                            apiSuccess = true;
+                        }
+                    } else {
+                        console.warn(`⚠️ counterapi.dev response ${res.status}`);
+                    }
+                } catch (e) {
+                    console.warn(`⚠️ counterapi.dev error:`, e.message);
+                }
+
+                if (apiSuccess) {
+                    console.log(`✅ [${postName}] counterapi.dev success → ${apiCount}`);
+                    localStorage.setItem(storageKey, JSON.stringify({ count: apiCount, date: today }));
+                    return apiCount;
+                }
+
+                // FALLBACK: increment dari lokal
+                const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
                 const newCount = prevCount + 1;
-                localStorage.setItem(key, JSON.stringify({ count: newCount, date: today }));
-                console.log(`📈 [${postName}] Daily view baru: ${newCount}`);
+                console.log(`🔄 [${postName}] Fallback lokal → ${newCount}`);
+                localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
                 return newCount;
             }
 
-            // Tombol debug (untuk melihat isi localStorage)
+            // Tombol debug
             function addDebugButton() {
                 const btn = document.createElement('button');
                 btn.className = 'debug-btn';
@@ -498,8 +536,8 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🔥 Ambil counter daily (localStorage)
-                const viewCount = getDailyViewCount(name);
+                // 🔥 Ambil counter global dengan counterapi.dev
+                const viewCount = await getGlobalViewCount(name);
 
                 detailContent.innerHTML = `
                 <div class="detail-header">
