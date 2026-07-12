@@ -277,19 +277,31 @@
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) { const a = document.getElementById('profile-avatar'); a.style.backgroundImage = `url('${AVATAR_URL}')`; a.textContent = ''; }
 
-            // 🌍 HIT COUNTER GLOBAL (countapi.xyz)
+            // 🔧 PERBAIKAN: fungsi counter dengan fallback localStorage
             async function getGlobalCount(name) {
+                // Buat key unik untuk post ini
+                const cleanName = name.replace(/[^a-zA-Z0-9]/g, '') || 'default';
+                const apiKey = `destaseomods_${cleanName}`;
+                const localKey = `view_${apiKey}`;
+
                 try {
-                    const key = `destaseomods_${name.replace(/[^a-zA-Z0-9]/g, '')}`;
-                    const res = await fetch(`https://api.countapi.xyz/hit/${key}`);
+                    const res = await fetch(`https://api.countapi.xyz/hit/${apiKey}`);
                     if (res.ok) {
                         const data = await res.json();
-                        return data.value || 0;
+                        const count = data.value || 1;
+                        localStorage.setItem(localKey, count);
+                        return count;
                     }
-                    return null;
                 } catch (e) {
-                    return null;
+                    // API gagal, lanjut ke fallback
+                    console.warn('CountAPI error, pakai local storage:', e.message);
                 }
+
+                // Fallback: baca dari localStorage, increment, simpan
+                let localCount = parseInt(localStorage.getItem(localKey) || '0');
+                localCount += 1;
+                localStorage.setItem(localKey, localCount);
+                return localCount;
             }
 
             telegramBtn.addEventListener('click', (e) => { e.stopPropagation(); telegramDropdown.classList.toggle('show'); });
@@ -432,13 +444,12 @@
                 const downloadBtn = hasDownload ? `<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` : `<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>`;
                 const tagsHtml = tags.length > 0 ? `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` : '';
 
-                // Tampilkan loading
                 detailContent.innerHTML = '<div class="spinner"></div>';
                 showSection(detailSection);
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // Ambil global count
+                // 🔧 Ambil counter dengan fallback, pasti menghasilkan angka
                 const globalCount = await getGlobalCount(name);
 
                 detailContent.innerHTML = `
@@ -451,7 +462,7 @@
                         <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
                         ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
                         ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
-                        <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ${globalCount ?? '...'} kali</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ${globalCount} kali</div>
                     </div>
                     ${galleryHtml}
                     ${tagsHtml}
