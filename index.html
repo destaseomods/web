@@ -82,12 +82,29 @@
         .card-img .placeholder-icon { display: none; font-size: 2.5rem; }
         .card-img.error .placeholder-icon { display: block; }
         .card-img.error img { display: none; }
+        /* Badge versi di pojok kiri atas gambar */
+        .version-badge-img {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 2;
+        }
         .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
         .card-title { font-weight: 800; font-size: 0.85rem; line-height: 1.3; color: #fff; }
         .card-meta { font-size: 0.7rem; color: var(--text2); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
         .badge { background: rgba(168,127,255,0.2); color: #cfc4ff; padding: 2px 10px; border-radius: 20px; font-weight: 700; font-size: 0.65rem; cursor: pointer; transition: 0.2s; }
         .badge:hover { background: rgba(168,127,255,0.4); color: #fff; }
-        .version-tag, .date-tag { background: rgba(255,255,255,0.08); padding: 2px 10px; border-radius: 14px; font-size: 0.65rem; font-weight: 600; color: var(--text2); display: inline-flex; align-items: center; gap: 4px; }
         .card-excerpt { font-size: 0.72rem; color: var(--text2); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .load-more-btn { display: block; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border); color: var(--accent2); padding: 12px 24px; border-radius: 30px; font-weight: 700; cursor: pointer; transition: var(--transition); backdrop-filter: blur(16px); }
         .load-more-btn:hover { border-color: var(--accent2); box-shadow: 0 0 25px rgba(62,224,255,0.4); background: rgba(62,224,255,0.1); }
@@ -242,7 +259,7 @@
             function animateParticles() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateParticles); }
             animateParticles();
 
-            const CACHE_KEY = 'destaseo_premium_cache_v63';
+            const CACHE_KEY = 'destaseo_premium_cache_v64';
             const CACHE_TIME = 10 * 60 * 1000;
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -342,13 +359,7 @@
             function sortPosts(posts) {
                 const sortBy = sortSelect.value;
                 const sorted = [...posts];
-                // Ambil tanggal + waktu dari metadata (tanggal/date), fallback ke lastModified
-                const getTime = (p) => {
-                    const d = p.metadata.tanggal || p.metadata.date || p.lastModified;
-                    if (!d) return 0;
-                    const t = new Date(d);
-                    return isNaN(t.getTime()) ? 0 : t.getTime();
-                };
+                const getTime = (p) => { const d = p.metadata.tanggal || p.metadata.date || p.lastModified; if (!d) return 0; const t = new Date(d); return isNaN(t.getTime()) ? 0 : t.getTime(); };
                 console.log('🔍 Sorting posts by', sortBy);
                 sorted.forEach(p => console.log(`  ${p.name}: ${new Date(getTime(p)).toLocaleString()}`));
                 switch (sortBy) {
@@ -381,14 +392,25 @@
                 const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
                 const kategori = post.metadata.kategori || '';
                 const ver = post.metadata.versi || post.metadata.version || '';
-                const dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
-                const dateFormatted = formatDate(dateRaw);
+                // Tanggal tidak ditampilkan di kartu index
                 const excerpt = getExcerpt(post.content);
                 const delay = index * 0.04 + 's';
                 const imgTag = img ? `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">` : '';
+                // Badge versi di pojok kiri atas
+                const versionBadge = ver ? `<span class="version-badge-img"><i class="fas fa-code-branch"></i> v${ver}</span>` : '';
                 return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
-                    <div class="card-img${img ? '' : ' error'}">${imgTag}<span class="placeholder-icon"><i class="fas fa-box-open"></i></span></div>
-                    <div class="card-body"><div class="card-title">${t}</div><div class="card-meta">${ver ? `<span class="version-tag"><i class="fas fa-code-branch"></i> v${ver}</span>` : ''}${dateFormatted ? `<span class="date-tag"><i class="far fa-calendar-alt"></i> ${dateFormatted}</span>` : ''}${kategori ? `<span class="badge" data-kat="${kategori}"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}</div>${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}</div>
+                    <div class="card-img${img ? '' : ' error'}">
+                        ${imgTag}
+                        <span class="placeholder-icon"><i class="fas fa-box-open"></i></span>
+                        ${versionBadge}
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">${t}</div>
+                        <div class="card-meta">
+                            ${kategori ? `<span class="badge" data-kat="${kategori}"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}
+                        </div>
+                        ${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}
+                    </div>
                 </div>`;
             }
 
