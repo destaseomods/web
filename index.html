@@ -25,29 +25,6 @@
             "url": "https://destaseomods.web.id/"
         }
     </script>
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "ProfilePage",
-            "mainEntity": {
-                "@type": "Person",
-                "name": "Destaseo Mods",
-                "description": "Premium modder & content creator.",
-                "image": "https://avatars.githubusercontent.com/u/189899710?v=4",
-                "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": "Nganjuk",
-                    "addressRegion": "Jawa Timur",
-                    "addressCountry": "ID"
-                },
-                "sameAs": [
-                    "https://fb.com/destaseo.id",
-                    "https://t.me/+wlXhR-M2BbliMDU1",
-                    "https://saweria.co/destaseomods"
-                ]
-            }
-        }
-    </script>
     <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/189899710?v=4" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -673,51 +650,6 @@
             display: none !important;
         }
 
-        /* ===== TOAST NOTIFICATION ===== */
-        .toast {
-            position: fixed;
-            left: 50%;
-            bottom: calc(var(--nav-height) + var(--safe-bottom) + 14px);
-            transform: translateX(-50%) translateY(20px);
-            background: rgba(15, 15, 30, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 400;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            max-width: 90vw;
-            white-space: nowrap;
-        }
-        .toast i {
-            color: var(--accent2);
-        }
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.001ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.001ms !important;
-                scroll-behavior: auto !important;
-            }
-        }
-
         /* ============================================================
            DETAIL
            ============================================================ */
@@ -1203,7 +1135,7 @@
         }
 
         /* ============================================================
-           PROFILE - REDESIGN TOTAL
+           PROFILE - REDESIGN TOTAL (BARU)
            ============================================================ */
         .profile-card {
             background: var(--surface);
@@ -1212,251 +1144,206 @@
             border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: var(--radius);
             box-shadow: var(--shadow-premium);
-            position: relative;
             overflow: hidden;
-            padding: 0;
+            position: relative;
+            transition: all 0.4s ease;
         }
 
-        /* Cover dengan gradien dinamis */
+        /* ===== COVER ===== */
         .profile-cover {
-            width: 100%;
-            height: 170px;
-            background: linear-gradient(135deg, #1a0b2e 0%, #0d1b3e 30%, #1a0b2e 60%, #0d1b3e 100%);
-            background-size: 300% 300%;
-            animation: coverFlow 10s ease-in-out infinite alternate;
             position: relative;
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(145deg, #14082a 0%, #1a0b3e 30%, #0d1b4e 60%, #1a0b3e 100%);
+            background-size: 300% 300%;
+            animation: coverFlow 12s ease-in-out infinite alternate;
             overflow: hidden;
         }
-        /* Pola grid tipis di cover untuk kedalaman visual */
-        .profile-cover-pattern {
+        @keyframes coverFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .cover-glow {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(168, 127, 255, 0.35) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 70%, rgba(62, 224, 255, 0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(168, 127, 255, 0.10) 0%, transparent 70%);
+            pointer-events: none;
+            animation: glowPulse 6s ease-in-out infinite alternate;
+        }
+        @keyframes glowPulse {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .cover-pattern {
             position: absolute;
             inset: 0;
             background-image:
-                linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-            background-size: 26px 26px;
-            -webkit-mask-image: radial-gradient(ellipse at 70% 20%, #000 0%, transparent 75%);
-            mask-image: radial-gradient(ellipse at 70% 20%, #000 0%, transparent 75%);
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.03) 1px, transparent 1px),
+                radial-gradient(circle at 80% 30%, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px, 60px 60px;
             pointer-events: none;
         }
-        @keyframes coverFlow {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-        /* Glowing orbs di cover */
-        .profile-cover::before {
-            content: '';
-            position: absolute;
-            top: -60%;
-            right: -10%;
-            width: 80%;
-            height: 200%;
-            background: radial-gradient(ellipse, rgba(168, 127, 255, 0.3), transparent 60%);
-            pointer-events: none;
-            animation: orbFloat 8s ease-in-out infinite alternate;
-        }
-        .profile-cover::after {
-            content: '';
-            position: absolute;
-            bottom: -40%;
-            left: -10%;
-            width: 70%;
-            height: 180%;
-            background: radial-gradient(ellipse, rgba(62, 224, 255, 0.2), transparent 60%);
-            pointer-events: none;
-            animation: orbFloat2 10s ease-in-out infinite alternate;
-        }
-        @keyframes orbFloat {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                transform: translate(-30px, 20px) scale(1.2);
-            }
-        }
-        @keyframes orbFloat2 {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                transform: translate(40px, -20px) scale(1.3);
-            }
-        }
 
-        /* Layout utama profil: flex dengan gap besar */
-        .profile-main {
-            padding: 0 24px 28px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Baris atas: avatar + info */
-        .profile-top {
-            display: flex;
-            align-items: flex-end;
-            gap: 24px;
-            margin-top: -50px;
-            flex-wrap: wrap;
-        }
-
-        /* Avatar dengan efek glow (tanpa border berputar) */
-        .profile-avatar-wrap {
-            position: relative;
-            flex-shrink: 0;
-            animation: floatAvatar 4s ease-in-out infinite;
-        }
-        @keyframes floatAvatar {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-6px);
-            }
-        }
-        .profile-avatar-wrap::before {
-            content: '';
+        .cover-badge {
             position: absolute;
-            inset: -5px;
-            border-radius: 50%;
-            padding: 3px;
-            background: conic-gradient(from 0deg, var(--accent), var(--accent2), #f093fb, #4facfe, var(--accent));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            box-shadow: 0 0 40px rgba(168, 127, 255, 0.2);
-            animation: ringSpin 6s linear infinite;
-        }
-        @keyframes ringSpin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        .profile-avatar {
-            width: clamp(90px, 16vw, 120px);
-            height: clamp(90px, 16vw, 120px);
-            border-radius: 50%;
-            background-size: cover;
-            background-position: center;
-            border: 3px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            transition: 0.4s;
-            display: block;
-            background-color: var(--surface2);
-        }
-        .profile-avatar:hover {
-            transform: scale(1.04);
-            box-shadow: 0 15px 60px rgba(168, 127, 255, 0.25);
-        }
-        /* Indikator status aktif di avatar */
-        .profile-status-dot {
-            position: absolute;
-            bottom: 4px;
-            right: 4px;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #34d399;
-            border: 3px solid var(--bg);
-            box-shadow: 0 0 12px rgba(52, 211, 153, 0.6);
-            z-index: 2;
-        }
-        .profile-status-dot::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            background: inherit;
-            animation: statusPulse 2s ease-out infinite;
-        }
-        @keyframes statusPulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55);
-            }
-            100% {
-                box-shadow: 0 0 0 10px rgba(52, 211, 153, 0);
-            }
-        }
-
-        /* Info di samping avatar */
-        .profile-info {
-            flex: 1;
-            min-width: 200px;
-            padding-top: 10px;
-        }
-        .profile-name-wrap {
+            top: 16px;
+            right: 20px;
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #fff;
             display: flex;
             align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 2px;
+            gap: 8px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 5;
         }
-        .profile-name {
-            font-size: clamp(1.3rem, 3vw, 1.8rem);
-            font-weight: 800;
-            letter-spacing: -0.3px;
-            background: linear-gradient(135deg, #fff, #c084fc);
+        .cover-badge i {
+            background: linear-gradient(135deg, #f6d365, #fda085);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .verified-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            font-size: 12px;
-            color: #fff;
-            box-shadow: 0 0 20px rgba(79, 172, 254, 0.4);
-            flex-shrink: 0;
+
+        /* ===== MAIN ===== */
+        .profile-main {
+            padding: 0 28px 32px;
+            position: relative;
+            z-index: 2;
+            margin-top: -52px;
         }
-        /* Badge chip: premium, member sejak, dll */
-        .profile-badges {
+
+        /* ===== HEAD (Avatar + Nama + Bio) ===== */
+        .profile-head {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+            animation: floatAvatar 5s ease-in-out infinite;
+        }
+        @keyframes floatAvatar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .profile-avatar {
+            width: clamp(100px, 18vw, 130px);
+            height: clamp(100px, 18vw, 130px);
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+            transition: all 0.5s ease;
+            display: block;
+            background-color: var(--surface2);
+            position: relative;
+            z-index: 2;
+        }
+        .profile-avatar:hover {
+            transform: scale(1.04);
+            box-shadow: 0 16px 60px rgba(168, 127, 255, 0.25);
+        }
+
+        .avatar-ring {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent2), #f093fb, #4facfe);
+            background-size: 300% 300%;
+            animation: ringSpin 6s linear infinite;
+            z-index: 1;
+            opacity: 0.6;
+            filter: blur(2px);
+        }
+        @keyframes ringSpin {
+            0% { background-position: 0% 50%; transform: rotate(0deg); }
+            100% { background-position: 100% 50%; transform: rotate(360deg); }
+        }
+
+        .profile-head-text {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .profile-name {
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #c084fc 40%, #60a5fa 70%, #34d399 100%);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientTitle 4s ease infinite alternate;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+        @keyframes gradientTitle {
+            0% { background-position: 0% center; }
+            100% { background-position: 100% center; }
+        }
+
+        .profile-badge-wrap {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
-        .badge-chip {
+        .verified-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.68rem;
+            background: rgba(79, 172, 254, 0.12);
+            border: 1px solid rgba(79, 172, 254, 0.15);
+            padding: 3px 14px;
+            border-radius: 40px;
+            font-size: 0.65rem;
             font-weight: 700;
-            letter-spacing: 0.2px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            background: rgba(255, 255, 255, 0.03);
+            color: #4facfe;
+            letter-spacing: 0.3px;
+        }
+        .verified-badge i {
+            font-size: 0.7rem;
+        }
+        .member-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.04);
+            padding: 3px 14px;
+            border-radius: 40px;
+            font-size: 0.65rem;
+            font-weight: 600;
             color: var(--text2);
         }
-        .badge-chip.badge-premium {
-            background: linear-gradient(135deg, rgba(246, 211, 101, 0.15), rgba(253, 160, 133, 0.15));
-            border-color: rgba(253, 160, 133, 0.3);
-            color: #fed9a8;
-        }
-        .badge-chip.badge-premium i {
-            color: #fda085;
-        }
-        .badge-chip.badge-since i {
+        .member-badge i {
             color: var(--accent2);
         }
+
         .profile-bio {
             color: var(--text2);
-            font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+            font-size: clamp(0.85rem, 1.2vw, 1rem);
             font-weight: 400;
-            letter-spacing: 0.2px;
-            margin-bottom: 6px;
+            margin-bottom: 2px;
         }
         .profile-bio i {
             color: var(--accent2);
@@ -1474,18 +1361,18 @@
             color: var(--accent2);
         }
 
-        /* Tombol aksi di profil */
+        /* ===== ACTIONS ===== */
         .profile-actions {
             display: flex;
-            gap: 10px;
-            margin-top: 12px;
+            gap: 12px;
             flex-wrap: wrap;
+            margin: 16px 0 22px;
         }
         .profile-actions .action-btn {
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.8rem;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
             border: 1px solid rgba(255, 255, 255, 0.06);
             background: rgba(255, 255, 255, 0.03);
             color: var(--text);
@@ -1493,54 +1380,45 @@
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             backdrop-filter: blur(8px);
         }
         .profile-actions .action-btn:hover {
-            background: rgba(168, 127, 255, 0.1);
-            border-color: rgba(168, 127, 255, 0.2);
-            transform: translateY(-2px);
+            background: rgba(168, 127, 255, 0.08);
+            border-color: rgba(168, 127, 255, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
         }
         .profile-actions .action-btn.primary {
-            background: var(--grad-accent);
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             border: none;
             color: #04040e;
-            box-shadow: 0 4px 20px rgba(168, 127, 255, 0.2);
+            box-shadow: 0 6px 24px rgba(168, 127, 255, 0.25);
         }
         .profile-actions .action-btn.primary:hover {
-            box-shadow: 0 6px 30px rgba(168, 127, 255, 0.3);
-            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 40px rgba(168, 127, 255, 0.35);
+            transform: translateY(-3px) scale(1.02);
         }
         .profile-actions .action-btn i {
-            font-size: 0.9rem;
-        }
-        .profile-actions .action-btn.icon-only {
-            width: 36px;
-            height: 36px;
-            padding: 0;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        .profile-actions .action-btn.icon-only i {
-            font-size: 0.85rem;
+            font-size: 1rem;
         }
 
-        /* Stats - redesigned lebih modern */
+        /* ===== STATS ===== */
         .profile-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            margin: 22px 0 20px;
+            gap: 16px;
+            margin-bottom: 12px;
         }
         .stat-item {
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 18px;
-            padding: 16px 12px;
+            border-radius: 20px;
+            padding: 20px 12px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
         }
@@ -1548,7 +1426,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 1px;
             background: linear-gradient(135deg, rgba(168, 127, 255, 0.08), transparent 50%, rgba(62, 224, 255, 0.08));
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -1560,62 +1438,110 @@
             background: rgba(255, 255, 255, 0.04);
             border-color: rgba(168, 127, 255, 0.08);
             transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
-        .stat-item .stat-icon {
-            font-size: 1.4rem;
+        .stat-icon-box {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(168, 127, 255, 0.10), rgba(62, 224, 255, 0.05));
+            font-size: 1.3rem;
             color: var(--accent2);
-            margin-bottom: 4px;
-            display: block;
-            background: linear-gradient(135deg, var(--accent2), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            transition: all 0.4s ease;
         }
-        .stat-item .stat-number {
-            font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+        .stat-item:hover .stat-icon-box {
+            background: linear-gradient(135deg, rgba(168, 127, 255, 0.20), rgba(62, 224, 255, 0.10));
+            transform: scale(1.05) rotate(4deg);
+            box-shadow: 0 0 30px rgba(168, 127, 255, 0.08);
+        }
+        .stat-number {
+            font-size: clamp(1.4rem, 2.5vw, 1.9rem);
             font-weight: 800;
             color: #fff;
             display: block;
             line-height: 1.2;
         }
-        .stat-item .stat-label {
-            font-size: clamp(0.55rem, 0.8vw, 0.65rem);
+        .stat-label {
+            font-size: clamp(0.6rem, 0.9vw, 0.7rem);
             color: var(--text2);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
             font-weight: 600;
         }
 
-        /* Social & Donasi - dalam satu baris flex */
+        /* ===== DIVIDER ===== */
+        .profile-divider {
+            display: flex;
+            justify-content: center;
+            margin: 8px 0 18px;
+        }
+        .profile-divider span {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0 18px;
+            border-radius: 40px;
+            color: var(--text2);
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+        }
+
+        /* ===== BOTTOM ===== */
         .profile-bottom {
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
-            align-items: center;
+            gap: 24px 40px;
+            align-items: flex-start;
             justify-content: space-between;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            padding-top: 20px;
         }
+        .social-section,
+        .donate-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-label i {
+            color: var(--accent2);
+        }
+
         .social-links {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
+        .donate-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         .social-link {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
             padding: 8px 18px;
-            border-radius: 30px;
+            border-radius: 40px;
             color: var(--text);
             text-decoration: none;
             font-weight: 600;
-            font-size: clamp(0.65rem, 1vw, 0.8rem);
+            font-size: clamp(0.7rem, 1vw, 0.8rem);
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             backdrop-filter: blur(8px);
+            cursor: pointer;
         }
         .social-link i {
             font-size: clamp(0.8rem, 1vw, 1rem);
@@ -1625,64 +1551,45 @@
             background: rgba(24, 119, 242, 0.12);
             border-color: #1877f2;
             color: #fff;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
         .social-link[data-brand="telegram"]:hover {
             background: rgba(0, 136, 204, 0.12);
             border-color: #0088cc;
             color: #fff;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+        }
+        .social-link[data-brand="saweria"]:hover {
+            background: rgba(255, 165, 0, 0.12);
+            border-color: #ffa500;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+        .social-link[data-brand="qris"]:hover {
+            background: rgba(62, 224, 255, 0.12);
+            border-color: var(--accent2);
+            color: #fff;
+            transform: translateY(-3px);
         }
         .social-link:hover i {
             transform: scale(1.1);
         }
 
-        .donate-section {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .donate-title {
-            color: var(--text2);
-            font-weight: 600;
-            font-size: clamp(0.7rem, 1vw, 0.8rem);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .donate-title i {
-            background: var(--grad-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .donate-links {
-            display: flex;
-            gap: 8px;
-        }
-        .donate-links .social-link {
-            background: rgba(255, 255, 255, 0.02);
-            border-color: rgba(255, 255, 255, 0.04);
-            font-size: 0.7rem;
-            padding: 6px 14px;
-        }
-        .donate-links .social-link[data-brand="saweria"]:hover {
-            background: rgba(255, 165, 0, 0.12);
-            border-color: #ffa500;
-        }
-        .donate-links .social-link[data-brand="qris"]:hover {
-            background: rgba(62, 224, 255, 0.12);
-            border-color: var(--accent2);
-        }
-
-        #profile-footer-text {
-            margin-top: 16px;
+        /* ===== FOOTER ===== */
+        .profile-footer-text {
+            margin-top: 24px;
             text-align: center;
             font-size: 0.85rem;
             color: var(--text2);
             border-top: 1px solid rgba(255, 255, 255, 0.03);
-            padding-top: 16px;
+            padding-top: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .profile-footer-text i {
+            color: var(--accent2);
         }
 
         /* ============================================================
@@ -1894,50 +1801,20 @@
            RESPONSIVE
            ============================================================ */
         @media (max-width: 600px) {
-            .profile-top {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 10px;
-                margin-top: -40px;
-            }
-            .profile-avatar {
-                width: 90px;
-                height: 90px;
-            }
-            .profile-info {
-                text-align: center;
-            }
-            .profile-name-wrap {
-                justify-content: center;
-            }
-            .profile-location {
-                justify-content: center;
-            }
-            .profile-actions {
-                justify-content: center;
-            }
-            .profile-bottom {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 14px;
-            }
-            .social-links {
-                justify-content: center;
-            }
-            .donate-section {
-                flex-direction: column;
-                align-items: center;
-            }
-            .donate-links {
-                justify-content: center;
-            }
-            .profile-stats {
-                gap: 10px;
-            }
-            .stat-item {
-                padding: 12px 8px;
-            }
+            .profile-cover { height: 130px; }
+            .profile-main { padding: 0 16px 24px; margin-top: -40px; }
+            .profile-head { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+            .profile-head-text { text-align: center; }
+            .profile-badge-wrap { justify-content: center; }
+            .profile-actions { justify-content: center; }
+            .profile-stats { gap: 10px; }
+            .stat-item { padding: 14px 8px; }
+            .stat-icon-box { width: 36px; height: 36px; font-size: 1rem; }
+            .profile-bottom { flex-direction: column; align-items: stretch; gap: 16px; }
+            .social-section, .donate-section { align-items: center; }
+            .social-links, .donate-links { justify-content: center; }
+            .profile-actions .action-btn { padding: 8px 16px; font-size: 0.75rem; }
+            .cover-badge { top: 10px; right: 12px; font-size: 0.6rem; padding: 4px 12px; }
             .post-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 10px;
@@ -2003,9 +1880,6 @@
                 right: 16px;
                 font-size: 1.6rem;
             }
-            .profile-cover {
-                height: 100px;
-            }
             .carousel-dots {
                 bottom: 8px;
                 gap: 6px;
@@ -2017,35 +1891,13 @@
             .carousel-dot.active {
                 width: 18px;
             }
-            .profile-actions .action-btn {
-                padding: 6px 14px;
-                font-size: 0.7rem;
-            }
-            .profile-actions .action-btn i {
-                font-size: 0.7rem;
-            }
-            .social-link {
-                padding: 6px 14px;
-                font-size: 0.65rem;
-            }
-            .profile-badges {
-                justify-content: center;
-            }
         }
         @media (max-width: 400px) {
-            .profile-stats {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 6px;
-            }
-            .stat-item .stat-number {
-                font-size: 0.9rem;
-            }
-            .stat-item .stat-label {
-                font-size: 0.45rem;
-            }
-            .stat-item .stat-icon {
-                font-size: 1rem;
-            }
+            .profile-stats { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+            .stat-item { padding: 10px 4px; }
+            .stat-number { font-size: 0.9rem; }
+            .stat-label { font-size: 0.5rem; letter-spacing: 0.4px; }
+            .stat-icon-box { width: 30px; height: 30px; font-size: 0.9rem; }
         }
         @media (min-width: 768px) {
             .rekomendasi-grid {
@@ -2057,6 +1909,7 @@
             .detail-meta-grid {
                 grid-template-columns: repeat(4, 1fr);
             }
+            .profile-stats { gap: 20px; }
         }
         @media (min-width: 1024px) {
             .container {
@@ -2064,26 +1917,6 @@
             }
             .post-grid {
                 gap: 20px;
-            }
-        }
-        /* Profil: tata letak lebih lega di layar tablet/desktop */
-        @media (min-width: 700px) {
-            .profile-cover {
-                height: 210px;
-            }
-            .profile-main {
-                padding: 0 36px 32px;
-            }
-            .profile-top {
-                gap: 28px;
-                margin-top: -56px;
-            }
-            .profile-stats {
-                gap: 18px;
-                margin: 26px 0 22px;
-            }
-            .stat-item {
-                padding: 18px 14px;
             }
         }
         @media (hover: none) {
@@ -2201,80 +2034,108 @@
             <div id="detail-content"></div>
         </section>
 
-        <!-- PROFILE - REDESIGN v2 -->
-        <section id="profile-section" class="hidden" aria-label="Profil" itemscope itemtype="https://schema.org/ProfilePage">
+        <!-- PROFILE - REDESIGN TOTAL (BARU) -->
+        <section id="profile-section" class="hidden" aria-label="Profil">
             <div class="profile-card">
                 <!-- Cover -->
                 <div class="profile-cover">
-                    <div class="profile-cover-pattern"></div>
+                    <div class="cover-glow"></div>
+                    <div class="cover-pattern"></div>
+                    <div class="cover-badge">
+                        <i class="fas fa-crown"></i> Premium Modder
+                    </div>
                 </div>
 
                 <!-- Main Content -->
-                <div class="profile-main" itemprop="mainEntity" itemscope itemtype="https://schema.org/Person">
-                    <!-- Top: Avatar + Info -->
-                    <div class="profile-top">
+                <div class="profile-main">
+                    <!-- Avatar + Nama + Bio -->
+                    <div class="profile-head">
                         <div class="profile-avatar-wrap">
-                            <div class="profile-avatar" id="profile-avatar" role="img" aria-label="Foto profil Destaseo Mods" itemprop="image" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');"></div>
-                            <span class="profile-status-dot" title="Sedang aktif" aria-hidden="true"></span>
+                            <div class="profile-avatar" id="profile-avatar" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');"></div>
+                            <div class="avatar-ring"></div>
                         </div>
-                        <div class="profile-info">
-                            <div class="profile-name-wrap">
-                                <h1 class="profile-name" id="profile-name" itemprop="name">Destaseo Mods</h1>
-                                <span class="verified-badge" title="Akun terverifikasi" aria-label="Akun terverifikasi"><i class="fas fa-check"></i></span>
+                        <div class="profile-head-text">
+                            <h1 class="profile-name" id="profile-name">Destaseo Mods</h1>
+                            <div class="profile-badge-wrap">
+                                <span class="verified-badge"><i class="fas fa-check-circle"></i> Terverifikasi</span>
+                                <span class="member-badge"><i class="fas fa-calendar-alt"></i> Member sejak 2024</span>
                             </div>
-                            <div class="profile-badges" id="profile-badges">
-                                <span class="badge-chip badge-premium"><i class="fas fa-crown"></i> Premium Modder</span>
-                                <span class="badge-chip badge-since"><i class="fas fa-calendar-alt"></i> Aktif sejak 2023</span>
-                            </div>
-                            <p class="profile-bio" id="profile-bio" itemprop="description"><i class="fas fa-code"></i> Premium modder &amp; content creator <i class="fas fa-heart" style="color:#f5576c;"></i></p>
-                            <div class="profile-location" itemprop="address"><i class="fas fa-map-pin"></i> Nganjuk • Jawa Timur • Indonesia</div>
-                            <div class="profile-actions">
-                                <button class="action-btn primary" id="qris-dana-btn"><i class="fas fa-qrcode"></i> Donasi</button>
-                                <a href="https://t.me/destaseo" target="_blank" rel="noopener" class="action-btn"><i class="fab fa-telegram-plane"></i> Hubungi</a>
-                                <button class="action-btn icon-only" id="profile-share-btn" aria-label="Bagikan profil" title="Bagikan profil"><i class="fas fa-share-alt"></i></button>
+                            <p class="profile-bio" id="profile-bio">
+                                <i class="fas fa-code"></i> Premium modder &amp; content creator
+                                <i class="fas fa-heart" style="color:#f5576c;"></i>
+                            </p>
+                            <div class="profile-location">
+                                <i class="fas fa-map-pin"></i> Nganjuk • Jawa Timur • Indonesia
                             </div>
                         </div>
                     </div>
 
-                    <!-- Stats -->
+                    <!-- Tombol aksi -->
+                    <div class="profile-actions">
+                        <button class="action-btn primary" id="qris-dana-btn">
+                            <i class="fas fa-qrcode"></i> Donasi
+                        </button>
+                        <a href="https://t.me/destaseo" target="_blank" rel="noopener" class="action-btn">
+                            <i class="fab fa-telegram-plane"></i> Hubungi
+                        </a>
+                        <button class="action-btn" id="share-profile-btn">
+                            <i class="fas fa-share-alt"></i> Bagikan
+                        </button>
+                    </div>
+
+                    <!-- Statistik -->
                     <div class="profile-stats" id="profile-stats">
                         <div class="stat-item">
-                            <span class="stat-icon"><i class="fas fa-box"></i></span>
-                            <span class="stat-number" id="stat-mods" data-target="0">0</span>
+                            <div class="stat-icon-box"><i class="fas fa-box-open"></i></div>
+                            <span class="stat-number" id="stat-mods">0</span>
                             <span class="stat-label">Total Mods</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-icon"><i class="fas fa-download"></i></span>
-                            <span class="stat-number" id="stat-downloads" data-target="12800" data-suffix="K" data-divide="1000" data-decimals="1">12.8K</span>
+                            <div class="stat-icon-box"><i class="fas fa-cloud-download-alt"></i></div>
+                            <span class="stat-number" id="stat-downloads">12.8K</span>
                             <span class="stat-label">Downloads</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-icon"><i class="fas fa-star"></i></span>
-                            <span class="stat-number" id="stat-rating" data-target="4.9" data-decimals="1">4.9</span>
+                            <div class="stat-icon-box"><i class="fas fa-star"></i></div>
+                            <span class="stat-number" id="stat-rating">4.9</span>
                             <span class="stat-label">Rating</span>
                         </div>
                     </div>
 
-                    <!-- Bottom: Social + Donasi -->
+                    <!-- Divider -->
+                    <div class="profile-divider">
+                        <span><i class="fas fa-ellipsis-h"></i></span>
+                    </div>
+
+                    <!-- Bottom: Social & Donasi -->
                     <div class="profile-bottom">
-                        <div class="social-links" id="social-links"></div>
+                        <div class="social-section">
+                            <span class="section-label"><i class="fas fa-share-alt"></i> Sosial</span>
+                            <div class="social-links" id="social-links"></div>
+                        </div>
+
                         <div class="donate-section">
-                            <span class="donate-title"><i class="fas fa-hand-holding-heart"></i> Dukung</span>
+                            <span class="section-label"><i class="fas fa-hand-holding-heart"></i> Dukung</span>
                             <div class="donate-links">
-                                <a href="https://saweria.co/destaseomods" target="_blank" rel="noopener" class="social-link" data-brand="saweria"><i class="fas fa-coffee"></i> Saweria</a>
-                                <button class="social-link" id="qris-dana-btn-bottom" data-brand="qris"><i class="fas fa-qrcode"></i> QRIS</button>
+                                <a href="https://saweria.co/destaseomods" target="_blank" rel="noopener" class="social-link" data-brand="saweria">
+                                    <i class="fas fa-coffee"></i> Saweria
+                                </a>
+                                <button class="social-link" id="qris-dana-btn-bottom" data-brand="qris">
+                                    <i class="fas fa-qrcode"></i> QRIS
+                                </button>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Footer -->
+                    <div class="profile-footer-text" id="profile-footer-text">
+                        <i class="fas fa-rocket"></i> Update aplikasi modifikasi premium setiap hari.
+                    </div>
                 </div>
             </div>
-            <div class="content-box" id="profile-footer-text">🚀 Update aplikasi modifikasi premium setiap hari.</div>
         </section>
 
     </main>
-
-    <!-- Toast notifikasi (mis. saat link disalin) -->
-    <div class="toast" id="toast" role="status" aria-live="polite"><i class="fas fa-check-circle"></i><span id="toast-msg"></span></div>
 
     <!-- BOTTOM NAV -->
     <nav class="bottom-nav" role="navigation" aria-label="Navigasi utama">
@@ -2338,6 +2199,7 @@
             const qrisDanaBtn = $('qris-dana-btn');
             const qrisDanaBtnBottom = $('qris-dana-btn-bottom');
             const qrisDownloadBtn = $('qris-download-btn');
+            const shareProfileBtn = $('share-profile-btn');
 
             // ===== STATE =====
             let postsData = [],
@@ -3156,11 +3018,9 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // ================================================================
-            // RENDER PROFILE - REDESIGN
-            // ================================================================
+            // ===== RENDER PROFILE =====
             function renderProfile() {
-                // Name
+                // Nama
                 document.getElementById('profile-name').textContent = PROFILE.name;
 
                 // Bio
@@ -3169,9 +3029,7 @@
 
                 // Stats
                 const totalMods = fetchedPosts.length || 0;
-                const statMods = document.getElementById('stat-mods');
-                statMods.dataset.target = totalMods;
-                statMods.dataset.suffix = '+';
+                document.getElementById('stat-mods').textContent = totalMods + '+';
 
                 // Social Links
                 const socialContainer = document.getElementById('social-links');
@@ -3185,76 +3043,11 @@
                     avatar.style.backgroundImage = `url('${PROFILE.avatar}')`;
                     avatar.textContent = '';
                 }
-
-                animateProfileStats();
-            }
-
-            // ================================================================
-            // COUNT-UP ANIMATION UNTUK STATISTIK PROFIL
-            // ================================================================
-            function animateStatNumber(el) {
-                const target = parseFloat(el.dataset.target);
-                if (isNaN(target)) return;
-                const divide = parseFloat(el.dataset.divide) || 1;
-                const decimals = parseInt(el.dataset.decimals) || 0;
-                const suffix = el.dataset.suffix || '';
-                const displayTarget = target / divide;
-                const duration = 900;
-                const startTime = performance.now();
-
-                function tick(now) {
-                    const p = Math.min((now - startTime) / duration, 1);
-                    const eased = 1 - Math.pow(1 - p, 3);
-                    const current = displayTarget * eased;
-                    el.textContent = current.toFixed(decimals) + suffix;
-                    if (p < 1) requestAnimationFrame(tick);
-                    else el.textContent = displayTarget.toFixed(decimals) + suffix;
-                }
-                requestAnimationFrame(tick);
-            }
-
-            function animateProfileStats() {
-                qsa('.stat-number', profileSection).forEach(animateStatNumber);
-            }
-
-            // ================================================================
-            // TOAST NOTIFIKASI
-            // ================================================================
-            const toastEl = $('toast');
-            const toastMsgEl = $('toast-msg');
-            let toastTimeout = null;
-            function showToast(message) {
-                if (!toastEl || !toastMsgEl) return;
-                toastMsgEl.textContent = message;
-                toastEl.classList.add('show');
-                clearTimeout(toastTimeout);
-                toastTimeout = setTimeout(() => toastEl.classList.remove('show'), 2400);
             }
 
             // ===== EVENTS =====
             detailBack.addEventListener('click', () => setHash('home'));
             navItems.forEach(i => i.addEventListener('click', () => setHash(i.dataset.page)));
-
-            // Tombol bagikan profil
-            const profileShareBtn = $('profile-share-btn');
-            if (profileShareBtn) {
-                profileShareBtn.addEventListener('click', async () => {
-                    const shareUrl = window.location.origin + window.location.pathname + '#profile';
-                    const shareData = {
-                        title: PROFILE.name,
-                        text: `Lihat profil ${PROFILE.name} di Destaseo Mods`,
-                        url: shareUrl
-                    };
-                    try {
-                        if (navigator.share) {
-                            await navigator.share(shareData);
-                        } else if (navigator.clipboard) {
-                            await navigator.clipboard.writeText(shareUrl);
-                            showToast('Link profil disalin!');
-                        }
-                    } catch (e) { /* dibatalkan pengguna, abaikan */ }
-                });
-            }
 
             const debouncedSearch = debounce(() => resetAndApplyFilters(), 300);
             searchInput.addEventListener('input', debouncedSearch);
@@ -3265,7 +3058,7 @@
             document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
 
-            // QRIS buttons (both)
+            // QRIS buttons
             const qrisOpeners = [qrisDanaBtn, qrisDanaBtnBottom];
             qrisOpeners.forEach(btn => {
                 if (btn) btn.addEventListener('click', () => qrisOverlay.classList.remove('hidden'));
@@ -3287,6 +3080,23 @@
                     URL.revokeObjectURL(u);
                 } catch { window.open(QRIS_URL, '_blank'); }
             });
+
+            // Share profile button (optional)
+            if (shareProfileBtn) {
+                shareProfileBtn.addEventListener('click', () => {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: 'Destaseo Mods',
+                            text: 'Download mod APK premium di Destaseo Mods',
+                            url: window.location.href
+                        }).catch(() => {});
+                    } else {
+                        navigator.clipboard.writeText(window.location.href).then(() => {
+                            alert('Link profil disalin ke clipboard!');
+                        }).catch(() => {});
+                    }
+                });
+            }
 
             window.addEventListener('hashchange', () => {
                 const { page, postName } = getHashPage();
