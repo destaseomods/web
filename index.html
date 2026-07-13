@@ -1890,7 +1890,7 @@
             // VARIABEL GLOBAL
             // ============================================================
             const CACHE_KEY = 'destaseo_premium_cache_v69';
-            const CACHE_TIME = 10 * 60 * 1000;
+            const CACHE_TIME = 0; // 🔥 CACHE DINONAKTIFKAN SEPENUHNYA (0 = selalu fetch dari GitHub)
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
             const loadMoreContainer = document.getElementById('load-more-container');
@@ -2156,20 +2156,16 @@
             }
 
             // ============================================================
-            // FETCH DATA DARI GITHUB
+            // FETCH DATA DARI GITHUB — TANPA CACHE (CACHE_TIME = 0)
             // ============================================================
             function getCache() {
-                const r = localStorage.getItem(CACHE_KEY);
-                if (!r) return null;
-                try {
-                    const d = JSON.parse(r);
-                    if (Date.now() - d.t < CACHE_TIME) return d.posts;
-                } catch (e) {}
+                // CACHE DINONAKTIFKAN — selalu return null agar selalu fetch ulang
                 return null;
             }
 
             function setCache(posts) {
-                localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), posts }));
+                // Tidak menyimpan cache karena CACHE_TIME = 0
+                // Biarkan kosong
             }
 
             async function fetchPostList() {
@@ -2178,11 +2174,12 @@
                 let apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
                 const res = await fetch(apiUrl);
                 if (!res.ok) {
+                    // Fallback: coba pakai cache lama kalau ada (tapi kita nonaktifkan, jadi fallback ke error)
                     const old = localStorage.getItem(CACHE_KEY);
                     if (old) {
                         try {
                             const d = JSON.parse(old);
-                            console.warn('⚠️ Gagal fetch, pakai cache kadaluarsa.');
+                            console.warn('⚠️ Gagal fetch, pakai cache kadaluarsa (last resort).');
                             postsData = d.posts;
                             return;
                         } catch (e) {}
@@ -2194,7 +2191,7 @@
                 if (!mdFiles.length) throw new Error('Tidak ada file .md di posts/.');
                 postsData = mdFiles.map(f => ({ filename: f.name, name: f.name.replace('.md', ''), download_url: f
                         .download_url }));
-                setCache(postsData);
+                // Tidak menyimpan cache
             }
 
             function parseFrontmatter(md) {
