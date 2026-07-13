@@ -31,18 +31,18 @@
 
     <!-- JSON-LD: WebSite -->
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Destaseo Mods",
-        "url": "https://destaseomods.web.id/",
-        "description": "Situs download mod APK premium terbaik.",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://destaseomods.web.id/#search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Destaseo Mods",
+            "url": "https://destaseomods.web.id/",
+            "description": "Situs download mod APK premium terbaik.",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://destaseomods.web.id/#search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
         }
-    }
     </script>
 
     <!-- Favicon -->
@@ -324,13 +324,14 @@
         }
 
         /* ============================================================
-           SORT BAR
+           SORT BAR — DIPERKECIL JARAKNYA AGAR MEpet ke grid
            ============================================================ */
         .sort-bar {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 16px;
+            margin-bottom: 6px;
+            /* ← tadinya 16px, sekarang 6px */
             justify-content: flex-end;
             flex-wrap: wrap;
         }
@@ -475,15 +476,13 @@
         /* ============================================================
            POST GRID
            ============================================================ */
-        .section-divider {
-            border: none;
-            border-top: 3px solid rgba(255, 255, 255, 0.25);
-            margin: 22px 0 20px;
-        }
+        /* hilangkan hr, kita pakai border-top tipis kalau mau, tapi lebih rapi tanpa */
         .post-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 14px;
+            margin-top: 2px;
+            /* sedikit napas */
         }
         @media (min-width: 420px) {
             .post-grid {
@@ -503,6 +502,7 @@
                 gap: 20px;
             }
         }
+
         .post-card {
             background: var(--surface);
             backdrop-filter: blur(22px);
@@ -1338,7 +1338,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 6px;
+            /* rapat juga */
             font-size: 0.8rem;
             color: var(--accent2);
             flex-wrap: wrap;
@@ -1611,7 +1612,9 @@
                     <div class="carousel-track" id="carousel-track"></div>
                 </div>
             </div>
-            <div class="sort-bar" id="sort-bar" style="margin-top:12px;margin-bottom:0;">
+
+            <!-- SORT BAR — sekarang langsung di atas grid, tanpa hr -->
+            <div class="sort-bar" id="sort-bar" style="margin-top:10px; margin-bottom:4px;">
                 <span class="sort-label"><i class="fas fa-sort-amount-down"></i> Urutkan:</span>
                 <select class="sort-select" id="sort-select" aria-label="Urutkan postingan">
                     <option value="terbaru" selected>Terbaru</option>
@@ -1620,8 +1623,11 @@
                     <option value="za">Judul Z-A</option>
                 </select>
             </div>
-            <hr class="section-divider" />
+
+            <!-- Filter indicator -->
             <div id="filter-indicator" class="filter-indicator hidden"></div>
+
+            <!-- POST GRID -->
             <div id="post-container" class="post-grid"></div>
             <div id="load-more-container" style="text-align:center;"></div>
         </section>
@@ -1685,7 +1691,6 @@
                 const img = image || "https://avatars.githubusercontent.com/u/189899710?v=4";
                 const link = url || window.location.href;
 
-                // Meta description
                 let metaDesc = document.querySelector('meta[name="description"]');
                 if (!metaDesc) {
                     metaDesc = document.createElement('meta');
@@ -1694,7 +1699,6 @@
                 }
                 metaDesc.content = desc;
 
-                // Open Graph
                 let ogTitle = document.querySelector('meta[property="og:title"]');
                 if (!ogTitle) {
                     ogTitle = document.createElement('meta');
@@ -1727,7 +1731,6 @@
                 }
                 ogUrl.content = link;
 
-                // Twitter
                 let twTitle = document.querySelector('meta[name="twitter:title"]');
                 if (!twTitle) {
                     twTitle = document.createElement('meta');
@@ -1752,7 +1755,6 @@
                 }
                 twImage.content = img;
 
-                // Canonical
                 let canonical = document.querySelector('link[rel="canonical"]');
                 if (!canonical) {
                     canonical = document.createElement('link');
@@ -2042,7 +2044,6 @@
                     renderProfile();
                     updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.', AVATAR_URL, 'https://destaseomods.web.id/#profile');
                 } else if (p === 'detail' && postName) {
-                    // SEO akan diupdate di showDetail
                     showDetail(postName);
                     setActiveNav('detail');
                     searchBox.classList.add('hidden');
@@ -2188,7 +2189,7 @@
                 categoryBar.querySelectorAll('.category-chip').forEach(chip => chip.addEventListener('click', () => {
                     activeKatFilter = chip.dataset.kat || null;
                     resetAndApplyFilters();
-                    renderCategoryBar(); // update aria-selected
+                    renderCategoryBar();
                 }));
                 const resetBtn = document.getElementById('reset-filter');
                 if (resetBtn) resetBtn.addEventListener('click', () => { activeKatFilter = null;
@@ -2377,7 +2378,6 @@
                     renderCategoryBar();
                     resetAndApplyFilters();
                     startCarousel();
-                    // SEO untuk home
                     updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik. Dapatkan aplikasi game modifikasi terbaru gratis.', LOGO_URL, 'https://destaseomods.web.id/');
                 } catch (err) {
                     postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`;
@@ -2523,7 +2523,6 @@
                     `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` :
                     '';
 
-                // Rekomendasi
                 const recommendations = getRecommendations(post, 4);
                 let recHtml = '';
                 if (recommendations.length > 0) {
@@ -2551,11 +2550,9 @@
 
                 const viewCount = await getGlobalViewCount(name);
 
-                // SEO update untuk detail
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
                 updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, 'https://destaseomods.web.id/#detail/' + name);
 
-                // JSON-LD untuk Article
                 const articleJson = {
                     "@context": "https://schema.org",
                     "@type": "Article",
