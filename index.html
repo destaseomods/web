@@ -80,6 +80,7 @@
             --glow: 0 0 60px rgba(168, 127, 255, 0.4);
             --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             --topbar-height: 76px;
+            --profile-top-offset: 20px;
         }
 
         /* ============================================================
@@ -326,13 +327,14 @@
         }
 
         /* ============================================================
-           SORT BAR
+           SORT BAR — jarak diperbesar dari carousel
            ============================================================ */
         .sort-bar {
             display: flex;
             align-items: center;
             gap: 8px;
             margin-top: 18px;
+            /* jarak dari carousel */
             margin-bottom: 4px;
             justify-content: flex-end;
             flex-wrap: wrap;
@@ -835,7 +837,7 @@
         }
 
         /* ============================================================
-           CONTENT BOX — DESKRIPSI MOD: diperkecil & lebih jelas
+           CONTENT BOX
            ============================================================ */
         .content-box {
             background: var(--surface);
@@ -843,54 +845,18 @@
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 16px 20px;
+            line-height: 1.8;
             box-shadow: var(--shadow-card);
+            white-space: pre-line;
             max-width: 100%;
             box-sizing: border-box;
             overflow: hidden;
             word-wrap: break-word;
-            /* Ukuran font lebih kecil dan kontras lebih baik */
-            font-size: 0.9rem;
-            line-height: 1.7;
-            color: #e0e0f0;
         }
         @media (min-width: 500px) {
             .content-box {
                 padding: 16px 28px;
-                font-size: 0.95rem;
-                line-height: 1.8;
             }
-        }
-
-        /* Elemen di dalam content-box */
-        .content-box p {
-            margin-bottom: 0.75rem;
-        }
-        .content-box h1,
-        .content-box h2,
-        .content-box h3,
-        .content-box h4 {
-            color: #ffffff;
-            margin-top: 1.2rem;
-            margin-bottom: 0.6rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-        .content-box h1 {
-            font-size: 1.3rem;
-        }
-        .content-box h2 {
-            font-size: 1.15rem;
-        }
-        .content-box h3 {
-            font-size: 1rem;
-        }
-        .content-box ul,
-        .content-box ol {
-            padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
-        .content-box li {
-            margin-bottom: 0.3rem;
         }
         .content-box img {
             max-width: 100%;
@@ -903,31 +869,7 @@
             border-radius: 16px;
             overflow-x: auto;
             white-space: pre;
-            font-size: 0.75rem;
-            color: #d0d0e0;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .content-box code {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 0.15rem 0.4rem;
-            border-radius: 6px;
-            font-size: 0.85em;
-            color: #b8b8d0;
-        }
-        .content-box blockquote {
-            border-left: 3px solid var(--accent2);
-            padding-left: 1rem;
-            margin-left: 0;
-            color: #b8b8d0;
-            font-style: italic;
-        }
-        .content-box a {
-            color: var(--accent2);
-            text-decoration: none;
-            border-bottom: 1px dotted rgba(62, 224, 255, 0.3);
-        }
-        .content-box a:hover {
-            border-bottom-color: var(--accent2);
+            font-size: 0.8rem;
         }
 
         /* ============================================================
@@ -952,18 +894,22 @@
         }
 
         /* ============================================================
-           PROFILE
+           PROFILE — scroll agar tidak ketutupan topbar + badge premium
            ============================================================ */
         #profile-section {
             scroll-margin-top: 100px;
+            /* saat di-navigate via hash, turun */
             padding-top: 10px;
+            /* tambahan top padding biar tidak mepet */
         }
 
         .profile-card {
             position: relative;
+            /* untuk badge absolute */
             overflow: hidden;
         }
 
+        /* 🔥 BADGE PREMIUM di pojok kanan atas card profil */
         .premium-badge {
             position: absolute;
             top: 14px;
@@ -1691,21 +1637,6 @@
             .premium-badge i {
                 font-size: 0.45rem;
             }
-            /* content box di hp kecil */
-            .content-box {
-                font-size: 0.8rem;
-                padding: 12px 14px;
-                line-height: 1.6;
-            }
-            .content-box h1 {
-                font-size: 1.1rem;
-            }
-            .content-box h2 {
-                font-size: 1rem;
-            }
-            .content-box h3 {
-                font-size: 0.9rem;
-            }
         }
     </style>
 </head>
@@ -1752,6 +1683,7 @@
                 </div>
             </div>
 
+            <!-- SORT BAR — jarak diperbesar dari carousel (margin-top: 18px) -->
             <div class="sort-bar" id="sort-bar">
                 <span class="sort-label"><i class="fas fa-sort-amount-down"></i> Urutkan:</span>
                 <select class="sort-select" id="sort-select" aria-label="Urutkan postingan">
@@ -1762,8 +1694,10 @@
                 </select>
             </div>
 
+            <!-- Filter indicator -->
             <div id="filter-indicator" class="filter-indicator hidden"></div>
 
+            <!-- POST GRID -->
             <div id="post-container" class="post-grid"></div>
             <div id="load-more-container" style="text-align:center;"></div>
         </section>
@@ -1773,8 +1707,10 @@
             <div id="detail-content"></div>
         </section>
 
+        <!-- PROFILE SECTION — scroll-margin-top & padding-top agar tidak ketutupan topbar -->
         <section id="profile-section" class="hidden" aria-label="Profil">
             <div class="profile-card">
+                <!-- 🔥 BADGE PREMIUM di pojok kanan atas card -->
                 <div class="premium-badge"><i class="fas fa-crown"></i> Premium</div>
 
                 <div class="profile-avatar" id="profile-avatar" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');" role="img" aria-label="Avatar Destaseo Mods"></div>
@@ -2149,6 +2085,7 @@
                     .page === 'home')));
             }
 
+            // ===== SEO: update title & meta saat navigasi =====
             function navigate(p, postName) {
                 if (p === 'home') {
                     showSection(homeSection);
@@ -2180,6 +2117,7 @@
                     stopCarousel();
                     renderProfile();
                     updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.', AVATAR_URL, 'https://destaseomods.web.id/#profile');
+                    // scroll agar card tidak ketutupan topbar
                     setTimeout(() => {
                         const rect = profileSection.getBoundingClientRect();
                         if (rect.top < 20) {
