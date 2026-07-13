@@ -1758,6 +1758,12 @@
                 ]
             };
 
+            // ===== Cache configuration =====
+            const CACHE_KEY_LIST = 'destaseo_post_list_v2';
+            const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
+            const CACHE_TIME_LIST = 5 * 60 * 1000; // 5 menit
+            const CACHE_TIME_CONTENT = 60 * 60 * 1000; // 1 jam
+
             // ===== SEO: update meta tags dynamically =====
             function updateMetaTags(title, description, image, url) {
                 document.title = title || "Destaseo Mods • Premium Mod APK";
@@ -1889,8 +1895,6 @@
             // ============================================================
             // VARIABEL GLOBAL
             // ============================================================
-            const CACHE_KEY = 'destaseo_premium_cache_v69';
-            const CACHE_TIME = 0; // 🔥 CACHE DINONAKTIFKAN SEPENUHNYA
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
             const loadMoreContainer = document.getElementById('load-more-container');
@@ -1931,7 +1935,7 @@
             }
 
             // ============================================================
-            // COUNTER PER POSTINGAN (menggunakan API abacus dengan path unik)
+            // COUNTER PER POSTINGAN
             // ============================================================
             async function getPostViewCount(postName) {
                 const clean = postName.replace(/[^a-zA-Z0-9]/g, '_');
@@ -1942,11 +1946,9 @@
                     const raw = localStorage.getItem(storageKey);
                     if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
-                // Jika hari ini sudah ada di lokal, pakai langsung
                 if (localData && localData.date === today) {
                     return localData.count;
                 }
-                // Panggil API dengan path unik per post
                 const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/visits/${postName}`;
                 try {
                     const controller = new AbortController();
@@ -1968,7 +1970,6 @@
                 } catch (e) {
                     console.warn('API timeout/error, pakai fallback');
                 }
-                // Fallback: increment lokal
                 const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
                 const newCount = prevCount + 1;
                 localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
@@ -1976,7 +1977,7 @@
             }
 
             // ============================================================
-            // DAILY VISITOR COUNTER (total global, tetap)
+            // DAILY VISITOR COUNTER
             // ============================================================
             async function getDailyVisitorCount() {
                 const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily`;
@@ -2088,7 +2089,6 @@
                     .page === 'home')));
             }
 
-            // ===== SEO: update title & meta saat navigasi =====
             function navigate(p, postName) {
                 if (p === 'home') {
                     showSection(homeSection);
@@ -2120,7 +2120,6 @@
                     stopCarousel();
                     renderProfile();
                     updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.', AVATAR_URL, 'https://destaseomods.web.id/#profile');
-                    // scroll agar card tidak ketutupan topbar
                     setTimeout(() => {
                         const rect = profileSection.getBoundingClientRect();
                         if (rect.top < 20) {
@@ -2159,35 +2158,80 @@
             }
 
             // ============================================================
-            // FETCH DATA DARI GITHUB — TANPA CACHE
+            // FETCH DATA DARI GITHUB DENGAN CACHE CERDAS
             // ============================================================
-            function getCache() { return null; }
+            function getCachedList() {
+                const raw = localStorage.getItem(CACHE_KEY_LIST);
+                if (!raw) return null;
+                try {
+                    const data = JSON.parse(raw);
+                    if (Date.now() - data.t < CACHE_TIME_LIST) {
+                        return data.posts;
+                    }
+                } catch (e) {}
+                return null;
+            }
 
-            function setCache(posts) { /* kosong */ }
+            function setCachedList(posts) {
+                localStorage.setItem(CACHE_KEY_LIST, JSON.stringify({ t: Date.now(), posts }));
+            }
+
+            function getCachedContent(postName) {
+                const key = CACHE_KEY_CONTENT_PREFIX + postName;
+                const raw = localStorage.getItem(key);
+                if (!raw) return null;
+                try {
+                    const data = JSON.parse(raw);
+                    if (Date.now() - data.t < CACHE_TIME_CONTENT) {
+                        return data.content;
+                    }
+                } catch (e) {}
+                return null;
+            }
+
+            function setCachedContent(postName, content) {
+                const key = CACHE_KEY_CONTENT_PREFIX + postName;
+                localStorage.setItem(key, JSON.stringify({ t: Date.now(), content }));
+            }
 
             async function fetchPostList() {
-                const cached = getCache();
+                const cached = getCachedList();
                 if (cached) { postsData = cached; return; }
-                let apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
-                const res = await fetch(apiUrl);
-                if (!res.ok) {
-                    const old = localStorage.getItem(CACHE_KEY);
-                    if (old) {
+                const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
+                try {
+                    const res = await fetch(apiUrl);
+                    if (!res.ok) {
+                        // Jika rate limit atau error, pakai cache lama (jika ada) sebagai fallback
+                        const fallback = localStorage.getItem(CACHE_KEY_LIST);
+                        if (fallback) {
+                            try {
+                                const old = JSON.parse(fallback);
+                                console.warn('⚠️ Gagal fetch, pakai cache kadaluarsa.');
+                                postsData = old.posts;
+                                return;
+                            } catch (e) {}
+                        }
+                        throw new Error(`Gagal fetch (${res.status})`);
+                    }
+                    const files = await res.json();
+                    const mdFiles = files.filter(f => f.name.endsWith('.md'));
+                    if (!mdFiles.length) throw new Error('Tidak ada file .md di posts/.');
+                    postsData = mdFiles.map(f => ({ filename: f.name, name: f.name.replace('.md', ''), download_url: f
+                            .download_url }));
+                    setCachedList(postsData);
+                } catch (err) {
+                    // Fallback terakhir
+                    const fallback = localStorage.getItem(CACHE_KEY_LIST);
+                    if (fallback) {
                         try {
-                            const d = JSON.parse(old);
-                            console.warn('⚠️ Gagal fetch, pakai cache kadaluarsa (last resort).');
-                            postsData = d.posts;
+                            const old = JSON.parse(fallback);
+                            console.warn('⚠️ Error total, pakai cache terakhir.');
+                            postsData = old.posts;
                             return;
                         } catch (e) {}
                     }
-                    throw new Error(`Gagal fetch (${res.status}). Repo publik? Rate limit?`);
+                    throw err;
                 }
-                const files = await res.json();
-                const mdFiles = files.filter(f => f.name.endsWith('.md'));
-                if (!mdFiles.length) throw new Error('Tidak ada file .md di posts/.');
-                postsData = mdFiles.map(f => ({ filename: f.name, name: f.name.replace('.md', ''), download_url: f
-                        .download_url }));
-                // tidak disimpan cache
             }
 
             function parseFrontmatter(md) {
@@ -2203,14 +2247,33 @@
             }
 
             async function fetchPost(p) {
+                // Cek cache konten
+                const cachedContent = getCachedContent(p.name);
+                if (cachedContent) {
+                    const { metadata, content } = parseFrontmatter(cachedContent);
+                    const html = marked.parse(content);
+                    return { ...p, metadata, content, html, lastModified: null, fromCache: true };
+                }
                 try {
                     const r = await fetch(p.download_url);
                     if (!r.ok) throw new Error('fail');
                     const md = await r.text();
+                    // Simpan ke cache
+                    setCachedContent(p.name, md);
                     const { metadata, content } = parseFrontmatter(md);
                     const lastModified = r.headers.get('Last-Modified');
-                    return { ...p, metadata, content, lastModified, html: marked.parse(content) };
+                    return { ...p, metadata, content, lastModified, html: marked.parse(content), fromCache: false };
                 } catch {
+                    // Jika gagal, coba pakai cache yang ada meskipun expired
+                    const fallback = localStorage.getItem(CACHE_KEY_CONTENT_PREFIX + p.name);
+                    if (fallback) {
+                        try {
+                            const old = JSON.parse(fallback);
+                            const { metadata, content } = parseFrontmatter(old.content);
+                            return { ...p, metadata, content, html: marked.parse(content), lastModified: null,
+                                fromCache: true };
+                        } catch (e) {}
+                    }
                     return { ...p, metadata: {}, content: '', html: '<p>Gagal memuat.</p>', lastModified: null };
                 }
             }
@@ -2447,6 +2510,7 @@
                         postContainer.innerHTML = '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
                         return;
                     }
+                    // Ambil konten per post dengan cache
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
                     renderPopularSection();
                     renderCategoryBar();
@@ -2622,7 +2686,6 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🔥 Ambil view count per postingan
                 const viewCount = await getPostViewCount(name);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
