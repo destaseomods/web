@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <!-- 🚀 PERBAIKAN: Cache Control agar selalu refresh -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>Destaseo Mods • Premium Mod APK</title>
-    <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/189899710?v=4">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/189899710?v=4" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
+    </script>
     <style>
         /* ============================================================
            ROOT VARIABLES
@@ -33,8 +33,8 @@
             --radius-sm: 20px;
             --nav-height: 76px;
             --safe-bottom: env(safe-area-inset-bottom, 16px);
-            --shadow-card: 0 16px 48px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06);
-            --glow: 0 0 60px rgba(168,127,255,0.4);
+            --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06);
+            --glow: 0 0 60px rgba(168, 127, 255, 0.4);
             --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -46,12 +46,10 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         html {
             font-size: 16px;
             -webkit-text-size-adjust: 100%;
         }
-
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
@@ -63,7 +61,6 @@
             overflow-x: hidden;
             position: relative;
         }
-
         canvas#particles {
             position: fixed;
             top: 0;
@@ -107,14 +104,12 @@
             z-index: 99;
             gap: 8px;
         }
-
         .logo-area {
             display: flex;
             align-items: center;
             gap: 8px;
             flex-shrink: 0;
         }
-
         .logo-img {
             width: 32px;
             height: 32px;
@@ -123,7 +118,6 @@
             border: 2px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 0 15px rgba(168, 127, 255, 0.4);
         }
-
         .logo-text {
             font-family: 'Outfit', sans-serif;
             font-weight: 900;
@@ -136,17 +130,18 @@
             animation: gradientShift 3s ease infinite alternate;
             white-space: nowrap;
         }
-
         @keyframes gradientShift {
-            0% { background-position: 0% center; }
-            100% { background-position: 100% center; }
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 100% center;
+            }
         }
-
         .telegram-wrapper {
             position: relative;
             flex-shrink: 0;
         }
-
         .telegram-btn {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -163,13 +158,11 @@
             backdrop-filter: blur(16px);
             white-space: nowrap;
         }
-
         .telegram-btn:hover {
             border-color: var(--accent2);
             box-shadow: 0 0 25px rgba(62, 224, 255, 0.4);
             background: rgba(62, 224, 255, 0.1);
         }
-
         .telegram-dropdown {
             position: absolute;
             top: 100%;
@@ -187,11 +180,9 @@
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
             z-index: 150;
         }
-
         .telegram-dropdown.show {
             display: flex;
         }
-
         .telegram-dropdown a {
             color: var(--text);
             text-decoration: none;
@@ -204,12 +195,10 @@
             gap: 8px;
             transition: background 0.2s;
         }
-
         .telegram-dropdown a:hover {
             background: rgba(255, 255, 255, 0.05);
             color: #fff;
         }
-
         .telegram-dropdown a i {
             width: 18px;
             text-align: center;
@@ -223,7 +212,6 @@
             display: flex;
             gap: 8px;
         }
-
         .search-input {
             flex: 1;
             background: var(--surface);
@@ -239,12 +227,10 @@
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
             width: 100%;
         }
-
         .search-input:focus {
             border-color: var(--accent);
             box-shadow: 0 0 30px rgba(168, 127, 255, 0.5);
         }
-
         .search-input::placeholder {
             color: var(--text2);
         }
@@ -259,7 +245,6 @@
             margin-bottom: 12px;
             align-items: center;
         }
-
         .category-chip {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -273,18 +258,15 @@
             backdrop-filter: blur(10px);
             white-space: nowrap;
         }
-
         .category-chip i {
             margin-right: 4px;
         }
-
         .category-chip.active,
         .category-chip:hover {
             background: rgba(168, 127, 255, 0.2);
             border-color: var(--accent);
             color: #fff;
         }
-
         .reset-filter {
             background: none;
             border: none;
@@ -294,7 +276,6 @@
             cursor: pointer;
             padding: 5px 10px;
         }
-
         .reset-filter i {
             margin-right: 4px;
         }
@@ -310,13 +291,11 @@
             justify-content: flex-end;
             flex-wrap: wrap;
         }
-
         .sort-label {
             color: var(--text2);
             font-size: 0.7rem;
             font-weight: 500;
         }
-
         .sort-select {
             background: var(--surface);
             backdrop-filter: blur(10px);
@@ -330,7 +309,6 @@
             cursor: pointer;
             transition: var(--transition);
         }
-
         .sort-select:hover {
             border-color: var(--accent2);
         }
@@ -341,7 +319,6 @@
         .popular-section {
             margin-bottom: 0;
         }
-
         .carousel-wrapper {
             position: relative;
             overflow: hidden;
@@ -352,21 +329,21 @@
             box-shadow: var(--shadow-card);
             height: 180px;
         }
-
         @media (min-width: 500px) {
-            .carousel-wrapper { height: 220px; }
+            .carousel-wrapper {
+                height: 220px;
+            }
         }
-
         @media (min-width: 768px) {
-            .carousel-wrapper { height: 260px; }
+            .carousel-wrapper {
+                height: 260px;
+            }
         }
-
         .carousel-track {
             display: flex;
             height: 100%;
             position: relative;
         }
-
         .carousel-slide {
             position: absolute;
             top: 0;
@@ -378,12 +355,10 @@
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
         }
-
         .carousel-slide.active {
             opacity: 1;
             z-index: 1;
         }
-
         .carousel-slide img {
             width: 100%;
             height: 100%;
@@ -392,7 +367,6 @@
             top: 0;
             left: 0;
         }
-
         .carousel-slide .slide-overlay {
             position: absolute;
             bottom: 0;
@@ -405,17 +379,16 @@
             justify-content: space-between;
             align-items: flex-end;
         }
-
         .carousel-slide .slide-title {
             font-weight: 800;
             font-size: 0.9rem;
             line-height: 1.3;
         }
-
         @media (min-width: 500px) {
-            .carousel-slide .slide-title { font-size: 1rem; }
+            .carousel-slide .slide-title {
+                font-size: 1rem;
+            }
         }
-
         .carousel-title-top {
             position: absolute;
             top: 12px;
@@ -433,11 +406,12 @@
             gap: 6px;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
         }
-
         @media (min-width: 500px) {
-            .carousel-title-top { font-size: 0.8rem; padding: 5px 14px; }
+            .carousel-title-top {
+                font-size: 0.8rem;
+                padding: 5px 14px;
+            }
         }
-
         .carousel-counter {
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(6px);
@@ -448,38 +422,44 @@
             font-weight: 600;
             letter-spacing: 0.5px;
         }
-
         @media (min-width: 500px) {
-            .carousel-counter { font-size: 0.75rem; padding: 4px 12px; }
+            .carousel-counter {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
         }
 
         /* ============================================================
-           POST GRID (RESPONSIF)
+           POST GRID
            ============================================================ */
         .section-divider {
             border: none;
             border-top: 3px solid rgba(255, 255, 255, 0.25);
             margin: 22px 0 20px;
         }
-
         .post-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 14px;
         }
-
         @media (min-width: 420px) {
-            .post-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .post-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
         }
-
         @media (min-width: 768px) {
-            .post-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+            .post-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+            }
         }
-
         @media (min-width: 1024px) {
-            .post-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+            .post-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
         }
-
         .post-card {
             background: var(--surface);
             backdrop-filter: blur(22px);
@@ -494,21 +474,20 @@
             opacity: 0;
             transform: translateY(25px);
         }
-
         @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-
         .post-card:hover {
             transform: translateY(-6px) scale(1.01);
             border-color: rgba(255, 255, 255, 0.2);
             box-shadow: var(--glow), 0 25px 50px rgba(0, 0, 0, 0.9);
         }
-
         .post-card:active {
             transform: scale(0.97);
         }
-
         .card-img {
             width: 100%;
             height: 130px;
@@ -522,22 +501,22 @@
             position: relative;
             overflow: hidden;
         }
-
         @media (min-width: 420px) {
-            .card-img { height: 140px; }
+            .card-img {
+                height: 140px;
+            }
         }
-
         @media (min-width: 768px) {
-            .card-img { height: 160px; }
+            .card-img {
+                height: 160px;
+            }
         }
-
         .card-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-
         .card-img .placeholder-icon {
             display: none;
             font-size: 2.5rem;
@@ -548,7 +527,6 @@
         .card-img.error img {
             display: none;
         }
-
         .version-badge-img {
             position: absolute;
             top: 8px;
@@ -566,11 +544,12 @@
             gap: 4px;
             z-index: 2;
         }
-
         @media (min-width: 500px) {
-            .version-badge-img { font-size: 0.65rem; padding: 3px 10px; }
+            .version-badge-img {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
         }
-
         .card-body {
             padding: 12px 14px 14px;
             flex: 1;
@@ -578,18 +557,17 @@
             flex-direction: column;
             gap: 6px;
         }
-
         .card-title {
             font-weight: 800;
             font-size: 0.8rem;
             line-height: 1.3;
             color: #fff;
         }
-
         @media (min-width: 500px) {
-            .card-title { font-size: 0.85rem; }
+            .card-title {
+                font-size: 0.85rem;
+            }
         }
-
         .card-meta {
             font-size: 0.65rem;
             color: var(--text2);
@@ -598,7 +576,6 @@
             gap: 6px;
             flex-wrap: wrap;
         }
-
         .badge {
             background: rgba(168, 127, 255, 0.2);
             color: #cfc4ff;
@@ -609,12 +586,10 @@
             cursor: pointer;
             transition: 0.2s;
         }
-
         .badge:hover {
             background: rgba(168, 127, 255, 0.4);
             color: #fff;
         }
-
         .card-excerpt {
             font-size: 0.68rem;
             color: var(--text2);
@@ -642,7 +617,6 @@
             transition: var(--transition);
             backdrop-filter: blur(16px);
         }
-
         .load-more-btn:hover {
             border-color: var(--accent2);
             box-shadow: 0 0 25px rgba(62, 224, 255, 0.4);
@@ -657,7 +631,7 @@
         }
 
         /* ============================================================
-           DETAIL PAGE
+           DETAIL PAGE — PERBAIKAN TITLE & GRID
            ============================================================ */
         .detail-header,
         .profile-card {
@@ -669,12 +643,12 @@
             margin-bottom: 12px;
             box-shadow: var(--shadow-card);
         }
-
         @media (min-width: 500px) {
             .detail-header,
-            .profile-card { padding: 28px; }
+            .profile-card {
+                padding: 28px;
+            }
         }
-
         .detail-img {
             display: block;
             width: 80px;
@@ -685,70 +659,92 @@
             margin: 0 auto 14px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
         }
-
         @media (min-width: 500px) {
-            .detail-img { width: 100px; height: 100px; margin-bottom: 16px; }
+            .detail-img {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 16px;
+            }
         }
 
+        /* 🔽 TITLE DIPERKECIL */
         .detail-title {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 800;
             letter-spacing: -0.3px;
             text-align: center;
+            line-height: 1.3;
         }
-
         @media (min-width: 500px) {
-            .detail-title { font-size: 1.2rem; }
+            .detail-title {
+                font-size: 1.05rem;
+            }
         }
 
+        /* 🔽 GRID INFO DIRAPIKAN */
         .detail-meta-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 8px;
-            margin: 12px 0;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin: 10px 0 4px;
         }
-
         @media (min-width: 500px) {
             .detail-meta-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 8px;
+                margin: 12px 0 6px;
+            }
+        }
+        @media (min-width: 640px) {
+            .detail-meta-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (min-width: 820px) {
+            .detail-meta-grid {
+                grid-template-columns: repeat(4, 1fr);
                 gap: 10px;
-                margin: 14px 0;
             }
         }
 
         .meta-item {
             background: var(--surface2);
-            padding: 8px 10px;
+            padding: 6px 6px;
             border-radius: 12px;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            min-height: 52px;
         }
-
         @media (min-width: 500px) {
-            .meta-item { padding: 10px 12px; font-size: 0.75rem; }
+            .meta-item {
+                padding: 8px 8px;
+                font-size: 0.7rem;
+                min-height: 58px;
+            }
         }
-
         .meta-item i {
             color: var(--accent2);
-            margin-bottom: 3px;
-            font-size: 0.8rem;
+            margin-bottom: 2px;
+            font-size: 0.75rem;
         }
-
         @media (min-width: 500px) {
-            .meta-item i { font-size: 0.9rem; margin-bottom: 4px; }
+            .meta-item i {
+                font-size: 0.85rem;
+                margin-bottom: 3px;
+            }
         }
-
         .meta-item strong {
             color: var(--accent2);
-            font-size: 0.65rem;
+            font-size: 0.6rem;
+            font-weight: 700;
         }
-
         @media (min-width: 500px) {
-            .meta-item strong { font-size: 0.75rem; }
+            .meta-item strong {
+                font-size: 0.7rem;
+            }
         }
 
         /* ============================================================
@@ -772,11 +768,13 @@
             text-align: center;
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
         }
-
         @media (min-width: 500px) {
-            .big-download { font-size: 1rem; padding: 15px; margin-top: 20px; }
+            .big-download {
+                font-size: 1rem;
+                padding: 15px;
+                margin-top: 20px;
+            }
         }
-
         .big-download i {
             margin-right: 6px;
         }
@@ -812,17 +810,16 @@
             overflow: hidden;
             word-wrap: break-word;
         }
-
         @media (min-width: 500px) {
-            .content-box { padding: 16px 28px; }
+            .content-box {
+                padding: 16px 28px;
+            }
         }
-
         .content-box img {
             max-width: 100%;
             border-radius: 16px;
             margin: 12px 0;
         }
-
         .content-box pre {
             background: #050510;
             padding: 16px;
@@ -849,7 +846,6 @@
             padding: 8px 0;
             transition: opacity 0.2s;
         }
-
         .back-btn:hover {
             opacity: 0.8;
         }
@@ -872,39 +868,41 @@
             background-size: cover;
             background-position: center;
         }
-
         @media (min-width: 500px) {
-            .profile-avatar { width: 100px; height: 100px; font-size: 2.8rem; margin-bottom: 20px; }
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.8rem;
+                margin-bottom: 20px;
+            }
         }
-
         .profile-name {
             text-align: center;
             font-size: 1.3rem;
             font-weight: 800;
         }
-
         @media (min-width: 500px) {
-            .profile-name { font-size: 1.5rem; }
+            .profile-name {
+                font-size: 1.5rem;
+            }
         }
-
         .profile-bio {
             text-align: center;
             color: var(--text2);
             margin: 8px 0 16px;
             font-size: 0.9rem;
         }
-
         @media (min-width: 500px) {
-            .profile-bio { margin: 10px 0 20px; }
+            .profile-bio {
+                margin: 10px 0 20px;
+            }
         }
-
         .social-links {
             display: flex;
             gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
         }
-
         .social-link {
             background: var(--surface2);
             padding: 8px 16px;
@@ -919,11 +917,13 @@
             align-items: center;
             gap: 6px;
         }
-
         @media (min-width: 500px) {
-            .social-link { padding: 10px 20px; font-size: 0.85rem; gap: 8px; }
+            .social-link {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+                gap: 8px;
+            }
         }
-
         .social-link i {
             font-size: 0.9rem;
         }
@@ -931,25 +931,24 @@
             border-color: var(--accent2);
             background: rgba(62, 224, 255, 0.1);
         }
-
         .donate-section {
             margin-top: 20px;
             text-align: center;
             border-top: 1px solid var(--border);
             padding-top: 16px;
         }
-
         @media (min-width: 500px) {
-            .donate-section { margin-top: 24px; padding-top: 20px; }
+            .donate-section {
+                margin-top: 24px;
+                padding-top: 20px;
+            }
         }
-
         .donate-title {
             color: var(--text2);
             margin-bottom: 10px;
             font-weight: 600;
             font-size: 0.9rem;
         }
-
         .donate-links {
             display: flex;
             gap: 10px;
@@ -975,11 +974,9 @@
             flex-direction: column;
             padding: 20px;
         }
-
         .qris-overlay.hidden {
             display: none;
         }
-
         .qris-container {
             background: var(--surface2);
             border: 1px solid var(--border);
@@ -989,17 +986,17 @@
             max-width: 340px;
             width: 90%;
         }
-
         @media (min-width: 500px) {
-            .qris-container { padding: 24px; max-width: 360px; }
+            .qris-container {
+                padding: 24px;
+                max-width: 360px;
+            }
         }
-
         .qris-container img {
             width: 100%;
             border-radius: 16px;
             margin-bottom: 14px;
         }
-
         .qris-close-btn,
         .qris-download-btn {
             background: var(--surface);
@@ -1013,7 +1010,6 @@
             transition: 0.2s;
             margin: 4px;
         }
-
         .qris-close-btn:hover,
         .qris-download-btn:hover {
             background: rgba(255, 255, 255, 0.1);
@@ -1028,7 +1024,6 @@
             flex-wrap: wrap;
             gap: 6px;
         }
-
         .tag-badge {
             background: rgba(255, 255, 255, 0.06);
             color: var(--text2);
@@ -1040,11 +1035,12 @@
             align-items: center;
             gap: 4px;
         }
-
         @media (min-width: 500px) {
-            .tag-badge { font-size: 0.65rem; padding: 3px 10px; }
+            .tag-badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
         }
-
         .screenshot-scroll {
             display: flex;
             flex-wrap: nowrap;
@@ -1056,9 +1052,7 @@
             margin-top: 12px;
             max-width: 100%;
             touch-action: pan-x;
-            -webkit-overflow-scrolling: touch;
         }
-
         .screenshot-scroll img {
             flex: 0 0 auto;
             width: 120px;
@@ -1070,36 +1064,151 @@
             background: var(--surface2);
             border: 1px solid var(--border);
         }
-
         @media (min-width: 500px) {
-            .screenshot-scroll img { width: 150px; height: 220px; }
+            .screenshot-scroll img {
+                width: 150px;
+                height: 220px;
+            }
         }
-
         .screenshot-scroll img:hover {
             transform: scale(1.03);
             border-color: var(--accent);
         }
 
+        /* ============================================================
+           LIGHTBOX — PERBAIKAN: CLOSE + PANAH
+           ============================================================ */
         .lightbox {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
             z-index: 200;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: zoom-out;
-            padding: 20px;
+            padding: 16px;
+            cursor: default;
+            animation: fadeInLight 0.25s ease;
         }
-
+        @keyframes fadeInLight {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
         .lightbox img {
-            max-width: 95vw;
-            max-height: 95vh;
+            max-width: 92vw;
+            max-height: 82vh;
             border-radius: 16px;
             object-fit: contain;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+        }
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        .lightbox-prev,
+        .lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+        }
+        .lightbox-prev {
+            left: 20px;
+        }
+        .lightbox-next {
+            right: 20px;
+        }
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .lightbox-counter {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            letter-spacing: 0.5px;
+        }
+        @media (max-width: 500px) {
+            .lightbox-prev,
+            .lightbox-next {
+                width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
+            }
+            .lightbox-prev {
+                left: 8px;
+            }
+            .lightbox-next {
+                right: 8px;
+            }
+            .lightbox-close {
+                top: 12px;
+                right: 12px;
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .lightbox img {
+                max-width: 98vw;
+                max-height: 78vh;
+            }
+            .lightbox-counter {
+                font-size: 0.7rem;
+                padding: 4px 14px;
+                bottom: 18px;
+            }
         }
 
         /* ============================================================
@@ -1122,7 +1231,6 @@
             z-index: 100;
             box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.8);
         }
-
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -1138,22 +1246,24 @@
             padding: 8px 14px;
             border-radius: 24px;
         }
-
         @media (min-width: 500px) {
-            .nav-item { font-size: 0.7rem; padding: 10px 18px; gap: 5px; }
+            .nav-item {
+                font-size: 0.7rem;
+                padding: 10px 18px;
+                gap: 5px;
+            }
         }
-
         .nav-item.active {
             color: var(--accent2);
             background: rgba(62, 224, 255, 0.12);
         }
-
         .nav-item i {
             font-size: 1.1rem;
         }
-
         @media (min-width: 500px) {
-            .nav-item i { font-size: 1.3rem; }
+            .nav-item i {
+                font-size: 1.3rem;
+            }
         }
 
         /* ============================================================
@@ -1168,11 +1278,11 @@
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
-
         .empty-text,
         .error-text {
             text-align: center;
@@ -1183,7 +1293,6 @@
             margin: 20px 0;
             font-size: 0.9rem;
         }
-
         .filter-indicator {
             display: flex;
             align-items: center;
@@ -1212,11 +1321,13 @@
             word-wrap: break-word;
             font-size: 0.85rem;
         }
-
         @media (min-width: 500px) {
-            .daily-visitor { margin-top: 16px; padding: 12px 16px; font-size: 0.95rem; }
+            .daily-visitor {
+                margin-top: 16px;
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
         }
-
         .daily-visitor i {
             margin-right: 6px;
         }
@@ -1226,18 +1337,19 @@
         }
 
         /* ============================================================
-           REKOMENDASI (RESPONSIF)
+           REKOMENDASI
            ============================================================ */
         .recommendations-section {
             margin-top: 20px;
             padding: 16px 0;
             border-top: 1px solid var(--border);
         }
-
         @media (min-width: 500px) {
-            .recommendations-section { margin-top: 24px; padding: 20px 0; }
+            .recommendations-section {
+                margin-top: 24px;
+                padding: 20px 0;
+            }
         }
-
         .recommendations-section h3 {
             font-size: 0.85rem;
             font-weight: 700;
@@ -1247,29 +1359,30 @@
             align-items: center;
             gap: 8px;
         }
-
         @media (min-width: 500px) {
-            .recommendations-section h3 { font-size: 0.95rem; margin-bottom: 14px; }
+            .recommendations-section h3 {
+                font-size: 0.95rem;
+                margin-bottom: 14px;
+            }
         }
-
         .recommendations-section h3 i {
             color: var(--accent2);
         }
-
         .rec-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
         }
-
         @media (min-width: 500px) {
-            .rec-grid { gap: 12px; }
+            .rec-grid {
+                gap: 12px;
+            }
         }
-
         @media (min-width: 600px) {
-            .rec-grid { grid-template-columns: repeat(4, 1fr); }
+            .rec-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
-
         .rec-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -1280,24 +1393,22 @@
             display: flex;
             flex-direction: column;
         }
-
         .rec-card:hover {
             transform: translateY(-4px);
             border-color: var(--accent);
             box-shadow: 0 8px 24px rgba(168, 127, 255, 0.3);
         }
-
         .rec-card img {
             width: 100%;
             height: 90px;
             object-fit: cover;
             background: var(--surface2);
         }
-
         @media (min-width: 500px) {
-            .rec-card img { height: 110px; }
+            .rec-card img {
+                height: 110px;
+            }
         }
-
         .rec-card .rec-title {
             padding: 8px 10px;
             font-size: 0.7rem;
@@ -1309,9 +1420,11 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-
         @media (min-width: 500px) {
-            .rec-card .rec-title { padding: 10px 12px; font-size: 0.75rem; }
+            .rec-card .rec-title {
+                padding: 10px 12px;
+                font-size: 0.75rem;
+            }
         }
 
         /* ============================================================
@@ -1323,7 +1436,6 @@
             overflow: hidden;
             word-wrap: break-word;
         }
-
         .profile-card,
         .content-box {
             max-width: 100%;
@@ -1336,45 +1448,104 @@
            MEDIA QUERIES EKSTRA - HP KECIL
            ============================================================ */
         @media (max-width: 360px) {
-            .logo-text { font-size: 1rem; }
-            .logo-img { width: 28px; height: 28px; }
-            .topbar { padding: 10px 14px; border-radius: 28px; }
-            .telegram-btn { font-size: 0.65rem; padding: 5px 10px; }
-            .container { padding: 8px 12px; }
-            .post-grid { gap: 10px; }
-            .card-img { height: 100px; }
-            .card-title { font-size: 0.7rem; }
-            .card-body { padding: 8px 10px 10px; }
-            .carousel-wrapper { height: 140px; }
-            .carousel-slide .slide-title { font-size: 0.75rem; }
-            .detail-title { font-size: 0.95rem; }
-            .detail-header { padding: 14px; }
-            .meta-item { font-size: 0.55rem; padding: 6px 8px; }
-            .meta-item strong { font-size: 0.55rem; }
-            .rec-card img { height: 70px; }
-            .rec-card .rec-title { font-size: 0.6rem; padding: 6px 8px; }
-            .rec-grid { gap: 8px; }
-            .daily-visitor { font-size: 0.75rem; padding: 8px 10px; }
-            .nav-item { font-size: 0.5rem; padding: 6px 10px; }
-            .nav-item i { font-size: 0.9rem; }
-            .bottom-nav { height: 64px; }
+            .logo-text {
+                font-size: 1rem;
+            }
+            .logo-img {
+                width: 28px;
+                height: 28px;
+            }
+            .topbar {
+                padding: 10px 14px;
+                border-radius: 28px;
+            }
+            .telegram-btn {
+                font-size: 0.65rem;
+                padding: 5px 10px;
+            }
+            .container {
+                padding: 8px 12px;
+            }
+            .post-grid {
+                gap: 10px;
+            }
+            .card-img {
+                height: 100px;
+            }
+            .card-title {
+                font-size: 0.7rem;
+            }
+            .card-body {
+                padding: 8px 10px 10px;
+            }
+            .carousel-wrapper {
+                height: 140px;
+            }
+            .carousel-slide .slide-title {
+                font-size: 0.75rem;
+            }
+            .detail-title {
+                font-size: 0.85rem;
+            }
+            .detail-header {
+                padding: 14px;
+            }
+            .meta-item {
+                font-size: 0.5rem;
+                padding: 4px 4px;
+                min-height: 44px;
+            }
+            .meta-item strong {
+                font-size: 0.5rem;
+            }
+            .meta-item i {
+                font-size: 0.65rem;
+            }
+            .rec-card img {
+                height: 70px;
+            }
+            .rec-card .rec-title {
+                font-size: 0.6rem;
+                padding: 6px 8px;
+            }
+            .rec-grid {
+                gap: 8px;
+            }
+            .daily-visitor {
+                font-size: 0.75rem;
+                padding: 8px 10px;
+            }
+            .nav-item {
+                font-size: 0.5rem;
+                padding: 6px 10px;
+            }
+            .nav-item i {
+                font-size: 0.9rem;
+            }
+            .bottom-nav {
+                height: 64px;
+            }
         }
     </style>
 </head>
 <body>
     <canvas id="particles"></canvas>
+
+    <!-- QRIS Overlay -->
     <div class="qris-overlay hidden" id="qris-overlay">
         <div class="qris-container">
-            <img src="https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png" alt="QRIS Dana" id="qris-img">
+            <img src="https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png" alt="QRIS Dana" id="qris-img" />
             <div>
                 <button class="qris-download-btn" id="qris-download-btn"><i class="fas fa-download"></i> Download Gambar</button>
                 <button class="qris-close-btn" id="qris-close-btn"><i class="fas fa-times"></i> Tutup</button>
             </div>
         </div>
     </div>
+
+    <!-- Topbar -->
     <div class="topbar">
         <div class="logo-area">
-            <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo" class="logo-img">
+            <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo" class="logo-img" />
             <span class="logo-text">Destaseo Mods</span>
         </div>
         <div class="telegram-wrapper">
@@ -1385,9 +1556,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Main -->
     <main class="container" id="app">
         <section id="home-section">
-            <div class="search-container hidden" id="search-box"><input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit..."></div>
+            <div class="search-container hidden" id="search-box">
+                <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit..." />
+            </div>
             <div class="category-bar" id="category-bar"></div>
             <div class="popular-section" id="popular-section">
                 <div class="carousel-wrapper">
@@ -1395,7 +1570,7 @@
                     <div class="carousel-track" id="carousel-track"></div>
                 </div>
             </div>
-            <div class="sort-bar" id="sort-bar" style="margin-top: 12px; margin-bottom: 0;">
+            <div class="sort-bar" id="sort-bar" style="margin-top:12px;margin-bottom:0;">
                 <span class="sort-label"><i class="fas fa-sort-amount-down"></i> Urutkan:</span>
                 <select class="sort-select" id="sort-select">
                     <option value="terbaru" selected>Terbaru</option>
@@ -1404,20 +1579,22 @@
                     <option value="za">Judul Z-A</option>
                 </select>
             </div>
-            <hr class="section-divider">
+            <hr class="section-divider" />
             <div id="filter-indicator" class="filter-indicator hidden"></div>
             <div id="post-container" class="post-grid"></div>
-            <div id="load-more-container" style="text-align: center;"></div>
+            <div id="load-more-container" style="text-align:center;"></div>
         </section>
+
         <section id="detail-section" class="hidden">
             <button class="back-btn" id="detail-back"><i class="fas fa-arrow-left"></i> Kembali</button>
             <div id="detail-content"></div>
         </section>
+
         <section id="profile-section" class="hidden">
             <div class="profile-card">
-                <div class="profile-avatar" id="profile-avatar" style="background-image: url('https://avatars.githubusercontent.com/u/189899710?v=4');"></div>
+                <div class="profile-avatar" id="profile-avatar" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');"></div>
                 <div class="profile-name" id="profile-name">Destaseo Mods</div>
-                <div class="profile-bio" id="profile-bio">Premium modder & content creator.</div>
+                <div class="profile-bio" id="profile-bio">Premium modder &amp; content creator.</div>
                 <div class="social-links" id="social-links"></div>
                 <div class="donate-section">
                     <div class="donate-title"><i class="fas fa-mug-hot"></i> Dukung Saya</div>
@@ -1427,17 +1604,20 @@
                     </div>
                 </div>
             </div>
-            <div class="content-box" id="profile-footer-text">Update aplikasi modifikasi premium.<br>Nganjuk - Jawa Timur - Indonesia 🇮🇩</div>
+            <div class="content-box" id="profile-footer-text">Update aplikasi modifikasi premium.<br />Nganjuk - Jawa Timur - Indonesia 🇮🇩</div>
             <div class="daily-visitor" id="daily-visitor">
                 <i class="fas fa-users"></i> Pengunjung Hari Ini: <span id="daily-count">...</span>
             </div>
         </section>
     </main>
+
+    <!-- Bottom Nav -->
     <nav class="bottom-nav">
         <button class="nav-item active" data-page="home"><i class="fas fa-home"></i><span>Beranda</span></button>
         <button class="nav-item" data-page="search"><i class="fas fa-search"></i><span>Cari</span></button>
         <button class="nav-item" data-page="profile"><i class="fas fa-user-circle"></i><span>Profil</span></button>
     </nav>
+
     <script>
         (function() {
             const GITHUB_REPO = "destaseomods/web";
@@ -1447,7 +1627,15 @@
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
-            const PROFILE = { avatar: AVATAR_URL, name: "Destaseo Mods", bio: "Premium modder & content creator.", links: [{ label: "Facebook", url: "https://fb.com/destaseo.id", icon: "fab fa-facebook" }, { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane" }] };
+            const PROFILE = {
+                avatar: AVATAR_URL,
+                name: "Destaseo Mods",
+                bio: "Premium modder & content creator.",
+                links: [
+                    { label: "Facebook", url: "https://fb.com/destaseo.id", icon: "fab fa-facebook" },
+                    { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane" }
+                ]
+            };
 
             // ============================================================
             // PARTIKEL
@@ -1491,7 +1679,8 @@
 
             function animateParticles() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => { p.update(); p.draw(); });
+                particles.forEach(p => { p.update();
+                    p.draw(); });
                 requestAnimationFrame(animateParticles);
             }
             animateParticles();
@@ -1534,31 +1723,27 @@
             let totalPopularSlides = 0;
 
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
-            if (AVATAR_URL) { const a = document.getElementById('profile-avatar');
+            if (AVATAR_URL) {
+                const a = document.getElementById('profile-avatar');
                 a.style.backgroundImage = `url('${AVATAR_URL}')`;
-                a.textContent = ''; }
+                a.textContent = '';
+            }
 
             // ============================================================
-            // 🚀 GLOBAL COUNTER (timeout 2 detik, prioritas cache)
+            // GLOBAL COUNTER (timeout 2 detik)
             // ============================================================
             async function getGlobalViewCount(postName) {
                 const clean = postName.replace(/[^a-zA-Z0-9]/g, '_');
                 const storageKey = 'view_' + clean;
                 const today = new Date().toISOString().slice(0, 10);
-
-                // Baca dari localStorage dulu (cepat)
                 let localData = null;
                 try {
                     const raw = localStorage.getItem(storageKey);
                     if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
-
-                // Jika ada data hari ini, langsung return tanpa hit API
                 if (localData && localData.date === today) {
                     return localData.count;
                 }
-
-                // Hit API dengan timeout 2 detik (dari 5 detik)
                 const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/visits`;
                 try {
                     const controller = new AbortController();
@@ -1578,11 +1763,8 @@
                         }
                     }
                 } catch (e) {
-                    // API error/timeout, lanjut ke fallback
                     console.warn('API timeout/error, pakai fallback');
                 }
-
-                // Fallback ke localStorage (increment)
                 const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
                 const newCount = prevCount + 1;
                 localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
@@ -1590,23 +1772,20 @@
             }
 
             // ============================================================
-            // 🆕 DAILY VISITOR COUNTER (timeout 2 detik)
+            // DAILY VISITOR COUNTER
             // ============================================================
             async function getDailyVisitorCount() {
                 const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily`;
                 const storageKey = 'daily_visitor';
                 const today = new Date().toISOString().slice(0, 10);
-
                 let localData = null;
                 try {
                     const raw = localStorage.getItem(storageKey);
                     if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
-
                 if (localData && localData.date === today) {
                     return localData.count;
                 }
-
                 try {
                     const controller = new AbortController();
                     const timeout = setTimeout(() => controller.abort(), 2000);
@@ -1625,7 +1804,6 @@
                         }
                     }
                 } catch (e) {}
-
                 const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
                 const newCount = prevCount + 1;
                 localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
@@ -1633,13 +1811,12 @@
             }
 
             // ============================================================
-            // 🆕 REKOMENDASI POSTINGAN
+            // REKOMENDASI
             // ============================================================
             function getRecommendations(currentPost, limit = 4) {
                 if (!fetchedPosts || fetchedPosts.length === 0) return [];
                 const others = fetchedPosts.filter(p => p.name !== currentPost.name);
                 if (others.length === 0) return [];
-
                 const currentCategory = currentPost.metadata.kategori || '';
                 const sameCategory = others.filter(p => {
                     const cat = p.metadata.kategori || '';
@@ -1649,12 +1826,8 @@
                     const cat = p.metadata.kategori || '';
                     return cat !== currentCategory || cat === '';
                 });
-
                 const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
-                const shuffledSame = shuffle(sameCategory);
-                const shuffledDiff = shuffle(differentCategory);
-
-                const combined = [...shuffledSame, ...shuffledDiff];
+                const combined = [...shuffle(sameCategory), ...shuffle(differentCategory)];
                 return combined.slice(0, limit);
             }
 
@@ -1667,43 +1840,70 @@
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
             if (qrisDanaBtn) qrisDanaBtn.addEventListener('click', () => qrisOverlay.classList.remove('hidden'));
             qrisCloseBtn.addEventListener('click', () => qrisOverlay.classList.add('hidden'));
-            qrisOverlay.addEventListener('click', (e) => { if (e.target === qrisOverlay) qrisOverlay.classList.add('hidden'); });
-            qrisDownloadBtn.addEventListener('click', async () => { try { const r = await fetch(QRIS_URL); const b = await r.blob(); const u = URL.createObjectURL(b); const a = document.createElement('a');
+            qrisOverlay.addEventListener('click', (e) => { if (e.target === qrisOverlay) qrisOverlay.classList.add(
+                    'hidden'); });
+            qrisDownloadBtn.addEventListener('click', async () => {
+                try {
+                    const r = await fetch(QRIS_URL);
+                    const b = await r.blob();
+                    const u = URL.createObjectURL(b);
+                    const a = document.createElement('a');
                     a.href = u;
                     a.download = 'qris-destaseo.png';
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
-                    URL.revokeObjectURL(u); } catch { window.open(QRIS_URL, '_blank'); } });
+                    URL.revokeObjectURL(u);
+                } catch { window.open(QRIS_URL, '_blank'); }
+            });
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
-            function getHashPage() { const h = window.location.hash.slice(1); if (!h || h === 'home') return { page: 'home' }; if (h === 'search') return { page: 'search' }; if (h === 'profile') return { page: 'profile' }; if (h.startsWith('detail/')) return { page: 'detail', postName: h.split('/')[1] }; return { page: 'home' }; }
+            function getHashPage() {
+                const h = window.location.hash.slice(1);
+                if (!h || h === 'home') return { page: 'home' };
+                if (h === 'search') return { page: 'search' };
+                if (h === 'profile') return { page: 'profile' };
+                if (h.startsWith('detail/')) return { page: 'detail', postName: h.split('/')[1] };
+                return { page: 'home' };
+            }
 
-            function setHash(p, param) { if (p === 'home') window.location.hash = 'home';
+            function setHash(p, param) {
+                if (p === 'home') window.location.hash = 'home';
                 else if (p === 'search') window.location.hash = 'search';
                 else if (p === 'profile') window.location.hash = 'profile';
-                else if (p === 'detail' && param) window.location.hash = 'detail/' + param; }
+                else if (p === 'detail' && param) window.location.hash = 'detail/' + param;
+            }
 
-            function showSection(s) { [homeSection, detailSection, profileSection].forEach(x => x.classList.add('hidden'));
-                s.classList.remove('hidden'); }
+            function showSection(s) {
+                [homeSection, detailSection, profileSection].forEach(x => x.classList.add('hidden'));
+                s.classList.remove('hidden');
+            }
 
-            function setActiveNav(p) { navItems.forEach(i => i.classList.toggle('active', i.dataset.page === p || (p === 'detail' && i.dataset.page === 'home'))); }
+            function setActiveNav(p) {
+                navItems.forEach(i => i.classList.toggle('active', i.dataset.page === p || (p === 'detail' && i.dataset
+                    .page === 'home')));
+            }
 
             function navigate(p, postName) {
-                if (p === 'home') { showSection(homeSection);
+                if (p === 'home') {
+                    showSection(homeSection);
                     searchBox.classList.add('hidden');
                     categoryBar.classList.remove('hidden');
                     sortBar.classList.remove('hidden');
                     document.getElementById('popular-section').classList.remove('hidden');
                     setActiveNav('home');
-                    startCarousel(); } else if (p === 'search') { showSection(homeSection);
+                    startCarousel();
+                } else if (p === 'search') {
+                    showSection(homeSection);
                     searchBox.classList.remove('hidden');
                     categoryBar.classList.remove('hidden');
                     sortBar.classList.add('hidden');
                     document.getElementById('popular-section').classList.add('hidden');
                     setActiveNav('search');
                     stopCarousel();
-                    setTimeout(() => searchInput.focus(), 100); } else if (p === 'profile') { showSection(profileSection);
+                    setTimeout(() => searchInput.focus(), 100);
+                } else if (p === 'profile') {
+                    showSection(profileSection);
                     searchBox.classList.add('hidden');
                     categoryBar.classList.add('hidden');
                     sortBar.classList.add('hidden');
@@ -1711,14 +1911,17 @@
                     filterIndicator.classList.add('hidden');
                     setActiveNav('profile');
                     stopCarousel();
-                    renderProfile(); } else if (p === 'detail' && postName) { showDetail(postName);
+                    renderProfile();
+                } else if (p === 'detail' && postName) {
+                    showDetail(postName);
                     setActiveNav('detail');
                     searchBox.classList.add('hidden');
                     categoryBar.classList.add('hidden');
                     sortBar.classList.add('hidden');
                     document.getElementById('popular-section').classList.add('hidden');
                     filterIndicator.classList.add('hidden');
-                    stopCarousel(); }
+                    stopCarousel();
+                }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
@@ -1731,83 +1934,156 @@
                 updateDailyVisitor();
             }
 
-            // ============================================================
-            // 🆕 UPDATE DAILY VISITOR
-            // ============================================================
             async function updateDailyVisitor() {
                 try {
                     const count = await getDailyVisitorCount();
-                    if (dailyCountEl) {
-                        dailyCountEl.textContent = count;
-                    }
+                    if (dailyCountEl) dailyCountEl.textContent = count;
                 } catch (e) {
-                    if (dailyCountEl) {
-                        dailyCountEl.textContent = '?';
-                    }
+                    if (dailyCountEl) dailyCountEl.textContent = '?';
                 }
             }
 
             // ============================================================
             // FETCH DATA DARI GITHUB
             // ============================================================
-            function getCache() { const r = localStorage.getItem(CACHE_KEY); if (!r) return null; try { const d = JSON.parse(r); if (Date.now() - d.t < CACHE_TIME) return d.posts; } catch (e) {} return null; }
+            function getCache() {
+                const r = localStorage.getItem(CACHE_KEY);
+                if (!r) return null;
+                try {
+                    const d = JSON.parse(r);
+                    if (Date.now() - d.t < CACHE_TIME) return d.posts;
+                } catch (e) {}
+                return null;
+            }
 
-            function setCache(posts) { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), posts })); }
+            function setCache(posts) {
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), posts }));
+            }
 
             async function fetchPostList() {
                 const cached = getCache();
                 if (cached) { postsData = cached; return; }
                 let apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
                 const res = await fetch(apiUrl);
-                if (!res.ok) { const old = localStorage.getItem(CACHE_KEY); if (old) { try { const d = JSON.parse(old);
+                if (!res.ok) {
+                    const old = localStorage.getItem(CACHE_KEY);
+                    if (old) {
+                        try {
+                            const d = JSON.parse(old);
                             console.warn('⚠️ Gagal fetch, pakai cache kadaluarsa.');
-                            postsData = d.posts; return; } catch (e) {} } throw new Error(`Gagal fetch (${res.status}). Repo publik? Rate limit?`); }
+                            postsData = d.posts;
+                            return;
+                        } catch (e) {}
+                    }
+                    throw new Error(`Gagal fetch (${res.status}). Repo publik? Rate limit?`);
+                }
                 const files = await res.json();
                 const mdFiles = files.filter(f => f.name.endsWith('.md'));
                 if (!mdFiles.length) throw new Error('Tidak ada file .md di posts/.');
-                postsData = mdFiles.map(f => ({ filename: f.name, name: f.name.replace('.md', ''), download_url: f.download_url }));
+                postsData = mdFiles.map(f => ({ filename: f.name, name: f.name.replace('.md', ''), download_url: f
+                        .download_url }));
                 setCache(postsData);
             }
 
-            function parseFrontmatter(md) { const m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/); if (!m) return { metadata: {}, content: md }; const meta = {}; m[1].split('\n').forEach(line => { const i = line.indexOf(':'); if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim().replace(/^["']|["']$/g, ''); }); return { metadata: meta, content: m[2] }; }
-
-            async function fetchPost(p) {
-                try { const r = await fetch(p.download_url); if (!r.ok) throw new Error('fail'); const md = await r.text(); const { metadata, content } = parseFrontmatter(md); const lastModified = r.headers.get('Last-Modified'); return { ...p, metadata, content, lastModified, html: marked.parse(content) }; } catch { return { ...p, metadata: {}, content: '', html: '<p>Gagal memuat.</p>', lastModified: null }; }
+            function parseFrontmatter(md) {
+                const m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
+                if (!m) return { metadata: {}, content: md };
+                const meta = {};
+                m[1].split('\n').forEach(line => {
+                    const i = line.indexOf(':');
+                    if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim().replace(/^["']|["']$/g,
+                        '');
+                });
+                return { metadata: meta, content: m[2] };
             }
 
-            function fixImageUrl(url) { if (!url) return ''; if (url.includes('github.com') && !url.includes('raw.githubusercontent.com')) url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/'); return url; }
+            async function fetchPost(p) {
+                try {
+                    const r = await fetch(p.download_url);
+                    if (!r.ok) throw new Error('fail');
+                    const md = await r.text();
+                    const { metadata, content } = parseFrontmatter(md);
+                    const lastModified = r.headers.get('Last-Modified');
+                    return { ...p, metadata, content, lastModified, html: marked.parse(content) };
+                } catch {
+                    return { ...p, metadata: {}, content: '', html: '<p>Gagal memuat.</p>', lastModified: null };
+                }
+            }
 
-            function getExcerpt(c) { if (!c) return ''; let t = c.replace(/[#*`>\[\]()!|]/g, '').replace(/\n/g, ' ').trim(); if (t.length > 80) t = t.slice(0, 80) + '...'; return t; }
+            function fixImageUrl(url) {
+                if (!url) return '';
+                if (url.includes('github.com') && !url.includes('raw.githubusercontent.com')) {
+                    url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                return url;
+            }
 
-            function formatDate(d) { if (!d) return ''; const dt = new Date(d); if (isNaN(dt.getTime())) return ''; const m = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des']; return `${dt.getDate()} ${m[dt.getMonth()]} ${dt.getFullYear()}`; }
+            function getExcerpt(c) {
+                if (!c) return '';
+                let t = c.replace(/[#*`>\[\]()!|]/g, '').replace(/\n/g, ' ').trim();
+                if (t.length > 80) t = t.slice(0, 80) + '...';
+                return t;
+            }
+
+            function formatDate(d) {
+                if (!d) return '';
+                const dt = new Date(d);
+                if (isNaN(dt.getTime())) return '';
+                const m = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+                return `${dt.getDate()} ${m[dt.getMonth()]} ${dt.getFullYear()}`;
+            }
 
             // ============================================================
             // RENDER HOME
             // ============================================================
-            function getAllKategori() { const k = new Set();
-                fetchedPosts.forEach(p => { const kat = p.metadata.kategori || ''; if (kat) k.add(kat); }); return Array.from(k).sort(); }
+            function getAllKategori() {
+                const k = new Set();
+                fetchedPosts.forEach(p => {
+                    const kat = p.metadata.kategori || '';
+                    if (kat) k.add(kat);
+                });
+                return Array.from(k).sort();
+            }
 
             function renderCategoryBar() {
                 const kats = getAllKategori();
-                let html = '<span class="category-chip' + (!activeKatFilter ? ' active' : '') + '" data-kat=""><i class="fas fa-globe"></i> Semua</span>';
+                let html = '<span class="category-chip' + (!activeKatFilter ? ' active' : '') +
+                    '" data-kat=""><i class="fas fa-globe"></i> Semua</span>';
                 kats.forEach(kat => html +=
                     `<span class="category-chip${activeKatFilter === kat ? ' active' : ''}" data-kat="${kat}"><i class="fas fa-tag"></i> ${kat}</span>`
                     );
                 if (activeKatFilter) html +=
                     '<button class="reset-filter" id="reset-filter"><i class="fas fa-times"></i> Hapus filter</button>';
                 categoryBar.innerHTML = html;
-                categoryBar.querySelectorAll('.category-chip').forEach(chip => chip.addEventListener('click', () => { activeKatFilter = chip.dataset.kat || null;
-                    resetAndApplyFilters(); }));
-                const resetBtn = document.getElementById('reset-filter'); if (resetBtn) resetBtn.addEventListener('click', () => { activeKatFilter = null;
+                categoryBar.querySelectorAll('.category-chip').forEach(chip => chip.addEventListener('click', () => {
+                    activeKatFilter = chip.dataset.kat || null;
+                    resetAndApplyFilters();
+                }));
+                const resetBtn = document.getElementById('reset-filter');
+                if (resetBtn) resetBtn.addEventListener('click', () => { activeKatFilter = null;
                     resetAndApplyFilters(); });
             }
 
-            function getFilteredPosts() { const q = searchInput.value.trim().toLowerCase(); let f = fetchedPosts; if (activeKatFilter) f = f.filter(p => (p.metadata.kategori || '') === activeKatFilter); if (q) f = f.filter(p => { const t = (p.metadata.judul || p.metadata.title || p.name).toLowerCase(); return t.includes(q); }); return f; }
+            function getFilteredPosts() {
+                const q = searchInput.value.trim().toLowerCase();
+                let f = fetchedPosts;
+                if (activeKatFilter) f = f.filter(p => (p.metadata.kategori || '') === activeKatFilter);
+                if (q) f = f.filter(p => {
+                    const t = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
+                    return t.includes(q);
+                });
+                return f;
+            }
 
             function sortPosts(posts) {
                 const sortBy = sortSelect.value;
                 const sorted = [...posts];
-                const getTime = (p) => { const d = p.metadata.tanggal || p.metadata.date || p.lastModified; if (!d) return 0; const t = new Date(d); return isNaN(t.getTime()) ? 0 : t.getTime(); };
+                const getTime = (p) => {
+                    const d = p.metadata.tanggal || p.metadata.date || p.lastModified;
+                    if (!d) return 0;
+                    const t = new Date(d);
+                    return isNaN(t.getTime()) ? 0 : t.getTime();
+                };
                 switch (sortBy) {
                     case 'terbaru':
                         sorted.sort((a, b) => getTime(b) - getTime(a));
@@ -1816,44 +2092,70 @@
                         sorted.sort((a, b) => getTime(a) - getTime(b));
                         break;
                     case 'az':
-                        sorted.sort((a, b) => { const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase(); const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase(); return tA.localeCompare(tB); });
+                        sorted.sort((a, b) => {
+                            const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
+                            const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
+                            return tA.localeCompare(tB);
+                        });
                         break;
                     case 'za':
-                        sorted.sort((a, b) => { const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase(); const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase(); return tB.localeCompare(tA); });
+                        sorted.sort((a, b) => {
+                            const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
+                            const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
+                            return tB.localeCompare(tA);
+                        });
                         break;
                 }
                 return sorted;
             }
 
-            function resetAndApplyFilters() { currentDisplayCount = 0;
-                applyFilters(); }
+            function resetAndApplyFilters() {
+                currentDisplayCount = 0;
+                applyFilters();
+            }
 
             function applyFilters() {
                 let filtered = getFilteredPosts();
                 filtered = sortPosts(filtered);
-                if (activeKatFilter) { filterIndicator.classList.remove('hidden');
-                    filterIndicator.innerHTML = `<i class="fas fa-filter"></i> Kategori: <strong>${activeKatFilter}</strong> (${filtered.length} hasil)`; } else filterIndicator.classList.add('hidden');
+                if (activeKatFilter) {
+                    filterIndicator.classList.remove('hidden');
+                    filterIndicator.innerHTML =
+                        `<i class="fas fa-filter"></i> Kategori: <strong>${activeKatFilter}</strong> (${filtered.length} hasil)`;
+                } else filterIndicator.classList.add('hidden');
                 currentDisplayCount = Math.min(ITEMS_PER_PAGE, filtered.length);
                 displayPosts(filtered.slice(0, currentDisplayCount));
                 renderLoadMoreButton(filtered.length);
             }
 
-            function displayPosts(posts) { postContainer.innerHTML = posts.length ? posts.map((p, i) => cardHTML(p, i)).join('') :
+            function displayPosts(posts) {
+                postContainer.innerHTML = posts.length ? posts.map((p, i) => cardHTML(p, i)).join('') :
                     '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
-                attachCardEvents(); }
-
-            function renderLoadMoreButton(t) { if (currentDisplayCount < t) { loadMoreContainer.innerHTML =
-                    `<button class="load-more-btn" id="load-more-btn"><i class="fas fa-chevron-down"></i> Muat Lebih Banyak (${t - currentDisplayCount})</button>`;
-                    document.getElementById('load-more-btn').addEventListener('click', loadMorePosts); } else { loadMoreContainer.innerHTML = ''; } }
-
-            function loadMorePosts() { let f = getFilteredPosts();
-                f = sortPosts(f); const n = Math.min(currentDisplayCount + ITEMS_PER_PAGE, f.length); const newPosts = f.slice(
-                    currentDisplayCount, n);
-                currentDisplayCount = n;
-                newPosts.forEach((p, i) => { const card = cardHTML(p, i);
-                    postContainer.insertAdjacentHTML('beforeend', card); });
                 attachCardEvents();
-                renderLoadMoreButton(f.length); }
+            }
+
+            function renderLoadMoreButton(t) {
+                if (currentDisplayCount < t) {
+                    loadMoreContainer.innerHTML =
+                        `<button class="load-more-btn" id="load-more-btn"><i class="fas fa-chevron-down"></i> Muat Lebih Banyak (${t - currentDisplayCount})</button>`;
+                    document.getElementById('load-more-btn').addEventListener('click', loadMorePosts);
+                } else {
+                    loadMoreContainer.innerHTML = '';
+                }
+            }
+
+            function loadMorePosts() {
+                let f = getFilteredPosts();
+                f = sortPosts(f);
+                const n = Math.min(currentDisplayCount + ITEMS_PER_PAGE, f.length);
+                const newPosts = f.slice(currentDisplayCount, n);
+                currentDisplayCount = n;
+                newPosts.forEach((p, i) => {
+                    const card = cardHTML(p, i);
+                    postContainer.insertAdjacentHTML('beforeend', card);
+                });
+                attachCardEvents();
+                renderLoadMoreButton(f.length);
+            }
 
             function cardHTML(post, index) {
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
@@ -1873,73 +2175,202 @@
                 </div>`;
             }
 
-            function attachCardEvents() { document.querySelectorAll('.post-card').forEach(c => c.addEventListener('click', (e) => { if (e.target.closest('.badge')) return;
-                    setHash('detail', c.dataset.name); }));
-                document.querySelectorAll('.badge').forEach(b => b.addEventListener('click', (e) => { e.stopPropagation();
+            function attachCardEvents() {
+                document.querySelectorAll('.post-card').forEach(c => c.addEventListener('click', (e) => {
+                    if (e.target.closest('.badge')) return;
+                    setHash('detail', c.dataset.name);
+                }));
+                document.querySelectorAll('.badge').forEach(b => b.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     activeKatFilter = b.dataset.kat;
                     searchInput.value = '';
                     resetAndApplyFilters();
-                    renderCategoryBar(); })); }
+                    renderCategoryBar();
+                }));
+            }
 
-            function stopCarousel() { if (carouselInterval) { clearInterval(carouselInterval);
-                    carouselInterval = null; } }
+            function stopCarousel() {
+                if (carouselInterval) { clearInterval(carouselInterval);
+                    carouselInterval = null; }
+            }
 
-            function startCarousel() { stopCarousel(); if (totalPopularSlides === 0) return;
+            function startCarousel() {
+                stopCarousel();
+                if (totalPopularSlides === 0) return;
                 updateCarousel(0);
-                carouselInterval = setInterval(() => { currentSlide = (currentSlide + 1) % totalPopularSlides;
-                    updateCarousel(currentSlide); }, 4000); }
+                carouselInterval = setInterval(() => {
+                    currentSlide = (currentSlide + 1) % totalPopularSlides;
+                    updateCarousel(currentSlide);
+                }, 4000);
+            }
 
-            function updateCarousel(i) { const slides = document.querySelectorAll('.carousel-slide');
+            function updateCarousel(i) {
+                const slides = document.querySelectorAll('.carousel-slide');
                 slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
-                document.querySelectorAll('.carousel-counter').forEach((c, idx) => { c.textContent = `${i+1}/${totalPopularSlides}`; }); }
+                document.querySelectorAll('.carousel-counter').forEach((c, idx) => {
+                    c.textContent = `${i+1}/${totalPopularSlides}`;
+                });
+            }
 
-            function renderPopularSection() { if (!fetchedPosts.length) { carouselTrack.innerHTML = '';
-                    totalPopularSlides = 0; return; } let pop = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer
-                    .toLowerCase() === 'true'); if (pop.length === 0) pop = fetchedPosts.slice(0, 4);
+            function renderPopularSection() {
+                if (!fetchedPosts.length) { carouselTrack.innerHTML = '';
+                    totalPopularSlides = 0; return; }
+                let pop = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() === 'true');
+                if (pop.length === 0) pop = fetchedPosts.slice(0, 4);
                 else pop = pop.slice(0, 4);
                 totalPopularSlides = pop.length;
-                carouselTrack.innerHTML = pop.map((p, i) => { const img = fixImageUrl(p.metadata.gambar || p.metadata.image ||
-                        ''); const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' '); return `<div class="carousel-slide${i === 0 ? ' active' : ''}" data-name="${p.name}">${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="slide-overlay"><div class="slide-title">${title}</div><span class="carousel-counter">${i+1}/${pop.length}</span></div></div>`; })
-                    .join('');
-                document.querySelectorAll('.carousel-slide').forEach(s => s.addEventListener('click', () => setHash('detail', s
-                    .dataset.name))); }
+                carouselTrack.innerHTML = pop.map((p, i) => {
+                    const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
+                    const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
+                    return `<div class="carousel-slide${i === 0 ? ' active' : ''}" data-name="${p.name}">${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="slide-overlay"><div class="slide-title">${title}</div><span class="carousel-counter">${i+1}/${pop.length}</span></div></div>`;
+                }).join('');
+                document.querySelectorAll('.carousel-slide').forEach(s => s.addEventListener('click', () => setHash(
+                    'detail', s.dataset.name)));
+            }
 
-            async function renderHome() { postContainer.innerHTML = '<div class="spinner"></div>';
+            async function renderHome() {
+                postContainer.innerHTML = '<div class="spinner"></div>';
                 loadMoreContainer.innerHTML = '';
                 categoryBar.innerHTML = '';
                 carouselTrack.innerHTML = '';
-                stopCarousel(); try { await fetchPostList(); if (!postsData.length) { postContainer.innerHTML =
-                        '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>'; return; }
+                stopCarousel();
+                try {
+                    await fetchPostList();
+                    if (!postsData.length) {
+                        postContainer.innerHTML = '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
+                        return;
+                    }
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
                     renderPopularSection();
                     renderCategoryBar();
                     resetAndApplyFilters();
-                    startCarousel(); } catch (err) { postContainer.innerHTML =
-                    `<div class="error-text">⚠️ ${err.message}</div>`; } }
+                    startCarousel();
+                } catch (err) {
+                    postContainer.innerHTML = `<div class="error-text">⚠️ ${err.message}</div>`;
+                }
+            }
 
             // ============================================================
             // DETAIL & COUNTER
             // ============================================================
-            function buildScreenshotGallery(str) { if (!str) return ''; const urls = str.split(',').map(u => fixImageUrl(u
-                    .trim())).filter(u => u.length > 0); if (urls.length === 0) return ''; const lim = urls.slice(0, 5); return `<div class="screenshot-scroll">${lim.map(u => `<img src="${u}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox('${u}')">`).join('')}</div>`; }
 
-            window.openLightbox = function(url) { const lb = document.createElement('div');
+            // 🔽 PERBAIKAN: buildScreenshotGallery dengan data-all-urls
+            function buildScreenshotGallery(str) {
+                if (!str) return '';
+                const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
+                if (urls.length === 0) return '';
+                const lim = urls.slice(0, 5);
+                // simpan semua URL dengan separator unik
+                const urlsAttr = urls.map(u => u.replace(/"/g, '&quot;')).join('|||');
+                return `<div class="screenshot-scroll" data-all-urls="${urlsAttr}">
+                    ${lim.map((u, i) => `<img src="${u}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox(this, ${i})">`).join('')}
+                </div>`;
+            }
+
+            // 🔽 PERBAIKAN: openLightbox dengan close + panah
+            window.openLightbox = function(imgEl, index) {
+                const container = imgEl.closest('.screenshot-scroll');
+                if (!container) return;
+                const allUrlsStr = container.dataset.allUrls || '';
+                if (!allUrlsStr) return;
+                const allUrls = allUrlsStr.split('|||');
+                if (allUrls.length === 0) return;
+                // Hapus lightbox yang ada
+                const existing = document.querySelector('.lightbox');
+                if (existing) existing.remove();
+
+                const lb = document.createElement('div');
                 lb.className = 'lightbox';
-                lb.innerHTML = `<img src="${url}" alt="Screenshot">`;
-                lb.addEventListener('click', () => lb.remove());
-                document.body.appendChild(lb); };
+                lb.innerHTML = `
+                    <button class="lightbox-close" aria-label="Tutup"><i class="fas fa-times"></i></button>
+                    <button class="lightbox-prev" aria-label="Sebelumnya"><i class="fas fa-chevron-left"></i></button>
+                    <button class="lightbox-next" aria-label="Berikutnya"><i class="fas fa-chevron-right"></i></button>
+                    <img src="${allUrls[index]}" alt="Screenshot" />
+                    <div class="lightbox-counter">${index+1} / ${allUrls.length}</div>
+                `;
+                document.body.appendChild(lb);
 
-            function startDownloadWithAd(btn, url) { const now = Date.now(); const last = localStorage.getItem(
-                    AD_STORAGE_KEY); if (!last || (now - parseInt(last)) > AD_INTERVAL) { localStorage.setItem(
-                        AD_STORAGE_KEY, now.toString()); if (AD_URL) window.open(AD_URL, '_blank'); let sec = 5;
+                let currentIndex = index;
+                const img = lb.querySelector('img');
+                const counter = lb.querySelector('.lightbox-counter');
+
+                function updateImage(i) {
+                    if (i < 0) i = allUrls.length - 1;
+                    if (i >= allUrls.length) i = 0;
+                    currentIndex = i;
+                    img.src = allUrls[currentIndex];
+                    counter.textContent = `${currentIndex+1} / ${allUrls.length}`;
+                }
+
+                // Event tombol
+                lb.querySelector('.lightbox-close').addEventListener('click', (e) => { e.stopPropagation();
+                    lb.remove(); });
+                lb.querySelector('.lightbox-prev').addEventListener('click', (e) => { e.stopPropagation();
+                    updateImage(currentIndex - 1); });
+                lb.querySelector('.lightbox-next').addEventListener('click', (e) => { e.stopPropagation();
+                    updateImage(currentIndex + 1); });
+
+                // Klik di luar gambar = tutup
+                lb.addEventListener('click', (e) => {
+                    if (e.target === lb) lb.remove();
+                });
+
+                // Keyboard
+                function keyHandler(e) {
+                    if (e.key === 'Escape') { lb.remove();
+                        document.removeEventListener('keydown', keyHandler); }
+                    if (e.key === 'ArrowLeft') { e.preventDefault();
+                        updateImage(currentIndex - 1); }
+                    if (e.key === 'ArrowRight') { e.preventDefault();
+                        updateImage(currentIndex + 1); }
+                }
+                document.addEventListener('keydown', keyHandler);
+
+                // Swipe touch untuk mobile
+                let touchStartX = 0;
+                lb.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+                lb.addEventListener('touchend', (e) => {
+                    const diff = touchStartX - e.changedTouches[0].screenX;
+                    if (Math.abs(diff) > 40) {
+                        if (diff > 0) updateImage(currentIndex + 1);
+                        else updateImage(currentIndex - 1);
+                    }
+                }, { passive: true });
+            };
+
+            // ============================================================
+            // START DOWNLOAD DENGAN AD
+            // ============================================================
+            function startDownloadWithAd(btn, url) {
+                const now = Date.now();
+                const last = localStorage.getItem(AD_STORAGE_KEY);
+                if (!last || (now - parseInt(last)) > AD_INTERVAL) {
+                    localStorage.setItem(AD_STORAGE_KEY, now.toString());
+                    if (AD_URL) window.open(AD_URL, '_blank');
+                    let sec = 5;
                     btn.textContent = `⏳ ${sec} detik`;
                     btn.classList.add('counting');
-                    const timer = setInterval(() => { sec--; if (sec <= 0) { clearInterval(timer);
+                    const timer = setInterval(() => {
+                        sec--;
+                        if (sec <= 0) {
+                            clearInterval(timer);
                             btn.innerHTML = '<i class="fas fa-download"></i> Download APK';
                             btn.classList.remove('counting');
-                            window.open(url, '_blank'); } else { btn.textContent = `⏳ ${sec} detik`; } }, 1000); } else { window.open(
-                        url, '_blank'); } }
+                            window.open(url, '_blank');
+                        } else {
+                            btn.textContent = `⏳ ${sec} detik`;
+                        }
+                    }, 1000);
+                } else {
+                    window.open(url, '_blank');
+                }
+            }
 
+            // ============================================================
+            // SHOW DETAIL
+            // ============================================================
             async function showDetail(name) {
                 const post = fetchedPosts.find(p => p.name === name);
                 if (!post) {
@@ -1966,9 +2397,7 @@
                     `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` :
                     '';
 
-                // ============================================================
-                // 🆕 REKOMENDASI
-                // ============================================================
+                // Rekomendasi
                 const recommendations = getRecommendations(post, 4);
                 let recHtml = '';
                 if (recommendations.length > 0) {
@@ -1976,10 +2405,9 @@
                         <h3><i class="fas fa-lightbulb"></i> Rekomendasi untuk Anda</h3>
                         <div class="rec-grid">`;
                     recommendations.forEach(rec => {
-                        const recTitle = rec.metadata.judul || rec.metadata.title || rec.name.replace(/[-_]/g,
-                            ' ');
+                        const recTitle = rec.metadata.judul || rec.metadata.title || rec.name.replace(
+                            /[-_]/g, ' ');
                         const recImg = fixImageUrl(rec.metadata.gambar || rec.metadata.image || '');
-                        const recKategori = rec.metadata.kategori || '';
                         recHtml += `
                             <div class="rec-card" data-name="${rec.name}">
                                 ${recImg ? `<img src="${recImg}" alt="${recTitle}" loading="lazy" onerror="this.style.display='none'">` : `<div style="height:90px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:2rem;"><i class="fas fa-box"></i></div>`}
@@ -2016,13 +2444,15 @@
                 ${downloadBtn}
                 ${recHtml}`;
 
-                // Event listener untuk tombol download
-                if (hasDownload) { const dBtn = document.getElementById('detail-download-btn'); if (dBtn) dBtn
-                        .addEventListener('click', function(e) { e.preventDefault(); if (this.classList.contains(
-                                'counting')) return;
-                            startDownloadWithAd(this, dwn); }); }
+                if (hasDownload) {
+                    const dBtn = document.getElementById('detail-download-btn');
+                    if (dBtn) dBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        if (this.classList.contains('counting')) return;
+                        startDownloadWithAd(this, dwn);
+                    });
+                }
 
-                // Event listener untuk card rekomendasi
                 document.querySelectorAll('.rec-card').forEach(card => {
                     card.addEventListener('click', function() {
                         const name = this.dataset.name;
@@ -2034,9 +2464,13 @@
             detailBack.addEventListener('click', () => setHash('home'));
             navItems.forEach(i => i.addEventListener('click', () => setHash(i.dataset.page)));
             searchInput.addEventListener('input', () => resetAndApplyFilters());
-            window.addEventListener('hashchange', () => { const { page, postName } = getHashPage(); if (page === 'detail' &&
-                    postName) { if (fetchedPosts.length === 0) renderHome().then(() => navigate('detail', postName));
-                    else navigate('detail', postName); } else navigate(page); });
+            window.addEventListener('hashchange', () => {
+                const { page, postName } = getHashPage();
+                if (page === 'detail' && postName) {
+                    if (fetchedPosts.length === 0) renderHome().then(() => navigate('detail', postName));
+                    else navigate('detail', postName);
+                } else navigate(page);
+            });
 
             // ============================================================
             // SITEMAP GENERATOR
