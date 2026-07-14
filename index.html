@@ -1742,7 +1742,13 @@
     <script>
         (function() {
             const GITHUB_REPO = "destaseomods/web";
-            const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
+            
+            // 🔥 DUA LINK IKLAN
+            const AD_URLS = [
+                "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713",
+                "https://cabinetavidgrasp.com/znyjaxeh6b?key=2ea6655338d04fb72289a896b8b7265d"
+            ];
+            
             const AD_INTERVAL = 5 * 60 * 1000; // 5 menit
             const AD_STORAGE_KEY = 'lastAdClickTimestamp';
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
@@ -1957,7 +1963,6 @@
                     if (res.ok) {
                         const data = await res.json();
                         const count = data.count || 0;
-                        // Simpan ke localStorage untuk fallback
                         localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
                         return count;
                     }
@@ -1981,7 +1986,7 @@
             }
 
             // ============================================================
-            // DAILY VISITOR COUNTER (tetap pakai abacus)
+            // DAILY VISITOR COUNTER
             // ============================================================
             async function getDailyVisitorCount() {
                 const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily`;
@@ -2535,14 +2540,14 @@
             }
 
             // ============================================================
-            // DETAIL & COUNTER PER POST (dengan Counter API)
+            // DETAIL & COUNTER PER POST
             // ============================================================
 
             function buildScreenshotGallery(str) {
                 if (!str) return '';
                 const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
                 if (urls.length === 0) return '';
-                const lim = urls.slice(0, 5);
+                const lim = urls.slice(0, 10);
                 const urlsAttr = urls.map(u => u.replace(/"/g, '&quot;')).join('|||');
                 return `<div class="screenshot-scroll" data-all-urls="${urlsAttr}">
                     ${lim.map((u, i) => `<img src="${u}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox(this, ${i})">`).join('')}
@@ -2617,14 +2622,19 @@
             };
 
             // ============================================================
-            // START DOWNLOAD DENGAN AD
+            // START DOWNLOAD DENGAN 2 LINK IKLAN
             // ============================================================
             function startDownloadWithAd(btn, url) {
                 const now = Date.now();
                 const last = localStorage.getItem(AD_STORAGE_KEY);
                 if (!last || (now - parseInt(last)) > AD_INTERVAL) {
                     localStorage.setItem(AD_STORAGE_KEY, now.toString());
-                    if (AD_URL) window.open(AD_URL, '_blank');
+                    
+                    // 🔥 BUKA SEMUA IKLAN
+                    AD_URLS.forEach(adUrl => {
+                        window.open(adUrl, '_blank');
+                    });
+                    
                     let sec = 5;
                     btn.textContent = `⏳ ${sec} detik`;
                     btn.classList.add('counting');
@@ -2640,6 +2650,7 @@
                         }
                     }, 1000);
                 } else {
+                    // Jika masih dalam interval, langsung buka download tanpa iklan
                     window.open(url, '_blank');
                 }
             }
@@ -2698,7 +2709,6 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🔥 Ambil view count dari Counter API
                 const viewCount = await getPostViewCount(name);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
