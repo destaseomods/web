@@ -1743,7 +1743,6 @@
         (function() {
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
-            // 🔥 DURASI IKLAN DIUBAH MENJADI 5 MENIT (sebelumnya 1 jam)
             const AD_INTERVAL = 5 * 60 * 1000; // 5 menit
             const AD_STORAGE_KEY = 'lastAdClickTimestamp';
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
@@ -1936,21 +1935,15 @@
             }
 
             // ============================================================
-            // COUNTER PER POSTINGAN
+            // COUNTER PER POSTINGAN (menggunakan Counter API)
             // ============================================================
             async function getPostViewCount(postName) {
-                const clean = postName.replace(/[^a-zA-Z0-9]/g, '_');
-                const storageKey = 'view_' + clean;
+                const namespace = "destaseomods.web.id";
+                const postId = encodeURIComponent(postName);
+                const url = `https://counterapi.dev/${namespace}/${postId}/up`;
+                const storageKey = 'view_' + postId;
                 const today = new Date().toISOString().slice(0, 10);
-                let localData = null;
-                try {
-                    const raw = localStorage.getItem(storageKey);
-                    if (raw) localData = JSON.parse(raw);
-                } catch (_) {}
-                if (localData && localData.date === today) {
-                    return localData.count;
-                }
-                const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/visits/${postName}`;
+
                 try {
                     const controller = new AbortController();
                     const timeout = setTimeout(() => controller.abort(), 2000);
@@ -1960,16 +1953,26 @@
                         headers: { 'Content-Type': 'application/json' }
                     });
                     clearTimeout(timeout);
+
                     if (res.ok) {
                         const data = await res.json();
-                        const count = data.value || data.count || data.views || data.hits || 1;
-                        if (typeof count === 'number' && count > 0) {
-                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
-                            return count;
-                        }
+                        const count = data.count || 0;
+                        // Simpan ke localStorage untuk fallback
+                        localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                        return count;
                     }
                 } catch (e) {
-                    console.warn('API timeout/error, pakai fallback');
+                    console.warn('Counter API error, pakai fallback lokal');
+                }
+
+                // Fallback ke localStorage
+                let localData = null;
+                try {
+                    const raw = localStorage.getItem(storageKey);
+                    if (raw) localData = JSON.parse(raw);
+                } catch (_) {}
+                if (localData && localData.date === today) {
+                    return localData.count;
                 }
                 const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
                 const newCount = prevCount + 1;
@@ -1978,7 +1981,7 @@
             }
 
             // ============================================================
-            // DAILY VISITOR COUNTER
+            // DAILY VISITOR COUNTER (tetap pakai abacus)
             // ============================================================
             async function getDailyVisitorCount() {
                 const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily`;
@@ -2532,7 +2535,7 @@
             }
 
             // ============================================================
-            // DETAIL & COUNTER PER POST
+            // DETAIL & COUNTER PER POST (dengan Counter API)
             // ============================================================
 
             function buildScreenshotGallery(str) {
@@ -2614,7 +2617,7 @@
             };
 
             // ============================================================
-            // START DOWNLOAD DENGAN AD (durasi interval 5 menit)
+            // START DOWNLOAD DENGAN AD
             // ============================================================
             function startDownloadWithAd(btn, url) {
                 const now = Date.now();
@@ -2695,6 +2698,7 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
+                // 🔥 Ambil view count dari Counter API
                 const viewCount = await getPostViewCount(name);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
