@@ -1743,7 +1743,8 @@
         (function() {
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
-            const AD_INTERVAL = 1 * 60 * 60 * 1000;
+            // 🔥 DURASI IKLAN DIUBAH MENJADI 5 MENIT (sebelumnya 1 jam)
+            const AD_INTERVAL = 5 * 60 * 1000; // 5 menit
             const AD_STORAGE_KEY = 'lastAdClickTimestamp';
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
@@ -2165,11 +2166,9 @@
                 if (!raw) return null;
                 try {
                     const data = JSON.parse(raw);
-                    // Cek expired, tapi jika expired pun kita tetap bisa pakai sebagai fallback
                     if (Date.now() - data.t < CACHE_TIME_LIST) {
                         return data.posts;
                     }
-                    // Jika expired, kita tetap return null agar fetch ulang, tapi kita simpan data untuk fallback
                     return null;
                 } catch (e) { return null; }
             }
@@ -2216,11 +2215,9 @@
             }
 
             async function fetchPostList() {
-                // Coba dapatkan cache yang masih valid
                 const cached = getCachedList();
                 if (cached) { postsData = cached; return; }
 
-                // Jika tidak ada cache valid, coba fetch dari GitHub
                 const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
                 try {
                     const res = await fetch(apiUrl);
@@ -2232,14 +2229,12 @@
                             .download_url }));
                     setCachedList(postsData);
                 } catch (err) {
-                    // Jika gagal, pakai fallback cache (meskipun expired)
                     const fallback = getCachedListFallback();
                     if (fallback && fallback.length) {
                         console.warn('⚠️ Gagal fetch list, pakai cache fallback (mungkin usang).');
                         postsData = fallback;
                         return;
                     }
-                    // Jika tidak ada fallback, lempar error
                     throw new Error('Gagal mengambil daftar postingan dan tidak ada cache.');
                 }
             }
@@ -2257,7 +2252,6 @@
             }
 
             async function fetchPost(p) {
-                // Cek cache konten yang valid
                 const cachedContent = getCachedContent(p.name);
                 if (cachedContent) {
                     const { metadata, content } = parseFrontmatter(cachedContent);
@@ -2265,9 +2259,7 @@
                     return { ...p, metadata, content, html, lastModified: null, fromCache: true };
                 }
 
-                // Jika tidak ada cache valid, coba fetch
                 if (!p.download_url) {
-                    // Jika tidak ada URL, coba fallback cache
                     const fallbackContent = getCachedContentFallback(p.name);
                     if (fallbackContent) {
                         const { metadata, content } = parseFrontmatter(fallbackContent);
@@ -2286,7 +2278,6 @@
                     const lastModified = r.headers.get('Last-Modified');
                     return { ...p, metadata, content, lastModified, html: marked.parse(content), fromCache: false };
                 } catch (err) {
-                    // Jika gagal, coba fallback cache
                     const fallbackContent = getCachedContentFallback(p.name);
                     if (fallbackContent) {
                         const { metadata, content } = parseFrontmatter(fallbackContent);
@@ -2623,7 +2614,7 @@
             };
 
             // ============================================================
-            // START DOWNLOAD DENGAN AD
+            // START DOWNLOAD DENGAN AD (durasi interval 5 menit)
             // ============================================================
             function startDownloadWithAd(btn, url) {
                 const now = Date.now();
