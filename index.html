@@ -2489,7 +2489,7 @@
             }
 
             // ============================================================
-            // DETAIL & COUNTER (dengan div terpisah)
+            // DETAIL & COUNTER (dengan counter.dev)
             // ============================================================
 
             function buildScreenshotGallery(str) {
@@ -2653,23 +2653,28 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🔥 VIEW COUNTER (div terpisah dengan hits.seeyoufarm)
+                // 🔥 VIEW COUNTER dengan counter.dev
                 const viewCounterHtml = `
-                    <div style="margin: 15px 0; padding: 10px 0; text-align: center; color: white;">
+                    <div style="margin: 15px 0; padding: 12px 0; text-align: center; color: white; font-size: 15px;">
                         👁️ <strong>Dilihat :</strong> 
-                        <span id="hit-counter">memuat...</span>
+                        <span id="hit-counter" style="font-weight: bold;">memuat...</span>
                     </div>
                     <script>
                         (function() {
-                            const url = encodeURIComponent(window.location.href);
-                            const counterContainer = document.getElementById('hit-counter');
-                            if (!counterContainer) return;
-                            const img = document.createElement('img');
-                            img.src = 'https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=' + url + '&title=Views';
-                            img.alt = 'View Count';
-                            img.style = 'height: 20px; vertical-align: middle; margin-left: 5px;';
-                            counterContainer.innerHTML = '';
-                            counterContainer.appendChild(img);
+                            const counterEl = document.getElementById('hit-counter');
+                            if (!counterEl) return;
+                            const username = "destaseomods";
+                            const img = new Image();
+                            img.src = 'https://counter.dev/badge/' + username + '/0/0/1';
+                            img.alt = 'Visitor Count';
+                            img.style.cssText = 'height: 22px; vertical-align: middle; margin-left: 6px;';
+                            img.onload = function() {
+                                counterEl.innerHTML = '';
+                                counterEl.appendChild(img);
+                            };
+                            img.onerror = function() {
+                                counterEl.textContent = 'Error';
+                            };
                         })();
                     <\/script>
                 `;
@@ -2712,7 +2717,6 @@
                         <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
                         ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
                         ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
-                        <!-- meta-item Dilihat dihapus, diganti dengan div di bawah -->
                     </div>
                     ${viewCounterHtml}
                     ${galleryHtml}
