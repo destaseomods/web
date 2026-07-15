@@ -1935,51 +1935,6 @@
             }
 
             // ============================================================
-            // COUNTER PER POSTINGAN (menggunakan Counter API)
-            // ============================================================
-            async function getPostViewCount(postName) {
-                const namespace = "destaseomods.web.id";
-                const postId = encodeURIComponent(postName);
-                const url = `https://counterapi.dev/${namespace}/${postId}/up`;
-                const storageKey = 'view_' + postId;
-                const today = new Date().toISOString().slice(0, 10);
-
-                try {
-                    const controller = new AbortController();
-                    const timeout = setTimeout(() => controller.abort(), 2000);
-                    const res = await fetch(url, {
-                        method: 'GET',
-                        signal: controller.signal,
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-                    clearTimeout(timeout);
-
-                    if (res.ok) {
-                        const data = await res.json();
-                        const count = data.count || 0;
-                        localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
-                        return count;
-                    }
-                } catch (e) {
-                    console.warn('Counter API error, pakai fallback lokal');
-                }
-
-                // Fallback ke localStorage
-                let localData = null;
-                try {
-                    const raw = localStorage.getItem(storageKey);
-                    if (raw) localData = JSON.parse(raw);
-                } catch (_) {}
-                if (localData && localData.date === today) {
-                    return localData.count;
-                }
-                const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
-                const newCount = prevCount + 1;
-                localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
-                return newCount;
-            }
-
-            // ============================================================
             // DAILY VISITOR COUNTER
             // ============================================================
             async function getDailyVisitorCount() {
@@ -2534,14 +2489,14 @@
             }
 
             // ============================================================
-            // DETAIL & COUNTER PER POST
+            // DETAIL & COUNTER PER POST (menggunakan hits.seeyoufarm.com)
             // ============================================================
 
             function buildScreenshotGallery(str) {
                 if (!str) return '';
                 const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
                 if (urls.length === 0) return '';
-                // 🔥 TAMPILKAN 10 GAMBAR (sebelumnya 5)
+                // Tampilkan 10 gambar
                 const lim = urls.slice(0, 10);
                 const urlsAttr = urls.map(u => u.replace(/"/g, '&quot;')).join('|||');
                 return `<div class="screenshot-scroll" data-all-urls="${urlsAttr}">
@@ -2698,7 +2653,11 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                const viewCount = await getPostViewCount(name);
+                // 🔥 VIEW COUNTER menggunakan hits.seeyoufarm.com (badge)
+                // Kita buat elemen view-count di dalam meta-item nanti
+                const viewCountHtml = `<div style="display:inline-flex;align-items:center;gap:4px;margin-top:2px;">
+                    <span id="view-count"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=${encodeURIComponent(window.location.href)}" alt="View Count" style="height:20px;border-radius:4px;" /></span>
+                </div>`;
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
                 updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, 'https://destaseomods.web.id/#detail/' + name);
@@ -2738,7 +2697,7 @@
                         <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
                         ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
                         ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
-                        <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ${viewCount} kali</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ${viewCountHtml}</div>
                     </div>
                     ${galleryHtml}
                     ${tagsHtml}
