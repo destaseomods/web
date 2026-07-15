@@ -1742,13 +1742,7 @@
     <script>
         (function() {
             const GITHUB_REPO = "destaseomods/web";
-            
-            // 🔥 DUA LINK IKLAN
-            const AD_URLS = [
-                "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713",
-                "https://cabinetavidgrasp.com/znyjaxeh6b?key=2ea6655338d04fb72289a896b8b7265d"
-            ];
-            
+            const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
             const AD_INTERVAL = 5 * 60 * 1000; // 5 menit
             const AD_STORAGE_KEY = 'lastAdClickTimestamp';
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
@@ -2547,6 +2541,7 @@
                 if (!str) return '';
                 const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
                 if (urls.length === 0) return '';
+                // 🔥 TAMPILKAN 10 GAMBAR (sebelumnya 5)
                 const lim = urls.slice(0, 10);
                 const urlsAttr = urls.map(u => u.replace(/"/g, '&quot;')).join('|||');
                 return `<div class="screenshot-scroll" data-all-urls="${urlsAttr}">
@@ -2622,19 +2617,14 @@
             };
 
             // ============================================================
-            // START DOWNLOAD DENGAN 2 LINK IKLAN
+            // START DOWNLOAD DENGAN AD
             // ============================================================
             function startDownloadWithAd(btn, url) {
                 const now = Date.now();
                 const last = localStorage.getItem(AD_STORAGE_KEY);
                 if (!last || (now - parseInt(last)) > AD_INTERVAL) {
                     localStorage.setItem(AD_STORAGE_KEY, now.toString());
-                    
-                    // 🔥 BUKA SEMUA IKLAN
-                    AD_URLS.forEach(adUrl => {
-                        window.open(adUrl, '_blank');
-                    });
-                    
+                    if (AD_URL) window.open(AD_URL, '_blank');
                     let sec = 5;
                     btn.textContent = `⏳ ${sec} detik`;
                     btn.classList.add('counting');
@@ -2650,7 +2640,6 @@
                         }
                     }, 1000);
                 } else {
-                    // Jika masih dalam interval, langsung buka download tanpa iklan
                     window.open(url, '_blank');
                 }
             }
