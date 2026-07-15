@@ -2489,7 +2489,7 @@
             }
 
             // ============================================================
-            // DETAIL & COUNTER PER POST (menggunakan hits.seeyoufarm.com)
+            // DETAIL & COUNTER (dengan div terpisah)
             // ============================================================
 
             function buildScreenshotGallery(str) {
@@ -2653,11 +2653,26 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🔥 VIEW COUNTER menggunakan hits.seeyoufarm.com (badge)
-                // Kita buat elemen view-count di dalam meta-item nanti
-                const viewCountHtml = `<div style="display:inline-flex;align-items:center;gap:4px;margin-top:2px;">
-                    <span id="view-count"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=${encodeURIComponent(window.location.href)}" alt="View Count" style="height:20px;border-radius:4px;" /></span>
-                </div>`;
+                // 🔥 VIEW COUNTER (div terpisah dengan hits.seeyoufarm)
+                const viewCounterHtml = `
+                    <div style="margin: 15px 0; padding: 10px 0; text-align: center; color: white;">
+                        👁️ <strong>Dilihat :</strong> 
+                        <span id="hit-counter">memuat...</span>
+                    </div>
+                    <script>
+                        (function() {
+                            const url = encodeURIComponent(window.location.href);
+                            const counterContainer = document.getElementById('hit-counter');
+                            if (!counterContainer) return;
+                            const img = document.createElement('img');
+                            img.src = 'https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=' + url + '&title=Views';
+                            img.alt = 'View Count';
+                            img.style = 'height: 20px; vertical-align: middle; margin-left: 5px;';
+                            counterContainer.innerHTML = '';
+                            counterContainer.appendChild(img);
+                        })();
+                    <\/script>
+                `;
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
                 updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, 'https://destaseomods.web.id/#detail/' + name);
@@ -2697,8 +2712,9 @@
                         <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
                         ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
                         ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
-                        <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ${viewCountHtml}</div>
+                        <!-- meta-item Dilihat dihapus, diganti dengan div di bawah -->
                     </div>
+                    ${viewCounterHtml}
                     ${galleryHtml}
                     ${tagsHtml}
                 </div>
