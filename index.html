@@ -58,6 +58,9 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
     </script>
 
+    <!-- ===== SCRIPT IKLAN TIDAK ADA DI SINI ===== -->
+    <!-- Iklan hanya akan di-load di halaman detail -->
+
     <style>
         /* ============================================================
            ROOT VARIABLES
@@ -1899,16 +1902,34 @@
                 }
             }
 
-            // ===== Load script iklan hanya di halaman detail =====
+            // ===== Load script iklan HANYA di halaman detail =====
             let adScriptLoaded = false;
+            let adScriptElement = null;
 
             function loadAdScript() {
+                // Jika sudah di-load, skip
                 if (adScriptLoaded) return;
-                const script = document.createElement('script');
-                script.src = 'https://cabinetavidgrasp.com/c4/11/28/c4112850e63eed959d261d84abff70ee.js';
-                script.async = true;
-                document.head.appendChild(script);
+                // Hapus script iklan sebelumnya (jika ada)
+                if (adScriptElement) {
+                    adScriptElement.remove();
+                    adScriptElement = null;
+                }
+                // Buat script baru
+                adScriptElement = document.createElement('script');
+                adScriptElement.src = 'https://cabinetavidgrasp.com/c4/11/28/c4112850e63eed959d261d84abff70ee.js';
+                adScriptElement.async = true;
+                document.head.appendChild(adScriptElement);
                 adScriptLoaded = true;
+                console.log('📢 Iklan di-load (halaman detail)');
+            }
+
+            function unloadAdScript() {
+                if (adScriptElement) {
+                    adScriptElement.remove();
+                    adScriptElement = null;
+                }
+                adScriptLoaded = false;
+                console.log('📢 Iklan di-unload (pindah halaman)');
             }
 
             // ===== SEO: update meta tags dynamically =====
@@ -2252,6 +2273,11 @@
             }
 
             function navigate(p, postName) {
+                // 🔥 Unload iklan saat navigasi ke halaman selain detail
+                if (p !== 'detail') {
+                    unloadAdScript();
+                }
+
                 if (p === 'home') {
                     showSection(homeSection);
                     searchBox.classList.add('hidden');
@@ -2899,7 +2925,7 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🔥 Load script iklan hanya di halaman detail
+                // 🔥 Load script iklan HANYA di halaman detail
                 loadAdScript();
 
                 // 🔥 Ambil view count dengan increment = true (menambah hit)
