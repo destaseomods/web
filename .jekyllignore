@@ -1,0 +1,6 @@
+# Jekyll Ignore
+sitemap.xml
+Gemfile
+Gemfile.lock
+README.md
+*.log
