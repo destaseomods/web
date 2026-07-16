@@ -13,21 +13,21 @@
     <meta name="keywords" content="mod apk, download mod, premium mod, aplikasi premium, destaseo, mod gratis" />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Destaseo Mods" />
-    <link rel="canonical" href="https://destaseomods.web.id/" />
+    <link rel="canonical" href="https://destaseomods.web.id/" id="canonical-link" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Destaseo Mods • Premium Mod APK" />
-    <meta property="og:description" content="Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis." />
-    <meta property="og:image" content="https://avatars.githubusercontent.com/u/189899710?v=4" />
-    <meta property="og:url" content="https://destaseomods.web.id/" />
+    <meta property="og:title" content="Destaseo Mods • Premium Mod APK" id="og-title" />
+    <meta property="og:description" content="Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis." id="og-description" />
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/189899710?v=4" id="og-image" />
+    <meta property="og:url" content="https://destaseomods.web.id/" id="og-url" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Destaseo Mods" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Destaseo Mods • Premium Mod APK" />
-    <meta name="twitter:description" content="Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis." />
-    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/189899710?v=4" />
+    <meta name="twitter:title" content="Destaseo Mods • Premium Mod APK" id="tw-title" />
+    <meta name="twitter:description" content="Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis." id="tw-description" />
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/189899710?v=4" id="tw-image" />
 
     <!-- JSON-LD: WebSite -->
     <script type="application/ld+json">
@@ -39,7 +39,7 @@
             "description": "Situs download mod APK premium terbaik.",
             "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://destaseomods.web.id/#search?q={search_term_string}",
+                "target": "https://destaseomods.web.id/?page=search&q={search_term_string}",
                 "query-input": "required name=search_term_string"
             }
         }
@@ -58,12 +58,9 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
     </script>
 
-    <!-- ===== SCRIPT IKLAN TIDAK ADA DI SINI ===== -->
-    <!-- Iklan hanya akan di-load di halaman detail -->
-
     <style>
         /* ============================================================
-           ROOT VARIABLES
+           ROOT VARIABLES (sama seperti sebelumnya)
            ============================================================ */
         :root {
             --bg: #04040e;
@@ -87,7 +84,7 @@
         }
 
         /* ============================================================
-           RESET & BASE
+           RESET & BASE (sama)
            ============================================================ */
         * {
             margin: 0;
@@ -120,10 +117,6 @@
             z-index: 0;
             opacity: 0.7;
         }
-
-        /* ============================================================
-           CONTAINER
-           ============================================================ */
         .container {
             max-width: 820px;
             margin: 0 auto;
@@ -133,7 +126,7 @@
         }
 
         /* ============================================================
-           TOPBAR
+           TOPBAR (sama)
            ============================================================ */
         .topbar {
             display: flex;
@@ -158,6 +151,7 @@
             align-items: center;
             gap: 8px;
             flex-shrink: 0;
+            cursor: pointer;
         }
         .logo-img {
             width: 32px;
@@ -180,12 +174,8 @@
             white-space: nowrap;
         }
         @keyframes gradientShift {
-            0% {
-                background-position: 0% center;
-            }
-            100% {
-                background-position: 100% center;
-            }
+            0% { background-position: 0% center; }
+            100% { background-position: 100% center; }
         }
         .telegram-wrapper {
             position: relative;
@@ -229,9 +219,7 @@
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
             z-index: 150;
         }
-        .telegram-dropdown.show {
-            display: flex;
-        }
+        .telegram-dropdown.show { display: flex; }
         .telegram-dropdown a {
             color: var(--text);
             text-decoration: none;
@@ -248,13 +236,10 @@
             background: rgba(255, 255, 255, 0.05);
             color: #fff;
         }
-        .telegram-dropdown a i {
-            width: 18px;
-            text-align: center;
-        }
+        .telegram-dropdown a i { width: 18px; text-align: center; }
 
         /* ============================================================
-           SEARCH
+           SEARCH (sama)
            ============================================================ */
         .search-container {
             margin: 8px 0 16px;
@@ -280,12 +265,10 @@
             border-color: var(--accent);
             box-shadow: 0 0 30px rgba(168, 127, 255, 0.5);
         }
-        .search-input::placeholder {
-            color: var(--text2);
-        }
+        .search-input::placeholder { color: var(--text2); }
 
         /* ============================================================
-           CATEGORY BAR
+           CATEGORY BAR (sama)
            ============================================================ */
         .category-bar {
             display: flex;
@@ -307,9 +290,7 @@
             backdrop-filter: blur(10px);
             white-space: nowrap;
         }
-        .category-chip i {
-            margin-right: 4px;
-        }
+        .category-chip i { margin-right: 4px; }
         .category-chip.active,
         .category-chip:hover {
             background: rgba(168, 127, 255, 0.2);
@@ -325,19 +306,16 @@
             cursor: pointer;
             padding: 5px 10px;
         }
-        .reset-filter i {
-            margin-right: 4px;
-        }
+        .reset-filter i { margin-right: 4px; }
 
         /* ============================================================
-           SORT BAR — jarak diperbesar dari carousel
+           SORT BAR (sama)
            ============================================================ */
         .sort-bar {
             display: flex;
             align-items: center;
             gap: 8px;
             margin-top: 18px;
-            /* jarak dari carousel */
             margin-bottom: 4px;
             justify-content: flex-end;
             flex-wrap: wrap;
@@ -360,16 +338,12 @@
             cursor: pointer;
             transition: var(--transition);
         }
-        .sort-select:hover {
-            border-color: var(--accent2);
-        }
+        .sort-select:hover { border-color: var(--accent2); }
 
         /* ============================================================
-           CAROUSEL
+           CAROUSEL (sama)
            ============================================================ */
-        .popular-section {
-            margin-bottom: 0;
-        }
+        .popular-section { margin-bottom: 0; }
         .carousel-wrapper {
             position: relative;
             overflow: hidden;
@@ -380,16 +354,8 @@
             box-shadow: var(--shadow-card);
             height: 180px;
         }
-        @media (min-width: 500px) {
-            .carousel-wrapper {
-                height: 220px;
-            }
-        }
-        @media (min-width: 768px) {
-            .carousel-wrapper {
-                height: 260px;
-            }
-        }
+        @media (min-width: 500px) { .carousel-wrapper { height: 220px; } }
+        @media (min-width: 768px) { .carousel-wrapper { height: 260px; } }
         .carousel-track {
             display: flex;
             height: 100%;
@@ -406,10 +372,7 @@
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
         }
-        .carousel-slide.active {
-            opacity: 1;
-            z-index: 1;
-        }
+        .carousel-slide.active { opacity: 1; z-index: 1; }
         .carousel-slide img {
             width: 100%;
             height: 100%;
@@ -435,11 +398,7 @@
             font-size: 0.9rem;
             line-height: 1.3;
         }
-        @media (min-width: 500px) {
-            .carousel-slide .slide-title {
-                font-size: 1rem;
-            }
-        }
+        @media (min-width: 500px) { .carousel-slide .slide-title { font-size: 1rem; } }
         .carousel-title-top {
             position: absolute;
             top: 12px;
@@ -458,10 +417,7 @@
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
         }
         @media (min-width: 500px) {
-            .carousel-title-top {
-                font-size: 0.8rem;
-                padding: 5px 14px;
-            }
+            .carousel-title-top { font-size: 0.8rem; padding: 5px 14px; }
         }
         .carousel-counter {
             background: rgba(0, 0, 0, 0.5);
@@ -474,14 +430,11 @@
             letter-spacing: 0.5px;
         }
         @media (min-width: 500px) {
-            .carousel-counter {
-                font-size: 0.75rem;
-                padding: 4px 12px;
-            }
+            .carousel-counter { font-size: 0.75rem; padding: 4px 12px; }
         }
 
         /* ============================================================
-           POST GRID
+           POST GRID (sama)
            ============================================================ */
         .post-grid {
             display: grid;
@@ -489,24 +442,9 @@
             gap: 14px;
             margin-top: 2px;
         }
-        @media (min-width: 420px) {
-            .post-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-            }
-        }
-        @media (min-width: 768px) {
-            .post-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 18px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .post-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
-            }
-        }
+        @media (min-width: 420px) { .post-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+        @media (min-width: 768px) { .post-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; } }
+        @media (min-width: 1024px) { .post-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
 
         .post-card {
             background: var(--surface);
@@ -523,19 +461,14 @@
             transform: translateY(25px);
         }
         @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
         .post-card:hover {
             transform: translateY(-6px) scale(1.01);
             border-color: rgba(255, 255, 255, 0.2);
             box-shadow: var(--glow), 0 25px 50px rgba(0, 0, 0, 0.9);
         }
-        .post-card:active {
-            transform: scale(0.97);
-        }
+        .post-card:active { transform: scale(0.97); }
         .card-img {
             width: 100%;
             height: 130px;
@@ -549,32 +482,17 @@
             position: relative;
             overflow: hidden;
         }
-        @media (min-width: 420px) {
-            .card-img {
-                height: 140px;
-            }
-        }
-        @media (min-width: 768px) {
-            .card-img {
-                height: 160px;
-            }
-        }
+        @media (min-width: 420px) { .card-img { height: 140px; } }
+        @media (min-width: 768px) { .card-img { height: 160px; } }
         .card-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-        .card-img .placeholder-icon {
-            display: none;
-            font-size: 2.5rem;
-        }
-        .card-img.error .placeholder-icon {
-            display: block;
-        }
-        .card-img.error img {
-            display: none;
-        }
+        .card-img .placeholder-icon { display: none; font-size: 2.5rem; }
+        .card-img.error .placeholder-icon { display: block; }
+        .card-img.error img { display: none; }
         .version-badge-img {
             position: absolute;
             top: 8px;
@@ -593,10 +511,7 @@
             z-index: 2;
         }
         @media (min-width: 500px) {
-            .version-badge-img {
-                font-size: 0.65rem;
-                padding: 3px 10px;
-            }
+            .version-badge-img { font-size: 0.65rem; padding: 3px 10px; }
         }
         .card-body {
             padding: 12px 14px 14px;
@@ -611,11 +526,7 @@
             line-height: 1.3;
             color: #fff;
         }
-        @media (min-width: 500px) {
-            .card-title {
-                font-size: 0.85rem;
-            }
-        }
+        @media (min-width: 500px) { .card-title { font-size: 0.85rem; } }
         .card-meta {
             font-size: 0.65rem;
             color: var(--text2);
@@ -638,8 +549,6 @@
             background: rgba(168, 127, 255, 0.4);
             color: #fff;
         }
-
-        /* 🔥 BADGE PREMIUM / VIP / NO ADS / UNLOCKED di kartu post */
         .badge-premium {
             background: linear-gradient(135deg, #f7b731, #f5a623);
             color: #1a1a2e;
@@ -705,16 +614,11 @@
             border: 1px solid var(--border);
         }
         @media (min-width: 500px) {
-            .badge-premium,
-            .badge-vip,
-            .badge-noads,
-            .badge-unlocked,
-            .badge-custom {
+            .badge-premium, .badge-vip, .badge-noads, .badge-unlocked, .badge-custom {
                 font-size: 0.65rem;
                 padding: 3px 10px;
             }
         }
-
         .card-excerpt {
             font-size: 0.68rem;
             color: var(--text2);
@@ -726,7 +630,7 @@
         }
 
         /* ============================================================
-           LOAD MORE
+           LOAD MORE (sama)
            ============================================================ */
         .load-more-btn {
             display: block;
@@ -748,18 +652,12 @@
             background: rgba(62, 224, 255, 0.1);
         }
 
-        /* ============================================================
-           HIDDEN
-           ============================================================ */
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
 
         /* ============================================================
-           DETAIL PAGE
+           DETAIL PAGE (sama)
            ============================================================ */
-        .detail-header,
-        .profile-card {
+        .detail-header, .profile-card {
             background: var(--surface);
             backdrop-filter: blur(24px);
             border: 1px solid var(--border);
@@ -769,10 +667,7 @@
             box-shadow: var(--shadow-card);
         }
         @media (min-width: 500px) {
-            .detail-header,
-            .profile-card {
-                padding: 28px;
-            }
+            .detail-header, .profile-card { padding: 28px; }
         }
         .detail-img {
             display: block;
@@ -785,13 +680,8 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
         }
         @media (min-width: 500px) {
-            .detail-img {
-                width: 100px;
-                height: 100px;
-                margin-bottom: 16px;
-            }
+            .detail-img { width: 100px; height: 100px; margin-bottom: 16px; }
         }
-
         .detail-title {
             font-size: 0.95rem;
             font-weight: 800;
@@ -799,12 +689,7 @@
             text-align: center;
             line-height: 1.3;
         }
-        @media (min-width: 500px) {
-            .detail-title {
-                font-size: 1.05rem;
-            }
-        }
-
+        @media (min-width: 500px) { .detail-title { font-size: 1.05rem; } }
         .detail-meta-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -812,23 +697,14 @@
             margin: 10px 0 4px;
         }
         @media (min-width: 500px) {
-            .detail-meta-grid {
-                gap: 8px;
-                margin: 12px 0 6px;
-            }
+            .detail-meta-grid { gap: 8px; margin: 12px 0 6px; }
         }
         @media (min-width: 640px) {
-            .detail-meta-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
+            .detail-meta-grid { grid-template-columns: repeat(4, 1fr); }
         }
         @media (min-width: 820px) {
-            .detail-meta-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 10px;
-            }
+            .detail-meta-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
         }
-
         .meta-item {
             background: var(--surface2);
             padding: 6px 6px;
@@ -842,11 +718,7 @@
             min-height: 52px;
         }
         @media (min-width: 500px) {
-            .meta-item {
-                padding: 8px 8px;
-                font-size: 0.7rem;
-                min-height: 58px;
-            }
+            .meta-item { padding: 8px 8px; font-size: 0.7rem; min-height: 58px; }
         }
         .meta-item i {
             color: var(--accent2);
@@ -854,25 +726,15 @@
             font-size: 0.75rem;
         }
         @media (min-width: 500px) {
-            .meta-item i {
-                font-size: 0.85rem;
-                margin-bottom: 3px;
-            }
+            .meta-item i { font-size: 0.85rem; margin-bottom: 3px; }
         }
         .meta-item strong {
             color: var(--accent2);
             font-size: 0.6rem;
             font-weight: 700;
         }
-        @media (min-width: 500px) {
-            .meta-item strong {
-                font-size: 0.7rem;
-            }
-        }
+        @media (min-width: 500px) { .meta-item strong { font-size: 0.7rem; } }
 
-        /* ============================================================
-           DOWNLOAD BUTTON
-           ============================================================ */
         .big-download {
             display: block;
             width: 100%;
@@ -892,18 +754,10 @@
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
         }
         @media (min-width: 500px) {
-            .big-download {
-                font-size: 1rem;
-                padding: 15px;
-                margin-top: 20px;
-            }
+            .big-download { font-size: 1rem; padding: 15px; margin-top: 20px; }
         }
-        .big-download i {
-            margin-right: 6px;
-        }
-        .big-download:active {
-            transform: scale(0.96);
-        }
+        .big-download i { margin-right: 6px; }
+        .big-download:active { transform: scale(0.96); }
         .big-download.disabled {
             opacity: 0.5;
             pointer-events: none;
@@ -916,9 +770,6 @@
             border: 1px solid var(--border);
         }
 
-        /* ============================================================
-           CONTENT BOX
-           ============================================================ */
         .content-box {
             background: var(--surface);
             backdrop-filter: blur(24px);
@@ -933,11 +784,7 @@
             overflow: hidden;
             word-wrap: break-word;
         }
-        @media (min-width: 500px) {
-            .content-box {
-                padding: 16px 28px;
-            }
-        }
+        @media (min-width: 500px) { .content-box { padding: 16px 28px; } }
         .content-box img {
             max-width: 100%;
             border-radius: 16px;
@@ -952,9 +799,6 @@
             font-size: 0.8rem;
         }
 
-        /* ============================================================
-           BACK BUTTON
-           ============================================================ */
         .back-btn {
             background: none;
             border: none;
@@ -969,27 +813,10 @@
             padding: 8px 0;
             transition: opacity 0.2s;
         }
-        .back-btn:hover {
-            opacity: 0.8;
-        }
+        .back-btn:hover { opacity: 0.8; }
 
-        /* ============================================================
-           PROFILE — scroll agar tidak ketutupan topbar + badge premium
-           ============================================================ */
-        #profile-section {
-            scroll-margin-top: 100px;
-            /* saat di-navigate via hash, turun */
-            padding-top: 10px;
-            /* tambahan top padding biar tidak mepet */
-        }
-
-        .profile-card {
-            position: relative;
-            /* untuk badge absolute */
-            overflow: hidden;
-        }
-
-        /* 🔥 BADGE PREMIUM di pojok kanan atas card profil */
+        #profile-section { scroll-margin-top: 100px; padding-top: 10px; }
+        .profile-card { position: relative; overflow: hidden; }
         .premium-badge {
             position: absolute;
             top: 14px;
@@ -1010,22 +837,11 @@
             border: 1px solid rgba(255, 215, 0, 0.3);
             backdrop-filter: blur(4px);
         }
-        .premium-badge i {
-            font-size: 0.55rem;
-            color: #1a1a2e;
-        }
+        .premium-badge i { font-size: 0.55rem; color: #1a1a2e; }
         @media (min-width: 500px) {
-            .premium-badge {
-                top: 18px;
-                right: 18px;
-                font-size: 0.7rem;
-                padding: 5px 14px;
-            }
-            .premium-badge i {
-                font-size: 0.65rem;
-            }
+            .premium-badge { top: 18px; right: 18px; font-size: 0.7rem; padding: 5px 14px; }
+            .premium-badge i { font-size: 0.65rem; }
         }
-
         .profile-avatar {
             width: 80px;
             height: 80px;
@@ -1044,25 +860,10 @@
             z-index: 1;
         }
         @media (min-width: 500px) {
-            .profile-avatar {
-                width: 100px;
-                height: 100px;
-                font-size: 2.8rem;
-                margin-bottom: 20px;
-            }
+            .profile-avatar { width: 100px; height: 100px; font-size: 2.8rem; margin-bottom: 20px; }
         }
-        .profile-name {
-            text-align: center;
-            font-size: 1.3rem;
-            font-weight: 800;
-            position: relative;
-            z-index: 1;
-        }
-        @media (min-width: 500px) {
-            .profile-name {
-                font-size: 1.5rem;
-            }
-        }
+        .profile-name { text-align: center; font-size: 1.3rem; font-weight: 800; position: relative; z-index: 1; }
+        @media (min-width: 500px) { .profile-name { font-size: 1.5rem; } }
         .profile-bio {
             text-align: center;
             color: var(--text2);
@@ -1071,11 +872,7 @@
             position: relative;
             z-index: 1;
         }
-        @media (min-width: 500px) {
-            .profile-bio {
-                margin: 10px 0 20px;
-            }
-        }
+        @media (min-width: 500px) { .profile-bio { margin: 10px 0 20px; } }
         .social-links {
             display: flex;
             gap: 10px;
@@ -1099,15 +896,9 @@
             gap: 6px;
         }
         @media (min-width: 500px) {
-            .social-link {
-                padding: 10px 20px;
-                font-size: 0.85rem;
-                gap: 8px;
-            }
+            .social-link { padding: 10px 20px; font-size: 0.85rem; gap: 8px; }
         }
-        .social-link i {
-            font-size: 0.9rem;
-        }
+        .social-link i { font-size: 0.9rem; }
         .social-link:hover {
             border-color: var(--accent2);
             background: rgba(62, 224, 255, 0.1);
@@ -1121,10 +912,7 @@
             z-index: 1;
         }
         @media (min-width: 500px) {
-            .donate-section {
-                margin-top: 24px;
-                padding-top: 20px;
-            }
+            .donate-section { margin-top: 24px; padding-top: 20px; }
         }
         .donate-title {
             color: var(--text2);
@@ -1139,9 +927,7 @@
             flex-wrap: wrap;
         }
 
-        /* ============================================================
-           QRIS OVERLAY
-           ============================================================ */
+        /* QRIS Overlay (sama) */
         .qris-overlay {
             position: fixed;
             top: 0;
@@ -1157,9 +943,7 @@
             flex-direction: column;
             padding: 20px;
         }
-        .qris-overlay.hidden {
-            display: none;
-        }
+        .qris-overlay.hidden { display: none; }
         .qris-container {
             background: var(--surface2);
             border: 1px solid var(--border);
@@ -1170,18 +954,14 @@
             width: 90%;
         }
         @media (min-width: 500px) {
-            .qris-container {
-                padding: 24px;
-                max-width: 360px;
-            }
+            .qris-container { padding: 24px; max-width: 360px; }
         }
         .qris-container img {
             width: 100%;
             border-radius: 16px;
             margin-bottom: 14px;
         }
-        .qris-close-btn,
-        .qris-download-btn {
+        .qris-close-btn, .qris-download-btn {
             background: var(--surface);
             border: 1px solid var(--border);
             color: #fff;
@@ -1193,14 +973,8 @@
             transition: 0.2s;
             margin: 4px;
         }
-        .qris-close-btn:hover,
-        .qris-download-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
+        .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255, 255, 255, 0.1); }
 
-        /* ============================================================
-           TAGS & SCREENSHOT
-           ============================================================ */
         .tags-container {
             margin-top: 10px;
             display: flex;
@@ -1218,12 +992,7 @@
             align-items: center;
             gap: 4px;
         }
-        @media (min-width: 500px) {
-            .tag-badge {
-                font-size: 0.65rem;
-                padding: 3px 10px;
-            }
-        }
+        @media (min-width: 500px) { .tag-badge { font-size: 0.65rem; padding: 3px 10px; } }
         .screenshot-scroll {
             display: flex;
             flex-wrap: nowrap;
@@ -1248,19 +1017,14 @@
             border: 1px solid var(--border);
         }
         @media (min-width: 500px) {
-            .screenshot-scroll img {
-                width: 150px;
-                height: 220px;
-            }
+            .screenshot-scroll img { width: 150px; height: 220px; }
         }
         .screenshot-scroll img:hover {
             transform: scale(1.03);
             border-color: var(--accent);
         }
 
-        /* ============================================================
-           LIGHTBOX
-           ============================================================ */
+        /* Lightbox (sama) */
         .lightbox {
             position: fixed;
             top: 0;
@@ -1278,12 +1042,8 @@
             animation: fadeInLight 0.25s ease;
         }
         @keyframes fadeInLight {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .lightbox img {
             max-width: 92vw;
@@ -1313,12 +1073,8 @@
             z-index: 10;
             backdrop-filter: blur(8px);
         }
-        .lightbox-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
-        }
-        .lightbox-prev,
-        .lightbox-next {
+        .lightbox-close:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
+        .lightbox-prev, .lightbox-next {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -1337,14 +1093,9 @@
             z-index: 10;
             backdrop-filter: blur(8px);
         }
-        .lightbox-prev {
-            left: 20px;
-        }
-        .lightbox-next {
-            right: 20px;
-        }
-        .lightbox-prev:hover,
-        .lightbox-next:hover {
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-prev:hover, .lightbox-next:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-50%) scale(1.05);
         }
@@ -1364,39 +1115,15 @@
             letter-spacing: 0.5px;
         }
         @media (max-width: 500px) {
-            .lightbox-prev,
-            .lightbox-next {
-                width: 36px;
-                height: 36px;
-                font-size: 0.9rem;
-            }
-            .lightbox-prev {
-                left: 8px;
-            }
-            .lightbox-next {
-                right: 8px;
-            }
-            .lightbox-close {
-                top: 12px;
-                right: 12px;
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-            .lightbox img {
-                max-width: 98vw;
-                max-height: 78vh;
-            }
-            .lightbox-counter {
-                font-size: 0.7rem;
-                padding: 4px 14px;
-                bottom: 18px;
-            }
+            .lightbox-prev, .lightbox-next { width: 36px; height: 36px; font-size: 0.9rem; }
+            .lightbox-prev { left: 8px; }
+            .lightbox-next { right: 8px; }
+            .lightbox-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1rem; }
+            .lightbox img { max-width: 98vw; max-height: 78vh; }
+            .lightbox-counter { font-size: 0.7rem; padding: 4px 14px; bottom: 18px; }
         }
 
-        /* ============================================================
-           BOTTOM NAV
-           ============================================================ */
+        /* Bottom Nav (sama) */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -1430,28 +1157,16 @@
             border-radius: 24px;
         }
         @media (min-width: 500px) {
-            .nav-item {
-                font-size: 0.7rem;
-                padding: 10px 18px;
-                gap: 5px;
-            }
+            .nav-item { font-size: 0.7rem; padding: 10px 18px; gap: 5px; }
         }
         .nav-item.active {
             color: var(--accent2);
             background: rgba(62, 224, 255, 0.12);
         }
-        .nav-item i {
-            font-size: 1.1rem;
-        }
-        @media (min-width: 500px) {
-            .nav-item i {
-                font-size: 1.3rem;
-            }
-        }
+        .nav-item i { font-size: 1.1rem; }
+        @media (min-width: 500px) { .nav-item i { font-size: 1.3rem; } }
 
-        /* ============================================================
-           SPINNER
-           ============================================================ */
+        /* Spinner, empty, filter indicator, daily visitor, rekomendasi, dsb. (sama) */
         .spinner {
             width: 40px;
             height: 40px;
@@ -1461,13 +1176,8 @@
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        .empty-text,
-        .error-text {
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .empty-text, .error-text {
             text-align: center;
             padding: 40px 20px;
             color: var(--text2);
@@ -1485,10 +1195,6 @@
             color: var(--accent2);
             flex-wrap: wrap;
         }
-
-        /* ============================================================
-           DAILY VISITOR
-           ============================================================ */
         .daily-visitor {
             margin-top: 14px;
             padding: 10px 14px;
@@ -1505,33 +1211,18 @@
             font-size: 0.85rem;
         }
         @media (min-width: 500px) {
-            .daily-visitor {
-                margin-top: 16px;
-                padding: 12px 16px;
-                font-size: 0.95rem;
-            }
+            .daily-visitor { margin-top: 16px; padding: 12px 16px; font-size: 0.95rem; }
         }
-        .daily-visitor i {
-            margin-right: 6px;
-        }
-        .daily-visitor span {
-            color: #fff;
-            font-weight: 700;
-        }
+        .daily-visitor i { margin-right: 6px; }
+        .daily-visitor span { color: #fff; font-weight: 700; }
 
-        /* ============================================================
-           REKOMENDASI
-           ============================================================ */
         .recommendations-section {
             margin-top: 20px;
             padding: 16px 0;
             border-top: 1px solid var(--border);
         }
         @media (min-width: 500px) {
-            .recommendations-section {
-                margin-top: 24px;
-                padding: 20px 0;
-            }
+            .recommendations-section { margin-top: 24px; padding: 20px 0; }
         }
         .recommendations-section h3 {
             font-size: 0.85rem;
@@ -1543,29 +1234,16 @@
             gap: 8px;
         }
         @media (min-width: 500px) {
-            .recommendations-section h3 {
-                font-size: 0.95rem;
-                margin-bottom: 14px;
-            }
+            .recommendations-section h3 { font-size: 0.95rem; margin-bottom: 14px; }
         }
-        .recommendations-section h3 i {
-            color: var(--accent2);
-        }
+        .recommendations-section h3 i { color: var(--accent2); }
         .rec-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
         }
-        @media (min-width: 500px) {
-            .rec-grid {
-                gap: 12px;
-            }
-        }
-        @media (min-width: 600px) {
-            .rec-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
+        @media (min-width: 500px) { .rec-grid { gap: 12px; } }
+        @media (min-width: 600px) { .rec-grid { grid-template-columns: repeat(4, 1fr); } }
         .rec-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -1587,11 +1265,7 @@
             object-fit: cover;
             background: var(--surface2);
         }
-        @media (min-width: 500px) {
-            .rec-card img {
-                height: 110px;
-            }
-        }
+        @media (min-width: 500px) { .rec-card img { height: 110px; } }
         .rec-card .rec-title {
             padding: 8px 10px;
             font-size: 0.7rem;
@@ -1604,119 +1278,49 @@
             overflow: hidden;
         }
         @media (min-width: 500px) {
-            .rec-card .rec-title {
-                padding: 10px 12px;
-                font-size: 0.75rem;
-            }
+            .rec-card .rec-title { padding: 10px 12px; font-size: 0.75rem; }
         }
 
-        /* ============================================================
-           PROFILE FOOTER TEXT
-           ============================================================ */
         #profile-footer-text {
             max-width: 100%;
             box-sizing: border-box;
             overflow: hidden;
             word-wrap: break-word;
         }
-        .profile-card,
-        .content-box {
+        .profile-card, .content-box {
             max-width: 100%;
             box-sizing: border-box;
             overflow: hidden;
             word-wrap: break-word;
         }
 
-        /* ============================================================
-           MEDIA QUERIES EKSTRA - HP KECIL
-           ============================================================ */
+        /* Media queries ekstra (sama) */
         @media (max-width: 360px) {
-            .logo-text {
-                font-size: 1rem;
-            }
-            .logo-img {
-                width: 28px;
-                height: 28px;
-            }
-            .topbar {
-                padding: 10px 14px;
-                border-radius: 28px;
-            }
-            .telegram-btn {
-                font-size: 0.65rem;
-                padding: 5px 10px;
-            }
-            .container {
-                padding: 8px 12px;
-            }
-            .post-grid {
-                gap: 10px;
-            }
-            .card-img {
-                height: 100px;
-            }
-            .card-title {
-                font-size: 0.7rem;
-            }
-            .card-body {
-                padding: 8px 10px 10px;
-            }
-            .carousel-wrapper {
-                height: 140px;
-            }
-            .carousel-slide .slide-title {
-                font-size: 0.75rem;
-            }
-            .detail-title {
-                font-size: 0.85rem;
-            }
-            .detail-header {
-                padding: 14px;
-            }
-            .meta-item {
-                font-size: 0.5rem;
-                padding: 4px 4px;
-                min-height: 44px;
-            }
-            .meta-item strong {
-                font-size: 0.5rem;
-            }
-            .meta-item i {
-                font-size: 0.65rem;
-            }
-            .rec-card img {
-                height: 70px;
-            }
-            .rec-card .rec-title {
-                font-size: 0.6rem;
-                padding: 6px 8px;
-            }
-            .rec-grid {
-                gap: 8px;
-            }
-            .daily-visitor {
-                font-size: 0.75rem;
-                padding: 8px 10px;
-            }
-            .nav-item {
-                font-size: 0.5rem;
-                padding: 6px 10px;
-            }
-            .nav-item i {
-                font-size: 0.9rem;
-            }
-            .bottom-nav {
-                height: 64px;
-            }
-            .premium-badge {
-                top: 10px;
-                right: 10px;
-                font-size: 0.5rem;
-                padding: 3px 10px;
-            }
-            .premium-badge i {
-                font-size: 0.45rem;
-            }
+            .logo-text { font-size: 1rem; }
+            .logo-img { width: 28px; height: 28px; }
+            .topbar { padding: 10px 14px; border-radius: 28px; }
+            .telegram-btn { font-size: 0.65rem; padding: 5px 10px; }
+            .container { padding: 8px 12px; }
+            .post-grid { gap: 10px; }
+            .card-img { height: 100px; }
+            .card-title { font-size: 0.7rem; }
+            .card-body { padding: 8px 10px 10px; }
+            .carousel-wrapper { height: 140px; }
+            .carousel-slide .slide-title { font-size: 0.75rem; }
+            .detail-title { font-size: 0.85rem; }
+            .detail-header { padding: 14px; }
+            .meta-item { font-size: 0.5rem; padding: 4px 4px; min-height: 44px; }
+            .meta-item strong { font-size: 0.5rem; }
+            .meta-item i { font-size: 0.65rem; }
+            .rec-card img { height: 70px; }
+            .rec-card .rec-title { font-size: 0.6rem; padding: 6px 8px; }
+            .rec-grid { gap: 8px; }
+            .daily-visitor { font-size: 0.75rem; padding: 8px 10px; }
+            .nav-item { font-size: 0.5rem; padding: 6px 10px; }
+            .nav-item i { font-size: 0.9rem; }
+            .bottom-nav { height: 64px; }
+            .premium-badge { top: 10px; right: 10px; font-size: 0.5rem; padding: 3px 10px; }
+            .premium-badge i { font-size: 0.45rem; }
         }
     </style>
 </head>
@@ -1736,7 +1340,7 @@
 
     <!-- Topbar -->
     <div class="topbar">
-        <div class="logo-area">
+        <div class="logo-area" id="logo-area">
             <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo Destaseo Mods" class="logo-img" />
             <span class="logo-text">Destaseo Mods</span>
         </div>
@@ -1762,8 +1366,6 @@
                     <div class="carousel-track" id="carousel-track"></div>
                 </div>
             </div>
-
-            <!-- SORT BAR — jarak diperbesar dari carousel (margin-top: 18px) -->
             <div class="sort-bar" id="sort-bar">
                 <span class="sort-label"><i class="fas fa-sort-amount-down"></i> Urutkan:</span>
                 <select class="sort-select" id="sort-select" aria-label="Urutkan postingan">
@@ -1773,11 +1375,7 @@
                     <option value="za">Judul Z-A</option>
                 </select>
             </div>
-
-            <!-- Filter indicator -->
             <div id="filter-indicator" class="filter-indicator hidden"></div>
-
-            <!-- POST GRID -->
             <div id="post-container" class="post-grid"></div>
             <div id="load-more-container" style="text-align:center;"></div>
         </section>
@@ -1787,12 +1385,9 @@
             <div id="detail-content"></div>
         </section>
 
-        <!-- PROFILE SECTION — scroll-margin-top & padding-top agar tidak ketutupan topbar -->
         <section id="profile-section" class="hidden" aria-label="Profil">
             <div class="profile-card">
-                <!-- 🔥 BADGE PREMIUM di pojok kanan atas card -->
                 <div class="premium-badge"><i class="fas fa-crown"></i> Premium</div>
-
                 <div class="profile-avatar" id="profile-avatar" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');" role="img" aria-label="Avatar Destaseo Mods"></div>
                 <div class="profile-name" id="profile-name">Destaseo Mods</div>
                 <div class="profile-bio" id="profile-bio">Premium modder &amp; content creator.</div>
@@ -1823,7 +1418,7 @@
         (function() {
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
-            const AD_INTERVAL = 5 * 60 * 1000; // 5 menit
+            const AD_INTERVAL = 5 * 60 * 1000;
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
@@ -1840,20 +1435,18 @@
             // ===== Cache configuration =====
             const CACHE_KEY_LIST = 'destaseo_post_list_v3';
             const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
-            const CACHE_TIME_LIST = 60 * 1000; // 1 menit
-            const CACHE_TIME_CONTENT = 60 * 1000; // 1 menit
+            const CACHE_TIME_LIST = 60 * 1000;
+            const CACHE_TIME_CONTENT = 60 * 1000;
 
-            // ===== Fungsi untuk mendapatkan IP publik =====
+            // ===== IP =====
             async function getUserIP() {
                 const ipCacheKey = 'user_ip_cache';
-                const ipCacheExpiry = 60 * 60 * 1000; // 1 jam
+                const ipCacheExpiry = 60 * 60 * 1000;
                 try {
                     const cached = localStorage.getItem(ipCacheKey);
                     if (cached) {
                         const data = JSON.parse(cached);
-                        if (Date.now() - data.t < ipCacheExpiry) {
-                            return data.ip;
-                        }
+                        if (Date.now() - data.t < ipCacheExpiry) return data.ip;
                     }
                 } catch (_) {}
                 try {
@@ -1864,16 +1457,13 @@
                     if (res.ok) {
                         const data = await res.json();
                         const ip = data.ip || null;
-                        if (ip) {
-                            localStorage.setItem(ipCacheKey, JSON.stringify({ ip, t: Date.now() }));
-                            return ip;
-                        }
+                        if (ip) localStorage.setItem(ipCacheKey, JSON.stringify({ ip, t: Date.now() }));
+                        return ip;
                     }
                 } catch (e) {}
                 return null;
             }
 
-            // ===== Iklan: per IP =====
             async function startDownloadWithAd(btn, url) {
                 const ip = await getUserIP();
                 const storageKey = ip ? 'lastAdClickTimestamp_' + ip : 'lastAdClickTimestamp';
@@ -1902,19 +1492,13 @@
                 }
             }
 
-            // ===== Load script iklan HANYA di halaman detail =====
+            // ===== Ad script =====
             let adScriptLoaded = false;
             let adScriptElement = null;
 
             function loadAdScript() {
-                // Jika sudah di-load, skip
                 if (adScriptLoaded) return;
-                // Hapus script iklan sebelumnya (jika ada)
-                if (adScriptElement) {
-                    adScriptElement.remove();
-                    adScriptElement = null;
-                }
-                // Buat script baru
+                if (adScriptElement) { adScriptElement.remove(); adScriptElement = null; }
                 adScriptElement = document.createElement('script');
                 adScriptElement.src = 'https://cabinetavidgrasp.com/c4/11/28/c4112850e63eed959d261d84abff70ee.js';
                 adScriptElement.async = true;
@@ -1924,15 +1508,12 @@
             }
 
             function unloadAdScript() {
-                if (adScriptElement) {
-                    adScriptElement.remove();
-                    adScriptElement = null;
-                }
+                if (adScriptElement) { adScriptElement.remove(); adScriptElement = null; }
                 adScriptLoaded = false;
-                console.log('📢 Iklan di-unload (pindah halaman)');
+                console.log('📢 Iklan di-unload');
             }
 
-            // ===== SEO: update meta tags dynamically =====
+            // ===== SEO: update meta tags =====
             function updateMetaTags(title, description, image, url) {
                 document.title = title || "Destaseo Mods • Premium Mod APK";
                 const desc = description || "Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.";
@@ -1940,80 +1521,55 @@
                 const link = url || window.location.href;
 
                 let metaDesc = document.querySelector('meta[name="description"]');
-                if (!metaDesc) {
-                    metaDesc = document.createElement('meta');
-                    metaDesc.name = 'description';
-                    document.head.appendChild(metaDesc);
-                }
+                if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.name = 'description';
+                    document.head.appendChild(metaDesc); }
                 metaDesc.content = desc;
 
                 let ogTitle = document.querySelector('meta[property="og:title"]');
-                if (!ogTitle) {
-                    ogTitle = document.createElement('meta');
-                    ogTitle.setAttribute('property', 'og:title');
-                    document.head.appendChild(ogTitle);
-                }
+                if (!ogTitle) { ogTitle = document.createElement('meta'); ogTitle.setAttribute('property', 'og:title');
+                    document.head.appendChild(ogTitle); }
                 ogTitle.content = title;
 
                 let ogDesc = document.querySelector('meta[property="og:description"]');
-                if (!ogDesc) {
-                    ogDesc = document.createElement('meta');
-                    ogDesc.setAttribute('property', 'og:description');
-                    document.head.appendChild(ogDesc);
-                }
+                if (!ogDesc) { ogDesc = document.createElement('meta'); ogDesc.setAttribute('property',
+                        'og:description');
+                    document.head.appendChild(ogDesc); }
                 ogDesc.content = desc;
 
                 let ogImage = document.querySelector('meta[property="og:image"]');
-                if (!ogImage) {
-                    ogImage = document.createElement('meta');
-                    ogImage.setAttribute('property', 'og:image');
-                    document.head.appendChild(ogImage);
-                }
+                if (!ogImage) { ogImage = document.createElement('meta'); ogImage.setAttribute('property', 'og:image');
+                    document.head.appendChild(ogImage); }
                 ogImage.content = img;
 
                 let ogUrl = document.querySelector('meta[property="og:url"]');
-                if (!ogUrl) {
-                    ogUrl = document.createElement('meta');
-                    ogUrl.setAttribute('property', 'og:url');
-                    document.head.appendChild(ogUrl);
-                }
+                if (!ogUrl) { ogUrl = document.createElement('meta'); ogUrl.setAttribute('property', 'og:url');
+                    document.head.appendChild(ogUrl); }
                 ogUrl.content = link;
 
                 let twTitle = document.querySelector('meta[name="twitter:title"]');
-                if (!twTitle) {
-                    twTitle = document.createElement('meta');
-                    twTitle.name = 'twitter:title';
-                    document.head.appendChild(twTitle);
-                }
+                if (!twTitle) { twTitle = document.createElement('meta'); twTitle.name = 'twitter:title';
+                    document.head.appendChild(twTitle); }
                 twTitle.content = title;
 
                 let twDesc = document.querySelector('meta[name="twitter:description"]');
-                if (!twDesc) {
-                    twDesc = document.createElement('meta');
-                    twDesc.name = 'twitter:description';
-                    document.head.appendChild(twDesc);
-                }
+                if (!twDesc) { twDesc = document.createElement('meta'); twDesc.name = 'twitter:description';
+                    document.head.appendChild(twDesc); }
                 twDesc.content = desc;
 
                 let twImage = document.querySelector('meta[name="twitter:image"]');
-                if (!twImage) {
-                    twImage = document.createElement('meta');
-                    twImage.name = 'twitter:image';
-                    document.head.appendChild(twImage);
-                }
+                if (!twImage) { twImage = document.createElement('meta'); twImage.name = 'twitter:image';
+                    document.head.appendChild(twImage); }
                 twImage.content = img;
 
-                let canonical = document.querySelector('link[rel="canonical"]');
-                if (!canonical) {
-                    canonical = document.createElement('link');
-                    canonical.rel = 'canonical';
-                    document.head.appendChild(canonical);
-                }
+                let canonical = document.getElementById('canonical-link');
+                if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; canonical.id =
+                        'canonical-link';
+                    document.head.appendChild(canonical); }
                 canonical.href = link;
             }
 
             // ============================================================
-            // PARTIKEL
+            // PARTIKEL (sama)
             // ============================================================
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
@@ -2054,8 +1610,7 @@
 
             function animateParticles() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => { p.update();
-                    p.draw(); });
+                particles.forEach(p => { p.update(); p.draw(); });
                 requestAnimationFrame(animateParticles);
             }
             animateParticles();
@@ -2085,6 +1640,7 @@
             const qrisDanaBtn = document.getElementById('qris-dana-btn');
             const qrisDownloadBtn = document.getElementById('qris-download-btn');
             const dailyCountEl = document.getElementById('daily-count');
+            const logoArea = document.getElementById('logo-area');
 
             let postsData = [],
                 fetchedPosts = [];
@@ -2094,8 +1650,6 @@
             let carouselInterval = null;
             let currentSlide = 0;
             let totalPopularSlides = 0;
-
-            // ==== Data untuk carousel populer ====
             let topPopularPosts = [];
 
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
@@ -2119,12 +1673,8 @@
                     if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
 
-                // Jika increment false dan ada data lokal, langsung return
-                if (!increment && localData) {
-                    return localData.count;
-                }
+                if (!increment && localData) return localData.count;
 
-                // Jika increment true dan belum ada hari ini, lakukan hit
                 if (increment && (!localData || localData.date !== today)) {
                     try {
                         const res = await fetch(`https://countapi.mileshilliard.com/api/v1/hit/${key}`);
@@ -2134,14 +1684,13 @@
                             localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
                             return count;
                         }
-                    } catch (e) { /* fallback */ }
+                    } catch (e) {}
                     const prev = localData ? localData.count : 0;
                     const count = prev + 1;
                     localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
                     return count;
                 }
 
-                // Jika increment false dan tidak ada data lokal, coba GET tanpa hit
                 if (!increment && !localData) {
                     try {
                         const res = await fetch(`https://countapi.mileshilliard.com/api/v1/get/${key}`);
@@ -2151,16 +1700,14 @@
                             localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
                             return count;
                         }
-                    } catch (e) { /* fallback */ }
+                    } catch (e) {}
                     return 0;
                 }
-
-                // Fallback: return dari localData
                 return localData ? localData.count : 0;
             }
 
             // ============================================================
-            // DAILY VISITOR COUNTER
+            // DAILY VISITOR
             // ============================================================
             async function getDailyVisitorCount() {
                 const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily`;
@@ -2171,17 +1718,12 @@
                     const raw = localStorage.getItem(storageKey);
                     if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
-                if (localData && localData.date === today) {
-                    return localData.count;
-                }
+                if (localData && localData.date === today) return localData.count;
                 try {
                     const controller = new AbortController();
                     const timeout = setTimeout(() => controller.abort(), 2000);
-                    const res = await fetch(url, {
-                        method: 'GET',
-                        signal: controller.signal,
-                        headers: { 'Content-Type': 'application/json' }
-                    });
+                    const res = await fetch(url, { method: 'GET', signal: controller.signal, headers: {
+                            'Content-Type': 'application/json' } });
                     clearTimeout(timeout);
                     if (res.ok) {
                         const data = await res.json();
@@ -2220,46 +1762,107 @@
             }
 
             // ============================================================
-            // EVENT LISTENER & NAVIGASI
+            // NAVIGASI BERBASIS QUERY STRING
             // ============================================================
-            telegramBtn.addEventListener('click', (e) => { e.stopPropagation();
-                telegramDropdown.classList.toggle('show'); });
-            document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
-            telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
-            if (qrisDanaBtn) qrisDanaBtn.addEventListener('click', () => qrisOverlay.classList.remove('hidden'));
-            qrisCloseBtn.addEventListener('click', () => qrisOverlay.classList.add('hidden'));
-            qrisOverlay.addEventListener('click', (e) => { if (e.target === qrisOverlay) qrisOverlay.classList.add(
-                    'hidden'); });
-            qrisDownloadBtn.addEventListener('click', async () => {
-                try {
-                    const r = await fetch(QRIS_URL);
-                    const b = await r.blob();
-                    const u = URL.createObjectURL(b);
-                    const a = document.createElement('a');
-                    a.href = u;
-                    a.download = 'qris-destaseo.png';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(u);
-                } catch { window.open(QRIS_URL, '_blank'); }
-            });
-            sortSelect.addEventListener('change', () => resetAndApplyFilters());
-
-            function getHashPage() {
-                const h = window.location.hash.slice(1);
-                if (!h || h === 'home') return { page: 'home' };
-                if (h === 'search') return { page: 'search' };
-                if (h === 'profile') return { page: 'profile' };
-                if (h.startsWith('detail/')) return { page: 'detail', postName: h.split('/')[1] };
-                return { page: 'home' };
+            function getPageFromQuery() {
+                const params = new URLSearchParams(window.location.search);
+                const page = params.get('page') || 'home';
+                const post = params.get('post') || null;
+                const q = params.get('q') || null;
+                return { page, post, q };
             }
 
-            function setHash(p, param) {
-                if (p === 'home') window.location.hash = 'home';
-                else if (p === 'search') window.location.hash = 'search';
-                else if (p === 'profile') window.location.hash = 'profile';
-                else if (p === 'detail' && param) window.location.hash = 'detail/' + param;
+            function setQuery(page, postName, q) {
+                const params = new URLSearchParams();
+                if (page === 'home') { /* no params */ } else if (page === 'search') {
+                    params.set('page', 'search');
+                    if (q) params.set('q', q);
+                } else if (page === 'profile') {
+                    params.set('page', 'profile');
+                } else if (page === 'detail' && postName) {
+                    params.set('page', 'detail');
+                    params.set('post', postName);
+                }
+                const url = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+                window.history.pushState({ page, post: postName, q }, '', url);
+                // Update canonical dan meta tags sudah dihandle di navigate()
+            }
+
+            function navigateTo(page, postName, q) {
+                // Unload iklan jika bukan detail
+                if (page !== 'detail') unloadAdScript();
+
+                setQuery(page, postName, q);
+
+                if (page === 'home') {
+                    showHome();
+                    updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.', LOGO_URL, 'https://destaseomods.web.id/');
+                } else if (page === 'search') {
+                    showSearch(q);
+                    updateMetaTags('Cari Mod • Destaseo Mods', 'Cari mod APK premium favorit Anda di Destaseo Mods.', LOGO_URL, 'https://destaseomods.web.id/?page=search');
+                } else if (page === 'profile') {
+                    showProfile();
+                    updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.', AVATAR_URL, 'https://destaseomods.web.id/?page=profile');
+                } else if (page === 'detail' && postName) {
+                    showDetail(postName);
+                }
+            }
+
+            // Fungsi untuk menampilkan home
+            function showHome() {
+                showSection(homeSection);
+                searchBox.classList.add('hidden');
+                categoryBar.classList.remove('hidden');
+                sortBar.classList.remove('hidden');
+                document.getElementById('popular-section').classList.remove('hidden');
+                filterIndicator.classList.add('hidden');
+                setActiveNav('home');
+                startCarousel();
+                // Jika data belum dimuat, renderHome akan dipanggil di load
+                if (fetchedPosts.length) {
+                    renderCategoryBar();
+                    resetAndApplyFilters();
+                    renderPopularSection();
+                    startCarousel();
+                }
+            }
+
+            function showSearch(q) {
+                showSection(homeSection);
+                searchBox.classList.remove('hidden');
+                categoryBar.classList.remove('hidden');
+                sortBar.classList.add('hidden');
+                document.getElementById('popular-section').classList.add('hidden');
+                setActiveNav('search');
+                stopCarousel();
+                if (q) {
+                    searchInput.value = q;
+                } else {
+                    searchInput.value = '';
+                }
+                setTimeout(() => searchInput.focus(), 100);
+                if (fetchedPosts.length) {
+                    renderCategoryBar();
+                    resetAndApplyFilters();
+                }
+            }
+
+            function showProfile() {
+                showSection(profileSection);
+                searchBox.classList.add('hidden');
+                categoryBar.classList.add('hidden');
+                sortBar.classList.add('hidden');
+                document.getElementById('popular-section').classList.add('hidden');
+                filterIndicator.classList.add('hidden');
+                setActiveNav('profile');
+                stopCarousel();
+                renderProfile();
+                setTimeout(() => {
+                    const rect = profileSection.getBoundingClientRect();
+                    if (rect.top < 20) {
+                        window.scrollTo({ top: window.scrollY + rect.top - 80, behavior: 'smooth' });
+                    }
+                }, 100);
             }
 
             function showSection(s) {
@@ -2272,90 +1875,269 @@
                     .page === 'home')));
             }
 
-            function navigate(p, postName) {
-                // 🔥 Unload iklan saat navigasi ke halaman selain detail
-                if (p !== 'detail') {
-                    unloadAdScript();
-                }
-
-                if (p === 'home') {
-                    showSection(homeSection);
-                    searchBox.classList.add('hidden');
-                    categoryBar.classList.remove('hidden');
-                    sortBar.classList.remove('hidden');
-                    document.getElementById('popular-section').classList.remove('hidden');
-                    setActiveNav('home');
-                    startCarousel();
-                    updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.', LOGO_URL, 'https://destaseomods.web.id/');
-                } else if (p === 'search') {
-                    showSection(homeSection);
-                    searchBox.classList.remove('hidden');
-                    categoryBar.classList.remove('hidden');
-                    sortBar.classList.add('hidden');
-                    document.getElementById('popular-section').classList.add('hidden');
-                    setActiveNav('search');
-                    stopCarousel();
-                    setTimeout(() => searchInput.focus(), 100);
-                    updateMetaTags('Cari Mod • Destaseo Mods', 'Cari mod APK premium favorit Anda di Destaseo Mods.', LOGO_URL, 'https://destaseomods.web.id/#search');
-                } else if (p === 'profile') {
-                    showSection(profileSection);
-                    searchBox.classList.add('hidden');
-                    categoryBar.classList.add('hidden');
-                    sortBar.classList.add('hidden');
-                    document.getElementById('popular-section').classList.add('hidden');
-                    filterIndicator.classList.add('hidden');
-                    setActiveNav('profile');
-                    stopCarousel();
-                    renderProfile();
-                    updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.', AVATAR_URL, 'https://destaseomods.web.id/#profile');
-                    setTimeout(() => {
-                        const rect = profileSection.getBoundingClientRect();
-                        if (rect.top < 20) {
-                            window.scrollTo({ top: window.scrollY + rect.top - 80, behavior: 'smooth' });
-                        }
-                    }, 100);
-                } else if (p === 'detail' && postName) {
-                    showDetail(postName);
-                    setActiveNav('detail');
-                    searchBox.classList.add('hidden');
-                    categoryBar.classList.add('hidden');
-                    sortBar.classList.add('hidden');
-                    document.getElementById('popular-section').classList.add('hidden');
-                    filterIndicator.classList.add('hidden');
-                    stopCarousel();
-                }
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            // ============================================================
+            // RENDER HOME (sama seperti sebelumnya, tapi diadaptasi)
+            // ============================================================
+            function renderCategoryBar() {
+                const kats = getAllKategori();
+                let html = '<span class="category-chip' + (!activeKatFilter ? ' active' : '') +
+                    '" data-kat="" role="tab" aria-selected="' + (!activeKatFilter ? 'true' : 'false') + '"><i class="fas fa-globe"></i> Semua</span>';
+                kats.forEach(kat => html +=
+                    `<span class="category-chip${activeKatFilter === kat ? ' active' : ''}" data-kat="${kat}" role="tab" aria-selected="${activeKatFilter === kat ? 'true' : 'false'}"><i class="fas fa-tag"></i> ${kat}</span>`
+                    );
+                if (activeKatFilter) html +=
+                    '<button class="reset-filter" id="reset-filter"><i class="fas fa-times"></i> Hapus filter</button>';
+                categoryBar.innerHTML = html;
+                categoryBar.querySelectorAll('.category-chip').forEach(chip => chip.addEventListener('click', () => {
+                    activeKatFilter = chip.dataset.kat || null;
+                    resetAndApplyFilters();
+                    renderCategoryBar();
+                }));
+                const resetBtn = document.getElementById('reset-filter');
+                if (resetBtn) resetBtn.addEventListener('click', () => { activeKatFilter = null;
+                    resetAndApplyFilters();
+                    renderCategoryBar(); });
             }
 
-            function renderProfile() {
-                document.getElementById('profile-name').textContent = PROFILE.name;
-                document.getElementById('profile-bio').textContent = PROFILE.bio;
-                document.getElementById('social-links').innerHTML = PROFILE.links.map(l =>
-                    `<a href="${l.url}" target="_blank" class="social-link" rel="noopener"><i class="${l.icon}"></i> ${l.label}</a>`
-                ).join('');
-                updateDailyVisitor();
+            function getAllKategori() {
+                const k = new Set();
+                fetchedPosts.forEach(p => {
+                    const kat = p.metadata.kategori || '';
+                    if (kat) k.add(kat);
+                });
+                return Array.from(k).sort();
             }
 
-            async function updateDailyVisitor() {
-                try {
-                    const count = await getDailyVisitorCount();
-                    if (dailyCountEl) dailyCountEl.textContent = count;
-                } catch (e) {
-                    if (dailyCountEl) dailyCountEl.textContent = '?';
+            function getFilteredPosts() {
+                const q = searchInput.value.trim().toLowerCase();
+                let f = fetchedPosts;
+                if (activeKatFilter) f = f.filter(p => (p.metadata.kategori || '') === activeKatFilter);
+                if (q) f = f.filter(p => {
+                    const t = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
+                    return t.includes(q);
+                });
+                return f;
+            }
+
+            function sortPosts(posts) {
+                const sortBy = sortSelect.value;
+                const sorted = [...posts];
+                const getTime = (p) => {
+                    const d = p.metadata.tanggal || p.metadata.date || p.lastModified;
+                    if (!d) return 0;
+                    const t = new Date(d);
+                    return isNaN(t.getTime()) ? 0 : t.getTime();
+                };
+                switch (sortBy) {
+                    case 'terbaru':
+                        sorted.sort((a, b) => getTime(b) - getTime(a));
+                        break;
+                    case 'terlama':
+                        sorted.sort((a, b) => getTime(a) - getTime(b));
+                        break;
+                    case 'az':
+                        sorted.sort((a, b) => {
+                            const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
+                            const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
+                            return tA.localeCompare(tB);
+                        });
+                        break;
+                    case 'za':
+                        sorted.sort((a, b) => {
+                            const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
+                            const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
+                            return tB.localeCompare(tA);
+                        });
+                        break;
+                }
+                return sorted;
+            }
+
+            function resetAndApplyFilters() {
+                currentDisplayCount = 0;
+                applyFilters();
+            }
+
+            function applyFilters() {
+                let filtered = getFilteredPosts();
+                filtered = sortPosts(filtered);
+                if (activeKatFilter) {
+                    filterIndicator.classList.remove('hidden');
+                    filterIndicator.innerHTML =
+                        `<i class="fas fa-filter"></i> Kategori: <strong>${activeKatFilter}</strong> (${filtered.length} hasil)`;
+                } else filterIndicator.classList.add('hidden');
+                currentDisplayCount = Math.min(ITEMS_PER_PAGE, filtered.length);
+                displayPosts(filtered.slice(0, currentDisplayCount));
+                renderLoadMoreButton(filtered.length);
+            }
+
+            function displayPosts(posts) {
+                postContainer.innerHTML = posts.length ? posts.map((p, i) => cardHTML(p, i)).join('') :
+                    '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
+                attachCardEvents();
+            }
+
+            function renderLoadMoreButton(t) {
+                if (currentDisplayCount < t) {
+                    loadMoreContainer.innerHTML =
+                        `<button class="load-more-btn" id="load-more-btn"><i class="fas fa-chevron-down"></i> Muat Lebih Banyak (${t - currentDisplayCount})</button>`;
+                    document.getElementById('load-more-btn').addEventListener('click', loadMorePosts);
+                } else {
+                    loadMoreContainer.innerHTML = '';
+                }
+            }
+
+            function loadMorePosts() {
+                let f = getFilteredPosts();
+                f = sortPosts(f);
+                const n = Math.min(currentDisplayCount + ITEMS_PER_PAGE, f.length);
+                const newPosts = f.slice(currentDisplayCount, n);
+                currentDisplayCount = n;
+                newPosts.forEach((p, i) => {
+                    const card = cardHTML(p, i);
+                    postContainer.insertAdjacentHTML('beforeend', card);
+                });
+                attachCardEvents();
+                renderLoadMoreButton(f.length);
+            }
+
+            function cardHTML(post, index) {
+                const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
+                const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
+                const kategori = post.metadata.kategori || '';
+                const ver = post.metadata.versi || post.metadata.version || '';
+                const excerpt = getExcerpt(post.content);
+                const delay = index * 0.04 + 's';
+
+                let badges = [];
+                if (post.metadata.badges) {
+                    if (Array.isArray(post.metadata.badges)) {
+                        badges = post.metadata.badges;
+                    } else {
+                        badges = post.metadata.badges.split(',').map(b => b.trim()).filter(b => b.length > 0);
+                    }
+                }
+
+                function getBadgeHTML(badgeText) {
+                    const text = badgeText.trim();
+                    const lower = text.toLowerCase();
+                    let className = 'badge-custom';
+                    let icon = 'fa-tag';
+                    if (lower === 'premium') { className = 'badge-premium';
+                        icon = 'fa-crown'; } else if (lower === 'vip') { className = 'badge-vip';
+                        icon = 'fa-star'; } else if (lower === 'no ads' || lower === 'noads' || lower ===
+                        'tanpa iklan' || lower === 'no iklan') { className = 'badge-noads';
+                        icon = 'fa-ban'; } else if (lower === 'unlocked' || lower === 'unlock') { className =
+                            'badge-unlocked';
+                        icon = 'fa-unlock'; }
+                    return `<span class="${className}"><i class="fas ${icon}"></i> ${text}</span>`;
+                }
+
+                const badgesHtml = badges.map(getBadgeHTML).join('');
+
+                const imgTag = img ?
+                    `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">` :
+                    '';
+                const versionBadge = ver ? `<span class="version-badge-img"><i class="fas fa-code-branch"></i> v${ver}</span>` :
+                    '';
+
+                return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
+                    <div class="card-img${img ? '' : ' error'}">${imgTag}<span class="placeholder-icon"><i class="fas fa-box-open"></i></span>${versionBadge}</div>
+                    <div class="card-body">
+                        <div class="card-title">${t}</div>
+                        <div class="card-meta">
+                            ${kategori ? `<span class="badge" data-kat="${kategori}" role="button"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}
+                            ${badgesHtml}
+                        </div>
+                        ${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}
+                    </div>
+                </div>`;
+            }
+
+            function attachCardEvents() {
+                document.querySelectorAll('.post-card').forEach(c => c.addEventListener('click', (e) => {
+                    if (e.target.closest('.badge') || e.target.closest('.badge-premium') ||
+                        e.target.closest('.badge-vip') || e.target.closest('.badge-noads') ||
+                        e.target.closest('.badge-unlocked') || e.target.closest('.badge-custom')) return;
+                    const name = c.dataset.name;
+                    if (name) navigateTo('detail', name);
+                }));
+                document.querySelectorAll('.badge').forEach(b => b.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    activeKatFilter = b.dataset.kat;
+                    searchInput.value = '';
+                    resetAndApplyFilters();
+                    renderCategoryBar();
+                }));
+            }
+
+            function stopCarousel() {
+                if (carouselInterval) { clearInterval(carouselInterval);
+                    carouselInterval = null; }
+            }
+
+            function startCarousel() {
+                stopCarousel();
+                if (totalPopularSlides === 0) return;
+                updateCarousel(0);
+                carouselInterval = setInterval(() => {
+                    currentSlide = (currentSlide + 1) % totalPopularSlides;
+                    updateCarousel(currentSlide);
+                }, 4000);
+            }
+
+            function updateCarousel(i) {
+                const slides = document.querySelectorAll('.carousel-slide');
+                slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+                document.querySelectorAll('.carousel-counter').forEach((c, idx) => {
+                    c.textContent = `${i+1}/${totalPopularSlides}`;
+                });
+            }
+
+            function renderPopularSection() {
+                if (!topPopularPosts.length) {
+                    carouselTrack.innerHTML = '';
+                    totalPopularSlides = 0;
+                    return;
+                }
+                const pop = topPopularPosts.slice(0, 4);
+                totalPopularSlides = pop.length;
+                carouselTrack.innerHTML = pop.map((p, i) => {
+                    const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
+                    const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
+                    return `<div class="carousel-slide${i === 0 ? ' active' : ''}" data-name="${p.name}">${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="slide-overlay"><div class="slide-title">${title}</div><span class="carousel-counter">${i+1}/${pop.length}</span></div></div>`;
+                }).join('');
+                document.querySelectorAll('.carousel-slide').forEach(s => s.addEventListener('click', () => {
+                    const name = s.dataset.name;
+                    if (name) navigateTo('detail', name);
+                }));
+            }
+
+            async function sortPostsByView() {
+                const viewPromises = fetchedPosts.map(p => getPostViewCount(p.name, false));
+                const views = await Promise.all(viewPromises);
+                const postsWithViews = fetchedPosts.map((p, i) => ({ ...p, viewCount: views[i] || 0 }));
+                postsWithViews.sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0));
+                const hasViewData = postsWithViews.some(p => p.viewCount > 0);
+                if (!hasViewData) {
+                    let fallback = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() ===
+                        'true');
+                    if (fallback.length === 0) fallback = fetchedPosts.slice(0, 4);
+                    topPopularPosts = fallback;
+                } else {
+                    topPopularPosts = postsWithViews;
                 }
             }
 
             // ============================================================
-            // FETCH DATA DARI GITHUB DENGAN CACHE CERDAS
+            // FETCH DATA
             // ============================================================
             function getCachedList() {
                 const raw = localStorage.getItem(CACHE_KEY_LIST);
                 if (!raw) return null;
                 try {
                     const data = JSON.parse(raw);
-                    if (Date.now() - data.t < CACHE_TIME_LIST) {
-                        return data.posts;
-                    }
+                    if (Date.now() - data.t < CACHE_TIME_LIST) return data.posts;
                     return null;
                 } catch (e) { return null; }
             }
@@ -2379,9 +2161,7 @@
                 if (!raw) return null;
                 try {
                     const data = JSON.parse(raw);
-                    if (Date.now() - data.t < CACHE_TIME_CONTENT) {
-                        return data.content;
-                    }
+                    if (Date.now() - data.t < CACHE_TIME_CONTENT) return data.content;
                     return null;
                 } catch (e) { return null; }
             }
@@ -2499,269 +2279,8 @@
             }
 
             // ============================================================
-            // RENDER HOME
+            // RENDER HOME (async)
             // ============================================================
-            function getAllKategori() {
-                const k = new Set();
-                fetchedPosts.forEach(p => {
-                    const kat = p.metadata.kategori || '';
-                    if (kat) k.add(kat);
-                });
-                return Array.from(k).sort();
-            }
-
-            function renderCategoryBar() {
-                const kats = getAllKategori();
-                let html = '<span class="category-chip' + (!activeKatFilter ? ' active' : '') +
-                    '" data-kat="" role="tab" aria-selected="' + (!activeKatFilter ? 'true' : 'false') + '"><i class="fas fa-globe"></i> Semua</span>';
-                kats.forEach(kat => html +=
-                    `<span class="category-chip${activeKatFilter === kat ? ' active' : ''}" data-kat="${kat}" role="tab" aria-selected="${activeKatFilter === kat ? 'true' : 'false'}"><i class="fas fa-tag"></i> ${kat}</span>`
-                    );
-                if (activeKatFilter) html +=
-                    '<button class="reset-filter" id="reset-filter"><i class="fas fa-times"></i> Hapus filter</button>';
-                categoryBar.innerHTML = html;
-                categoryBar.querySelectorAll('.category-chip').forEach(chip => chip.addEventListener('click', () => {
-                    activeKatFilter = chip.dataset.kat || null;
-                    resetAndApplyFilters();
-                    renderCategoryBar();
-                }));
-                const resetBtn = document.getElementById('reset-filter');
-                if (resetBtn) resetBtn.addEventListener('click', () => { activeKatFilter = null;
-                    resetAndApplyFilters();
-                    renderCategoryBar(); });
-            }
-
-            function getFilteredPosts() {
-                const q = searchInput.value.trim().toLowerCase();
-                let f = fetchedPosts;
-                if (activeKatFilter) f = f.filter(p => (p.metadata.kategori || '') === activeKatFilter);
-                if (q) f = f.filter(p => {
-                    const t = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
-                    return t.includes(q);
-                });
-                return f;
-            }
-
-            function sortPosts(posts) {
-                const sortBy = sortSelect.value;
-                const sorted = [...posts];
-                const getTime = (p) => {
-                    const d = p.metadata.tanggal || p.metadata.date || p.lastModified;
-                    if (!d) return 0;
-                    const t = new Date(d);
-                    return isNaN(t.getTime()) ? 0 : t.getTime();
-                };
-                switch (sortBy) {
-                    case 'terbaru':
-                        sorted.sort((a, b) => getTime(b) - getTime(a));
-                        break;
-                    case 'terlama':
-                        sorted.sort((a, b) => getTime(a) - getTime(b));
-                        break;
-                    case 'az':
-                        sorted.sort((a, b) => {
-                            const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
-                            const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
-                            return tA.localeCompare(tB);
-                        });
-                        break;
-                    case 'za':
-                        sorted.sort((a, b) => {
-                            const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
-                            const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
-                            return tB.localeCompare(tA);
-                        });
-                        break;
-                }
-                return sorted;
-            }
-
-            function resetAndApplyFilters() {
-                currentDisplayCount = 0;
-                applyFilters();
-            }
-
-            function applyFilters() {
-                let filtered = getFilteredPosts();
-                filtered = sortPosts(filtered);
-                if (activeKatFilter) {
-                    filterIndicator.classList.remove('hidden');
-                    filterIndicator.innerHTML =
-                        `<i class="fas fa-filter"></i> Kategori: <strong>${activeKatFilter}</strong> (${filtered.length} hasil)`;
-                } else filterIndicator.classList.add('hidden');
-                currentDisplayCount = Math.min(ITEMS_PER_PAGE, filtered.length);
-                displayPosts(filtered.slice(0, currentDisplayCount));
-                renderLoadMoreButton(filtered.length);
-            }
-
-            function displayPosts(posts) {
-                postContainer.innerHTML = posts.length ? posts.map((p, i) => cardHTML(p, i)).join('') :
-                    '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
-                attachCardEvents();
-            }
-
-            function renderLoadMoreButton(t) {
-                if (currentDisplayCount < t) {
-                    loadMoreContainer.innerHTML =
-                        `<button class="load-more-btn" id="load-more-btn"><i class="fas fa-chevron-down"></i> Muat Lebih Banyak (${t - currentDisplayCount})</button>`;
-                    document.getElementById('load-more-btn').addEventListener('click', loadMorePosts);
-                } else {
-                    loadMoreContainer.innerHTML = '';
-                }
-            }
-
-            function loadMorePosts() {
-                let f = getFilteredPosts();
-                f = sortPosts(f);
-                const n = Math.min(currentDisplayCount + ITEMS_PER_PAGE, f.length);
-                const newPosts = f.slice(currentDisplayCount, n);
-                currentDisplayCount = n;
-                newPosts.forEach((p, i) => {
-                    const card = cardHTML(p, i);
-                    postContainer.insertAdjacentHTML('beforeend', card);
-                });
-                attachCardEvents();
-                renderLoadMoreButton(f.length);
-            }
-
-            // 🔥 cardHTML - HANYA pakai metadata "badges"
-            function cardHTML(post, index) {
-                const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
-                const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
-                const kategori = post.metadata.kategori || '';
-                const ver = post.metadata.versi || post.metadata.version || '';
-                const excerpt = getExcerpt(post.content);
-                const delay = index * 0.04 + 's';
-
-                let badges = [];
-                if (post.metadata.badges) {
-                    if (Array.isArray(post.metadata.badges)) {
-                        badges = post.metadata.badges;
-                    } else {
-                        badges = post.metadata.badges.split(',').map(b => b.trim()).filter(b => b.length > 0);
-                    }
-                }
-
-                function getBadgeHTML(badgeText) {
-                    const text = badgeText.trim();
-                    const lower = text.toLowerCase();
-                    let className = 'badge-custom';
-                    let icon = 'fa-tag';
-                    if (lower === 'premium') {
-                        className = 'badge-premium';
-                        icon = 'fa-crown';
-                    } else if (lower === 'vip') {
-                        className = 'badge-vip';
-                        icon = 'fa-star';
-                    } else if (lower === 'no ads' || lower === 'noads' || lower === 'tanpa iklan' || lower ===
-                        'no iklan') {
-                        className = 'badge-noads';
-                        icon = 'fa-ban';
-                    } else if (lower === 'unlocked' || lower === 'unlock') {
-                        className = 'badge-unlocked';
-                        icon = 'fa-unlock';
-                    }
-                    return `<span class="${className}"><i class="fas ${icon}"></i> ${text}</span>`;
-                }
-
-                const badgesHtml = badges.map(getBadgeHTML).join('');
-
-                const imgTag = img ?
-                    `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">` :
-                    '';
-                const versionBadge = ver ? `<span class="version-badge-img"><i class="fas fa-code-branch"></i> v${ver}</span>` :
-                    '';
-
-                return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
-                    <div class="card-img${img ? '' : ' error'}">${imgTag}<span class="placeholder-icon"><i class="fas fa-box-open"></i></span>${versionBadge}</div>
-                    <div class="card-body">
-                        <div class="card-title">${t}</div>
-                        <div class="card-meta">
-                            ${kategori ? `<span class="badge" data-kat="${kategori}" role="button"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}
-                            ${badgesHtml}
-                        </div>
-                        ${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}
-                    </div>
-                </div>`;
-            }
-
-            function attachCardEvents() {
-                document.querySelectorAll('.post-card').forEach(c => c.addEventListener('click', (e) => {
-                    if (e.target.closest('.badge') || e.target.closest('.badge-premium') ||
-                        e.target.closest('.badge-vip') || e.target.closest('.badge-noads') ||
-                        e.target.closest('.badge-unlocked') || e.target.closest('.badge-custom')) return;
-                    setHash('detail', c.dataset.name);
-                }));
-                document.querySelectorAll('.badge').forEach(b => b.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    activeKatFilter = b.dataset.kat;
-                    searchInput.value = '';
-                    resetAndApplyFilters();
-                    renderCategoryBar();
-                }));
-            }
-
-            function stopCarousel() {
-                if (carouselInterval) { clearInterval(carouselInterval);
-                    carouselInterval = null; }
-            }
-
-            function startCarousel() {
-                stopCarousel();
-                if (totalPopularSlides === 0) return;
-                updateCarousel(0);
-                carouselInterval = setInterval(() => {
-                    currentSlide = (currentSlide + 1) % totalPopularSlides;
-                    updateCarousel(currentSlide);
-                }, 4000);
-            }
-
-            function updateCarousel(i) {
-                const slides = document.querySelectorAll('.carousel-slide');
-                slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
-                document.querySelectorAll('.carousel-counter').forEach((c, idx) => {
-                    c.textContent = `${i+1}/${totalPopularSlides}`;
-                });
-            }
-
-            // 🔥 renderPopularSection menggunakan topPopularPosts
-            function renderPopularSection() {
-                if (!topPopularPosts.length) {
-                    carouselTrack.innerHTML = '';
-                    totalPopularSlides = 0;
-                    return;
-                }
-                const pop = topPopularPosts.slice(0, 4);
-                totalPopularSlides = pop.length;
-                carouselTrack.innerHTML = pop.map((p, i) => {
-                    const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
-                    const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
-                    return `<div class="carousel-slide${i === 0 ? ' active' : ''}" data-name="${p.name}">${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="slide-overlay"><div class="slide-title">${title}</div><span class="carousel-counter">${i+1}/${pop.length}</span></div></div>`;
-                }).join('');
-                document.querySelectorAll('.carousel-slide').forEach(s => s.addEventListener('click', () => setHash(
-                    'detail', s.dataset.name)));
-            }
-
-            // 🔥 fungsi untuk mengurutkan postingan berdasarkan view count
-            async function sortPostsByView() {
-                const viewPromises = fetchedPosts.map(p => getPostViewCount(p.name, false));
-                const views = await Promise.all(viewPromises);
-                const postsWithViews = fetchedPosts.map((p, i) => ({ ...p, viewCount: views[i] || 0 }));
-                postsWithViews.sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0));
-
-                // Jika ada data view yang sama (0), gunakan metadata populer sebagai fallback
-                const hasViewData = postsWithViews.some(p => p.viewCount > 0);
-                if (!hasViewData) {
-                    // Fallback: ambil post dengan metadata populer = true, atau 4 post pertama
-                    let fallback = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() ===
-                        'true');
-                    if (fallback.length === 0) fallback = fetchedPosts.slice(0, 4);
-                    topPopularPosts = fallback;
-                } else {
-                    topPopularPosts = postsWithViews;
-                }
-            }
-
             async function renderHome() {
                 postContainer.innerHTML = '<div class="spinner"></div>';
                 loadMoreContainer.innerHTML = '';
@@ -2771,28 +2290,57 @@
                 try {
                     await fetchPostList();
                     if (!postsData.length) {
-                        postContainer.innerHTML = '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
+                        postContainer.innerHTML =
+                        '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
                         return;
                     }
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
-
-                    // 🔥 Urutkan berdasarkan view untuk carousel
                     await sortPostsByView();
-
                     renderPopularSection();
                     renderCategoryBar();
                     resetAndApplyFilters();
                     startCarousel();
-                    updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.', LOGO_URL, 'https://destaseomods.web.id/');
+                    // Jika current page adalah detail, jangan tampilkan home
+                    const currentPage = getPageFromQuery().page;
+                    if (currentPage === 'detail') {
+                        // sudah di-handle di navigasi
+                    } else if (currentPage === 'search') {
+                        showSearch(getPageFromQuery().q);
+                    } else if (currentPage === 'profile') {
+                        showProfile();
+                    } else {
+                        showHome();
+                    }
                 } catch (err) {
-                    postContainer.innerHTML = `<div class="error-text">⚠️ Gagal memuat data. Coba refresh halaman. <br><small>${err.message}</small></div>`;
+                    postContainer.innerHTML =
+                        `<div class="error-text">⚠️ Gagal memuat data. Coba refresh halaman. <br><small>${err.message}</small></div>`;
                 }
             }
 
             // ============================================================
-            // DETAIL & COUNTER PER POST + LOAD IKLAN
+            // RENDER PROFILE
             // ============================================================
+            function renderProfile() {
+                document.getElementById('profile-name').textContent = PROFILE.name;
+                document.getElementById('profile-bio').textContent = PROFILE.bio;
+                document.getElementById('social-links').innerHTML = PROFILE.links.map(l =>
+                    `<a href="${l.url}" target="_blank" class="social-link" rel="noopener"><i class="${l.icon}"></i> ${l.label}</a>`
+                ).join('');
+                updateDailyVisitor();
+            }
 
+            async function updateDailyVisitor() {
+                try {
+                    const count = await getDailyVisitorCount();
+                    if (dailyCountEl) dailyCountEl.textContent = count;
+                } catch (e) {
+                    if (dailyCountEl) dailyCountEl.textContent = '?';
+                }
+            }
+
+            // ============================================================
+            // DETAIL
+            // ============================================================
             function buildScreenshotGallery(str) {
                 if (!str) return '';
                 const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
@@ -2871,9 +2419,6 @@
                 }, { passive: true });
             };
 
-            // ============================================================
-            // SHOW DETAIL
-            // ============================================================
             async function showDetail(name) {
                 const post = fetchedPosts.find(p => p.name === name);
                 if (!post) {
@@ -2925,14 +2470,14 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // 🔥 Load script iklan HANYA di halaman detail
                 loadAdScript();
 
-                // 🔥 Ambil view count dengan increment = true (menambah hit)
                 const viewCount = await getPostViewCount(name, true);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
-                updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, 'https://destaseomods.web.id/#detail/' + name);
+                const detailUrl = window.location.origin + window.location.pathname + '?page=detail&post=' + encodeURIComponent(
+                    name);
+                updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, detailUrl);
 
                 const articleJson = {
                     "@context": "https://schema.org",
@@ -2940,23 +2485,15 @@
                     "headline": t,
                     "description": desc,
                     "image": img || LOGO_URL,
-                    "author": {
-                        "@type": "Person",
-                        "name": dev
-                    },
+                    "author": { "@type": "Person", "name": dev },
                     "datePublished": dateRaw || new Date().toISOString(),
-                    "mainEntityOfPage": {
-                        "@type": "WebPage",
-                        "@id": "https://destaseomods.web.id/#detail/" + name
-                    }
+                    "mainEntityOfPage": { "@type": "WebPage", "@id": detailUrl }
                 };
                 let script = document.querySelector('#article-ld-json');
-                if (!script) {
-                    script = document.createElement('script');
+                if (!script) { script = document.createElement('script');
                     script.id = 'article-ld-json';
                     script.type = 'application/ld+json';
-                    document.head.appendChild(script);
-                }
+                    document.head.appendChild(script); }
                 script.textContent = JSON.stringify(articleJson);
 
                 detailContent.innerHTML = `
@@ -2992,28 +2529,98 @@
                 document.querySelectorAll('.rec-card').forEach(card => {
                     card.addEventListener('click', function() {
                         const name = this.dataset.name;
-                        if (name) setHash('detail', name);
+                        if (name) navigateTo('detail', name);
                     });
                 });
             }
 
-            detailBack.addEventListener('click', () => setHash('home'));
-            navItems.forEach(i => i.addEventListener('click', () => setHash(i.dataset.page)));
-            searchInput.addEventListener('input', () => resetAndApplyFilters());
-            window.addEventListener('hashchange', () => {
-                const { page, postName } = getHashPage();
-                if (page === 'detail' && postName) {
-                    if (fetchedPosts.length === 0) renderHome().then(() => navigate('detail', postName));
-                    else navigate('detail', postName);
-                } else navigate(page);
+            // ============================================================
+            // EVENT LISTENER
+            // ============================================================
+            // Logo area klik -> home
+            logoArea.addEventListener('click', () => navigateTo('home'));
+
+            // Telegram
+            telegramBtn.addEventListener('click', (e) => { e.stopPropagation();
+                telegramDropdown.classList.toggle('show'); });
+            document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
+            telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
+
+            // QRIS
+            qrisDanaBtn.addEventListener('click', () => qrisOverlay.classList.remove('hidden'));
+            qrisCloseBtn.addEventListener('click', () => qrisOverlay.classList.add('hidden'));
+            qrisOverlay.addEventListener('click', (e) => { if (e.target === qrisOverlay) qrisOverlay.classList.add(
+                    'hidden'); });
+            qrisDownloadBtn.addEventListener('click', async () => {
+                try {
+                    const r = await fetch(QRIS_URL);
+                    const b = await r.blob();
+                    const u = URL.createObjectURL(b);
+                    const a = document.createElement('a');
+                    a.href = u;
+                    a.download = 'qris-destaseo.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(u);
+                } catch { window.open(QRIS_URL, '_blank'); }
+            });
+
+            // Sort
+            sortSelect.addEventListener('change', () => resetAndApplyFilters());
+
+            // Back detail
+            detailBack.addEventListener('click', () => {
+                // Kembali ke halaman sebelumnya (biasanya home)
+                window.history.back();
+            });
+
+            // Nav items
+            navItems.forEach(i => i.addEventListener('click', () => {
+                const page = i.dataset.page;
+                if (page === 'search') {
+                    const q = searchInput.value.trim() || '';
+                    navigateTo('search', null, q);
+                } else {
+                    navigateTo(page);
+                }
+            }));
+
+            // Search input - ketika mengetik, update query string
+            searchInput.addEventListener('input', () => {
+                const q = searchInput.value.trim();
+                // Update URL tanpa reload
+                const params = new URLSearchParams(window.location.search);
+                if (q) {
+                    params.set('q', q);
+                    params.set('page', 'search');
+                } else {
+                    params.delete('q');
+                    if (params.get('page') === 'search') params.set('page', 'home');
+                }
+                const url = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+                window.history.replaceState({ page: 'search', q }, '', url);
+                resetAndApplyFilters();
+            });
+
+            // Popstate
+            window.addEventListener('popstate', (e) => {
+                const state = e.state || {};
+                if (state.page) {
+                    navigateTo(state.page, state.post, state.q);
+                } else {
+                    // fallback: baca dari query
+                    const { page, post, q } = getPageFromQuery();
+                    navigateTo(page, post, q);
+                }
             });
 
             // ============================================================
-            // SITEMAP GENERATOR
+            // SITEMAP GENERATOR (masih pakai query string)
             // ============================================================
             async function generateSitemap() {
                 if (window.location.search !== '?sitemap') return;
-                const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
+                const baseUrl = window.location.origin + window.location.pathname;
                 let urls = [baseUrl];
                 try {
                     const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
@@ -3023,7 +2630,7 @@
                         const mdFiles = files.filter(f => f.name.endsWith('.md'));
                         mdFiles.forEach(f => {
                             const name = f.name.replace('.md', '');
-                            urls.push(`${baseUrl}#detail/${name}`);
+                            urls.push(`${baseUrl}?page=detail&post=${encodeURIComponent(name)}`);
                         });
                     }
                 } catch (e) {}
@@ -3046,9 +2653,19 @@
                     if (e.message === 'SITEMAP_DISPLAY') return;
                 }
                 await renderHome();
-                const { page, postName } = getHashPage();
-                if (page === 'detail' && postName) navigate('detail', postName);
-                else navigate(page);
+                // Setelah data dimuat, navigasi sesuai query
+                const { page, post, q } = getPageFromQuery();
+                if (page === 'detail' && post) {
+                    // Tunggu fetch selesai (sudah di renderHome)
+                    // Tapi renderHome sudah menampilkan home, kita override
+                    navigateTo('detail', post);
+                } else if (page === 'search') {
+                    navigateTo('search', null, q || '');
+                } else if (page === 'profile') {
+                    navigateTo('profile');
+                } else {
+                    navigateTo('home');
+                }
             })();
         })();
     </script>
