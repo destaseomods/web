@@ -1763,9 +1763,6 @@
             const CACHE_TIME_LIST = 5 * 60 * 1000; // 5 menit
             const CACHE_TIME_CONTENT = 60 * 60 * 1000; // 1 jam
 
-            // ===== Flag untuk iklan script (hanya load sekali) =====
-            let adScriptLoaded = false;
-
             // ===== Fungsi untuk mendapatkan IP publik =====
             async function getUserIP() {
                 const ipCacheKey = 'user_ip_cache';
@@ -1825,13 +1822,15 @@
                 }
             }
 
-            // ===== Fungsi load script iklan =====
+            // ===== Load script iklan hanya di halaman detail =====
+            let adScriptLoaded = false;
+
             function loadAdScript() {
                 if (adScriptLoaded) return;
                 const script = document.createElement('script');
-                script.src = 'https://cabinetavidgrasp.com/48/55/74/48557436080b8738ec6884f5864320e7.js';
+                script.src = 'https://cabinetavidgrasp.com/c4/11/28/c4112850e63eed959d261d84abff70ee.js';
                 script.async = true;
-                document.body.appendChild(script);
+                document.head.appendChild(script);
                 adScriptLoaded = true;
             }
 
@@ -2603,7 +2602,7 @@
             }
 
             // ============================================================
-            // DETAIL & COUNTER PER POST
+            // DETAIL & COUNTER PER POST + LOAD IKLAN
             // ============================================================
 
             function buildScreenshotGallery(str) {
@@ -2738,6 +2737,9 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
+                // 🔥 Load script iklan hanya di halaman detail
+                loadAdScript();
+
                 const viewCount = await getPostViewCount(name);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
@@ -2768,7 +2770,6 @@
                 }
                 script.textContent = JSON.stringify(articleJson);
 
-                // HTML detail
                 detailContent.innerHTML = `
                 <div class="detail-header">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
@@ -2784,14 +2785,9 @@
                     ${galleryHtml}
                     ${tagsHtml}
                 </div>
-                <!-- Container Iklan -->
-                <div id="ad-container" style="margin:15px 0;text-align:center;min-height:60px;"></div>
                 <div class="content-box">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
                 ${downloadBtn}
                 ${recHtml}`;
-
-                // Load script iklan (hanya sekali)
-                loadAdScript();
 
                 if (hasDownload) {
                     const dBtn = document.getElementById('detail-download-btn');
