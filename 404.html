@@ -1,0 +1,3113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <!-- ===== SEO META ===== -->
+    <title>Destaseo Mods • Premium Mod APK</title>
+    <meta name="description" content="Destaseo Mods - Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis." />
+    <meta name="keywords" content="mod apk, download mod, premium mod, aplikasi premium, destaseo, mod gratis" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Destaseo Mods" />
+    <link rel="canonical" href="https://destaseomods.web.id/" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Destaseo Mods • Premium Mod APK" />
+    <meta property="og:description" content="Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis." />
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/189899710?v=4" />
+    <meta property="og:url" content="https://destaseomods.web.id/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Destaseo Mods" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Destaseo Mods • Premium Mod APK" />
+    <meta name="twitter:description" content="Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis." />
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/189899710?v=4" />
+
+    <!-- JSON-LD: WebSite -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Destaseo Mods",
+            "url": "https://destaseomods.web.id/",
+            "description": "Situs download mod APK premium terbaik.",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://destaseomods.web.id/#search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/189899710?v=4" />
+    <link rel="apple-touch-icon" href="https://avatars.githubusercontent.com/u/189899710?v=4" />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
+    </script>
+
+    <style>
+        /* ============================================================
+           ROOT VARIABLES
+           ============================================================ */
+        :root {
+            --bg: #04040e;
+            --surface: rgba(15, 15, 30, 0.7);
+            --surface2: rgba(25, 25, 45, 0.8);
+            --border: rgba(255, 255, 255, 0.07);
+            --text: #f5f5ff;
+            --text2: #b8b8d0;
+            --accent: #a87fff;
+            --accent2: #3ee0ff;
+            --grad1: linear-gradient(135deg, #a87fff, #3ee0ff);
+            --radius: 28px;
+            --radius-sm: 20px;
+            --nav-height: 76px;
+            --safe-bottom: env(safe-area-inset-bottom, 16px);
+            --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06);
+            --glow: 0 0 60px rgba(168, 127, 255, 0.4);
+            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --topbar-height: 76px;
+            --profile-top-offset: 20px;
+        }
+
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+            position: relative;
+        }
+        canvas#particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.7;
+        }
+
+        /* ============================================================
+           CONTAINER
+           ============================================================ */
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 12px 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ============================================================
+           TOPBAR
+           ============================================================ */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 18px;
+            background: rgba(12, 12, 25, 0.65);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--border);
+            border-radius: 34px;
+            margin: 12px auto;
+            max-width: 700px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            position: sticky;
+            top: 14px;
+            z-index: 99;
+            gap: 8px;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(168, 127, 255, 0.4);
+        }
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #c084fc, #60a5fa, #34d399);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite alternate;
+            white-space: nowrap;
+        }
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 100% center;
+            }
+        }
+        .telegram-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+        .telegram-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--accent2);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+            backdrop-filter: blur(16px);
+            white-space: nowrap;
+        }
+        .telegram-btn:hover {
+            border-color: var(--accent2);
+            box-shadow: 0 0 25px rgba(62, 224, 255, 0.4);
+            background: rgba(62, 224, 255, 0.1);
+        }
+        .telegram-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: var(--surface);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 6px;
+            min-width: 160px;
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+            z-index: 150;
+        }
+        .telegram-dropdown.show {
+            display: flex;
+        }
+        .telegram-dropdown a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .telegram-dropdown a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+        .telegram-dropdown a i {
+            width: 18px;
+            text-align: center;
+        }
+
+        /* ============================================================
+           SEARCH
+           ============================================================ */
+        .search-container {
+            margin: 8px 0 16px;
+            display: flex;
+            gap: 8px;
+        }
+        .search-input {
+            flex: 1;
+            background: var(--surface);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 10px 18px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            width: 100%;
+        }
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(168, 127, 255, 0.5);
+        }
+        .search-input::placeholder {
+            color: var(--text2);
+        }
+
+        /* ============================================================
+           CATEGORY BAR
+           ============================================================ */
+        .category-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        .category-chip {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 5px 12px;
+            border-radius: 20px;
+            color: var(--text2);
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            white-space: nowrap;
+        }
+        .category-chip i {
+            margin-right: 4px;
+        }
+        .category-chip.active,
+        .category-chip:hover {
+            background: rgba(168, 127, 255, 0.2);
+            border-color: var(--accent);
+            color: #fff;
+        }
+        .reset-filter {
+            background: none;
+            border: none;
+            color: var(--accent2);
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        .reset-filter i {
+            margin-right: 4px;
+        }
+
+        /* ============================================================
+           SORT BAR — jarak diperbesar dari carousel
+           ============================================================ */
+        .sort-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 18px;
+            /* jarak dari carousel */
+            margin-bottom: 4px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        .sort-label {
+            color: var(--text2);
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .sort-select {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 5px 12px;
+            color: #fff;
+            font-size: 0.7rem;
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .sort-select:hover {
+            border-color: var(--accent2);
+        }
+
+        /* ============================================================
+           CAROUSEL
+           ============================================================ */
+        .popular-section {
+            margin-bottom: 0;
+        }
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            backdrop-filter: blur(22px);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-card);
+            height: 180px;
+        }
+        @media (min-width: 500px) {
+            .carousel-wrapper {
+                height: 220px;
+            }
+        }
+        @media (min-width: 768px) {
+            .carousel-wrapper {
+                height: 260px;
+            }
+        }
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            position: relative;
+        }
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .carousel-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .carousel-slide .slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 16px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .carousel-slide .slide-title {
+            font-weight: 800;
+            font-size: 0.9rem;
+            line-height: 1.3;
+        }
+        @media (min-width: 500px) {
+            .carousel-slide .slide-title {
+                font-size: 1rem;
+            }
+        }
+        .carousel-title-top {
+            position: absolute;
+            top: 12px;
+            left: 14px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #fff;
+            z-index: 5;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+        }
+        @media (min-width: 500px) {
+            .carousel-title-top {
+                font-size: 0.8rem;
+                padding: 5px 14px;
+            }
+        }
+        .carousel-counter {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(6px);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 14px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        @media (min-width: 500px) {
+            .carousel-counter {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
+        }
+
+        /* ============================================================
+           POST GRID
+           ============================================================ */
+        .post-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+            margin-top: 2px;
+        }
+        @media (min-width: 420px) {
+            .post-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+        }
+        @media (min-width: 768px) {
+            .post-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .post-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+        }
+
+        .post-card {
+            background: var(--surface);
+            backdrop-filter: blur(22px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+            transform: translateY(25px);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .post-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: var(--glow), 0 25px 50px rgba(0, 0, 0, 0.9);
+        }
+        .post-card:active {
+            transform: scale(0.97);
+        }
+        .card-img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #1e1e35, #10101c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text2);
+            font-size: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        @media (min-width: 420px) {
+            .card-img {
+                height: 140px;
+            }
+        }
+        @media (min-width: 768px) {
+            .card-img {
+                height: 160px;
+            }
+        }
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .card-img .placeholder-icon {
+            display: none;
+            font-size: 2.5rem;
+        }
+        .card-img.error .placeholder-icon {
+            display: block;
+        }
+        .card-img.error img {
+            display: none;
+        }
+        .version-badge-img {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 2;
+        }
+        @media (min-width: 500px) {
+            .version-badge-img {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+        }
+        .card-body {
+            padding: 12px 14px 14px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .card-title {
+            font-weight: 800;
+            font-size: 0.8rem;
+            line-height: 1.3;
+            color: #fff;
+        }
+        @media (min-width: 500px) {
+            .card-title {
+                font-size: 0.85rem;
+            }
+        }
+        .card-meta {
+            font-size: 0.65rem;
+            color: var(--text2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: rgba(168, 127, 255, 0.2);
+            color: #cfc4ff;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.6rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .badge:hover {
+            background: rgba(168, 127, 255, 0.4);
+            color: #fff;
+        }
+
+        /* 🔥 BADGE PREMIUM / VIP / NO ADS / UNLOCKED di kartu post */
+        .badge-premium {
+            background: linear-gradient(135deg, #f7b731, #f5a623);
+            color: #1a1a2e;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 2px 8px rgba(245, 166, 35, 0.3);
+        }
+        .badge-vip {
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+        }
+        .badge-noads {
+            background: linear-gradient(135deg, #34d399, #059669);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            box-shadow: 0 2px 8px rgba(52, 211, 153, 0.3);
+        }
+        .badge-unlocked {
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+        }
+        .badge-custom {
+            background: var(--surface2);
+            color: var(--text2);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid var(--border);
+        }
+        @media (min-width: 500px) {
+            .badge-premium,
+            .badge-vip,
+            .badge-noads,
+            .badge-unlocked,
+            .badge-custom {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+        }
+
+        .card-excerpt {
+            font-size: 0.68rem;
+            color: var(--text2);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ============================================================
+           LOAD MORE
+           ============================================================ */
+        .load-more-btn {
+            display: block;
+            margin: 20px auto 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--accent2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(16px);
+        }
+        .load-more-btn:hover {
+            border-color: var(--accent2);
+            box-shadow: 0 0 25px rgba(62, 224, 255, 0.4);
+            background: rgba(62, 224, 255, 0.1);
+        }
+
+        /* ============================================================
+           HIDDEN
+           ============================================================ */
+        .hidden {
+            display: none !important;
+        }
+
+        /* ============================================================
+           DETAIL PAGE
+           ============================================================ */
+        .detail-header,
+        .profile-card {
+            background: var(--surface);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-card);
+        }
+        @media (min-width: 500px) {
+            .detail-header,
+            .profile-card {
+                padding: 28px;
+            }
+        }
+        .detail-img {
+            display: block;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 20px;
+            background: var(--surface2);
+            margin: 0 auto 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+        }
+        @media (min-width: 500px) {
+            .detail-img {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 16px;
+            }
+        }
+
+        .detail-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            text-align: center;
+            line-height: 1.3;
+        }
+        @media (min-width: 500px) {
+            .detail-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        .detail-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin: 10px 0 4px;
+        }
+        @media (min-width: 500px) {
+            .detail-meta-grid {
+                gap: 8px;
+                margin: 12px 0 6px;
+            }
+        }
+        @media (min-width: 640px) {
+            .detail-meta-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (min-width: 820px) {
+            .detail-meta-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+            }
+        }
+
+        .meta-item {
+            background: var(--surface2);
+            padding: 6px 6px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+        }
+        @media (min-width: 500px) {
+            .meta-item {
+                padding: 8px 8px;
+                font-size: 0.7rem;
+                min-height: 58px;
+            }
+        }
+        .meta-item i {
+            color: var(--accent2);
+            margin-bottom: 2px;
+            font-size: 0.75rem;
+        }
+        @media (min-width: 500px) {
+            .meta-item i {
+                font-size: 0.85rem;
+                margin-bottom: 3px;
+            }
+        }
+        .meta-item strong {
+            color: var(--accent2);
+            font-size: 0.6rem;
+            font-weight: 700;
+        }
+        @media (min-width: 500px) {
+            .meta-item strong {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* ============================================================
+           DOWNLOAD BUTTON
+           ============================================================ */
+        .big-download {
+            display: block;
+            width: 100%;
+            background: var(--grad1);
+            border: none;
+            color: #04040e;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 14px;
+            border-radius: 18px;
+            margin: 16px 0 0;
+            cursor: pointer;
+            transition: 0.2s;
+            letter-spacing: -0.3px;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+        }
+        @media (min-width: 500px) {
+            .big-download {
+                font-size: 1rem;
+                padding: 15px;
+                margin-top: 20px;
+            }
+        }
+        .big-download i {
+            margin-right: 6px;
+        }
+        .big-download:active {
+            transform: scale(0.96);
+        }
+        .big-download.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .big-download.counting {
+            opacity: 0.8;
+            pointer-events: none;
+            background: var(--surface2);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        /* ============================================================
+           CONTENT BOX
+           ============================================================ */
+        .content-box {
+            background: var(--surface);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            line-height: 1.8;
+            box-shadow: var(--shadow-card);
+            white-space: pre-line;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+        @media (min-width: 500px) {
+            .content-box {
+                padding: 16px 28px;
+            }
+        }
+        .content-box img {
+            max-width: 100%;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+        .content-box pre {
+            background: #050510;
+            padding: 16px;
+            border-radius: 16px;
+            overflow-x: auto;
+            white-space: pre;
+            font-size: 0.8rem;
+        }
+
+        /* ============================================================
+           BACK BUTTON
+           ============================================================ */
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--accent2);
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            transition: opacity 0.2s;
+        }
+        .back-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* ============================================================
+           PROFILE — scroll agar tidak ketutupan topbar + badge premium
+           ============================================================ */
+        #profile-section {
+            scroll-margin-top: 100px;
+            /* saat di-navigate via hash, turun */
+            padding-top: 10px;
+            /* tambahan top padding biar tidak mepet */
+        }
+
+        .profile-card {
+            position: relative;
+            /* untuk badge absolute */
+            overflow: hidden;
+        }
+
+        /* 🔥 BADGE PREMIUM di pojok kanan atas card profil */
+        .premium-badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: linear-gradient(135deg, #f7b731, #f5a623);
+            color: #1a1a2e;
+            font-size: 0.6rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 16px rgba(245, 166, 35, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 5;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(4px);
+        }
+        .premium-badge i {
+            font-size: 0.55rem;
+            color: #1a1a2e;
+        }
+        @media (min-width: 500px) {
+            .premium-badge {
+                top: 18px;
+                right: 18px;
+                font-size: 0.7rem;
+                padding: 5px 14px;
+            }
+            .premium-badge i {
+                font-size: 0.65rem;
+            }
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--surface2);
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #fff;
+            box-shadow: 0 10px 40px rgba(255, 100, 165, 0.4);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            z-index: 1;
+        }
+        @media (min-width: 500px) {
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.8rem;
+                margin-bottom: 20px;
+            }
+        }
+        .profile-name {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+        }
+        @media (min-width: 500px) {
+            .profile-name {
+                font-size: 1.5rem;
+            }
+        }
+        .profile-bio {
+            text-align: center;
+            color: var(--text2);
+            margin: 8px 0 16px;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+        @media (min-width: 500px) {
+            .profile-bio {
+                margin: 10px 0 20px;
+            }
+        }
+        .social-links {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .social-link {
+            background: var(--surface2);
+            padding: 8px 16px;
+            border-radius: 30px;
+            color: var(--accent2);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        @media (min-width: 500px) {
+            .social-link {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+                gap: 8px;
+            }
+        }
+        .social-link i {
+            font-size: 0.9rem;
+        }
+        .social-link:hover {
+            border-color: var(--accent2);
+            background: rgba(62, 224, 255, 0.1);
+        }
+        .donate-section {
+            margin-top: 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        @media (min-width: 500px) {
+            .donate-section {
+                margin-top: 24px;
+                padding-top: 20px;
+            }
+        }
+        .donate-title {
+            color: var(--text2);
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .donate-links {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================================
+           QRIS OVERLAY
+           ============================================================ */
+        .qris-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 250;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .qris-overlay.hidden {
+            display: none;
+        }
+        .qris-container {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            max-width: 340px;
+            width: 90%;
+        }
+        @media (min-width: 500px) {
+            .qris-container {
+                padding: 24px;
+                max-width: 360px;
+            }
+        }
+        .qris-container img {
+            width: 100%;
+            border-radius: 16px;
+            margin-bottom: 14px;
+        }
+        .qris-close-btn,
+        .qris-download-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 4px;
+        }
+        .qris-close-btn:hover,
+        .qris-download-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ============================================================
+           TAGS & SCREENSHOT
+           ============================================================ */
+        .tags-container {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .tag-badge {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text2);
+            padding: 2px 8px;
+            border-radius: 14px;
+            font-size: 0.6rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        @media (min-width: 500px) {
+            .tag-badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+        }
+        .screenshot-scroll {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 10px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+            margin-top: 12px;
+            max-width: 100%;
+            touch-action: pan-x;
+        }
+        .screenshot-scroll img {
+            flex: 0 0 auto;
+            width: 120px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+        }
+        @media (min-width: 500px) {
+            .screenshot-scroll img {
+                width: 150px;
+                height: 220px;
+            }
+        }
+        .screenshot-scroll img:hover {
+            transform: scale(1.03);
+            border-color: var(--accent);
+        }
+
+        /* ============================================================
+           LIGHTBOX
+           ============================================================ */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            cursor: default;
+            animation: fadeInLight 0.25s ease;
+        }
+        @keyframes fadeInLight {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 82vh;
+            border-radius: 16px;
+            object-fit: contain;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+        }
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        .lightbox-prev,
+        .lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+        }
+        .lightbox-prev {
+            left: 20px;
+        }
+        .lightbox-next {
+            right: 20px;
+        }
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .lightbox-counter {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            letter-spacing: 0.5px;
+        }
+        @media (max-width: 500px) {
+            .lightbox-prev,
+            .lightbox-next {
+                width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
+            }
+            .lightbox-prev {
+                left: 8px;
+            }
+            .lightbox-next {
+                right: 8px;
+            }
+            .lightbox-close {
+                top: 12px;
+                right: 12px;
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .lightbox img {
+                max-width: 98vw;
+                max-height: 78vh;
+            }
+            .lightbox-counter {
+                font-size: 0.7rem;
+                padding: 4px 14px;
+                bottom: 18px;
+            }
+        }
+
+        /* ============================================================
+           BOTTOM NAV
+           ============================================================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(5, 5, 15, 0.85);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: var(--nav-height);
+            padding-bottom: var(--safe-bottom);
+            z-index: 100;
+            box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.8);
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text2);
+            font-size: 0.6rem;
+            font-weight: 600;
+            gap: 3px;
+            transition: 0.25s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 24px;
+        }
+        @media (min-width: 500px) {
+            .nav-item {
+                font-size: 0.7rem;
+                padding: 10px 18px;
+                gap: 5px;
+            }
+        }
+        .nav-item.active {
+            color: var(--accent2);
+            background: rgba(62, 224, 255, 0.12);
+        }
+        .nav-item i {
+            font-size: 1.1rem;
+        }
+        @media (min-width: 500px) {
+            .nav-item i {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ============================================================
+           SPINNER
+           ============================================================ */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            margin: 40px auto;
+            border: 3px solid rgba(255, 255, 255, 0.06);
+            border-top-color: var(--accent2);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .empty-text,
+        .error-text {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text2);
+            background: rgba(255, 0, 0, 0.07);
+            border-radius: 24px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        .filter-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            font-size: 0.8rem;
+            color: var(--accent2);
+            flex-wrap: wrap;
+        }
+
+        /* ============================================================
+           DAILY VISITOR
+           ============================================================ */
+        .daily-visitor {
+            margin-top: 14px;
+            padding: 10px 14px;
+            background: var(--surface2);
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+            font-weight: 600;
+            color: var(--accent2);
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            word-wrap: break-word;
+            font-size: 0.85rem;
+        }
+        @media (min-width: 500px) {
+            .daily-visitor {
+                margin-top: 16px;
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
+        }
+        .daily-visitor i {
+            margin-right: 6px;
+        }
+        .daily-visitor span {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        /* ============================================================
+           REKOMENDASI
+           ============================================================ */
+        .recommendations-section {
+            margin-top: 20px;
+            padding: 16px 0;
+            border-top: 1px solid var(--border);
+        }
+        @media (min-width: 500px) {
+            .recommendations-section {
+                margin-top: 24px;
+                padding: 20px 0;
+            }
+        }
+        .recommendations-section h3 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        @media (min-width: 500px) {
+            .recommendations-section h3 {
+                font-size: 0.95rem;
+                margin-bottom: 14px;
+            }
+        }
+        .recommendations-section h3 i {
+            color: var(--accent2);
+        }
+        .rec-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        @media (min-width: 500px) {
+            .rec-grid {
+                gap: 12px;
+            }
+        }
+        @media (min-width: 600px) {
+            .rec-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        .rec-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .rec-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(168, 127, 255, 0.3);
+        }
+        .rec-card img {
+            width: 100%;
+            height: 90px;
+            object-fit: cover;
+            background: var(--surface2);
+        }
+        @media (min-width: 500px) {
+            .rec-card img {
+                height: 110px;
+            }
+        }
+        .rec-card .rec-title {
+            padding: 8px 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        @media (min-width: 500px) {
+            .rec-card .rec-title {
+                padding: 10px 12px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* ============================================================
+           PROFILE FOOTER TEXT
+           ============================================================ */
+        #profile-footer-text {
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+        .profile-card,
+        .content-box {
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        /* ============================================================
+           MEDIA QUERIES EKSTRA - HP KECIL
+           ============================================================ */
+        @media (max-width: 360px) {
+            .logo-text {
+                font-size: 1rem;
+            }
+            .logo-img {
+                width: 28px;
+                height: 28px;
+            }
+            .topbar {
+                padding: 10px 14px;
+                border-radius: 28px;
+            }
+            .telegram-btn {
+                font-size: 0.65rem;
+                padding: 5px 10px;
+            }
+            .container {
+                padding: 8px 12px;
+            }
+            .post-grid {
+                gap: 10px;
+            }
+            .card-img {
+                height: 100px;
+            }
+            .card-title {
+                font-size: 0.7rem;
+            }
+            .card-body {
+                padding: 8px 10px 10px;
+            }
+            .carousel-wrapper {
+                height: 140px;
+            }
+            .carousel-slide .slide-title {
+                font-size: 0.75rem;
+            }
+            .detail-title {
+                font-size: 0.85rem;
+            }
+            .detail-header {
+                padding: 14px;
+            }
+            .meta-item {
+                font-size: 0.5rem;
+                padding: 4px 4px;
+                min-height: 44px;
+            }
+            .meta-item strong {
+                font-size: 0.5rem;
+            }
+            .meta-item i {
+                font-size: 0.65rem;
+            }
+            .rec-card img {
+                height: 70px;
+            }
+            .rec-card .rec-title {
+                font-size: 0.6rem;
+                padding: 6px 8px;
+            }
+            .rec-grid {
+                gap: 8px;
+            }
+            .daily-visitor {
+                font-size: 0.75rem;
+                padding: 8px 10px;
+            }
+            .nav-item {
+                font-size: 0.5rem;
+                padding: 6px 10px;
+            }
+            .nav-item i {
+                font-size: 0.9rem;
+            }
+            .bottom-nav {
+                height: 64px;
+            }
+            .premium-badge {
+                top: 10px;
+                right: 10px;
+                font-size: 0.5rem;
+                padding: 3px 10px;
+            }
+            .premium-badge i {
+                font-size: 0.45rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles"></canvas>
+
+    <!-- QRIS Overlay -->
+    <div class="qris-overlay hidden" id="qris-overlay">
+        <div class="qris-container">
+            <img src="https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png" alt="QRIS Dana" id="qris-img" />
+            <div>
+                <button class="qris-download-btn" id="qris-download-btn"><i class="fas fa-download"></i> Download Gambar</button>
+                <button class="qris-close-btn" id="qris-close-btn"><i class="fas fa-times"></i> Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <div class="logo-area">
+            <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo Destaseo Mods" class="logo-img" />
+            <span class="logo-text">Destaseo Mods</span>
+        </div>
+        <div class="telegram-wrapper">
+            <button class="telegram-btn" id="telegram-btn" aria-label="Menu Telegram"><i class="fab fa-telegram-plane"></i> Telegram</button>
+            <div class="telegram-dropdown" id="telegram-dropdown">
+                <a href="https://t.me/destaseo" target="_blank"><i class="fas fa-user"></i> Admin</a>
+                <a href="https://t.me/+wlXhR-M2BbliMDU1" target="_blank"><i class="fas fa-bullhorn"></i> Channel</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <main class="container" id="app">
+        <section id="home-section" aria-label="Beranda">
+            <div class="search-container hidden" id="search-box">
+                <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit..." aria-label="Cari mod" />
+            </div>
+            <div class="category-bar" id="category-bar" role="tablist" aria-label="Kategori"></div>
+            <div class="popular-section" id="popular-section">
+                <div class="carousel-wrapper">
+                    <div class="carousel-title-top"><i class="fas fa-hashtag"></i> Urutan Populer</div>
+                    <div class="carousel-track" id="carousel-track"></div>
+                </div>
+            </div>
+
+            <!-- SORT BAR — jarak diperbesar dari carousel (margin-top: 18px) -->
+            <div class="sort-bar" id="sort-bar">
+                <span class="sort-label"><i class="fas fa-sort-amount-down"></i> Urutkan:</span>
+                <select class="sort-select" id="sort-select" aria-label="Urutkan postingan">
+                    <option value="terbaru" selected>Terbaru</option>
+                    <option value="terlama">Terlama</option>
+                    <option value="az">Judul A-Z</option>
+                    <option value="za">Judul Z-A</option>
+                </select>
+            </div>
+
+            <!-- Filter indicator -->
+            <div id="filter-indicator" class="filter-indicator hidden"></div>
+
+            <!-- POST GRID -->
+            <div id="post-container" class="post-grid"></div>
+            <div id="load-more-container" style="text-align:center;"></div>
+        </section>
+
+        <section id="detail-section" class="hidden" aria-label="Detail Mod">
+            <button class="back-btn" id="detail-back" aria-label="Kembali"><i class="fas fa-arrow-left"></i> Kembali</button>
+            <div id="detail-content"></div>
+        </section>
+
+        <!-- PROFILE SECTION — scroll-margin-top & padding-top agar tidak ketutupan topbar -->
+        <section id="profile-section" class="hidden" aria-label="Profil">
+            <div class="profile-card">
+                <!-- 🔥 BADGE PREMIUM di pojok kanan atas card -->
+                <div class="premium-badge"><i class="fas fa-crown"></i> Premium</div>
+
+                <div class="profile-avatar" id="profile-avatar" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');" role="img" aria-label="Avatar Destaseo Mods"></div>
+                <div class="profile-name" id="profile-name">Destaseo Mods</div>
+                <div class="profile-bio" id="profile-bio">Premium modder &amp; content creator.</div>
+                <div class="social-links" id="social-links"></div>
+                <div class="donate-section">
+                    <div class="donate-title"><i class="fas fa-mug-hot"></i> Dukung Saya</div>
+                    <div class="donate-links">
+                        <a href="https://saweria.co/destaseomods" target="_blank" class="social-link" rel="noopener"><i class="fas fa-hand-holding-heart"></i> Saweria</a>
+                        <button class="social-link" id="qris-dana-btn"><i class="fas fa-qrcode"></i> QRIS Dana</button>
+                    </div>
+                </div>
+            </div>
+            <div class="content-box" id="profile-footer-text">Update aplikasi modifikasi premium.<br />Nganjuk - Jawa Timur - Indonesia 🇮🇩</div>
+            <div class="daily-visitor" id="daily-visitor">
+                <i class="fas fa-users"></i> Pengunjung Hari Ini: <span id="daily-count">...</span>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" aria-label="Navigasi utama">
+        <button class="nav-item active" data-page="home" aria-label="Beranda"><i class="fas fa-home"></i><span>Beranda</span></button>
+        <button class="nav-item" data-page="search" aria-label="Cari"><i class="fas fa-search"></i><span>Cari</span></button>
+        <button class="nav-item" data-page="profile" aria-label="Profil"><i class="fas fa-user-circle"></i><span>Profil</span></button>
+    </nav>
+
+    <script>
+        (function() {
+            // ============================================================
+            // 🔥 REDIRECT HASH-BASED URL KE PATH-BASED (UNTUK LINK LAMA)
+            // ============================================================
+            (function redirectOldHash() {
+                var hash = window.location.hash;
+                if (!hash || hash === '#home') {
+                    if (hash === '#home' || hash === '') {
+                        if (window.location.pathname === '/' || window.location.pathname === '/index.html') return;
+                        window.location.replace('/');
+                    }
+                    return;
+                }
+                var detailMatch = hash.match(/^#detail\/(.+)$/);
+                if (detailMatch) {
+                    var postName = detailMatch[1];
+                    window.location.replace('/detail/' + encodeURIComponent(postName));
+                    return;
+                }
+                if (hash === '#search') {
+                    window.location.replace('/search');
+                    return;
+                }
+                if (hash === '#profile') {
+                    window.location.replace('/profile');
+                    return;
+                }
+                window.location.replace('/');
+            })();
+
+            // ===== KONFIGURASI =====
+            var GITHUB_REPO = "destaseomods/web";
+            var AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
+            var AD_INTERVAL = 5 * 60 * 1000; // 5 menit
+            var LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
+            var AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
+            var QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
+            var PROFILE = {
+                avatar: AVATAR_URL,
+                name: "Destaseo Mods",
+                bio: "Premium modder & content creator.",
+                links: [
+                    { label: "Facebook", url: "https://fb.com/destaseo.id", icon: "fab fa-facebook" },
+                    { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane" }
+                ]
+            };
+
+            // ===== Cache configuration =====
+            var CACHE_KEY_LIST = 'destaseo_post_list_v3';
+            var CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
+            var CACHE_TIME_LIST = 60 * 1000; // 1 menit
+            var CACHE_TIME_CONTENT = 60 * 1000; // 1 menit
+
+            // ===== Fungsi untuk mendapatkan IP publik =====
+            async function getUserIP() {
+                var ipCacheKey = 'user_ip_cache';
+                var ipCacheExpiry = 60 * 60 * 1000;
+                try {
+                    var cached = localStorage.getItem(ipCacheKey);
+                    if (cached) {
+                        var data = JSON.parse(cached);
+                        if (Date.now() - data.t < ipCacheExpiry) {
+                            return data.ip;
+                        }
+                    }
+                } catch (_) {}
+                try {
+                    var controller = new AbortController();
+                    var timeout = setTimeout(function() { controller.abort(); }, 2000);
+                    var res = await fetch('https://api.ipify.org?format=json', { signal: controller.signal });
+                    clearTimeout(timeout);
+                    if (res.ok) {
+                        var data = await res.json();
+                        var ip = data.ip || null;
+                        if (ip) {
+                            localStorage.setItem(ipCacheKey, JSON.stringify({ ip: ip, t: Date.now() }));
+                            return ip;
+                        }
+                    }
+                } catch (e) {}
+                return null;
+            }
+
+            // ===== Iklan: per IP =====
+            async function startDownloadWithAd(btn, url) {
+                var ip = await getUserIP();
+                var storageKey = ip ? 'lastAdClickTimestamp_' + ip : 'lastAdClickTimestamp';
+                var now = Date.now();
+                var last = localStorage.getItem(storageKey);
+
+                if (!last || (now - parseInt(last)) > AD_INTERVAL) {
+                    localStorage.setItem(storageKey, now.toString());
+                    if (AD_URL) window.open(AD_URL, '_blank');
+                    var sec = 5;
+                    btn.textContent = '⏳ ' + sec + ' detik';
+                    btn.classList.add('counting');
+                    var timer = setInterval(function() {
+                        sec--;
+                        if (sec <= 0) {
+                            clearInterval(timer);
+                            btn.innerHTML = '<i class="fas fa-download"></i> Download APK';
+                            btn.classList.remove('counting');
+                            window.open(url, '_blank');
+                        } else {
+                            btn.textContent = '⏳ ' + sec + ' detik';
+                        }
+                    }, 1000);
+                } else {
+                    window.open(url, '_blank');
+                }
+            }
+
+            // ===== Load script iklan hanya di halaman detail =====
+            var adScriptLoaded = false;
+
+            function loadAdScript() {
+                if (adScriptLoaded) return;
+                var script = document.createElement('script');
+                script.src = 'https://cabinetavidgrasp.com/c4/11/28/c4112850e63eed959d261d84abff70ee.js';
+                script.async = true;
+                document.head.appendChild(script);
+                adScriptLoaded = true;
+            }
+
+            // ===== SEO: update meta tags dynamically =====
+            function updateMetaTags(title, description, image, url) {
+                document.title = title || "Destaseo Mods • Premium Mod APK";
+                var desc = description || "Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.";
+                var img = image || "https://avatars.githubusercontent.com/u/189899710?v=4";
+                var link = url || window.location.href;
+
+                var metaDesc = document.querySelector('meta[name="description"]');
+                if (!metaDesc) {
+                    metaDesc = document.createElement('meta');
+                    metaDesc.name = 'description';
+                    document.head.appendChild(metaDesc);
+                }
+                metaDesc.content = desc;
+
+                var ogTitle = document.querySelector('meta[property="og:title"]');
+                if (!ogTitle) {
+                    ogTitle = document.createElement('meta');
+                    ogTitle.setAttribute('property', 'og:title');
+                    document.head.appendChild(ogTitle);
+                }
+                ogTitle.content = title;
+
+                var ogDesc = document.querySelector('meta[property="og:description"]');
+                if (!ogDesc) {
+                    ogDesc = document.createElement('meta');
+                    ogDesc.setAttribute('property', 'og:description');
+                    document.head.appendChild(ogDesc);
+                }
+                ogDesc.content = desc;
+
+                var ogImage = document.querySelector('meta[property="og:image"]');
+                if (!ogImage) {
+                    ogImage = document.createElement('meta');
+                    ogImage.setAttribute('property', 'og:image');
+                    document.head.appendChild(ogImage);
+                }
+                ogImage.content = img;
+
+                var ogUrl = document.querySelector('meta[property="og:url"]');
+                if (!ogUrl) {
+                    ogUrl = document.createElement('meta');
+                    ogUrl.setAttribute('property', 'og:url');
+                    document.head.appendChild(ogUrl);
+                }
+                ogUrl.content = link;
+
+                var twTitle = document.querySelector('meta[name="twitter:title"]');
+                if (!twTitle) {
+                    twTitle = document.createElement('meta');
+                    twTitle.name = 'twitter:title';
+                    document.head.appendChild(twTitle);
+                }
+                twTitle.content = title;
+
+                var twDesc = document.querySelector('meta[name="twitter:description"]');
+                if (!twDesc) {
+                    twDesc = document.createElement('meta');
+                    twDesc.name = 'twitter:description';
+                    document.head.appendChild(twDesc);
+                }
+                twDesc.content = desc;
+
+                var twImage = document.querySelector('meta[name="twitter:image"]');
+                if (!twImage) {
+                    twImage = document.createElement('meta');
+                    twImage.name = 'twitter:image';
+                    document.head.appendChild(twImage);
+                }
+                twImage.content = img;
+
+                var canonical = document.querySelector('link[rel="canonical"]');
+                if (!canonical) {
+                    canonical = document.createElement('link');
+                    canonical.rel = 'canonical';
+                    document.head.appendChild(canonical);
+                }
+                canonical.href = link;
+            }
+
+            // ============================================================
+            // PARTIKEL
+            // ============================================================
+            var canvas = document.getElementById('particles');
+            var ctx = canvas.getContext('2d');
+            var particles = [];
+            var maxParticles = 70;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            function Particle() { this.reset(); }
+            Particle.prototype.reset = function() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2.5 + 1;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            };
+            Particle.prototype.update = function() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            };
+            Particle.prototype.draw = function() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(168,127,255,' + this.opacity + ')';
+                ctx.fill();
+            };
+            for (var i = 0; i < maxParticles; i++) particles.push(new Particle());
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(function(p) { p.update();
+                    p.draw(); });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            // ============================================================
+            // VARIABEL GLOBAL
+            // ============================================================
+            var postContainer = document.getElementById('post-container');
+            var carouselTrack = document.getElementById('carousel-track');
+            var loadMoreContainer = document.getElementById('load-more-container');
+            var homeSection = document.getElementById('home-section');
+            var detailSection = document.getElementById('detail-section');
+            var profileSection = document.getElementById('profile-section');
+            var detailContent = document.getElementById('detail-content');
+            var detailBack = document.getElementById('detail-back');
+            var navItems = document.querySelectorAll('.nav-item');
+            var searchBox = document.getElementById('search-box');
+            var searchInput = document.getElementById('search-input');
+            var categoryBar = document.getElementById('category-bar');
+            var sortBar = document.getElementById('sort-bar');
+            var sortSelect = document.getElementById('sort-select');
+            var filterIndicator = document.getElementById('filter-indicator');
+            var telegramBtn = document.getElementById('telegram-btn');
+            var telegramDropdown = document.getElementById('telegram-dropdown');
+            var qrisOverlay = document.getElementById('qris-overlay');
+            var qrisCloseBtn = document.getElementById('qris-close-btn');
+            var qrisDanaBtn = document.getElementById('qris-dana-btn');
+            var qrisDownloadBtn = document.getElementById('qris-download-btn');
+            var dailyCountEl = document.getElementById('daily-count');
+
+            var postsData = [],
+                fetchedPosts = [];
+            var activeKatFilter = null;
+            var currentDisplayCount = 0;
+            var ITEMS_PER_PAGE = 10;
+            var carouselInterval = null;
+            var currentSlide = 0;
+            var totalPopularSlides = 0;
+            var topPopularPosts = [];
+
+            if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
+            if (AVATAR_URL) {
+                var a = document.getElementById('profile-avatar');
+                a.style.backgroundImage = 'url(\'' + AVATAR_URL + '\')';
+                a.textContent = '';
+            }
+
+            // ============================================================
+            // COUNTER PER POSTINGAN (CountAPI) dengan parameter increment
+            // ============================================================
+            async function getPostViewCount(postName, increment) {
+                if (increment === undefined) increment = true;
+                var storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
+                var today = new Date().toISOString().slice(0, 10);
+                var key = 'destaseomods-' + postName.replace(/[^a-zA-Z0-9]/g, '-');
+
+                var localData = null;
+                try {
+                    var raw = localStorage.getItem(storageKey);
+                    if (raw) localData = JSON.parse(raw);
+                } catch (_) {}
+
+                if (!increment && localData) {
+                    return localData.count;
+                }
+
+                if (increment && (!localData || localData.date !== today)) {
+                    try {
+                        var res = await fetch('https://countapi.mileshilliard.com/api/v1/hit/' + key);
+                        if (res.ok) {
+                            var data = await res.json();
+                            var count = data.value || 0;
+                            localStorage.setItem(storageKey, JSON.stringify({ count: count, date: today }));
+                            return count;
+                        }
+                    } catch (e) { /* fallback */ }
+                    var prev = localData ? localData.count : 0;
+                    var count = prev + 1;
+                    localStorage.setItem(storageKey, JSON.stringify({ count: count, date: today }));
+                    return count;
+                }
+
+                if (!increment && !localData) {
+                    try {
+                        var res = await fetch('https://countapi.mileshilliard.com/api/v1/get/' + key);
+                        if (res.ok) {
+                            var data = await res.json();
+                            var count = data.value || 0;
+                            localStorage.setItem(storageKey, JSON.stringify({ count: count, date: today }));
+                            return count;
+                        }
+                    } catch (e) { /* fallback */ }
+                    return 0;
+                }
+
+                return localData ? localData.count : 0;
+            }
+
+            // ============================================================
+            // DAILY VISITOR COUNTER
+            // ============================================================
+            async function getDailyVisitorCount() {
+                var url = 'https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily';
+                var storageKey = 'daily_visitor';
+                var today = new Date().toISOString().slice(0, 10);
+                var localData = null;
+                try {
+                    var raw = localStorage.getItem(storageKey);
+                    if (raw) localData = JSON.parse(raw);
+                } catch (_) {}
+                if (localData && localData.date === today) {
+                    return localData.count;
+                }
+                try {
+                    var controller = new AbortController();
+                    var timeout = setTimeout(function() { controller.abort(); }, 2000);
+                    var res = await fetch(url, {
+                        method: 'GET',
+                        signal: controller.signal,
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    clearTimeout(timeout);
+                    if (res.ok) {
+                        var data = await res.json();
+                        var count = data.value || data.count || data.views || data.hits || 1;
+                        if (typeof count === 'number' && count > 0) {
+                            localStorage.setItem(storageKey, JSON.stringify({ count: count, date: today }));
+                            return count;
+                        }
+                    }
+                } catch (e) {}
+                var prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
+                var newCount = prevCount + 1;
+                localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
+                return newCount;
+            }
+
+            // ============================================================
+            // REKOMENDASI
+            // ============================================================
+            function getRecommendations(currentPost, limit) {
+                if (limit === undefined) limit = 4;
+                if (!fetchedPosts || fetchedPosts.length === 0) return [];
+                var others = fetchedPosts.filter(function(p) { return p.name !== currentPost.name; });
+                if (others.length === 0) return [];
+                var currentCategory = currentPost.metadata.kategori || '';
+                var sameCategory = others.filter(function(p) {
+                    var cat = p.metadata.kategori || '';
+                    return cat === currentCategory && cat !== '';
+                });
+                var differentCategory = others.filter(function(p) {
+                    var cat = p.metadata.kategori || '';
+                    return cat !== currentCategory || cat === '';
+                });
+                var shuffle = function(arr) { return arr.sort(function() { return Math.random() - 0.5; }); };
+                var combined = shuffle(sameCategory).concat(shuffle(differentCategory));
+                return combined.slice(0, limit);
+            }
+
+            // ============================================================
+            // ROUTING (PATH-BASED)
+            // ============================================================
+            function getRoute() {
+                var path = window.location.pathname;
+                if (path === '/' || path === '/index.html') {
+                    return { page: 'home' };
+                }
+                var detailMatch = path.match(/^\/detail\/(.+)$/);
+                if (detailMatch) {
+                    return { page: 'detail', postName: decodeURIComponent(detailMatch[1]) };
+                }
+                if (path === '/search') return { page: 'search' };
+                if (path === '/profile') return { page: 'profile' };
+                return { page: 'home' };
+            }
+
+            function navigateTo(page, postName) {
+                var url;
+                if (page === 'home') url = '/';
+                else if (page === 'search') url = '/search';
+                else if (page === 'profile') url = '/profile';
+                else if (page === 'detail' && postName) url = '/detail/' + encodeURIComponent(postName);
+                else url = '/';
+
+                if (window.location.pathname !== url) {
+                    window.history.pushState({ page: page, postName: postName }, '', url);
+                }
+                renderPage(page, postName);
+            }
+
+            function renderPage(page, postName) {
+                if (page === 'home') {
+                    showHome();
+                } else if (page === 'search') {
+                    showSearch();
+                } else if (page === 'profile') {
+                    showProfile();
+                } else if (page === 'detail' && postName) {
+                    showDetail(postName);
+                } else {
+                    showHome();
+                }
+                navItems.forEach(function(i) {
+                    var p = i.dataset.page;
+                    var isActive = (p === page) || (page === 'detail' && p === 'home');
+                    i.classList.toggle('active', isActive);
+                });
+            }
+
+            function showHome() {
+                showSection(homeSection);
+                searchBox.classList.add('hidden');
+                categoryBar.classList.remove('hidden');
+                sortBar.classList.remove('hidden');
+                document.getElementById('popular-section').classList.remove('hidden');
+                startCarousel();
+                updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.', LOGO_URL, 'https://destaseomods.web.id/');
+            }
+
+            function showSearch() {
+                showSection(homeSection);
+                searchBox.classList.remove('hidden');
+                categoryBar.classList.remove('hidden');
+                sortBar.classList.add('hidden');
+                document.getElementById('popular-section').classList.add('hidden');
+                stopCarousel();
+                setTimeout(function() { searchInput.focus(); }, 100);
+                updateMetaTags('Cari Mod • Destaseo Mods', 'Cari mod APK premium favorit Anda di Destaseo Mods.', LOGO_URL, 'https://destaseomods.web.id/search');
+            }
+
+            function showProfile() {
+                showSection(profileSection);
+                searchBox.classList.add('hidden');
+                categoryBar.classList.add('hidden');
+                sortBar.classList.add('hidden');
+                document.getElementById('popular-section').classList.add('hidden');
+                filterIndicator.classList.add('hidden');
+                stopCarousel();
+                renderProfile();
+                updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.', AVATAR_URL, 'https://destaseomods.web.id/profile');
+                setTimeout(function() {
+                    var rect = profileSection.getBoundingClientRect();
+                    if (rect.top < 20) {
+                        window.scrollTo({ top: window.scrollY + rect.top - 80, behavior: 'smooth' });
+                    }
+                }, 100);
+            }
+
+            function showSection(s) {
+                [homeSection, detailSection, profileSection].forEach(function(x) { x.classList.add('hidden'); });
+                s.classList.remove('hidden');
+            }
+
+            // ============================================================
+            // EVENT LISTENER
+            // ============================================================
+            telegramBtn.addEventListener('click', function(e) { e.stopPropagation();
+                telegramDropdown.classList.toggle('show'); });
+            document.addEventListener('click', function() { telegramDropdown.classList.remove('show'); });
+            telegramDropdown.addEventListener('click', function(e) { e.stopPropagation(); });
+            if (qrisDanaBtn) qrisDanaBtn.addEventListener('click', function() { qrisOverlay.classList.remove('hidden'); });
+            qrisCloseBtn.addEventListener('click', function() { qrisOverlay.classList.add('hidden'); });
+            qrisOverlay.addEventListener('click', function(e) { if (e.target === qrisOverlay) qrisOverlay.classList.add(
+                    'hidden'); });
+            qrisDownloadBtn.addEventListener('click', async function() {
+                try {
+                    var r = await fetch(QRIS_URL);
+                    var b = await r.blob();
+                    var u = URL.createObjectURL(b);
+                    var a = document.createElement('a');
+                    a.href = u;
+                    a.download = 'qris-destaseo.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(u);
+                } catch (e) { window.open(QRIS_URL, '_blank'); }
+            });
+            sortSelect.addEventListener('change', function() { resetAndApplyFilters(); });
+
+            navItems.forEach(function(i) {
+                i.addEventListener('click', function() {
+                    var page = i.dataset.page;
+                    if (page === 'home') navigateTo('home');
+                    else if (page === 'search') navigateTo('search');
+                    else if (page === 'profile') navigateTo('profile');
+                });
+            });
+
+            detailBack.addEventListener('click', function() { navigateTo('home'); });
+
+            // ============================================================
+            // SHOW DETAIL
+            // ============================================================
+            async function showDetail(name) {
+                if (!fetchedPosts.length) {
+                    await renderHome();
+                    return showDetail(name);
+                }
+                var post = fetchedPosts.find(function(p) { return p.name === name; });
+                if (!post) {
+                    console.error('❌ Post tidak ditemukan:', name);
+                    navigateTo('home');
+                    return;
+                }
+                var t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
+                var img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
+                var v = post.metadata.versi || post.metadata.version || '?';
+                var s = post.metadata.ukuran || post.metadata.size || '?';
+                var dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
+                var dwn = post.metadata.download || post.metadata.link || '';
+                var kategori = post.metadata.kategori || '';
+                var tags = post.metadata.tag ? post.metadata.tag.split(',').map(function(t) { return t.trim(); }).filter(
+                    function(t) { return t; }) : [];
+                var dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
+                var dateFormatted = formatDate(dateRaw);
+                var screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
+                var galleryHtml = buildScreenshotGallery(screenshots);
+                var hasDownload = dwn && dwn !== '#';
+                var downloadBtn = hasDownload ?
+                    '<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>' :
+                    '<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>';
+                var tagsHtml = tags.length > 0 ?
+                    '<div class="tags-container">' + tags.map(function(tag) { return '<span class="tag-badge"><i class="fas fa-tag"></i> ' + tag + '</span>'; })
+                    .join('') + '</div>' :
+                    '';
+
+                var recommendations = getRecommendations(post, 4);
+                var recHtml = '';
+                if (recommendations.length > 0) {
+                    recHtml = '<div class="recommendations-section">' +
+                        '<h3><i class="fas fa-lightbulb"></i> Rekomendasi untuk Anda</h3>' +
+                        '<div class="rec-grid">';
+                    recommendations.forEach(function(rec) {
+                        var recTitle = rec.metadata.judul || rec.metadata.title || rec.name.replace(
+                            /[-_]/g, ' ');
+                        var recImg = fixImageUrl(rec.metadata.gambar || rec.metadata.image || '');
+                        recHtml += '' +
+                            '<div class="rec-card" data-name="' + rec.name + '">' +
+                            (recImg ? '<img src="' + recImg + '" alt="' + recTitle + '" loading="lazy" onerror="this.style.display=\'none\'">' :
+                                '<div style="height:90px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:2rem;"><i class="fas fa-box"></i></div>') +
+                            '<div class="rec-title">' + recTitle + '</div>' +
+                            '</div>';
+                    });
+                    recHtml += '</div></div>';
+                }
+
+                detailContent.innerHTML = '<div class="spinner"></div>';
+                showSection(detailSection);
+                window.scrollTo({ top: 0 });
+
+                loadAdScript();
+
+                var viewCount = await getPostViewCount(name, true);
+
+                var desc = post.metadata.deskripsi || post.metadata.description || 'Download mod ' + t + ' premium terbaru. Versi ' + v + ', ukuran ' + s + ', developer ' + dev + '.';
+                var detailUrl = 'https://destaseomods.web.id/detail/' + encodeURIComponent(name);
+                updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, detailUrl);
+
+                var articleJson = {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": t,
+                    "description": desc,
+                    "image": img || LOGO_URL,
+                    "author": {
+                        "@type": "Person",
+                        "name": dev
+                    },
+                    "datePublished": dateRaw || new Date().toISOString(),
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": detailUrl
+                    }
+                };
+                var script = document.querySelector('#article-ld-json');
+                if (!script) {
+                    script = document.createElement('script');
+                    script.id = 'article-ld-json';
+                    script.type = 'application/ld+json';
+                    document.head.appendChild(script);
+                }
+                script.textContent = JSON.stringify(articleJson);
+
+                detailContent.innerHTML = '' +
+                    '<div class="detail-header">' +
+                    (img ? '<img src="' + img + '" class="detail-img" alt="' + t + '" onerror="this.style.display=\'none\'">' :
+                        '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>') +
+                    '<h1 class="detail-title">' + t + '</h1>' +
+                    '<div class="detail-meta-grid">' +
+                    '<div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ' + v + '</div>' +
+                    '<div class="meta-item"><i class="fas fa-weight-hanging"></i> <strong>Ukuran</strong> ' + s +
+                    '</div>' +
+                    '<div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ' + dev +
+                    '</div>' +
+                    (kategori ? '<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ' +
+                        kategori + '</div>' : '') +
+                    (dateFormatted ? '<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ' +
+                        dateFormatted + '</div>' : '') +
+                    '<div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ' + viewCount + 'x</div>' +
+                    '</div>' +
+                    galleryHtml +
+                    tagsHtml +
+                    '</div>' +
+                    '<div class="content-box">' + (post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>') +
+                    '</div>' +
+                    downloadBtn +
+                    recHtml;
+
+                if (hasDownload) {
+                    var dBtn = document.getElementById('detail-download-btn');
+                    if (dBtn) {
+                        dBtn.addEventListener('click', async function(e) {
+                            e.preventDefault();
+                            if (this.classList.contains('counting')) return;
+                            await startDownloadWithAd(this, dwn);
+                        });
+                    }
+                }
+
+                document.querySelectorAll('.rec-card').forEach(function(card) {
+                    card.addEventListener('click', function() {
+                        var name = this.dataset.name;
+                        if (name) navigateTo('detail', name);
+                    });
+                });
+            }
+
+            function renderProfile() {
+                document.getElementById('profile-name').textContent = PROFILE.name;
+                document.getElementById('profile-bio').textContent = PROFILE.bio;
+                document.getElementById('social-links').innerHTML = PROFILE.links.map(function(l) {
+                    return '<a href="' + l.url + '" target="_blank" class="social-link" rel="noopener"><i class="' + l
+                        .icon + '"></i> ' + l.label + '</a>';
+                }).join('');
+                updateDailyVisitor();
+            }
+
+            async function updateDailyVisitor() {
+                try {
+                    var count = await getDailyVisitorCount();
+                    if (dailyCountEl) dailyCountEl.textContent = count;
+                } catch (e) {
+                    if (dailyCountEl) dailyCountEl.textContent = '?';
+                }
+            }
+
+            // ============================================================
+            // FETCH DATA DARI GITHUB
+            // ============================================================
+            function getCachedList() {
+                var raw = localStorage.getItem(CACHE_KEY_LIST);
+                if (!raw) return null;
+                try {
+                    var data = JSON.parse(raw);
+                    if (Date.now() - data.t < CACHE_TIME_LIST) {
+                        return data.posts;
+                    }
+                    return null;
+                } catch (e) { return null; }
+            }
+
+            function getCachedListFallback() {
+                var raw = localStorage.getItem(CACHE_KEY_LIST);
+                if (!raw) return null;
+                try {
+                    var data = JSON.parse(raw);
+                    return data.posts;
+                } catch (e) { return null; }
+            }
+
+            function setCachedList(posts) {
+                localStorage.setItem(CACHE_KEY_LIST, JSON.stringify({ t: Date.now(), posts: posts }));
+            }
+
+            function getCachedContent(postName) {
+                var key = CACHE_KEY_CONTENT_PREFIX + postName;
+                var raw = localStorage.getItem(key);
+                if (!raw) return null;
+                try {
+                    var data = JSON.parse(raw);
+                    if (Date.now() - data.t < CACHE_TIME_CONTENT) {
+                        return data.content;
+                    }
+                    return null;
+                } catch (e) { return null; }
+            }
+
+            function getCachedContentFallback(postName) {
+                var key = CACHE_KEY_CONTENT_PREFIX + postName;
+                var raw = localStorage.getItem(key);
+                if (!raw) return null;
+                try {
+                    var data = JSON.parse(raw);
+                    return data.content;
+                } catch (e) { return null; }
+            }
+
+            function setCachedContent(postName, content) {
+                var key = CACHE_KEY_CONTENT_PREFIX + postName;
+                localStorage.setItem(key, JSON.stringify({ t: Date.now(), content: content }));
+            }
+
+            async function fetchPostList() {
+                var cached = getCachedList();
+                if (cached) { postsData = cached; return; }
+
+                var apiUrl = 'https://api.github.com/repos/' + GITHUB_REPO + '/contents/posts';
+                try {
+                    var res = await fetch(apiUrl);
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    var files = await res.json();
+                    var mdFiles = files.filter(function(f) { return f.name.endsWith('.md'); });
+                    if (!mdFiles.length) throw new Error('Tidak ada file .md');
+                    postsData = mdFiles.map(function(f) { return { filename: f.name, name: f.name.replace('.md', ''),
+                            download_url: f.download_url }; });
+                    setCachedList(postsData);
+                } catch (err) {
+                    var fallback = getCachedListFallback();
+                    if (fallback && fallback.length) {
+                        console.warn('⚠️ Gagal fetch list, pakai cache fallback.');
+                        postsData = fallback;
+                        return;
+                    }
+                    throw new Error('Gagal mengambil daftar postingan dan tidak ada cache.');
+                }
+            }
+
+            function parseFrontmatter(md) {
+                var m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
+                if (!m) return { metadata: {}, content: md };
+                var meta = {};
+                m[1].split('\n').forEach(function(line) {
+                    var i = line.indexOf(':');
+                    if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim().replace(/^["']|["']$/g,
+                        '');
+                });
+                return { metadata: meta, content: m[2] };
+            }
+
+            async function fetchPost(p) {
+                var cachedContent = getCachedContent(p.name);
+                if (cachedContent) {
+                    var parsed = parseFrontmatter(cachedContent);
+                    var html = marked.parse(parsed.content);
+                    return { name: p.name, metadata: parsed.metadata, content: parsed.content, html: html,
+                        lastModified: null, fromCache: true };
+                }
+
+                if (!p.download_url) {
+                    var fallbackContent = getCachedContentFallback(p.name);
+                    if (fallbackContent) {
+                        var parsed2 = parseFrontmatter(fallbackContent);
+                        var html2 = marked.parse(parsed2.content);
+                        return { name: p.name, metadata: parsed2.metadata, content: parsed2.content, html: html2,
+                            lastModified: null, fromCache: true };
+                    }
+                    return { name: p.name, metadata: {}, content: '', html: '<p>Konten tidak tersedia.</p>',
+                        lastModified: null };
+                }
+
+                try {
+                    var r = await fetch(p.download_url);
+                    if (!r.ok) throw new Error('fail');
+                    var md = await r.text();
+                    setCachedContent(p.name, md);
+                    var parsed3 = parseFrontmatter(md);
+                    var html3 = marked.parse(parsed3.content);
+                    var lastModified = r.headers.get('Last-Modified');
+                    return { name: p.name, metadata: parsed3.metadata, content: parsed3.content, html: html3,
+                        lastModified: lastModified, fromCache: false };
+                } catch (err) {
+                    var fallbackContent2 = getCachedContentFallback(p.name);
+                    if (fallbackContent2) {
+                        var parsed4 = parseFrontmatter(fallbackContent2);
+                        var html4 = marked.parse(parsed4.content);
+                        return { name: p.name, metadata: parsed4.metadata, content: parsed4.content, html: html4,
+                            lastModified: null, fromCache: true };
+                    }
+                    return { name: p.name, metadata: {}, content: '', html: '<p>Gagal memuat konten.</p>',
+                        lastModified: null };
+                }
+            }
+
+            function fixImageUrl(url) {
+                if (!url) return '';
+                if (url.includes('github.com') && !url.includes('raw.githubusercontent.com')) {
+                    url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                return url;
+            }
+
+            function getExcerpt(c) {
+                if (!c) return '';
+                var t = c.replace(/[#*`>\[\]()!|]/g, '').replace(/\n/g, ' ').trim();
+                if (t.length > 80) t = t.slice(0, 80) + '...';
+                return t;
+            }
+
+            function formatDate(d) {
+                if (!d) return '';
+                var dt = new Date(d);
+                if (isNaN(dt.getTime())) return '';
+                var m = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+                return dt.getDate() + ' ' + m[dt.getMonth()] + ' ' + dt.getFullYear();
+            }
+
+            // ============================================================
+            // RENDER HOME (grid + carousel)
+            // ============================================================
+            function getAllKategori() {
+                var k = new Set();
+                fetchedPosts.forEach(function(p) {
+                    var kat = p.metadata.kategori || '';
+                    if (kat) k.add(kat);
+                });
+                return Array.from(k).sort();
+            }
+
+            function renderCategoryBar() {
+                var kats = getAllKategori();
+                var html = '<span class="category-chip' + (!activeKatFilter ? ' active' : '') +
+                    '" data-kat="" role="tab" aria-selected="' + (!activeKatFilter ? 'true' : 'false') + '"><i class="fas fa-globe"></i> Semua</span>';
+                kats.forEach(function(kat) {
+                    html += '<span class="category-chip' + (activeKatFilter === kat ? ' active' : '') +
+                        '" data-kat="' + kat + '" role="tab" aria-selected="' + (activeKatFilter === kat ?
+                            'true' : 'false') + '"><i class="fas fa-tag"></i> ' + kat + '</span>';
+                });
+                if (activeKatFilter) html +=
+                    '<button class="reset-filter" id="reset-filter"><i class="fas fa-times"></i> Hapus filter</button>';
+                categoryBar.innerHTML = html;
+                categoryBar.querySelectorAll('.category-chip').forEach(function(chip) {
+                    chip.addEventListener('click', function() {
+                        activeKatFilter = chip.dataset.kat || null;
+                        resetAndApplyFilters();
+                        renderCategoryBar();
+                    });
+                });
+                var resetBtn = document.getElementById('reset-filter');
+                if (resetBtn) resetBtn.addEventListener('click', function() { activeKatFilter = null;
+                    resetAndApplyFilters();
+                    renderCategoryBar(); });
+            }
+
+            function getFilteredPosts() {
+                var q = searchInput.value.trim().toLowerCase();
+                var f = fetchedPosts;
+                if (activeKatFilter) f = f.filter(function(p) { return (p.metadata.kategori || '') === activeKatFilter; });
+                if (q) f = f.filter(function(p) {
+                    var t = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
+                    return t.includes(q);
+                });
+                return f;
+            }
+
+            function sortPosts(posts) {
+                var sortBy = sortSelect.value;
+                var sorted = posts.slice();
+                var getTime = function(p) {
+                    var d = p.metadata.tanggal || p.metadata.date || p.lastModified;
+                    if (!d) return 0;
+                    var t = new Date(d);
+                    return isNaN(t.getTime()) ? 0 : t.getTime();
+                };
+                switch (sortBy) {
+                    case 'terbaru':
+                        sorted.sort(function(a, b) { return getTime(b) - getTime(a); });
+                        break;
+                    case 'terlama':
+                        sorted.sort(function(a, b) { return getTime(a) - getTime(b); });
+                        break;
+                    case 'az':
+                        sorted.sort(function(a, b) {
+                            var tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
+                            var tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
+                            return tA.localeCompare(tB);
+                        });
+                        break;
+                    case 'za':
+                        sorted.sort(function(a, b) {
+                            var tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
+                            var tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
+                            return tB.localeCompare(tA);
+                        });
+                        break;
+                }
+                return sorted;
+            }
+
+            function resetAndApplyFilters() {
+                currentDisplayCount = 0;
+                applyFilters();
+            }
+
+            function applyFilters() {
+                var filtered = getFilteredPosts();
+                filtered = sortPosts(filtered);
+                if (activeKatFilter) {
+                    filterIndicator.classList.remove('hidden');
+                    filterIndicator.innerHTML =
+                        '<i class="fas fa-filter"></i> Kategori: <strong>' + activeKatFilter + '</strong> (' +
+                        filtered.length + ' hasil)';
+                } else filterIndicator.classList.add('hidden');
+                currentDisplayCount = Math.min(ITEMS_PER_PAGE, filtered.length);
+                displayPosts(filtered.slice(0, currentDisplayCount));
+                renderLoadMoreButton(filtered.length);
+            }
+
+            function displayPosts(posts) {
+                postContainer.innerHTML = posts.length ? posts.map(function(p, i) { return cardHTML(p, i); }).join('') :
+                    '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
+                attachCardEvents();
+            }
+
+            function renderLoadMoreButton(t) {
+                if (currentDisplayCount < t) {
+                    loadMoreContainer.innerHTML =
+                        '<button class="load-more-btn" id="load-more-btn"><i class="fas fa-chevron-down"></i> Muat Lebih Banyak (' +
+                        (t - currentDisplayCount) + ')</button>';
+                    document.getElementById('load-more-btn').addEventListener('click', loadMorePosts);
+                } else {
+                    loadMoreContainer.innerHTML = '';
+                }
+            }
+
+            function loadMorePosts() {
+                var f = getFilteredPosts();
+                f = sortPosts(f);
+                var n = Math.min(currentDisplayCount + ITEMS_PER_PAGE, f.length);
+                var newPosts = f.slice(currentDisplayCount, n);
+                currentDisplayCount = n;
+                newPosts.forEach(function(p, i) {
+                    var card = cardHTML(p, i);
+                    postContainer.insertAdjacentHTML('beforeend', card);
+                });
+                attachCardEvents();
+                renderLoadMoreButton(f.length);
+            }
+
+            function cardHTML(post, index) {
+                var t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
+                var img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
+                var kategori = post.metadata.kategori || '';
+                var ver = post.metadata.versi || post.metadata.version || '';
+                var excerpt = getExcerpt(post.content);
+                var delay = index * 0.04 + 's';
+
+                var badges = [];
+                if (post.metadata.badges) {
+                    if (Array.isArray(post.metadata.badges)) {
+                        badges = post.metadata.badges;
+                    } else {
+                        badges = post.metadata.badges.split(',').map(function(b) { return b.trim(); }).filter(function(b) {
+                            return b.length > 0; });
+                    }
+                }
+
+                function getBadgeHTML(badgeText) {
+                    var text = badgeText.trim();
+                    var lower = text.toLowerCase();
+                    var className = 'badge-custom';
+                    var icon = 'fa-tag';
+                    if (lower === 'premium') { className = 'badge-premium';
+                        icon = 'fa-crown'; } else if (lower === 'vip') { className = 'badge-vip';
+                        icon = 'fa-star'; } else if (lower === 'no ads' || lower === 'noads' || lower ===
+                        'tanpa iklan' || lower === 'no iklan') { className = 'badge-noads';
+                        icon = 'fa-ban'; } else if (lower === 'unlocked' || lower === 'unlock') { className =
+                            'badge-unlocked';
+                        icon = 'fa-unlock'; }
+                    return '<span class="' + className + '"><i class="fas ' + icon + '"></i> ' + text + '</span>';
+                }
+
+                var badgesHtml = badges.map(getBadgeHTML).join('');
+
+                var imgTag = img ?
+                    '<img src="' + img + '" alt="' + t + '" loading="lazy" onerror="this.parentElement.classList.add(\'error\')">' :
+                    '';
+                var versionBadge = ver ? '<span class="version-badge-img"><i class="fas fa-code-branch"></i> v' + ver +
+                    '</span>' :
+                    '';
+
+                return '<div class="post-card" data-name="' + post.name + '" style="animation-delay:' + delay + ';">' +
+                    '<div class="card-img' + (img ? '' : ' error') + '">' + imgTag +
+                    '<span class="placeholder-icon"><i class="fas fa-box-open"></i></span>' + versionBadge + '</div>' +
+                    '<div class="card-body">' +
+                    '<div class="card-title">' + t + '</div>' +
+                    '<div class="card-meta">' +
+                    (kategori ? '<span class="badge" data-kat="' + kategori + '" role="button"><i class="fas fa-folder"></i> ' +
+                        kategori + '</span>' : '') +
+                    badgesHtml +
+                    '</div>' +
+                    (excerpt ? '<p class="card-excerpt">' + excerpt + '</p>' : '') +
+                    '</div>' +
+                    '</div>';
+            }
+
+            function attachCardEvents() {
+                document.querySelectorAll('.post-card').forEach(function(c) {
+                    c.addEventListener('click', function(e) {
+                        if (e.target.closest('.badge') || e.target.closest('.badge-premium') ||
+                            e.target.closest('.badge-vip') || e.target.closest('.badge-noads') ||
+                            e.target.closest('.badge-unlocked') || e.target.closest('.badge-custom')) return;
+                        var name = this.dataset.name;
+                        if (name) navigateTo('detail', name);
+                    });
+                });
+                document.querySelectorAll('.badge').forEach(function(b) {
+                    b.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        activeKatFilter = this.dataset.kat;
+                        searchInput.value = '';
+                        resetAndApplyFilters();
+                        renderCategoryBar();
+                    });
+                });
+            }
+
+            function stopCarousel() {
+                if (carouselInterval) { clearInterval(carouselInterval);
+                    carouselInterval = null; }
+            }
+
+            function startCarousel() {
+                stopCarousel();
+                if (totalPopularSlides === 0) return;
+                updateCarousel(0);
+                carouselInterval = setInterval(function() {
+                    currentSlide = (currentSlide + 1) % totalPopularSlides;
+                    updateCarousel(currentSlide);
+                }, 4000);
+            }
+
+            function updateCarousel(i) {
+                var slides = document.querySelectorAll('.carousel-slide');
+                slides.forEach(function(s, idx) { s.classList.toggle('active', idx === i); });
+                document.querySelectorAll('.carousel-counter').forEach(function(c, idx) {
+                    c.textContent = (i + 1) + '/' + totalPopularSlides;
+                });
+            }
+
+            function renderPopularSection() {
+                if (!topPopularPosts.length) {
+                    carouselTrack.innerHTML = '';
+                    totalPopularSlides = 0;
+                    return;
+                }
+                var pop = topPopularPosts.slice(0, 4);
+                totalPopularSlides = pop.length;
+                carouselTrack.innerHTML = pop.map(function(p, i) {
+                    var img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
+                    var title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
+                    return '<div class="carousel-slide' + (i === 0 ? ' active' : '') + '" data-name="' + p.name +
+                        '">' + (img ? '<img src="' + img + '" alt="' + title +
+                        '" loading="lazy" onerror="this.style.display=\'none\'">' : '') +
+                        '<div class="slide-overlay"><div class="slide-title">' + title +
+                        '</div><span class="carousel-counter">' + (i + 1) + '/' + pop.length + '</span></div></div>';
+                }).join('');
+                document.querySelectorAll('.carousel-slide').forEach(function(s) {
+                    s.addEventListener('click', function() {
+                        var name = this.dataset.name;
+                        if (name) navigateTo('detail', name);
+                    });
+                });
+            }
+
+            async function sortPostsByView() {
+                var viewPromises = fetchedPosts.map(function(p) { return getPostViewCount(p.name, false); });
+                var views = await Promise.all(viewPromises);
+                var postsWithViews = fetchedPosts.map(function(p, i) { var o = Object.assign({}, p);
+                    o.viewCount = views[i] || 0; return o; });
+                postsWithViews.sort(function(a, b) { return (b.viewCount || 0) - (a.viewCount || 0); });
+
+                var hasViewData = postsWithViews.some(function(p) { return p.viewCount > 0; });
+                if (!hasViewData) {
+                    var fallback = fetchedPosts.filter(function(p) { return p.metadata.populer && p.metadata.populer
+                            .toLowerCase() === 'true'; });
+                    if (fallback.length === 0) fallback = fetchedPosts.slice(0, 4);
+                    topPopularPosts = fallback;
+                } else {
+                    topPopularPosts = postsWithViews;
+                }
+            }
+
+            async function renderHome() {
+                postContainer.innerHTML = '<div class="spinner"></div>';
+                loadMoreContainer.innerHTML = '';
+                categoryBar.innerHTML = '';
+                carouselTrack.innerHTML = '';
+                stopCarousel();
+                try {
+                    await fetchPostList();
+                    if (!postsData.length) {
+                        postContainer.innerHTML = '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
+                        return;
+                    }
+                    fetchedPosts = await Promise.all(postsData.map(function(p) { return fetchPost(p); }));
+                    await sortPostsByView();
+                    renderPopularSection();
+                    renderCategoryBar();
+                    resetAndApplyFilters();
+                    startCarousel();
+                    updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.', LOGO_URL, 'https://destaseomods.web.id/');
+                } catch (err) {
+                    postContainer.innerHTML = '<div class="error-text">⚠️ Gagal memuat data. Coba refresh halaman. <br><small>' +
+                        err.message + '</small></div>';
+                }
+            }
+
+            // ============================================================
+            // SCREENSHOT GALLERY
+            // ============================================================
+            function buildScreenshotGallery(str) {
+                if (!str) return '';
+                var urls = str.split(',').map(function(u) { return fixImageUrl(u.trim()); }).filter(function(u) { return u
+                        .length > 0; });
+                if (urls.length === 0) return '';
+                var lim = urls.slice(0, 10);
+                var urlsAttr = urls.map(function(u) { return u.replace(/"/g, '&quot;'); }).join('|||');
+                return '<div class="screenshot-scroll" data-all-urls="' + urlsAttr + '">' +
+                    lim.map(function(u, i) { return '<img src="' + u +
+                        '" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox(this, ' + i +
+                        ')">'; }).join('') +
+                    '</div>';
+            }
+
+            window.openLightbox = function(imgEl, index) {
+                var container = imgEl.closest('.screenshot-scroll');
+                if (!container) return;
+                var allUrlsStr = container.dataset.allUrls || '';
+                if (!allUrlsStr) return;
+                var allUrls = allUrlsStr.split('|||');
+                if (allUrls.length === 0) return;
+                var existing = document.querySelector('.lightbox');
+                if (existing) existing.remove();
+
+                var lb = document.createElement('div');
+                lb.className = 'lightbox';
+                lb.innerHTML = '' +
+                    '<button class="lightbox-close" aria-label="Tutup"><i class="fas fa-times"></i></button>' +
+                    '<button class="lightbox-prev" aria-label="Sebelumnya"><i class="fas fa-chevron-left"></i></button>' +
+                    '<button class="lightbox-next" aria-label="Berikutnya"><i class="fas fa-chevron-right"></i></button>' +
+                    '<img src="' + allUrls[index] + '" alt="Screenshot" />' +
+                    '<div class="lightbox-counter">' + (index + 1) + ' / ' + allUrls.length + '</div>';
+                document.body.appendChild(lb);
+
+                var currentIndex = index;
+                var img = lb.querySelector('img');
+                var counter = lb.querySelector('.lightbox-counter');
+
+                function updateImage(i) {
+                    if (i < 0) i = allUrls.length - 1;
+                    if (i >= allUrls.length) i = 0;
+                    currentIndex = i;
+                    img.src = allUrls[currentIndex];
+                    counter.textContent = (currentIndex + 1) + ' / ' + allUrls.length;
+                }
+
+                lb.querySelector('.lightbox-close').addEventListener('click', function(e) { e.stopPropagation();
+                    lb.remove(); });
+                lb.querySelector('.lightbox-prev').addEventListener('click', function(e) { e.stopPropagation();
+                    updateImage(currentIndex - 1); });
+                lb.querySelector('.lightbox-next').addEventListener('click', function(e) { e.stopPropagation();
+                    updateImage(currentIndex + 1); });
+
+                lb.addEventListener('click', function(e) {
+                    if (e.target === lb) lb.remove();
+                });
+
+                function keyHandler(e) {
+                    if (e.key === 'Escape') { lb.remove();
+                        document.removeEventListener('keydown', keyHandler); }
+                    if (e.key === 'ArrowLeft') { e.preventDefault();
+                        updateImage(currentIndex - 1); }
+                    if (e.key === 'ArrowRight') { e.preventDefault();
+                        updateImage(currentIndex + 1); }
+                }
+                document.addEventListener('keydown', keyHandler);
+
+                var touchStartX = 0;
+                lb.addEventListener('touchstart', function(e) {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+                lb.addEventListener('touchend', function(e) {
+                    var diff = touchStartX - e.changedTouches[0].screenX;
+                    if (Math.abs(diff) > 40) {
+                        if (diff > 0) updateImage(currentIndex + 1);
+                        else updateImage(currentIndex - 1);
+                    }
+                }, { passive: true });
+            };
+
+            // ============================================================
+            // SITEMAP GENERATOR (PATH-BASED)
+            // ============================================================
+            async function generateSitemap() {
+                if (window.location.search !== '?sitemap') return;
+                var baseUrl = 'https://destaseomods.web.id';
+                var urls = [baseUrl];
+                try {
+                    var apiUrl = 'https://api.github.com/repos/' + GITHUB_REPO + '/contents/posts';
+                    var res = await fetch(apiUrl);
+                    if (res.ok) {
+                        var files = await res.json();
+                        var mdFiles = files.filter(function(f) { return f.name.endsWith('.md'); });
+                        mdFiles.forEach(function(f) {
+                            var name = f.name.replace('.md', '');
+                            urls.push(baseUrl + '/detail/' + encodeURIComponent(name));
+                        });
+                    }
+                } catch (e) {}
+                var sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+                    urls.map(function(u) { return '  <url><loc>' + u + '</loc><lastmod>' + new Date().toISOString()
+                            .split('T')[0] + '</lastmod></url>'; }).join('\n') +
+                    '\n</urlset>';
+                document.body.innerHTML =
+                    '<pre style="color:#fff;background:#111;padding:20px;font-family:monospace;">' + sitemap.replace(/</
+                        g, '&lt;').replace(/>/g, '&gt;') + '</pre>';
+                throw new Error('SITEMAP_DISPLAY');
+            }
+
+            // ============================================================
+            // HANDLE POPSTATE
+            // ============================================================
+            window.addEventListener('popstate', function(e) {
+                var route = getRoute();
+                renderPage(route.page, route.postName);
+            });
+
+            // ============================================================
+            // START APLIKASI
+            // ============================================================
+            async function init() {
+                try {
+                    await generateSitemap();
+                } catch (e) {
+                    if (e.message === 'SITEMAP_DISPLAY') return;
+                }
+                await renderHome();
+                var route = getRoute();
+                renderPage(route.page, route.postName);
+            }
+
+            init();
+        })();
+    </script>
+</body>
+</html>
