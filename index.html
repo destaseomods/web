@@ -1818,13 +1818,43 @@
 
     <script>
         (function() {
-            const GITHUB_REPO = "destaseomods/web";
-            const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
-            const AD_INTERVAL = 5 * 60 * 1000; // 5 menit
-            const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
-            const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
-            const QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
-            const PROFILE = {
+            // ============================================================
+            // 🔥 REDIRECT HASH-BASED URL KE PATH-BASED (UNTUK LINK LAMA)
+            // ============================================================
+            (function redirectOldHash() {
+                var hash = window.location.hash;
+                if (!hash || hash === '#home') {
+                    if (hash === '#home' || hash === '') {
+                        if (window.location.pathname === '/' || window.location.pathname === '/index.html') return;
+                        window.location.replace('/');
+                    }
+                    return;
+                }
+                var detailMatch = hash.match(/^#detail\/(.+)$/);
+                if (detailMatch) {
+                    var postName = detailMatch[1];
+                    window.location.replace('/detail/' + encodeURIComponent(postName));
+                    return;
+                }
+                if (hash === '#search') {
+                    window.location.replace('/search');
+                    return;
+                }
+                if (hash === '#profile') {
+                    window.location.replace('/profile');
+                    return;
+                }
+                window.location.replace('/');
+            })();
+
+            // ===== KONFIGURASI =====
+            var GITHUB_REPO = "destaseomods/web";
+            var AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
+            var AD_INTERVAL = 5 * 60 * 1000; // 5 menit
+            var LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
+            var AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
+            var QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
+            var PROFILE = {
                 avatar: AVATAR_URL,
                 name: "Destaseo Mods",
                 bio: "Premium modder & content creator.",
@@ -1835,34 +1865,34 @@
             };
 
             // ===== Cache configuration =====
-            const CACHE_KEY_LIST = 'destaseo_post_list_v3';
-            const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
-            const CACHE_TIME_LIST = 60 * 1000; // 1 menit
-            const CACHE_TIME_CONTENT = 60 * 1000; // 1 menit
+            var CACHE_KEY_LIST = 'destaseo_post_list_v3';
+            var CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
+            var CACHE_TIME_LIST = 60 * 1000; // 1 menit
+            var CACHE_TIME_CONTENT = 60 * 1000; // 1 menit
 
             // ===== Fungsi untuk mendapatkan IP publik =====
             async function getUserIP() {
-                const ipCacheKey = 'user_ip_cache';
-                const ipCacheExpiry = 60 * 60 * 1000; // 1 jam
+                var ipCacheKey = 'user_ip_cache';
+                var ipCacheExpiry = 60 * 60 * 1000;
                 try {
-                    const cached = localStorage.getItem(ipCacheKey);
+                    var cached = localStorage.getItem(ipCacheKey);
                     if (cached) {
-                        const data = JSON.parse(cached);
+                        var data = JSON.parse(cached);
                         if (Date.now() - data.t < ipCacheExpiry) {
                             return data.ip;
                         }
                     }
                 } catch (_) {}
                 try {
-                    const controller = new AbortController();
-                    const timeout = setTimeout(() => controller.abort(), 2000);
-                    const res = await fetch('https://api.ipify.org?format=json', { signal: controller.signal });
+                    var controller = new AbortController();
+                    var timeout = setTimeout(function() { controller.abort(); }, 2000);
+                    var res = await fetch('https://api.ipify.org?format=json', { signal: controller.signal });
                     clearTimeout(timeout);
                     if (res.ok) {
-                        const data = await res.json();
-                        const ip = data.ip || null;
+                        var data = await res.json();
+                        var ip = data.ip || null;
                         if (ip) {
-                            localStorage.setItem(ipCacheKey, JSON.stringify({ ip, t: Date.now() }));
+                            localStorage.setItem(ipCacheKey, JSON.stringify({ ip: ip, t: Date.now() }));
                             return ip;
                         }
                     }
@@ -1872,18 +1902,18 @@
 
             // ===== Iklan: per IP =====
             async function startDownloadWithAd(btn, url) {
-                const ip = await getUserIP();
-                const storageKey = ip ? 'lastAdClickTimestamp_' + ip : 'lastAdClickTimestamp';
-                const now = Date.now();
-                const last = localStorage.getItem(storageKey);
+                var ip = await getUserIP();
+                var storageKey = ip ? 'lastAdClickTimestamp_' + ip : 'lastAdClickTimestamp';
+                var now = Date.now();
+                var last = localStorage.getItem(storageKey);
 
                 if (!last || (now - parseInt(last)) > AD_INTERVAL) {
                     localStorage.setItem(storageKey, now.toString());
                     if (AD_URL) window.open(AD_URL, '_blank');
-                    let sec = 5;
-                    btn.textContent = `⏳ ${sec} detik`;
+                    var sec = 5;
+                    btn.textContent = '⏳ ' + sec + ' detik';
                     btn.classList.add('counting');
-                    const timer = setInterval(() => {
+                    var timer = setInterval(function() {
                         sec--;
                         if (sec <= 0) {
                             clearInterval(timer);
@@ -1891,7 +1921,7 @@
                             btn.classList.remove('counting');
                             window.open(url, '_blank');
                         } else {
-                            btn.textContent = `⏳ ${sec} detik`;
+                            btn.textContent = '⏳ ' + sec + ' detik';
                         }
                     }, 1000);
                 } else {
@@ -1900,11 +1930,11 @@
             }
 
             // ===== Load script iklan hanya di halaman detail =====
-            let adScriptLoaded = false;
+            var adScriptLoaded = false;
 
             function loadAdScript() {
                 if (adScriptLoaded) return;
-                const script = document.createElement('script');
+                var script = document.createElement('script');
                 script.src = 'https://cabinetavidgrasp.com/c4/11/28/c4112850e63eed959d261d84abff70ee.js';
                 script.async = true;
                 document.head.appendChild(script);
@@ -1914,11 +1944,11 @@
             // ===== SEO: update meta tags dynamically =====
             function updateMetaTags(title, description, image, url) {
                 document.title = title || "Destaseo Mods • Premium Mod APK";
-                const desc = description || "Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.";
-                const img = image || "https://avatars.githubusercontent.com/u/189899710?v=4";
-                const link = url || window.location.href;
+                var desc = description || "Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.";
+                var img = image || "https://avatars.githubusercontent.com/u/189899710?v=4";
+                var link = url || window.location.href;
 
-                let metaDesc = document.querySelector('meta[name="description"]');
+                var metaDesc = document.querySelector('meta[name="description"]');
                 if (!metaDesc) {
                     metaDesc = document.createElement('meta');
                     metaDesc.name = 'description';
@@ -1926,7 +1956,7 @@
                 }
                 metaDesc.content = desc;
 
-                let ogTitle = document.querySelector('meta[property="og:title"]');
+                var ogTitle = document.querySelector('meta[property="og:title"]');
                 if (!ogTitle) {
                     ogTitle = document.createElement('meta');
                     ogTitle.setAttribute('property', 'og:title');
@@ -1934,7 +1964,7 @@
                 }
                 ogTitle.content = title;
 
-                let ogDesc = document.querySelector('meta[property="og:description"]');
+                var ogDesc = document.querySelector('meta[property="og:description"]');
                 if (!ogDesc) {
                     ogDesc = document.createElement('meta');
                     ogDesc.setAttribute('property', 'og:description');
@@ -1942,7 +1972,7 @@
                 }
                 ogDesc.content = desc;
 
-                let ogImage = document.querySelector('meta[property="og:image"]');
+                var ogImage = document.querySelector('meta[property="og:image"]');
                 if (!ogImage) {
                     ogImage = document.createElement('meta');
                     ogImage.setAttribute('property', 'og:image');
@@ -1950,7 +1980,7 @@
                 }
                 ogImage.content = img;
 
-                let ogUrl = document.querySelector('meta[property="og:url"]');
+                var ogUrl = document.querySelector('meta[property="og:url"]');
                 if (!ogUrl) {
                     ogUrl = document.createElement('meta');
                     ogUrl.setAttribute('property', 'og:url');
@@ -1958,7 +1988,7 @@
                 }
                 ogUrl.content = link;
 
-                let twTitle = document.querySelector('meta[name="twitter:title"]');
+                var twTitle = document.querySelector('meta[name="twitter:title"]');
                 if (!twTitle) {
                     twTitle = document.createElement('meta');
                     twTitle.name = 'twitter:title';
@@ -1966,7 +1996,7 @@
                 }
                 twTitle.content = title;
 
-                let twDesc = document.querySelector('meta[name="twitter:description"]');
+                var twDesc = document.querySelector('meta[name="twitter:description"]');
                 if (!twDesc) {
                     twDesc = document.createElement('meta');
                     twDesc.name = 'twitter:description';
@@ -1974,7 +2004,7 @@
                 }
                 twDesc.content = desc;
 
-                let twImage = document.querySelector('meta[name="twitter:image"]');
+                var twImage = document.querySelector('meta[name="twitter:image"]');
                 if (!twImage) {
                     twImage = document.createElement('meta');
                     twImage.name = 'twitter:image';
@@ -1982,7 +2012,7 @@
                 }
                 twImage.content = img;
 
-                let canonical = document.querySelector('link[rel="canonical"]');
+                var canonical = document.querySelector('link[rel="canonical"]');
                 if (!canonical) {
                     canonical = document.createElement('link');
                     canonical.rel = 'canonical';
@@ -1994,10 +2024,10 @@
             // ============================================================
             // PARTIKEL
             // ============================================================
-            const canvas = document.getElementById('particles');
-            const ctx = canvas.getContext('2d');
-            let particles = [];
-            const maxParticles = 70;
+            var canvas = document.getElementById('particles');
+            var ctx = canvas.getContext('2d');
+            var particles = [];
+            var maxParticles = 70;
 
             function resizeCanvas() {
                 canvas.width = window.innerWidth;
@@ -2006,34 +2036,32 @@
             window.addEventListener('resize', resizeCanvas);
             resizeCanvas();
 
-            class Particle {
-                constructor() { this.reset(); }
-                reset() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.vx = (Math.random() - 0.5) * 0.5;
-                    this.vy = (Math.random() - 0.5) * 0.5;
-                    this.radius = Math.random() * 2.5 + 1;
-                    this.opacity = Math.random() * 0.5 + 0.2;
-                }
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(168,127,255,${this.opacity})`;
-                    ctx.fill();
-                }
-            }
-            for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
+            function Particle() { this.reset(); }
+            Particle.prototype.reset = function() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2.5 + 1;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            };
+            Particle.prototype.update = function() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            };
+            Particle.prototype.draw = function() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(168,127,255,' + this.opacity + ')';
+                ctx.fill();
+            };
+            for (var i = 0; i < maxParticles; i++) particles.push(new Particle());
 
             function animateParticles() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => { p.update();
+                particles.forEach(function(p) { p.update();
                     p.draw(); });
                 requestAnimationFrame(animateParticles);
             }
@@ -2042,99 +2070,94 @@
             // ============================================================
             // VARIABEL GLOBAL
             // ============================================================
-            const postContainer = document.getElementById('post-container');
-            const carouselTrack = document.getElementById('carousel-track');
-            const loadMoreContainer = document.getElementById('load-more-container');
-            const homeSection = document.getElementById('home-section');
-            const detailSection = document.getElementById('detail-section');
-            const profileSection = document.getElementById('profile-section');
-            const detailContent = document.getElementById('detail-content');
-            const detailBack = document.getElementById('detail-back');
-            const navItems = document.querySelectorAll('.nav-item');
-            const searchBox = document.getElementById('search-box');
-            const searchInput = document.getElementById('search-input');
-            const categoryBar = document.getElementById('category-bar');
-            const sortBar = document.getElementById('sort-bar');
-            const sortSelect = document.getElementById('sort-select');
-            const filterIndicator = document.getElementById('filter-indicator');
-            const telegramBtn = document.getElementById('telegram-btn');
-            const telegramDropdown = document.getElementById('telegram-dropdown');
-            const qrisOverlay = document.getElementById('qris-overlay');
-            const qrisCloseBtn = document.getElementById('qris-close-btn');
-            const qrisDanaBtn = document.getElementById('qris-dana-btn');
-            const qrisDownloadBtn = document.getElementById('qris-download-btn');
-            const dailyCountEl = document.getElementById('daily-count');
+            var postContainer = document.getElementById('post-container');
+            var carouselTrack = document.getElementById('carousel-track');
+            var loadMoreContainer = document.getElementById('load-more-container');
+            var homeSection = document.getElementById('home-section');
+            var detailSection = document.getElementById('detail-section');
+            var profileSection = document.getElementById('profile-section');
+            var detailContent = document.getElementById('detail-content');
+            var detailBack = document.getElementById('detail-back');
+            var navItems = document.querySelectorAll('.nav-item');
+            var searchBox = document.getElementById('search-box');
+            var searchInput = document.getElementById('search-input');
+            var categoryBar = document.getElementById('category-bar');
+            var sortBar = document.getElementById('sort-bar');
+            var sortSelect = document.getElementById('sort-select');
+            var filterIndicator = document.getElementById('filter-indicator');
+            var telegramBtn = document.getElementById('telegram-btn');
+            var telegramDropdown = document.getElementById('telegram-dropdown');
+            var qrisOverlay = document.getElementById('qris-overlay');
+            var qrisCloseBtn = document.getElementById('qris-close-btn');
+            var qrisDanaBtn = document.getElementById('qris-dana-btn');
+            var qrisDownloadBtn = document.getElementById('qris-download-btn');
+            var dailyCountEl = document.getElementById('daily-count');
 
-            let postsData = [],
+            var postsData = [],
                 fetchedPosts = [];
-            let activeKatFilter = null;
-            let currentDisplayCount = 0;
-            const ITEMS_PER_PAGE = 10;
-            let carouselInterval = null;
-            let currentSlide = 0;
-            let totalPopularSlides = 0;
-
-            // ==== Data untuk carousel populer ====
-            let topPopularPosts = [];
+            var activeKatFilter = null;
+            var currentDisplayCount = 0;
+            var ITEMS_PER_PAGE = 10;
+            var carouselInterval = null;
+            var currentSlide = 0;
+            var totalPopularSlides = 0;
+            var topPopularPosts = [];
 
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) {
-                const a = document.getElementById('profile-avatar');
-                a.style.backgroundImage = `url('${AVATAR_URL}')`;
+                var a = document.getElementById('profile-avatar');
+                a.style.backgroundImage = 'url(\'' + AVATAR_URL + '\')';
                 a.textContent = '';
             }
 
             // ============================================================
             // COUNTER PER POSTINGAN (CountAPI) dengan parameter increment
             // ============================================================
-            async function getPostViewCount(postName, increment = true) {
-                const storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
-                const today = new Date().toISOString().slice(0, 10);
-                const key = 'destaseomods-' + postName.replace(/[^a-zA-Z0-9]/g, '-');
+            async function getPostViewCount(postName, increment) {
+                if (increment === undefined) increment = true;
+                var storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
+                var today = new Date().toISOString().slice(0, 10);
+                var key = 'destaseomods-' + postName.replace(/[^a-zA-Z0-9]/g, '-');
 
-                let localData = null;
+                var localData = null;
                 try {
-                    const raw = localStorage.getItem(storageKey);
+                    var raw = localStorage.getItem(storageKey);
                     if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
 
-                // Jika increment false dan ada data lokal, langsung return
                 if (!increment && localData) {
                     return localData.count;
                 }
 
-                // Jika increment true dan belum ada hari ini, lakukan hit
                 if (increment && (!localData || localData.date !== today)) {
                     try {
-                        const res = await fetch(`https://countapi.mileshilliard.com/api/v1/hit/${key}`);
+                        var res = await fetch('https://countapi.mileshilliard.com/api/v1/hit/' + key);
                         if (res.ok) {
-                            const data = await res.json();
-                            const count = data.value || 0;
-                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                            var data = await res.json();
+                            var count = data.value || 0;
+                            localStorage.setItem(storageKey, JSON.stringify({ count: count, date: today }));
                             return count;
                         }
                     } catch (e) { /* fallback */ }
-                    const prev = localData ? localData.count : 0;
-                    const count = prev + 1;
-                    localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                    var prev = localData ? localData.count : 0;
+                    var count = prev + 1;
+                    localStorage.setItem(storageKey, JSON.stringify({ count: count, date: today }));
                     return count;
                 }
 
-                // Jika increment false dan tidak ada data lokal, coba GET tanpa hit
                 if (!increment && !localData) {
                     try {
-                        const res = await fetch(`https://countapi.mileshilliard.com/api/v1/get/${key}`);
+                        var res = await fetch('https://countapi.mileshilliard.com/api/v1/get/' + key);
                         if (res.ok) {
-                            const data = await res.json();
-                            const count = data.value || 0;
-                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                            var data = await res.json();
+                            var count = data.value || 0;
+                            localStorage.setItem(storageKey, JSON.stringify({ count: count, date: today }));
                             return count;
                         }
                     } catch (e) { /* fallback */ }
                     return 0;
                 }
 
-                // Fallback: return dari localData
                 return localData ? localData.count : 0;
             }
 
@@ -2142,37 +2165,37 @@
             // DAILY VISITOR COUNTER
             // ============================================================
             async function getDailyVisitorCount() {
-                const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily`;
-                const storageKey = 'daily_visitor';
-                const today = new Date().toISOString().slice(0, 10);
-                let localData = null;
+                var url = 'https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily';
+                var storageKey = 'daily_visitor';
+                var today = new Date().toISOString().slice(0, 10);
+                var localData = null;
                 try {
-                    const raw = localStorage.getItem(storageKey);
+                    var raw = localStorage.getItem(storageKey);
                     if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
                 if (localData && localData.date === today) {
                     return localData.count;
                 }
                 try {
-                    const controller = new AbortController();
-                    const timeout = setTimeout(() => controller.abort(), 2000);
-                    const res = await fetch(url, {
+                    var controller = new AbortController();
+                    var timeout = setTimeout(function() { controller.abort(); }, 2000);
+                    var res = await fetch(url, {
                         method: 'GET',
                         signal: controller.signal,
                         headers: { 'Content-Type': 'application/json' }
                     });
                     clearTimeout(timeout);
                     if (res.ok) {
-                        const data = await res.json();
-                        const count = data.value || data.count || data.views || data.hits || 1;
+                        var data = await res.json();
+                        var count = data.value || data.count || data.views || data.hits || 1;
                         if (typeof count === 'number' && count > 0) {
-                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                            localStorage.setItem(storageKey, JSON.stringify({ count: count, date: today }));
                             return count;
                         }
                     }
                 } catch (e) {}
-                const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
-                const newCount = prevCount + 1;
+                var prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
+                var newCount = prevCount + 1;
                 localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
                 return newCount;
             }
@@ -2180,139 +2203,307 @@
             // ============================================================
             // REKOMENDASI
             // ============================================================
-            function getRecommendations(currentPost, limit = 4) {
+            function getRecommendations(currentPost, limit) {
+                if (limit === undefined) limit = 4;
                 if (!fetchedPosts || fetchedPosts.length === 0) return [];
-                const others = fetchedPosts.filter(p => p.name !== currentPost.name);
+                var others = fetchedPosts.filter(function(p) { return p.name !== currentPost.name; });
                 if (others.length === 0) return [];
-                const currentCategory = currentPost.metadata.kategori || '';
-                const sameCategory = others.filter(p => {
-                    const cat = p.metadata.kategori || '';
+                var currentCategory = currentPost.metadata.kategori || '';
+                var sameCategory = others.filter(function(p) {
+                    var cat = p.metadata.kategori || '';
                     return cat === currentCategory && cat !== '';
                 });
-                const differentCategory = others.filter(p => {
-                    const cat = p.metadata.kategori || '';
+                var differentCategory = others.filter(function(p) {
+                    var cat = p.metadata.kategori || '';
                     return cat !== currentCategory || cat === '';
                 });
-                const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
-                const combined = [...shuffle(sameCategory), ...shuffle(differentCategory)];
+                var shuffle = function(arr) { return arr.sort(function() { return Math.random() - 0.5; }); };
+                var combined = shuffle(sameCategory).concat(shuffle(differentCategory));
                 return combined.slice(0, limit);
             }
 
             // ============================================================
-            // EVENT LISTENER & NAVIGASI
+            // ROUTING (PATH-BASED)
             // ============================================================
-            telegramBtn.addEventListener('click', (e) => { e.stopPropagation();
+            function getRoute() {
+                var path = window.location.pathname;
+                if (path === '/' || path === '/index.html') {
+                    return { page: 'home' };
+                }
+                var detailMatch = path.match(/^\/detail\/(.+)$/);
+                if (detailMatch) {
+                    return { page: 'detail', postName: decodeURIComponent(detailMatch[1]) };
+                }
+                if (path === '/search') return { page: 'search' };
+                if (path === '/profile') return { page: 'profile' };
+                return { page: 'home' };
+            }
+
+            function navigateTo(page, postName) {
+                var url;
+                if (page === 'home') url = '/';
+                else if (page === 'search') url = '/search';
+                else if (page === 'profile') url = '/profile';
+                else if (page === 'detail' && postName) url = '/detail/' + encodeURIComponent(postName);
+                else url = '/';
+
+                if (window.location.pathname !== url) {
+                    window.history.pushState({ page: page, postName: postName }, '', url);
+                }
+                renderPage(page, postName);
+            }
+
+            function renderPage(page, postName) {
+                if (page === 'home') {
+                    showHome();
+                } else if (page === 'search') {
+                    showSearch();
+                } else if (page === 'profile') {
+                    showProfile();
+                } else if (page === 'detail' && postName) {
+                    showDetail(postName);
+                } else {
+                    showHome();
+                }
+                navItems.forEach(function(i) {
+                    var p = i.dataset.page;
+                    var isActive = (p === page) || (page === 'detail' && p === 'home');
+                    i.classList.toggle('active', isActive);
+                });
+            }
+
+            function showHome() {
+                showSection(homeSection);
+                searchBox.classList.add('hidden');
+                categoryBar.classList.remove('hidden');
+                sortBar.classList.remove('hidden');
+                document.getElementById('popular-section').classList.remove('hidden');
+                startCarousel();
+                updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.', LOGO_URL, 'https://destaseomods.web.id/');
+            }
+
+            function showSearch() {
+                showSection(homeSection);
+                searchBox.classList.remove('hidden');
+                categoryBar.classList.remove('hidden');
+                sortBar.classList.add('hidden');
+                document.getElementById('popular-section').classList.add('hidden');
+                stopCarousel();
+                setTimeout(function() { searchInput.focus(); }, 100);
+                updateMetaTags('Cari Mod • Destaseo Mods', 'Cari mod APK premium favorit Anda di Destaseo Mods.', LOGO_URL, 'https://destaseomods.web.id/search');
+            }
+
+            function showProfile() {
+                showSection(profileSection);
+                searchBox.classList.add('hidden');
+                categoryBar.classList.add('hidden');
+                sortBar.classList.add('hidden');
+                document.getElementById('popular-section').classList.add('hidden');
+                filterIndicator.classList.add('hidden');
+                stopCarousel();
+                renderProfile();
+                updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.', AVATAR_URL, 'https://destaseomods.web.id/profile');
+                setTimeout(function() {
+                    var rect = profileSection.getBoundingClientRect();
+                    if (rect.top < 20) {
+                        window.scrollTo({ top: window.scrollY + rect.top - 80, behavior: 'smooth' });
+                    }
+                }, 100);
+            }
+
+            function showSection(s) {
+                [homeSection, detailSection, profileSection].forEach(function(x) { x.classList.add('hidden'); });
+                s.classList.remove('hidden');
+            }
+
+            // ============================================================
+            // EVENT LISTENER
+            // ============================================================
+            telegramBtn.addEventListener('click', function(e) { e.stopPropagation();
                 telegramDropdown.classList.toggle('show'); });
-            document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
-            telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
-            if (qrisDanaBtn) qrisDanaBtn.addEventListener('click', () => qrisOverlay.classList.remove('hidden'));
-            qrisCloseBtn.addEventListener('click', () => qrisOverlay.classList.add('hidden'));
-            qrisOverlay.addEventListener('click', (e) => { if (e.target === qrisOverlay) qrisOverlay.classList.add(
+            document.addEventListener('click', function() { telegramDropdown.classList.remove('show'); });
+            telegramDropdown.addEventListener('click', function(e) { e.stopPropagation(); });
+            if (qrisDanaBtn) qrisDanaBtn.addEventListener('click', function() { qrisOverlay.classList.remove('hidden'); });
+            qrisCloseBtn.addEventListener('click', function() { qrisOverlay.classList.add('hidden'); });
+            qrisOverlay.addEventListener('click', function(e) { if (e.target === qrisOverlay) qrisOverlay.classList.add(
                     'hidden'); });
-            qrisDownloadBtn.addEventListener('click', async () => {
+            qrisDownloadBtn.addEventListener('click', async function() {
                 try {
-                    const r = await fetch(QRIS_URL);
-                    const b = await r.blob();
-                    const u = URL.createObjectURL(b);
-                    const a = document.createElement('a');
+                    var r = await fetch(QRIS_URL);
+                    var b = await r.blob();
+                    var u = URL.createObjectURL(b);
+                    var a = document.createElement('a');
                     a.href = u;
                     a.download = 'qris-destaseo.png';
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(u);
-                } catch { window.open(QRIS_URL, '_blank'); }
+                } catch (e) { window.open(QRIS_URL, '_blank'); }
             });
-            sortSelect.addEventListener('change', () => resetAndApplyFilters());
+            sortSelect.addEventListener('change', function() { resetAndApplyFilters(); });
 
-            function getHashPage() {
-                const h = window.location.hash.slice(1);
-                if (!h || h === 'home') return { page: 'home' };
-                if (h === 'search') return { page: 'search' };
-                if (h === 'profile') return { page: 'profile' };
-                if (h.startsWith('detail/')) return { page: 'detail', postName: h.split('/')[1] };
-                return { page: 'home' };
-            }
+            navItems.forEach(function(i) {
+                i.addEventListener('click', function() {
+                    var page = i.dataset.page;
+                    if (page === 'home') navigateTo('home');
+                    else if (page === 'search') navigateTo('search');
+                    else if (page === 'profile') navigateTo('profile');
+                });
+            });
 
-            function setHash(p, param) {
-                if (p === 'home') window.location.hash = 'home';
-                else if (p === 'search') window.location.hash = 'search';
-                else if (p === 'profile') window.location.hash = 'profile';
-                else if (p === 'detail' && param) window.location.hash = 'detail/' + param;
-            }
+            detailBack.addEventListener('click', function() { navigateTo('home'); });
 
-            function showSection(s) {
-                [homeSection, detailSection, profileSection].forEach(x => x.classList.add('hidden'));
-                s.classList.remove('hidden');
-            }
-
-            function setActiveNav(p) {
-                navItems.forEach(i => i.classList.toggle('active', i.dataset.page === p || (p === 'detail' && i.dataset
-                    .page === 'home')));
-            }
-
-            function navigate(p, postName) {
-                if (p === 'home') {
-                    showSection(homeSection);
-                    searchBox.classList.add('hidden');
-                    categoryBar.classList.remove('hidden');
-                    sortBar.classList.remove('hidden');
-                    document.getElementById('popular-section').classList.remove('hidden');
-                    setActiveNav('home');
-                    startCarousel();
-                    updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.', LOGO_URL, 'https://destaseomods.web.id/');
-                } else if (p === 'search') {
-                    showSection(homeSection);
-                    searchBox.classList.remove('hidden');
-                    categoryBar.classList.remove('hidden');
-                    sortBar.classList.add('hidden');
-                    document.getElementById('popular-section').classList.add('hidden');
-                    setActiveNav('search');
-                    stopCarousel();
-                    setTimeout(() => searchInput.focus(), 100);
-                    updateMetaTags('Cari Mod • Destaseo Mods', 'Cari mod APK premium favorit Anda di Destaseo Mods.', LOGO_URL, 'https://destaseomods.web.id/#search');
-                } else if (p === 'profile') {
-                    showSection(profileSection);
-                    searchBox.classList.add('hidden');
-                    categoryBar.classList.add('hidden');
-                    sortBar.classList.add('hidden');
-                    document.getElementById('popular-section').classList.add('hidden');
-                    filterIndicator.classList.add('hidden');
-                    setActiveNav('profile');
-                    stopCarousel();
-                    renderProfile();
-                    updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.', AVATAR_URL, 'https://destaseomods.web.id/#profile');
-                    setTimeout(() => {
-                        const rect = profileSection.getBoundingClientRect();
-                        if (rect.top < 20) {
-                            window.scrollTo({ top: window.scrollY + rect.top - 80, behavior: 'smooth' });
-                        }
-                    }, 100);
-                } else if (p === 'detail' && postName) {
-                    showDetail(postName);
-                    setActiveNav('detail');
-                    searchBox.classList.add('hidden');
-                    categoryBar.classList.add('hidden');
-                    sortBar.classList.add('hidden');
-                    document.getElementById('popular-section').classList.add('hidden');
-                    filterIndicator.classList.add('hidden');
-                    stopCarousel();
+            // ============================================================
+            // SHOW DETAIL
+            // ============================================================
+            async function showDetail(name) {
+                if (!fetchedPosts.length) {
+                    await renderHome();
+                    return showDetail(name);
                 }
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                var post = fetchedPosts.find(function(p) { return p.name === name; });
+                if (!post) {
+                    console.error('❌ Post tidak ditemukan:', name);
+                    navigateTo('home');
+                    return;
+                }
+                var t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
+                var img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
+                var v = post.metadata.versi || post.metadata.version || '?';
+                var s = post.metadata.ukuran || post.metadata.size || '?';
+                var dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
+                var dwn = post.metadata.download || post.metadata.link || '';
+                var kategori = post.metadata.kategori || '';
+                var tags = post.metadata.tag ? post.metadata.tag.split(',').map(function(t) { return t.trim(); }).filter(
+                    function(t) { return t; }) : [];
+                var dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
+                var dateFormatted = formatDate(dateRaw);
+                var screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
+                var galleryHtml = buildScreenshotGallery(screenshots);
+                var hasDownload = dwn && dwn !== '#';
+                var downloadBtn = hasDownload ?
+                    '<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>' :
+                    '<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>';
+                var tagsHtml = tags.length > 0 ?
+                    '<div class="tags-container">' + tags.map(function(tag) { return '<span class="tag-badge"><i class="fas fa-tag"></i> ' + tag + '</span>'; })
+                    .join('') + '</div>' :
+                    '';
+
+                var recommendations = getRecommendations(post, 4);
+                var recHtml = '';
+                if (recommendations.length > 0) {
+                    recHtml = '<div class="recommendations-section">' +
+                        '<h3><i class="fas fa-lightbulb"></i> Rekomendasi untuk Anda</h3>' +
+                        '<div class="rec-grid">';
+                    recommendations.forEach(function(rec) {
+                        var recTitle = rec.metadata.judul || rec.metadata.title || rec.name.replace(
+                            /[-_]/g, ' ');
+                        var recImg = fixImageUrl(rec.metadata.gambar || rec.metadata.image || '');
+                        recHtml += '' +
+                            '<div class="rec-card" data-name="' + rec.name + '">' +
+                            (recImg ? '<img src="' + recImg + '" alt="' + recTitle + '" loading="lazy" onerror="this.style.display=\'none\'">' :
+                                '<div style="height:90px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:2rem;"><i class="fas fa-box"></i></div>') +
+                            '<div class="rec-title">' + recTitle + '</div>' +
+                            '</div>';
+                    });
+                    recHtml += '</div></div>';
+                }
+
+                detailContent.innerHTML = '<div class="spinner"></div>';
+                showSection(detailSection);
+                window.scrollTo({ top: 0 });
+
+                loadAdScript();
+
+                var viewCount = await getPostViewCount(name, true);
+
+                var desc = post.metadata.deskripsi || post.metadata.description || 'Download mod ' + t + ' premium terbaru. Versi ' + v + ', ukuran ' + s + ', developer ' + dev + '.';
+                var detailUrl = 'https://destaseomods.web.id/detail/' + encodeURIComponent(name);
+                updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, detailUrl);
+
+                var articleJson = {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": t,
+                    "description": desc,
+                    "image": img || LOGO_URL,
+                    "author": {
+                        "@type": "Person",
+                        "name": dev
+                    },
+                    "datePublished": dateRaw || new Date().toISOString(),
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": detailUrl
+                    }
+                };
+                var script = document.querySelector('#article-ld-json');
+                if (!script) {
+                    script = document.createElement('script');
+                    script.id = 'article-ld-json';
+                    script.type = 'application/ld+json';
+                    document.head.appendChild(script);
+                }
+                script.textContent = JSON.stringify(articleJson);
+
+                detailContent.innerHTML = '' +
+                    '<div class="detail-header">' +
+                    (img ? '<img src="' + img + '" class="detail-img" alt="' + t + '" onerror="this.style.display=\'none\'">' :
+                        '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>') +
+                    '<h1 class="detail-title">' + t + '</h1>' +
+                    '<div class="detail-meta-grid">' +
+                    '<div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ' + v + '</div>' +
+                    '<div class="meta-item"><i class="fas fa-weight-hanging"></i> <strong>Ukuran</strong> ' + s +
+                    '</div>' +
+                    '<div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ' + dev +
+                    '</div>' +
+                    (kategori ? '<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ' +
+                        kategori + '</div>' : '') +
+                    (dateFormatted ? '<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ' +
+                        dateFormatted + '</div>' : '') +
+                    '<div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ' + viewCount + 'x</div>' +
+                    '</div>' +
+                    galleryHtml +
+                    tagsHtml +
+                    '</div>' +
+                    '<div class="content-box">' + (post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>') +
+                    '</div>' +
+                    downloadBtn +
+                    recHtml;
+
+                if (hasDownload) {
+                    var dBtn = document.getElementById('detail-download-btn');
+                    if (dBtn) {
+                        dBtn.addEventListener('click', async function(e) {
+                            e.preventDefault();
+                            if (this.classList.contains('counting')) return;
+                            await startDownloadWithAd(this, dwn);
+                        });
+                    }
+                }
+
+                document.querySelectorAll('.rec-card').forEach(function(card) {
+                    card.addEventListener('click', function() {
+                        var name = this.dataset.name;
+                        if (name) navigateTo('detail', name);
+                    });
+                });
             }
 
             function renderProfile() {
                 document.getElementById('profile-name').textContent = PROFILE.name;
                 document.getElementById('profile-bio').textContent = PROFILE.bio;
-                document.getElementById('social-links').innerHTML = PROFILE.links.map(l =>
-                    `<a href="${l.url}" target="_blank" class="social-link" rel="noopener"><i class="${l.icon}"></i> ${l.label}</a>`
-                ).join('');
+                document.getElementById('social-links').innerHTML = PROFILE.links.map(function(l) {
+                    return '<a href="' + l.url + '" target="_blank" class="social-link" rel="noopener"><i class="' + l
+                        .icon + '"></i> ' + l.label + '</a>';
+                }).join('');
                 updateDailyVisitor();
             }
 
             async function updateDailyVisitor() {
                 try {
-                    const count = await getDailyVisitorCount();
+                    var count = await getDailyVisitorCount();
                     if (dailyCountEl) dailyCountEl.textContent = count;
                 } catch (e) {
                     if (dailyCountEl) dailyCountEl.textContent = '?';
@@ -2320,13 +2511,13 @@
             }
 
             // ============================================================
-            // FETCH DATA DARI GITHUB DENGAN CACHE CERDAS
+            // FETCH DATA DARI GITHUB
             // ============================================================
             function getCachedList() {
-                const raw = localStorage.getItem(CACHE_KEY_LIST);
+                var raw = localStorage.getItem(CACHE_KEY_LIST);
                 if (!raw) return null;
                 try {
-                    const data = JSON.parse(raw);
+                    var data = JSON.parse(raw);
                     if (Date.now() - data.t < CACHE_TIME_LIST) {
                         return data.posts;
                     }
@@ -2335,24 +2526,24 @@
             }
 
             function getCachedListFallback() {
-                const raw = localStorage.getItem(CACHE_KEY_LIST);
+                var raw = localStorage.getItem(CACHE_KEY_LIST);
                 if (!raw) return null;
                 try {
-                    const data = JSON.parse(raw);
+                    var data = JSON.parse(raw);
                     return data.posts;
                 } catch (e) { return null; }
             }
 
             function setCachedList(posts) {
-                localStorage.setItem(CACHE_KEY_LIST, JSON.stringify({ t: Date.now(), posts }));
+                localStorage.setItem(CACHE_KEY_LIST, JSON.stringify({ t: Date.now(), posts: posts }));
             }
 
             function getCachedContent(postName) {
-                const key = CACHE_KEY_CONTENT_PREFIX + postName;
-                const raw = localStorage.getItem(key);
+                var key = CACHE_KEY_CONTENT_PREFIX + postName;
+                var raw = localStorage.getItem(key);
                 if (!raw) return null;
                 try {
-                    const data = JSON.parse(raw);
+                    var data = JSON.parse(raw);
                     if (Date.now() - data.t < CACHE_TIME_CONTENT) {
                         return data.content;
                     }
@@ -2361,38 +2552,38 @@
             }
 
             function getCachedContentFallback(postName) {
-                const key = CACHE_KEY_CONTENT_PREFIX + postName;
-                const raw = localStorage.getItem(key);
+                var key = CACHE_KEY_CONTENT_PREFIX + postName;
+                var raw = localStorage.getItem(key);
                 if (!raw) return null;
                 try {
-                    const data = JSON.parse(raw);
+                    var data = JSON.parse(raw);
                     return data.content;
                 } catch (e) { return null; }
             }
 
             function setCachedContent(postName, content) {
-                const key = CACHE_KEY_CONTENT_PREFIX + postName;
-                localStorage.setItem(key, JSON.stringify({ t: Date.now(), content }));
+                var key = CACHE_KEY_CONTENT_PREFIX + postName;
+                localStorage.setItem(key, JSON.stringify({ t: Date.now(), content: content }));
             }
 
             async function fetchPostList() {
-                const cached = getCachedList();
+                var cached = getCachedList();
                 if (cached) { postsData = cached; return; }
 
-                const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
+                var apiUrl = 'https://api.github.com/repos/' + GITHUB_REPO + '/contents/posts';
                 try {
-                    const res = await fetch(apiUrl);
-                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                    const files = await res.json();
-                    const mdFiles = files.filter(f => f.name.endsWith('.md'));
+                    var res = await fetch(apiUrl);
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    var files = await res.json();
+                    var mdFiles = files.filter(function(f) { return f.name.endsWith('.md'); });
                     if (!mdFiles.length) throw new Error('Tidak ada file .md');
-                    postsData = mdFiles.map(f => ({ filename: f.name, name: f.name.replace('.md', ''), download_url: f
-                            .download_url }));
+                    postsData = mdFiles.map(function(f) { return { filename: f.name, name: f.name.replace('.md', ''),
+                            download_url: f.download_url }; });
                     setCachedList(postsData);
                 } catch (err) {
-                    const fallback = getCachedListFallback();
+                    var fallback = getCachedListFallback();
                     if (fallback && fallback.length) {
-                        console.warn('⚠️ Gagal fetch list, pakai cache fallback (mungkin usang).');
+                        console.warn('⚠️ Gagal fetch list, pakai cache fallback.');
                         postsData = fallback;
                         return;
                     }
@@ -2401,11 +2592,11 @@
             }
 
             function parseFrontmatter(md) {
-                const m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
+                var m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
                 if (!m) return { metadata: {}, content: md };
-                const meta = {};
-                m[1].split('\n').forEach(line => {
-                    const i = line.indexOf(':');
+                var meta = {};
+                m[1].split('\n').forEach(function(line) {
+                    var i = line.indexOf(':');
                     if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim().replace(/^["']|["']$/g,
                         '');
                 });
@@ -2413,39 +2604,46 @@
             }
 
             async function fetchPost(p) {
-                const cachedContent = getCachedContent(p.name);
+                var cachedContent = getCachedContent(p.name);
                 if (cachedContent) {
-                    const { metadata, content } = parseFrontmatter(cachedContent);
-                    const html = marked.parse(content);
-                    return { ...p, metadata, content, html, lastModified: null, fromCache: true };
+                    var parsed = parseFrontmatter(cachedContent);
+                    var html = marked.parse(parsed.content);
+                    return { name: p.name, metadata: parsed.metadata, content: parsed.content, html: html,
+                        lastModified: null, fromCache: true };
                 }
 
                 if (!p.download_url) {
-                    const fallbackContent = getCachedContentFallback(p.name);
+                    var fallbackContent = getCachedContentFallback(p.name);
                     if (fallbackContent) {
-                        const { metadata, content } = parseFrontmatter(fallbackContent);
-                        const html = marked.parse(content);
-                        return { ...p, metadata, content, html, lastModified: null, fromCache: true };
+                        var parsed2 = parseFrontmatter(fallbackContent);
+                        var html2 = marked.parse(parsed2.content);
+                        return { name: p.name, metadata: parsed2.metadata, content: parsed2.content, html: html2,
+                            lastModified: null, fromCache: true };
                     }
-                    return { ...p, metadata: {}, content: '', html: '<p>Konten tidak tersedia.</p>', lastModified: null };
+                    return { name: p.name, metadata: {}, content: '', html: '<p>Konten tidak tersedia.</p>',
+                        lastModified: null };
                 }
 
                 try {
-                    const r = await fetch(p.download_url);
+                    var r = await fetch(p.download_url);
                     if (!r.ok) throw new Error('fail');
-                    const md = await r.text();
+                    var md = await r.text();
                     setCachedContent(p.name, md);
-                    const { metadata, content } = parseFrontmatter(md);
-                    const lastModified = r.headers.get('Last-Modified');
-                    return { ...p, metadata, content, lastModified, html: marked.parse(content), fromCache: false };
+                    var parsed3 = parseFrontmatter(md);
+                    var html3 = marked.parse(parsed3.content);
+                    var lastModified = r.headers.get('Last-Modified');
+                    return { name: p.name, metadata: parsed3.metadata, content: parsed3.content, html: html3,
+                        lastModified: lastModified, fromCache: false };
                 } catch (err) {
-                    const fallbackContent = getCachedContentFallback(p.name);
-                    if (fallbackContent) {
-                        const { metadata, content } = parseFrontmatter(fallbackContent);
-                        const html = marked.parse(content);
-                        return { ...p, metadata, content, html, lastModified: null, fromCache: true };
+                    var fallbackContent2 = getCachedContentFallback(p.name);
+                    if (fallbackContent2) {
+                        var parsed4 = parseFrontmatter(fallbackContent2);
+                        var html4 = marked.parse(parsed4.content);
+                        return { name: p.name, metadata: parsed4.metadata, content: parsed4.content, html: html4,
+                            lastModified: null, fromCache: true };
                     }
-                    return { ...p, metadata: {}, content: '', html: '<p>Gagal memuat konten.</p>', lastModified: null };
+                    return { name: p.name, metadata: {}, content: '', html: '<p>Gagal memuat konten.</p>',
+                        lastModified: null };
                 }
             }
 
@@ -2459,90 +2657,94 @@
 
             function getExcerpt(c) {
                 if (!c) return '';
-                let t = c.replace(/[#*`>\[\]()!|]/g, '').replace(/\n/g, ' ').trim();
+                var t = c.replace(/[#*`>\[\]()!|]/g, '').replace(/\n/g, ' ').trim();
                 if (t.length > 80) t = t.slice(0, 80) + '...';
                 return t;
             }
 
             function formatDate(d) {
                 if (!d) return '';
-                const dt = new Date(d);
+                var dt = new Date(d);
                 if (isNaN(dt.getTime())) return '';
-                const m = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-                return `${dt.getDate()} ${m[dt.getMonth()]} ${dt.getFullYear()}`;
+                var m = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+                return dt.getDate() + ' ' + m[dt.getMonth()] + ' ' + dt.getFullYear();
             }
 
             // ============================================================
-            // RENDER HOME
+            // RENDER HOME (grid + carousel)
             // ============================================================
             function getAllKategori() {
-                const k = new Set();
-                fetchedPosts.forEach(p => {
-                    const kat = p.metadata.kategori || '';
+                var k = new Set();
+                fetchedPosts.forEach(function(p) {
+                    var kat = p.metadata.kategori || '';
                     if (kat) k.add(kat);
                 });
                 return Array.from(k).sort();
             }
 
             function renderCategoryBar() {
-                const kats = getAllKategori();
-                let html = '<span class="category-chip' + (!activeKatFilter ? ' active' : '') +
+                var kats = getAllKategori();
+                var html = '<span class="category-chip' + (!activeKatFilter ? ' active' : '') +
                     '" data-kat="" role="tab" aria-selected="' + (!activeKatFilter ? 'true' : 'false') + '"><i class="fas fa-globe"></i> Semua</span>';
-                kats.forEach(kat => html +=
-                    `<span class="category-chip${activeKatFilter === kat ? ' active' : ''}" data-kat="${kat}" role="tab" aria-selected="${activeKatFilter === kat ? 'true' : 'false'}"><i class="fas fa-tag"></i> ${kat}</span>`
-                    );
+                kats.forEach(function(kat) {
+                    html += '<span class="category-chip' + (activeKatFilter === kat ? ' active' : '') +
+                        '" data-kat="' + kat + '" role="tab" aria-selected="' + (activeKatFilter === kat ?
+                            'true' : 'false') + '"><i class="fas fa-tag"></i> ' + kat + '</span>';
+                });
                 if (activeKatFilter) html +=
                     '<button class="reset-filter" id="reset-filter"><i class="fas fa-times"></i> Hapus filter</button>';
                 categoryBar.innerHTML = html;
-                categoryBar.querySelectorAll('.category-chip').forEach(chip => chip.addEventListener('click', () => {
-                    activeKatFilter = chip.dataset.kat || null;
-                    resetAndApplyFilters();
-                    renderCategoryBar();
-                }));
-                const resetBtn = document.getElementById('reset-filter');
-                if (resetBtn) resetBtn.addEventListener('click', () => { activeKatFilter = null;
+                categoryBar.querySelectorAll('.category-chip').forEach(function(chip) {
+                    chip.addEventListener('click', function() {
+                        activeKatFilter = chip.dataset.kat || null;
+                        resetAndApplyFilters();
+                        renderCategoryBar();
+                    });
+                });
+                var resetBtn = document.getElementById('reset-filter');
+                if (resetBtn) resetBtn.addEventListener('click', function() { activeKatFilter = null;
                     resetAndApplyFilters();
                     renderCategoryBar(); });
             }
 
             function getFilteredPosts() {
-                const q = searchInput.value.trim().toLowerCase();
-                let f = fetchedPosts;
-                if (activeKatFilter) f = f.filter(p => (p.metadata.kategori || '') === activeKatFilter);
-                if (q) f = f.filter(p => {
-                    const t = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
+                var q = searchInput.value.trim().toLowerCase();
+                var f = fetchedPosts;
+                if (activeKatFilter) f = f.filter(function(p) { return (p.metadata.kategori || '') === activeKatFilter; });
+                if (q) f = f.filter(function(p) {
+                    var t = (p.metadata.judul || p.metadata.title || p.name).toLowerCase();
                     return t.includes(q);
                 });
                 return f;
             }
 
             function sortPosts(posts) {
-                const sortBy = sortSelect.value;
-                const sorted = [...posts];
-                const getTime = (p) => {
-                    const d = p.metadata.tanggal || p.metadata.date || p.lastModified;
+                var sortBy = sortSelect.value;
+                var sorted = posts.slice();
+                var getTime = function(p) {
+                    var d = p.metadata.tanggal || p.metadata.date || p.lastModified;
                     if (!d) return 0;
-                    const t = new Date(d);
+                    var t = new Date(d);
                     return isNaN(t.getTime()) ? 0 : t.getTime();
                 };
                 switch (sortBy) {
                     case 'terbaru':
-                        sorted.sort((a, b) => getTime(b) - getTime(a));
+                        sorted.sort(function(a, b) { return getTime(b) - getTime(a); });
                         break;
                     case 'terlama':
-                        sorted.sort((a, b) => getTime(a) - getTime(b));
+                        sorted.sort(function(a, b) { return getTime(a) - getTime(b); });
                         break;
                     case 'az':
-                        sorted.sort((a, b) => {
-                            const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
-                            const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
+                        sorted.sort(function(a, b) {
+                            var tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
+                            var tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
                             return tA.localeCompare(tB);
                         });
                         break;
                     case 'za':
-                        sorted.sort((a, b) => {
-                            const tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
-                            const tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
+                        sorted.sort(function(a, b) {
+                            var tA = (a.metadata.judul || a.metadata.title || a.name || '').toLowerCase();
+                            var tB = (b.metadata.judul || b.metadata.title || b.name || '').toLowerCase();
                             return tB.localeCompare(tA);
                         });
                         break;
@@ -2556,12 +2758,13 @@
             }
 
             function applyFilters() {
-                let filtered = getFilteredPosts();
+                var filtered = getFilteredPosts();
                 filtered = sortPosts(filtered);
                 if (activeKatFilter) {
                     filterIndicator.classList.remove('hidden');
                     filterIndicator.innerHTML =
-                        `<i class="fas fa-filter"></i> Kategori: <strong>${activeKatFilter}</strong> (${filtered.length} hasil)`;
+                        '<i class="fas fa-filter"></i> Kategori: <strong>' + activeKatFilter + '</strong> (' +
+                        filtered.length + ' hasil)';
                 } else filterIndicator.classList.add('hidden');
                 currentDisplayCount = Math.min(ITEMS_PER_PAGE, filtered.length);
                 displayPosts(filtered.slice(0, currentDisplayCount));
@@ -2569,7 +2772,7 @@
             }
 
             function displayPosts(posts) {
-                postContainer.innerHTML = posts.length ? posts.map((p, i) => cardHTML(p, i)).join('') :
+                postContainer.innerHTML = posts.length ? posts.map(function(p, i) { return cardHTML(p, i); }).join('') :
                     '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
                 attachCardEvents();
             }
@@ -2577,7 +2780,8 @@
             function renderLoadMoreButton(t) {
                 if (currentDisplayCount < t) {
                     loadMoreContainer.innerHTML =
-                        `<button class="load-more-btn" id="load-more-btn"><i class="fas fa-chevron-down"></i> Muat Lebih Banyak (${t - currentDisplayCount})</button>`;
+                        '<button class="load-more-btn" id="load-more-btn"><i class="fas fa-chevron-down"></i> Muat Lebih Banyak (' +
+                        (t - currentDisplayCount) + ')</button>';
                     document.getElementById('load-more-btn').addEventListener('click', loadMorePosts);
                 } else {
                     loadMoreContainer.innerHTML = '';
@@ -2585,94 +2789,95 @@
             }
 
             function loadMorePosts() {
-                let f = getFilteredPosts();
+                var f = getFilteredPosts();
                 f = sortPosts(f);
-                const n = Math.min(currentDisplayCount + ITEMS_PER_PAGE, f.length);
-                const newPosts = f.slice(currentDisplayCount, n);
+                var n = Math.min(currentDisplayCount + ITEMS_PER_PAGE, f.length);
+                var newPosts = f.slice(currentDisplayCount, n);
                 currentDisplayCount = n;
-                newPosts.forEach((p, i) => {
-                    const card = cardHTML(p, i);
+                newPosts.forEach(function(p, i) {
+                    var card = cardHTML(p, i);
                     postContainer.insertAdjacentHTML('beforeend', card);
                 });
                 attachCardEvents();
                 renderLoadMoreButton(f.length);
             }
 
-            // 🔥 cardHTML - HANYA pakai metadata "badges"
             function cardHTML(post, index) {
-                const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
-                const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
-                const kategori = post.metadata.kategori || '';
-                const ver = post.metadata.versi || post.metadata.version || '';
-                const excerpt = getExcerpt(post.content);
-                const delay = index * 0.04 + 's';
+                var t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
+                var img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
+                var kategori = post.metadata.kategori || '';
+                var ver = post.metadata.versi || post.metadata.version || '';
+                var excerpt = getExcerpt(post.content);
+                var delay = index * 0.04 + 's';
 
-                let badges = [];
+                var badges = [];
                 if (post.metadata.badges) {
                     if (Array.isArray(post.metadata.badges)) {
                         badges = post.metadata.badges;
                     } else {
-                        badges = post.metadata.badges.split(',').map(b => b.trim()).filter(b => b.length > 0);
+                        badges = post.metadata.badges.split(',').map(function(b) { return b.trim(); }).filter(function(b) {
+                            return b.length > 0; });
                     }
                 }
 
                 function getBadgeHTML(badgeText) {
-                    const text = badgeText.trim();
-                    const lower = text.toLowerCase();
-                    let className = 'badge-custom';
-                    let icon = 'fa-tag';
-                    if (lower === 'premium') {
-                        className = 'badge-premium';
-                        icon = 'fa-crown';
-                    } else if (lower === 'vip') {
-                        className = 'badge-vip';
-                        icon = 'fa-star';
-                    } else if (lower === 'no ads' || lower === 'noads' || lower === 'tanpa iklan' || lower ===
-                        'no iklan') {
-                        className = 'badge-noads';
-                        icon = 'fa-ban';
-                    } else if (lower === 'unlocked' || lower === 'unlock') {
-                        className = 'badge-unlocked';
-                        icon = 'fa-unlock';
-                    }
-                    return `<span class="${className}"><i class="fas ${icon}"></i> ${text}</span>`;
+                    var text = badgeText.trim();
+                    var lower = text.toLowerCase();
+                    var className = 'badge-custom';
+                    var icon = 'fa-tag';
+                    if (lower === 'premium') { className = 'badge-premium';
+                        icon = 'fa-crown'; } else if (lower === 'vip') { className = 'badge-vip';
+                        icon = 'fa-star'; } else if (lower === 'no ads' || lower === 'noads' || lower ===
+                        'tanpa iklan' || lower === 'no iklan') { className = 'badge-noads';
+                        icon = 'fa-ban'; } else if (lower === 'unlocked' || lower === 'unlock') { className =
+                            'badge-unlocked';
+                        icon = 'fa-unlock'; }
+                    return '<span class="' + className + '"><i class="fas ' + icon + '"></i> ' + text + '</span>';
                 }
 
-                const badgesHtml = badges.map(getBadgeHTML).join('');
+                var badgesHtml = badges.map(getBadgeHTML).join('');
 
-                const imgTag = img ?
-                    `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">` :
+                var imgTag = img ?
+                    '<img src="' + img + '" alt="' + t + '" loading="lazy" onerror="this.parentElement.classList.add(\'error\')">' :
                     '';
-                const versionBadge = ver ? `<span class="version-badge-img"><i class="fas fa-code-branch"></i> v${ver}</span>` :
+                var versionBadge = ver ? '<span class="version-badge-img"><i class="fas fa-code-branch"></i> v' + ver +
+                    '</span>' :
                     '';
 
-                return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
-                    <div class="card-img${img ? '' : ' error'}">${imgTag}<span class="placeholder-icon"><i class="fas fa-box-open"></i></span>${versionBadge}</div>
-                    <div class="card-body">
-                        <div class="card-title">${t}</div>
-                        <div class="card-meta">
-                            ${kategori ? `<span class="badge" data-kat="${kategori}" role="button"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}
-                            ${badgesHtml}
-                        </div>
-                        ${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}
-                    </div>
-                </div>`;
+                return '<div class="post-card" data-name="' + post.name + '" style="animation-delay:' + delay + ';">' +
+                    '<div class="card-img' + (img ? '' : ' error') + '">' + imgTag +
+                    '<span class="placeholder-icon"><i class="fas fa-box-open"></i></span>' + versionBadge + '</div>' +
+                    '<div class="card-body">' +
+                    '<div class="card-title">' + t + '</div>' +
+                    '<div class="card-meta">' +
+                    (kategori ? '<span class="badge" data-kat="' + kategori + '" role="button"><i class="fas fa-folder"></i> ' +
+                        kategori + '</span>' : '') +
+                    badgesHtml +
+                    '</div>' +
+                    (excerpt ? '<p class="card-excerpt">' + excerpt + '</p>' : '') +
+                    '</div>' +
+                    '</div>';
             }
 
             function attachCardEvents() {
-                document.querySelectorAll('.post-card').forEach(c => c.addEventListener('click', (e) => {
-                    if (e.target.closest('.badge') || e.target.closest('.badge-premium') ||
-                        e.target.closest('.badge-vip') || e.target.closest('.badge-noads') ||
-                        e.target.closest('.badge-unlocked') || e.target.closest('.badge-custom')) return;
-                    setHash('detail', c.dataset.name);
-                }));
-                document.querySelectorAll('.badge').forEach(b => b.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    activeKatFilter = b.dataset.kat;
-                    searchInput.value = '';
-                    resetAndApplyFilters();
-                    renderCategoryBar();
-                }));
+                document.querySelectorAll('.post-card').forEach(function(c) {
+                    c.addEventListener('click', function(e) {
+                        if (e.target.closest('.badge') || e.target.closest('.badge-premium') ||
+                            e.target.closest('.badge-vip') || e.target.closest('.badge-noads') ||
+                            e.target.closest('.badge-unlocked') || e.target.closest('.badge-custom')) return;
+                        var name = this.dataset.name;
+                        if (name) navigateTo('detail', name);
+                    });
+                });
+                document.querySelectorAll('.badge').forEach(function(b) {
+                    b.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        activeKatFilter = this.dataset.kat;
+                        searchInput.value = '';
+                        resetAndApplyFilters();
+                        renderCategoryBar();
+                    });
+                });
             }
 
             function stopCarousel() {
@@ -2684,51 +2889,56 @@
                 stopCarousel();
                 if (totalPopularSlides === 0) return;
                 updateCarousel(0);
-                carouselInterval = setInterval(() => {
+                carouselInterval = setInterval(function() {
                     currentSlide = (currentSlide + 1) % totalPopularSlides;
                     updateCarousel(currentSlide);
                 }, 4000);
             }
 
             function updateCarousel(i) {
-                const slides = document.querySelectorAll('.carousel-slide');
-                slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
-                document.querySelectorAll('.carousel-counter').forEach((c, idx) => {
-                    c.textContent = `${i+1}/${totalPopularSlides}`;
+                var slides = document.querySelectorAll('.carousel-slide');
+                slides.forEach(function(s, idx) { s.classList.toggle('active', idx === i); });
+                document.querySelectorAll('.carousel-counter').forEach(function(c, idx) {
+                    c.textContent = (i + 1) + '/' + totalPopularSlides;
                 });
             }
 
-            // 🔥 renderPopularSection menggunakan topPopularPosts
             function renderPopularSection() {
                 if (!topPopularPosts.length) {
                     carouselTrack.innerHTML = '';
                     totalPopularSlides = 0;
                     return;
                 }
-                const pop = topPopularPosts.slice(0, 4);
+                var pop = topPopularPosts.slice(0, 4);
                 totalPopularSlides = pop.length;
-                carouselTrack.innerHTML = pop.map((p, i) => {
-                    const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
-                    const title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
-                    return `<div class="carousel-slide${i === 0 ? ' active' : ''}" data-name="${p.name}">${img ? `<img src="${img}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : ''}<div class="slide-overlay"><div class="slide-title">${title}</div><span class="carousel-counter">${i+1}/${pop.length}</span></div></div>`;
+                carouselTrack.innerHTML = pop.map(function(p, i) {
+                    var img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
+                    var title = p.metadata.judul || p.metadata.title || p.name.replace(/[-_]/g, ' ');
+                    return '<div class="carousel-slide' + (i === 0 ? ' active' : '') + '" data-name="' + p.name +
+                        '">' + (img ? '<img src="' + img + '" alt="' + title +
+                        '" loading="lazy" onerror="this.style.display=\'none\'">' : '') +
+                        '<div class="slide-overlay"><div class="slide-title">' + title +
+                        '</div><span class="carousel-counter">' + (i + 1) + '/' + pop.length + '</span></div></div>';
                 }).join('');
-                document.querySelectorAll('.carousel-slide').forEach(s => s.addEventListener('click', () => setHash(
-                    'detail', s.dataset.name)));
+                document.querySelectorAll('.carousel-slide').forEach(function(s) {
+                    s.addEventListener('click', function() {
+                        var name = this.dataset.name;
+                        if (name) navigateTo('detail', name);
+                    });
+                });
             }
 
-            // 🔥 fungsi untuk mengurutkan postingan berdasarkan view count
             async function sortPostsByView() {
-                const viewPromises = fetchedPosts.map(p => getPostViewCount(p.name, false));
-                const views = await Promise.all(viewPromises);
-                const postsWithViews = fetchedPosts.map((p, i) => ({ ...p, viewCount: views[i] || 0 }));
-                postsWithViews.sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0));
+                var viewPromises = fetchedPosts.map(function(p) { return getPostViewCount(p.name, false); });
+                var views = await Promise.all(viewPromises);
+                var postsWithViews = fetchedPosts.map(function(p, i) { var o = Object.assign({}, p);
+                    o.viewCount = views[i] || 0; return o; });
+                postsWithViews.sort(function(a, b) { return (b.viewCount || 0) - (a.viewCount || 0); });
 
-                // Jika ada data view yang sama (0), gunakan metadata populer sebagai fallback
-                const hasViewData = postsWithViews.some(p => p.viewCount > 0);
+                var hasViewData = postsWithViews.some(function(p) { return p.viewCount > 0; });
                 if (!hasViewData) {
-                    // Fallback: ambil post dengan metadata populer = true, atau 4 post pertama
-                    let fallback = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() ===
-                        'true');
+                    var fallback = fetchedPosts.filter(function(p) { return p.metadata.populer && p.metadata.populer
+                            .toLowerCase() === 'true'; });
                     if (fallback.length === 0) fallback = fetchedPosts.slice(0, 4);
                     topPopularPosts = fallback;
                 } else {
@@ -2748,77 +2958,76 @@
                         postContainer.innerHTML = '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
                         return;
                     }
-                    fetchedPosts = await Promise.all(postsData.map(fetchPost));
-
-                    // 🔥 Urutkan berdasarkan view untuk carousel
+                    fetchedPosts = await Promise.all(postsData.map(function(p) { return fetchPost(p); }));
                     await sortPostsByView();
-
                     renderPopularSection();
                     renderCategoryBar();
                     resetAndApplyFilters();
                     startCarousel();
                     updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.', LOGO_URL, 'https://destaseomods.web.id/');
                 } catch (err) {
-                    postContainer.innerHTML = `<div class="error-text">⚠️ Gagal memuat data. Coba refresh halaman. <br><small>${err.message}</small></div>`;
+                    postContainer.innerHTML = '<div class="error-text">⚠️ Gagal memuat data. Coba refresh halaman. <br><small>' +
+                        err.message + '</small></div>';
                 }
             }
 
             // ============================================================
-            // DETAIL & COUNTER PER POST + LOAD IKLAN
+            // SCREENSHOT GALLERY
             // ============================================================
-
             function buildScreenshotGallery(str) {
                 if (!str) return '';
-                const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
+                var urls = str.split(',').map(function(u) { return fixImageUrl(u.trim()); }).filter(function(u) { return u
+                        .length > 0; });
                 if (urls.length === 0) return '';
-                const lim = urls.slice(0, 10);
-                const urlsAttr = urls.map(u => u.replace(/"/g, '&quot;')).join('|||');
-                return `<div class="screenshot-scroll" data-all-urls="${urlsAttr}">
-                    ${lim.map((u, i) => `<img src="${u}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox(this, ${i})">`).join('')}
-                </div>`;
+                var lim = urls.slice(0, 10);
+                var urlsAttr = urls.map(function(u) { return u.replace(/"/g, '&quot;'); }).join('|||');
+                return '<div class="screenshot-scroll" data-all-urls="' + urlsAttr + '">' +
+                    lim.map(function(u, i) { return '<img src="' + u +
+                        '" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox(this, ' + i +
+                        ')">'; }).join('') +
+                    '</div>';
             }
 
             window.openLightbox = function(imgEl, index) {
-                const container = imgEl.closest('.screenshot-scroll');
+                var container = imgEl.closest('.screenshot-scroll');
                 if (!container) return;
-                const allUrlsStr = container.dataset.allUrls || '';
+                var allUrlsStr = container.dataset.allUrls || '';
                 if (!allUrlsStr) return;
-                const allUrls = allUrlsStr.split('|||');
+                var allUrls = allUrlsStr.split('|||');
                 if (allUrls.length === 0) return;
-                const existing = document.querySelector('.lightbox');
+                var existing = document.querySelector('.lightbox');
                 if (existing) existing.remove();
 
-                const lb = document.createElement('div');
+                var lb = document.createElement('div');
                 lb.className = 'lightbox';
-                lb.innerHTML = `
-                    <button class="lightbox-close" aria-label="Tutup"><i class="fas fa-times"></i></button>
-                    <button class="lightbox-prev" aria-label="Sebelumnya"><i class="fas fa-chevron-left"></i></button>
-                    <button class="lightbox-next" aria-label="Berikutnya"><i class="fas fa-chevron-right"></i></button>
-                    <img src="${allUrls[index]}" alt="Screenshot" />
-                    <div class="lightbox-counter">${index+1} / ${allUrls.length}</div>
-                `;
+                lb.innerHTML = '' +
+                    '<button class="lightbox-close" aria-label="Tutup"><i class="fas fa-times"></i></button>' +
+                    '<button class="lightbox-prev" aria-label="Sebelumnya"><i class="fas fa-chevron-left"></i></button>' +
+                    '<button class="lightbox-next" aria-label="Berikutnya"><i class="fas fa-chevron-right"></i></button>' +
+                    '<img src="' + allUrls[index] + '" alt="Screenshot" />' +
+                    '<div class="lightbox-counter">' + (index + 1) + ' / ' + allUrls.length + '</div>';
                 document.body.appendChild(lb);
 
-                let currentIndex = index;
-                const img = lb.querySelector('img');
-                const counter = lb.querySelector('.lightbox-counter');
+                var currentIndex = index;
+                var img = lb.querySelector('img');
+                var counter = lb.querySelector('.lightbox-counter');
 
                 function updateImage(i) {
                     if (i < 0) i = allUrls.length - 1;
                     if (i >= allUrls.length) i = 0;
                     currentIndex = i;
                     img.src = allUrls[currentIndex];
-                    counter.textContent = `${currentIndex+1} / ${allUrls.length}`;
+                    counter.textContent = (currentIndex + 1) + ' / ' + allUrls.length;
                 }
 
-                lb.querySelector('.lightbox-close').addEventListener('click', (e) => { e.stopPropagation();
+                lb.querySelector('.lightbox-close').addEventListener('click', function(e) { e.stopPropagation();
                     lb.remove(); });
-                lb.querySelector('.lightbox-prev').addEventListener('click', (e) => { e.stopPropagation();
+                lb.querySelector('.lightbox-prev').addEventListener('click', function(e) { e.stopPropagation();
                     updateImage(currentIndex - 1); });
-                lb.querySelector('.lightbox-next').addEventListener('click', (e) => { e.stopPropagation();
+                lb.querySelector('.lightbox-next').addEventListener('click', function(e) { e.stopPropagation();
                     updateImage(currentIndex + 1); });
 
-                lb.addEventListener('click', (e) => {
+                lb.addEventListener('click', function(e) {
                     if (e.target === lb) lb.remove();
                 });
 
@@ -2832,12 +3041,12 @@
                 }
                 document.addEventListener('keydown', keyHandler);
 
-                let touchStartX = 0;
-                lb.addEventListener('touchstart', (e) => {
+                var touchStartX = 0;
+                lb.addEventListener('touchstart', function(e) {
                     touchStartX = e.changedTouches[0].screenX;
                 }, { passive: true });
-                lb.addEventListener('touchend', (e) => {
-                    const diff = touchStartX - e.changedTouches[0].screenX;
+                lb.addEventListener('touchend', function(e) {
+                    var diff = touchStartX - e.changedTouches[0].screenX;
                     if (Math.abs(diff) > 40) {
                         if (diff > 0) updateImage(currentIndex + 1);
                         else updateImage(currentIndex - 1);
@@ -2846,184 +3055,58 @@
             };
 
             // ============================================================
-            // SHOW DETAIL
-            // ============================================================
-            async function showDetail(name) {
-                const post = fetchedPosts.find(p => p.name === name);
-                if (!post) {
-                    console.error('❌ Post tidak ditemukan:', name);
-                    return;
-                }
-                const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
-                const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
-                const v = post.metadata.versi || post.metadata.version || '?';
-                const s = post.metadata.ukuran || post.metadata.size || '?';
-                const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
-                const dwn = post.metadata.download || post.metadata.link || '';
-                const kategori = post.metadata.kategori || '';
-                const tags = post.metadata.tag ? post.metadata.tag.split(',').map(t => t.trim()).filter(t => t) : [];
-                const dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
-                const dateFormatted = formatDate(dateRaw);
-                const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
-                const galleryHtml = buildScreenshotGallery(screenshots);
-                const hasDownload = dwn && dwn !== '#';
-                const downloadBtn = hasDownload ?
-                    `<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` :
-                    `<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>`;
-                const tagsHtml = tags.length > 0 ?
-                    `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` :
-                    '';
-
-                const recommendations = getRecommendations(post, 4);
-                let recHtml = '';
-                if (recommendations.length > 0) {
-                    recHtml = `<div class="recommendations-section">
-                        <h3><i class="fas fa-lightbulb"></i> Rekomendasi untuk Anda</h3>
-                        <div class="rec-grid">`;
-                    recommendations.forEach(rec => {
-                        const recTitle = rec.metadata.judul || rec.metadata.title || rec.name.replace(
-                            /[-_]/g, ' ');
-                        const recImg = fixImageUrl(rec.metadata.gambar || rec.metadata.image || '');
-                        recHtml += `
-                            <div class="rec-card" data-name="${rec.name}">
-                                ${recImg ? `<img src="${recImg}" alt="${recTitle}" loading="lazy" onerror="this.style.display='none'">` : `<div style="height:90px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:2rem;"><i class="fas fa-box"></i></div>`}
-                                <div class="rec-title">${recTitle}</div>
-                            </div>
-                        `;
-                    });
-                    recHtml += `</div></div>`;
-                }
-
-                detailContent.innerHTML = '<div class="spinner"></div>';
-                showSection(detailSection);
-                setActiveNav('detail');
-                window.scrollTo({ top: 0 });
-
-                // 🔥 Load script iklan hanya di halaman detail
-                loadAdScript();
-
-                // 🔥 Ambil view count dengan increment = true (menambah hit)
-                const viewCount = await getPostViewCount(name, true);
-
-                const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
-                updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, 'https://destaseomods.web.id/#detail/' + name);
-
-                const articleJson = {
-                    "@context": "https://schema.org",
-                    "@type": "Article",
-                    "headline": t,
-                    "description": desc,
-                    "image": img || LOGO_URL,
-                    "author": {
-                        "@type": "Person",
-                        "name": dev
-                    },
-                    "datePublished": dateRaw || new Date().toISOString(),
-                    "mainEntityOfPage": {
-                        "@type": "WebPage",
-                        "@id": "https://destaseomods.web.id/#detail/" + name
-                    }
-                };
-                let script = document.querySelector('#article-ld-json');
-                if (!script) {
-                    script = document.createElement('script');
-                    script.id = 'article-ld-json';
-                    script.type = 'application/ld+json';
-                    document.head.appendChild(script);
-                }
-                script.textContent = JSON.stringify(articleJson);
-
-                detailContent.innerHTML = `
-                <div class="detail-header">
-                    ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
-                    <h1 class="detail-title">${t}</h1>
-                    <div class="detail-meta-grid">
-                        <div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ${v}</div>
-                        <div class="meta-item"><i class="fas fa-weight-hanging"></i> <strong>Ukuran</strong> ${s}</div>
-                        <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
-                        ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
-                        ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
-                        <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ${viewCount}x</div>
-                    </div>
-                    ${galleryHtml}
-                    ${tagsHtml}
-                </div>
-                <div class="content-box">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
-                ${downloadBtn}
-                ${recHtml}`;
-
-                if (hasDownload) {
-                    const dBtn = document.getElementById('detail-download-btn');
-                    if (dBtn) {
-                        dBtn.addEventListener('click', async function(e) {
-                            e.preventDefault();
-                            if (this.classList.contains('counting')) return;
-                            await startDownloadWithAd(this, dwn);
-                        });
-                    }
-                }
-
-                document.querySelectorAll('.rec-card').forEach(card => {
-                    card.addEventListener('click', function() {
-                        const name = this.dataset.name;
-                        if (name) setHash('detail', name);
-                    });
-                });
-            }
-
-            detailBack.addEventListener('click', () => setHash('home'));
-            navItems.forEach(i => i.addEventListener('click', () => setHash(i.dataset.page)));
-            searchInput.addEventListener('input', () => resetAndApplyFilters());
-            window.addEventListener('hashchange', () => {
-                const { page, postName } = getHashPage();
-                if (page === 'detail' && postName) {
-                    if (fetchedPosts.length === 0) renderHome().then(() => navigate('detail', postName));
-                    else navigate('detail', postName);
-                } else navigate(page);
-            });
-
-            // ============================================================
-            // SITEMAP GENERATOR
+            // SITEMAP GENERATOR (PATH-BASED)
             // ============================================================
             async function generateSitemap() {
                 if (window.location.search !== '?sitemap') return;
-                const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
-                let urls = [baseUrl];
+                var baseUrl = 'https://destaseomods.web.id';
+                var urls = [baseUrl];
                 try {
-                    const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
-                    const res = await fetch(apiUrl);
+                    var apiUrl = 'https://api.github.com/repos/' + GITHUB_REPO + '/contents/posts';
+                    var res = await fetch(apiUrl);
                     if (res.ok) {
-                        const files = await res.json();
-                        const mdFiles = files.filter(f => f.name.endsWith('.md'));
-                        mdFiles.forEach(f => {
-                            const name = f.name.replace('.md', '');
-                            urls.push(`${baseUrl}#detail/${name}`);
+                        var files = await res.json();
+                        var mdFiles = files.filter(function(f) { return f.name.endsWith('.md'); });
+                        mdFiles.forEach(function(f) {
+                            var name = f.name.replace('.md', '');
+                            urls.push(baseUrl + '/detail/' + encodeURIComponent(name));
                         });
                     }
                 } catch (e) {}
-                const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  ${urls.map(u => `<url><loc>${u}</loc><lastmod>${new Date().toISOString().split('T')[0]}</lastmod></url>`).join('\n  ')}
-</urlset>`;
+                var sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+                    urls.map(function(u) { return '  <url><loc>' + u + '</loc><lastmod>' + new Date().toISOString()
+                            .split('T')[0] + '</lastmod></url>'; }).join('\n') +
+                    '\n</urlset>';
                 document.body.innerHTML =
-                    `<pre style="color:#fff;background:#111;padding:20px;font-family:monospace;">${sitemap.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>`;
+                    '<pre style="color:#fff;background:#111;padding:20px;font-family:monospace;">' + sitemap.replace(/</
+                        g, '&lt;').replace(/>/g, '&gt;') + '</pre>';
                 throw new Error('SITEMAP_DISPLAY');
             }
 
             // ============================================================
+            // HANDLE POPSTATE
+            // ============================================================
+            window.addEventListener('popstate', function(e) {
+                var route = getRoute();
+                renderPage(route.page, route.postName);
+            });
+
+            // ============================================================
             // START APLIKASI
             // ============================================================
-            (async () => {
+            async function init() {
                 try {
                     await generateSitemap();
                 } catch (e) {
                     if (e.message === 'SITEMAP_DISPLAY') return;
                 }
                 await renderHome();
-                const { page, postName } = getHashPage();
-                if (page === 'detail' && postName) navigate('detail', postName);
-                else navigate(page);
-            })();
+                var route = getRoute();
+                renderPage(route.page, route.postName);
+            }
+
+            init();
         })();
     </script>
 </body>
