@@ -1,4 +1,3 @@
-<!-- Fix sitemap: generate otomatis -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -61,7 +60,7 @@
 
     <style>
         /* ============================================================
-           ROOT VARIABLES (sama seperti sebelumnya)
+           ROOT VARIABLES
            ============================================================ */
         :root {
             --bg: #04040e;
@@ -1505,7 +1504,7 @@
             }
 
             // ============================================================
-            // KONFIGURASI & VARIABEL GLOBAL (sama persis seperti sebelumnya)
+            // KONFIGURASI & VARIABEL GLOBAL
             // ============================================================
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
@@ -1759,6 +1758,31 @@
             }
 
             // ============================================================
+            // PREVIOUS PAGE - DISIMPAN DI SESSION STORAGE (AGAR TAHAN REFRESH)
+            // ============================================================
+            let previousPage = { page: 'home', post: null, q: null };
+
+            function loadPreviousPage() {
+                try {
+                    const stored = sessionStorage.getItem('prevPage');
+                    if (stored) {
+                        const data = JSON.parse(stored);
+                        if (data && data.page) {
+                            previousPage = data;
+                        }
+                    }
+                } catch (e) {}
+            }
+
+            function savePreviousPage() {
+                try {
+                    sessionStorage.setItem('prevPage', JSON.stringify(previousPage));
+                } catch (e) {}
+            }
+
+            loadPreviousPage();
+
+            // ============================================================
             // COUNTER PER POSTINGAN
             // ============================================================
             async function getPostViewCount(postName, increment = true) {
@@ -1887,6 +1911,11 @@
             }
 
             function navigateTo(page, postName, q) {
+                // Simpan halaman sebelumnya sebelum pindah
+                const current = getPageFromQuery();
+                previousPage = { page: current.page, post: current.post, q: current.q };
+                savePreviousPage();
+
                 if (page !== 'detail') unloadAdScript();
                 setQuery(page, postName, q);
 
@@ -2670,8 +2699,21 @@
 
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
+            // ============================================================
+            // TOMBOL KEMBALI - PAKAI SESSION STORAGE
+            // ============================================================
             detailBack.addEventListener('click', () => {
-                window.history.back();
+                // Baca previous page dari session storage
+                loadPreviousPage();
+                if (previousPage.page === 'detail' && previousPage.post) {
+                    navigateTo('detail', previousPage.post);
+                } else if (previousPage.page === 'search') {
+                    navigateTo('search', null, previousPage.q);
+                } else if (previousPage.page === 'profile') {
+                    navigateTo('profile');
+                } else {
+                    navigateTo('home');
+                }
             });
 
             navItems.forEach(i => i.addEventListener('click', () => {
@@ -2710,7 +2752,7 @@
             });
 
             // ============================================================
-            // START APLIKASI (tanpa generator sitemap)
+            // START APLIKASI
             // ============================================================
             (async () => {
                 await renderHome();
