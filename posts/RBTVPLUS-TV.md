@@ -1,6 +1,7 @@
 ---
 tanggal: 2026-07-12 09:20
 populer: false
+badges: No Ads
 judul: "RBTVPLUS TV MOD NO ADS"
 gambar: "https://rbtvplus.tv/wp-content/uploads/2026/07/rbtv-l.webp"
 versi: "3.0.320"
