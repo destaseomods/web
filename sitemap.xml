@@ -1,66 +1,53 @@
-# Generate Sitemap Otomatis
-name: Generate Sitemap
-
-on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'posts/**'
-      - 'index.html'
-  schedule:
-    - cron: '0 0 * * *'   # Setiap hari jam 00:00 UTC
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate sitemap.xml
-        run: |
-          echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
-          echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
-
-          # Homepage
-          echo '  <url>' >> sitemap.xml
-          echo '    <loc>https://destaseomods.web.id/</loc>' >> sitemap.xml
-          echo '    <lastmod>'$(date -u +'%Y-%m-%d')'</lastmod>' >> sitemap.xml
-          echo '    <changefreq>daily</changefreq>' >> sitemap.xml
-          echo '    <priority>1.0</priority>' >> sitemap.xml
-          echo '  </url>' >> sitemap.xml
-
-          # Semua post
-          for file in posts/*.md; do
-            if [ -f "$file" ]; then
-              name=$(basename "$file" .md)
-              encoded=$(echo "$name" | sed 's/ /%20/g')
-              echo '  <url>' >> sitemap.xml
-              echo '    <loc>https://destaseomods.web.id/?page=detail&post='$encoded'</loc>' >> sitemap.xml
-              echo '    <lastmod>'$(date -u +'%Y-%m-%d')'</lastmod>' >> sitemap.xml
-              echo '    <changefreq>weekly</changefreq>' >> sitemap.xml
-              echo '    <priority>0.8</priority>' >> sitemap.xml
-              echo '  </url>' >> sitemap.xml
-            fi
-          done
-
-          echo '</urlset>' >> sitemap.xml
-
-      - name: Commit and push sitemap.xml
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          git add sitemap.xml
-          
-          if git diff --staged --quiet; then
-            echo "No changes to sitemap.xml"
-          else
-            git commit -m "Update sitemap.xml [skip ci]"
-            git push
-          fi
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://destaseomods.web.id/</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://destaseomods.web.id/?page=detail&post=BitTV</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://destaseomods.web.id/?page=detail&post=DramaBox</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://destaseomods.web.id/?page=detail&post=FreeReels-VIP</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://destaseomods.web.id/?page=detail&post=GreenTuber</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://destaseomods.web.id/?page=detail&post=HOT51PRO</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://destaseomods.web.id/?page=detail&post=MovieBoxPremium</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://destaseomods.web.id/?page=detail&post=RBTVPLUS-HP</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://destaseomods.web.id/?page=detail&post=RBTVPLUS-TV</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://destaseomods.web.id/?page=detail&post=SumalengTV</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+</urlset>
