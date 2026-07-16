@@ -636,7 +636,7 @@
             color: #fff;
         }
 
-        /* 🔥 BADGE PREMIUM / VIP / NO ADS di kartu post */
+        /* 🔥 BADGE PREMIUM / VIP / NO ADS / UNLOCKED di kartu post */
         .badge-premium {
             background: linear-gradient(135deg, #f7b731, #f5a623);
             color: #1a1a2e;
@@ -676,6 +676,19 @@
             border: 1px solid rgba(52, 211, 153, 0.3);
             box-shadow: 0 2px 8px rgba(52, 211, 153, 0.3);
         }
+        .badge-unlocked {
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+        }
         .badge-custom {
             background: var(--surface2);
             color: var(--text2);
@@ -692,6 +705,7 @@
             .badge-premium,
             .badge-vip,
             .badge-noads,
+            .badge-unlocked,
             .badge-custom {
                 font-size: 0.65rem;
                 padding: 3px 10px;
@@ -1823,9 +1837,8 @@
             // ===== Cache configuration =====
             const CACHE_KEY_LIST = 'destaseo_post_list_v3';
             const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
-            // 🔥 CACHE DIUBAH MENJADI 1 MENIT (60.000 ms)
-            const CACHE_TIME_LIST = 60 * 1000; // 1 menit (sebelumnya 5 menit)
-            const CACHE_TIME_CONTENT = 60 * 1000; // 1 menit (sebelumnya 1 jam)
+            const CACHE_TIME_LIST = 60 * 1000; // 1 menit
+            const CACHE_TIME_CONTENT = 60 * 1000; // 1 menit
 
             // ===== Fungsi untuk mendapatkan IP publik =====
             async function getUserIP() {
@@ -2580,7 +2593,7 @@
                 const excerpt = getExcerpt(post.content);
                 const delay = index * 0.04 + 's';
 
-                // 🔥 Ambil badges dari metadata "badges" (HANYA ini, tidak ada fallback)
+                // 🔥 Ambil badges dari metadata "badges" (HANYA ini)
                 let badges = [];
                 if (post.metadata.badges) {
                     if (Array.isArray(post.metadata.badges)) {
@@ -2606,6 +2619,9 @@
                         'no iklan') {
                         className = 'badge-noads';
                         icon = 'fa-ban';
+                    } else if (lower === 'unlocked' || lower === 'unlock') {
+                        className = 'badge-unlocked';
+                        icon = 'fa-unlock';
                     }
                     return `<span class="${className}"><i class="fas ${icon}"></i> ${text}</span>`;
                 }
@@ -2636,7 +2652,7 @@
                 document.querySelectorAll('.post-card').forEach(c => c.addEventListener('click', (e) => {
                     if (e.target.closest('.badge') || e.target.closest('.badge-premium') ||
                         e.target.closest('.badge-vip') || e.target.closest('.badge-noads') ||
-                        e.target.closest('.badge-custom')) return;
+                        e.target.closest('.badge-unlocked') || e.target.closest('.badge-custom')) return;
                     setHash('detail', c.dataset.name);
                 }));
                 document.querySelectorAll('.badge').forEach(b => b.addEventListener('click', (e) => {
