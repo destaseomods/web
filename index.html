@@ -60,7 +60,7 @@
 
     <style>
         /* ============================================================
-           ROOT VARIABLES (sama seperti sebelumnya)
+           ROOT VARIABLES
            ============================================================ */
         :root {
             --bg: #04040e;
@@ -84,7 +84,7 @@
         }
 
         /* ============================================================
-           RESET & BASE (sama)
+           RESET & BASE
            ============================================================ */
         * {
             margin: 0;
@@ -126,7 +126,7 @@
         }
 
         /* ============================================================
-           TOPBAR (sama)
+           TOPBAR
            ============================================================ */
         .topbar {
             display: flex;
@@ -239,7 +239,7 @@
         .telegram-dropdown a i { width: 18px; text-align: center; }
 
         /* ============================================================
-           SEARCH (sama)
+           SEARCH
            ============================================================ */
         .search-container {
             margin: 8px 0 16px;
@@ -268,7 +268,7 @@
         .search-input::placeholder { color: var(--text2); }
 
         /* ============================================================
-           CATEGORY BAR (sama)
+           CATEGORY BAR
            ============================================================ */
         .category-bar {
             display: flex;
@@ -309,7 +309,7 @@
         .reset-filter i { margin-right: 4px; }
 
         /* ============================================================
-           SORT BAR (sama)
+           SORT BAR
            ============================================================ */
         .sort-bar {
             display: flex;
@@ -341,7 +341,7 @@
         .sort-select:hover { border-color: var(--accent2); }
 
         /* ============================================================
-           CAROUSEL (sama)
+           CAROUSEL
            ============================================================ */
         .popular-section { margin-bottom: 0; }
         .carousel-wrapper {
@@ -434,7 +434,7 @@
         }
 
         /* ============================================================
-           POST GRID (sama)
+           POST GRID
            ============================================================ */
         .post-grid {
             display: grid;
@@ -630,7 +630,7 @@
         }
 
         /* ============================================================
-           LOAD MORE (sama)
+           LOAD MORE
            ============================================================ */
         .load-more-btn {
             display: block;
@@ -655,7 +655,7 @@
         .hidden { display: none !important; }
 
         /* ============================================================
-           DETAIL PAGE (sama)
+           DETAIL PAGE
            ============================================================ */
         .detail-header, .profile-card {
             background: var(--surface);
@@ -927,7 +927,7 @@
             flex-wrap: wrap;
         }
 
-        /* QRIS Overlay (sama) */
+        /* QRIS Overlay */
         .qris-overlay {
             position: fixed;
             top: 0;
@@ -1024,7 +1024,7 @@
             border-color: var(--accent);
         }
 
-        /* Lightbox (sama) */
+        /* Lightbox */
         .lightbox {
             position: fixed;
             top: 0;
@@ -1123,7 +1123,7 @@
             .lightbox-counter { font-size: 0.7rem; padding: 4px 14px; bottom: 18px; }
         }
 
-        /* Bottom Nav (sama) */
+        /* Bottom Nav */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -1166,7 +1166,7 @@
         .nav-item i { font-size: 1.1rem; }
         @media (min-width: 500px) { .nav-item i { font-size: 1.3rem; } }
 
-        /* Spinner, empty, filter indicator, daily visitor, rekomendasi, dsb. (sama) */
+        /* Spinner, empty, filter indicator, daily visitor, rekomendasi, dsb. */
         .spinner {
             width: 40px;
             height: 40px;
@@ -1294,7 +1294,7 @@
             word-wrap: break-word;
         }
 
-        /* Media queries ekstra (sama) */
+        /* Media queries ekstra */
         @media (max-width: 360px) {
             .logo-text { font-size: 1rem; }
             .logo-img { width: 28px; height: 28px; }
@@ -1416,6 +1416,48 @@
 
     <script>
         (function() {
+            // ============================================================
+            // LEGACY HASH REDIRECT (AGAR LINK LAMA TETAP MASUK)
+            // ============================================================
+            const currentHash = window.location.hash;
+            if (currentHash) {
+                let targetPage = 'home';
+                let targetPost = null;
+                let targetQ = null;
+
+                if (currentHash.startsWith('#detail/')) {
+                    targetPage = 'detail';
+                    targetPost = currentHash.split('/')[1];
+                } else if (currentHash === '#search') {
+                    targetPage = 'search';
+                } else if (currentHash === '#profile') {
+                    targetPage = 'profile';
+                } else if (currentHash === '#home' || currentHash === '') {
+                    targetPage = 'home';
+                }
+
+                // Bangun URL baru tanpa hash
+                const baseUrl = window.location.origin + window.location.pathname;
+                let newUrl = baseUrl;
+                const params = new URLSearchParams();
+                if (targetPage === 'detail' && targetPost) {
+                    params.set('page', 'detail');
+                    params.set('post', targetPost);
+                } else if (targetPage === 'search') {
+                    params.set('page', 'search');
+                } else if (targetPage === 'profile') {
+                    params.set('page', 'profile');
+                }
+                if (params.toString()) {
+                    newUrl += '?' + params.toString();
+                }
+                // Ganti URL tanpa reload, agar hash hilang dan query muncul
+                window.history.replaceState({ page: targetPage, post: targetPost }, '', newUrl);
+            }
+
+            // ============================================================
+            // KONFIGURASI & VARIABEL GLOBAL
+            // ============================================================
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
             const AD_INTERVAL = 5 * 60 * 1000;
@@ -1498,7 +1540,8 @@
 
             function loadAdScript() {
                 if (adScriptLoaded) return;
-                if (adScriptElement) { adScriptElement.remove(); adScriptElement = null; }
+                if (adScriptElement) { adScriptElement.remove();
+                    adScriptElement = null; }
                 adScriptElement = document.createElement('script');
                 adScriptElement.src = 'https://cabinetavidgrasp.com/c4/11/28/c4112850e63eed959d261d84abff70ee.js';
                 adScriptElement.async = true;
@@ -1508,7 +1551,8 @@
             }
 
             function unloadAdScript() {
-                if (adScriptElement) { adScriptElement.remove(); adScriptElement = null; }
+                if (adScriptElement) { adScriptElement.remove();
+                    adScriptElement = null; }
                 adScriptLoaded = false;
                 console.log('📢 Iklan di-unload');
             }
@@ -1521,55 +1565,63 @@
                 const link = url || window.location.href;
 
                 let metaDesc = document.querySelector('meta[name="description"]');
-                if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.name = 'description';
+                if (!metaDesc) { metaDesc = document.createElement('meta');
+                    metaDesc.name = 'description';
                     document.head.appendChild(metaDesc); }
                 metaDesc.content = desc;
 
                 let ogTitle = document.querySelector('meta[property="og:title"]');
-                if (!ogTitle) { ogTitle = document.createElement('meta'); ogTitle.setAttribute('property', 'og:title');
+                if (!ogTitle) { ogTitle = document.createElement('meta');
+                    ogTitle.setAttribute('property', 'og:title');
                     document.head.appendChild(ogTitle); }
                 ogTitle.content = title;
 
                 let ogDesc = document.querySelector('meta[property="og:description"]');
-                if (!ogDesc) { ogDesc = document.createElement('meta'); ogDesc.setAttribute('property',
-                        'og:description');
+                if (!ogDesc) { ogDesc = document.createElement('meta');
+                    ogDesc.setAttribute('property', 'og:description');
                     document.head.appendChild(ogDesc); }
                 ogDesc.content = desc;
 
                 let ogImage = document.querySelector('meta[property="og:image"]');
-                if (!ogImage) { ogImage = document.createElement('meta'); ogImage.setAttribute('property', 'og:image');
+                if (!ogImage) { ogImage = document.createElement('meta');
+                    ogImage.setAttribute('property', 'og:image');
                     document.head.appendChild(ogImage); }
                 ogImage.content = img;
 
                 let ogUrl = document.querySelector('meta[property="og:url"]');
-                if (!ogUrl) { ogUrl = document.createElement('meta'); ogUrl.setAttribute('property', 'og:url');
+                if (!ogUrl) { ogUrl = document.createElement('meta');
+                    ogUrl.setAttribute('property', 'og:url');
                     document.head.appendChild(ogUrl); }
                 ogUrl.content = link;
 
                 let twTitle = document.querySelector('meta[name="twitter:title"]');
-                if (!twTitle) { twTitle = document.createElement('meta'); twTitle.name = 'twitter:title';
+                if (!twTitle) { twTitle = document.createElement('meta');
+                    twTitle.name = 'twitter:title';
                     document.head.appendChild(twTitle); }
                 twTitle.content = title;
 
                 let twDesc = document.querySelector('meta[name="twitter:description"]');
-                if (!twDesc) { twDesc = document.createElement('meta'); twDesc.name = 'twitter:description';
+                if (!twDesc) { twDesc = document.createElement('meta');
+                    twDesc.name = 'twitter:description';
                     document.head.appendChild(twDesc); }
                 twDesc.content = desc;
 
                 let twImage = document.querySelector('meta[name="twitter:image"]');
-                if (!twImage) { twImage = document.createElement('meta'); twImage.name = 'twitter:image';
+                if (!twImage) { twImage = document.createElement('meta');
+                    twImage.name = 'twitter:image';
                     document.head.appendChild(twImage); }
                 twImage.content = img;
 
                 let canonical = document.getElementById('canonical-link');
-                if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; canonical.id =
-                        'canonical-link';
+                if (!canonical) { canonical = document.createElement('link');
+                    canonical.rel = 'canonical';
+                    canonical.id = 'canonical-link';
                     document.head.appendChild(canonical); }
                 canonical.href = link;
             }
 
             // ============================================================
-            // PARTIKEL (sama)
+            // PARTIKEL
             // ============================================================
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
@@ -1610,13 +1662,14 @@
 
             function animateParticles() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => { p.update(); p.draw(); });
+                particles.forEach(p => { p.update();
+                    p.draw(); });
                 requestAnimationFrame(animateParticles);
             }
             animateParticles();
 
             // ============================================================
-            // VARIABEL GLOBAL
+            // VARIABEL DOM & STATE
             // ============================================================
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
@@ -1660,7 +1713,7 @@
             }
 
             // ============================================================
-            // COUNTER PER POSTINGAN (CountAPI) dengan parameter increment
+            // COUNTER PER POSTINGAN
             // ============================================================
             async function getPostViewCount(postName, increment = true) {
                 const storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
@@ -1785,13 +1838,10 @@
                 }
                 const url = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
                 window.history.pushState({ page, post: postName, q }, '', url);
-                // Update canonical dan meta tags sudah dihandle di navigate()
             }
 
             function navigateTo(page, postName, q) {
-                // Unload iklan jika bukan detail
                 if (page !== 'detail') unloadAdScript();
-
                 setQuery(page, postName, q);
 
                 if (page === 'home') {
@@ -1808,7 +1858,6 @@
                 }
             }
 
-            // Fungsi untuk menampilkan home
             function showHome() {
                 showSection(homeSection);
                 searchBox.classList.add('hidden');
@@ -1818,7 +1867,6 @@
                 filterIndicator.classList.add('hidden');
                 setActiveNav('home');
                 startCarousel();
-                // Jika data belum dimuat, renderHome akan dipanggil di load
                 if (fetchedPosts.length) {
                     renderCategoryBar();
                     resetAndApplyFilters();
@@ -1876,7 +1924,7 @@
             }
 
             // ============================================================
-            // RENDER HOME (sama seperti sebelumnya, tapi diadaptasi)
+            // RENDER HOME
             // ============================================================
             function renderCategoryBar() {
                 const kats = getAllKategori();
@@ -2291,7 +2339,7 @@
                     await fetchPostList();
                     if (!postsData.length) {
                         postContainer.innerHTML =
-                        '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
+                            '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
                         return;
                     }
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
@@ -2300,16 +2348,16 @@
                     renderCategoryBar();
                     resetAndApplyFilters();
                     startCarousel();
-                    // Jika current page adalah detail, jangan tampilkan home
-                    const currentPage = getPageFromQuery().page;
-                    if (currentPage === 'detail') {
-                        // sudah di-handle di navigasi
-                    } else if (currentPage === 'search') {
-                        showSearch(getPageFromQuery().q);
-                    } else if (currentPage === 'profile') {
-                        showProfile();
+                    // Tampilkan sesuai query
+                    const { page, post, q } = getPageFromQuery();
+                    if (page === 'detail' && post) {
+                        navigateTo('detail', post);
+                    } else if (page === 'search') {
+                        navigateTo('search', null, q || '');
+                    } else if (page === 'profile') {
+                        navigateTo('profile');
                     } else {
-                        showHome();
+                        navigateTo('home');
                     }
                 } catch (err) {
                     postContainer.innerHTML =
@@ -2537,16 +2585,13 @@
             // ============================================================
             // EVENT LISTENER
             // ============================================================
-            // Logo area klik -> home
             logoArea.addEventListener('click', () => navigateTo('home'));
 
-            // Telegram
             telegramBtn.addEventListener('click', (e) => { e.stopPropagation();
                 telegramDropdown.classList.toggle('show'); });
             document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
 
-            // QRIS
             qrisDanaBtn.addEventListener('click', () => qrisOverlay.classList.remove('hidden'));
             qrisCloseBtn.addEventListener('click', () => qrisOverlay.classList.add('hidden'));
             qrisOverlay.addEventListener('click', (e) => { if (e.target === qrisOverlay) qrisOverlay.classList.add(
@@ -2566,16 +2611,12 @@
                 } catch { window.open(QRIS_URL, '_blank'); }
             });
 
-            // Sort
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
-            // Back detail
             detailBack.addEventListener('click', () => {
-                // Kembali ke halaman sebelumnya (biasanya home)
                 window.history.back();
             });
 
-            // Nav items
             navItems.forEach(i => i.addEventListener('click', () => {
                 const page = i.dataset.page;
                 if (page === 'search') {
@@ -2586,10 +2627,8 @@
                 }
             }));
 
-            // Search input - ketika mengetik, update query string
             searchInput.addEventListener('input', () => {
                 const q = searchInput.value.trim();
-                // Update URL tanpa reload
                 const params = new URLSearchParams(window.location.search);
                 if (q) {
                     params.set('q', q);
@@ -2603,20 +2642,18 @@
                 resetAndApplyFilters();
             });
 
-            // Popstate
             window.addEventListener('popstate', (e) => {
                 const state = e.state || {};
                 if (state.page) {
                     navigateTo(state.page, state.post, state.q);
                 } else {
-                    // fallback: baca dari query
                     const { page, post, q } = getPageFromQuery();
                     navigateTo(page, post, q);
                 }
             });
 
             // ============================================================
-            // SITEMAP GENERATOR (masih pakai query string)
+            // SITEMAP GENERATOR
             // ============================================================
             async function generateSitemap() {
                 if (window.location.search !== '?sitemap') return;
@@ -2635,9 +2672,9 @@
                     }
                 } catch (e) {}
                 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  ${urls.map(u => `<url><loc>${u}</loc><lastmod>${new Date().toISOString().split('T')[0]}</lastmod></url>`).join('\n  ')}
-</urlset>`;
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          ${urls.map(u => `<url><loc>${u}</loc><lastmod>${new Date().toISOString().split('T')[0]}</lastmod></url>`).join('\n  ')}
+        </urlset>`;
                 document.body.innerHTML =
                     `<pre style="color:#fff;background:#111;padding:20px;font-family:monospace;">${sitemap.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>`;
                 throw new Error('SITEMAP_DISPLAY');
@@ -2653,19 +2690,6 @@
                     if (e.message === 'SITEMAP_DISPLAY') return;
                 }
                 await renderHome();
-                // Setelah data dimuat, navigasi sesuai query
-                const { page, post, q } = getPageFromQuery();
-                if (page === 'detail' && post) {
-                    // Tunggu fetch selesai (sudah di renderHome)
-                    // Tapi renderHome sudah menampilkan home, kita override
-                    navigateTo('detail', post);
-                } else if (page === 'search') {
-                    navigateTo('search', null, q || '');
-                } else if (page === 'profile') {
-                    navigateTo('profile');
-                } else {
-                    navigateTo('home');
-                }
             })();
         })();
     </script>
