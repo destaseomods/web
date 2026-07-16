@@ -60,7 +60,7 @@
 
     <style>
         /* ============================================================
-           ROOT VARIABLES
+           ROOT VARIABLES (sama seperti sebelumnya)
            ============================================================ */
         :root {
             --bg: #04040e;
@@ -84,7 +84,7 @@
         }
 
         /* ============================================================
-           RESET & BASE
+           RESET & BASE (sama)
            ============================================================ */
         * {
             margin: 0;
@@ -126,7 +126,7 @@
         }
 
         /* ============================================================
-           TOPBAR
+           TOPBAR (sama)
            ============================================================ */
         .topbar {
             display: flex;
@@ -239,7 +239,7 @@
         .telegram-dropdown a i { width: 18px; text-align: center; }
 
         /* ============================================================
-           SEARCH
+           SEARCH (sama)
            ============================================================ */
         .search-container {
             margin: 8px 0 16px;
@@ -268,7 +268,7 @@
         .search-input::placeholder { color: var(--text2); }
 
         /* ============================================================
-           CATEGORY BAR
+           CATEGORY BAR (sama)
            ============================================================ */
         .category-bar {
             display: flex;
@@ -309,7 +309,7 @@
         .reset-filter i { margin-right: 4px; }
 
         /* ============================================================
-           SORT BAR
+           SORT BAR (sama)
            ============================================================ */
         .sort-bar {
             display: flex;
@@ -341,7 +341,7 @@
         .sort-select:hover { border-color: var(--accent2); }
 
         /* ============================================================
-           CAROUSEL
+           CAROUSEL (sama)
            ============================================================ */
         .popular-section { margin-bottom: 0; }
         .carousel-wrapper {
@@ -434,7 +434,7 @@
         }
 
         /* ============================================================
-           POST GRID
+           POST GRID (sama)
            ============================================================ */
         .post-grid {
             display: grid;
@@ -630,7 +630,7 @@
         }
 
         /* ============================================================
-           LOAD MORE
+           LOAD MORE (sama)
            ============================================================ */
         .load-more-btn {
             display: block;
@@ -655,7 +655,7 @@
         .hidden { display: none !important; }
 
         /* ============================================================
-           DETAIL PAGE
+           DETAIL PAGE (sama)
            ============================================================ */
         .detail-header, .profile-card {
             background: var(--surface);
@@ -927,7 +927,7 @@
             flex-wrap: wrap;
         }
 
-        /* QRIS Overlay */
+        /* QRIS Overlay (sama) */
         .qris-overlay {
             position: fixed;
             top: 0;
@@ -1024,7 +1024,7 @@
             border-color: var(--accent);
         }
 
-        /* Lightbox */
+        /* Lightbox (sama) */
         .lightbox {
             position: fixed;
             top: 0;
@@ -1123,7 +1123,7 @@
             .lightbox-counter { font-size: 0.7rem; padding: 4px 14px; bottom: 18px; }
         }
 
-        /* Bottom Nav */
+        /* Bottom Nav (sama) */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -1166,7 +1166,7 @@
         .nav-item i { font-size: 1.1rem; }
         @media (min-width: 500px) { .nav-item i { font-size: 1.3rem; } }
 
-        /* Spinner, empty, filter indicator, daily visitor, rekomendasi, dsb. */
+        /* Spinner, empty, filter indicator, daily visitor, rekomendasi, dsb. (sama) */
         .spinner {
             width: 40px;
             height: 40px;
@@ -1294,7 +1294,7 @@
             word-wrap: break-word;
         }
 
-        /* Media queries ekstra */
+        /* Media queries ekstra (sama) */
         @media (max-width: 360px) {
             .logo-text { font-size: 1rem; }
             .logo-img { width: 28px; height: 28px; }
@@ -1417,43 +1417,74 @@
     <script>
         (function() {
             // ============================================================
-            // LEGACY HASH REDIRECT (AGAR LINK LAMA TETAP MASUK)
+            // LEGACY HASH REDIRECT — PASTI BERJALAN
             // ============================================================
-            const currentHash = window.location.hash;
-            if (currentHash) {
+            let hasRedirected = false;
+
+            function handleHashRedirect() {
+                if (hasRedirected) return;
+                const hash = window.location.hash;
+                if (!hash) return;
+
                 let targetPage = 'home';
                 let targetPost = null;
-                let targetQ = null;
 
-                if (currentHash.startsWith('#detail/')) {
+                if (hash.startsWith('#detail/')) {
                     targetPage = 'detail';
-                    targetPost = currentHash.split('/')[1];
-                } else if (currentHash === '#search') {
+                    targetPost = decodeURIComponent(hash.split('/')[1] || '');
+                } else if (hash === '#search') {
                     targetPage = 'search';
-                } else if (currentHash === '#profile') {
+                } else if (hash === '#profile') {
                     targetPage = 'profile';
-                } else if (currentHash === '#home' || currentHash === '') {
+                } else if (hash === '#home') {
                     targetPage = 'home';
                 }
 
-                // Bangun URL baru tanpa hash
-                const baseUrl = window.location.origin + window.location.pathname;
-                let newUrl = baseUrl;
-                const params = new URLSearchParams();
+                // Hanya redirect jika targetPage detail dan ada post, atau search/profile
                 if (targetPage === 'detail' && targetPost) {
-                    params.set('page', 'detail');
-                    params.set('post', targetPost);
+                    const newUrl = window.location.pathname + '?page=detail&post=' + encodeURIComponent(targetPost);
+                    window.history.replaceState({ page: 'detail', post: targetPost }, '', newUrl);
+                    hasRedirected = true;
                 } else if (targetPage === 'search') {
-                    params.set('page', 'search');
+                    const newUrl = window.location.pathname + '?page=search';
+                    window.history.replaceState({ page: 'search' }, '', newUrl);
+                    hasRedirected = true;
                 } else if (targetPage === 'profile') {
-                    params.set('page', 'profile');
+                    const newUrl = window.location.pathname + '?page=profile';
+                    window.history.replaceState({ page: 'profile' }, '', newUrl);
+                    hasRedirected = true;
+                } else if (targetPage === 'home') {
+                    const newUrl = window.location.pathname;
+                    window.history.replaceState({ page: 'home' }, '', newUrl);
+                    hasRedirected = true;
                 }
-                if (params.toString()) {
-                    newUrl += '?' + params.toString();
+
+                if (hasRedirected) {
+                    // Hapus hash dari URL (sudah terganti)
+                    console.log('✅ Redirect hash ke:', window.location.href);
                 }
-                // Ganti URL tanpa reload, agar hash hilang dan query muncul
-                window.history.replaceState({ page: targetPage, post: targetPost }, '', newUrl);
             }
+
+            // Jalankan segera
+            handleHashRedirect();
+
+            // Jika hash berubah (misal user klik link hash dari luar), tangani lagi
+            window.addEventListener('hashchange', function() {
+                // Reset flag agar bisa redirect lagi
+                hasRedirected = false;
+                handleHashRedirect();
+                // Setelah redirect, kita perlu reload navigasi sesuai query yang baru
+                const { page, post, q } = getPageFromQuery();
+                if (page === 'detail' && post) {
+                    navigateTo('detail', post);
+                } else if (page === 'search') {
+                    navigateTo('search', null, q);
+                } else if (page === 'profile') {
+                    navigateTo('profile');
+                } else {
+                    navigateTo('home');
+                }
+            });
 
             // ============================================================
             // KONFIGURASI & VARIABEL GLOBAL
