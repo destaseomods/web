@@ -1823,8 +1823,9 @@
             // ===== Cache configuration =====
             const CACHE_KEY_LIST = 'destaseo_post_list_v3';
             const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
-            const CACHE_TIME_LIST = 5 * 60 * 1000; // 5 menit
-            const CACHE_TIME_CONTENT = 60 * 60 * 1000; // 1 jam
+            // 🔥 CACHE DIUBAH MENJADI 1 MENIT (60.000 ms)
+            const CACHE_TIME_LIST = 60 * 1000; // 1 menit (sebelumnya 5 menit)
+            const CACHE_TIME_CONTENT = 60 * 1000; // 1 menit (sebelumnya 1 jam)
 
             // ===== Fungsi untuk mendapatkan IP publik =====
             async function getUserIP() {
