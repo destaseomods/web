@@ -1,6 +1,7 @@
 ---
 tanggal: 2026-07-16 22:22
 populer: true
+badge: VIP
 judul: "FREEREELS MOD VIP"
 gambar: "https://leeapk.com/wp-content/uploads/2026/04/FreeReels-App-Logo.webp"
 versi: "2.3.81"
