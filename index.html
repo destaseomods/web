@@ -1935,14 +1935,26 @@
             }
 
             // ============================================================
-            // COUNTER PER POSTINGAN (menggunakan Abacus API)
+            // COUNTER PER POSTINGAN (menggunakan Abacus API, dibatasi per hari per device)
             // ============================================================
             async function getPostViewCount(postName) {
-                // Endpoint Abacus dengan parameter query post
-                const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/awesomeclick?post=${encodeURIComponent(postName)}`;
                 const storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
                 const today = new Date().toISOString().slice(0, 10);
 
+                // Cek localStorage apakah sudah ada data hari ini
+                let localData = null;
+                try {
+                    const raw = localStorage.getItem(storageKey);
+                    if (raw) localData = JSON.parse(raw);
+                } catch (_) {}
+
+                // Jika sudah ada hari ini, langsung return count tanpa panggil API
+                if (localData && localData.date === today) {
+                    return localData.count;
+                }
+
+                // Jika belum ada, panggil API Abacus
+                const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/awesomeclick?post=${encodeURIComponent(postName)}`;
                 try {
                     const controller = new AbortController();
                     const timeout = setTimeout(() => controller.abort(), 3000);
@@ -1955,7 +1967,6 @@
 
                     if (res.ok) {
                         const data = await res.json();
-                        // Abacus biasanya mengembalikan { value: count } atau { count: ... }
                         const count = data.value || data.count || 0;
                         if (count > 0) {
                             localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
@@ -1966,15 +1977,7 @@
                     console.warn('Abacus API error, pakai fallback lokal');
                 }
 
-                // Fallback ke localStorage
-                let localData = null;
-                try {
-                    const raw = localStorage.getItem(storageKey);
-                    if (raw) localData = JSON.parse(raw);
-                } catch (_) {}
-                if (localData && localData.date === today) {
-                    return localData.count;
-                }
+                // Fallback: increment lokal jika API gagal
                 const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
                 const newCount = prevCount + 1;
                 localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
@@ -1982,7 +1985,7 @@
             }
 
             // ============================================================
-            // DAILY VISITOR COUNTER
+            // DAILY VISITOR COUNTER (total global)
             // ============================================================
             async function getDailyVisitorCount() {
                 const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily`;
@@ -2700,7 +2703,7 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // Ambil jumlah dilihat dari Abacus
+                // Ambil jumlah dilihat (per post, per hari)
                 const viewCount = await getPostViewCount(name);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
