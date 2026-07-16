@@ -1935,18 +1935,17 @@
             }
 
             // ============================================================
-            // COUNTER PER POSTINGAN (menggunakan Counter API)
+            // COUNTER PER POSTINGAN (menggunakan Abacus API)
             // ============================================================
             async function getPostViewCount(postName) {
-                const namespace = "destaseomods.web.id";
-                const postId = encodeURIComponent(postName);
-                const url = `https://counterapi.dev/${namespace}/${postId}/up`;
-                const storageKey = 'view_' + postId;
+                // Endpoint Abacus dengan parameter query post
+                const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/awesomeclick?post=${encodeURIComponent(postName)}`;
+                const storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
                 const today = new Date().toISOString().slice(0, 10);
 
                 try {
                     const controller = new AbortController();
-                    const timeout = setTimeout(() => controller.abort(), 2000);
+                    const timeout = setTimeout(() => controller.abort(), 3000);
                     const res = await fetch(url, {
                         method: 'GET',
                         signal: controller.signal,
@@ -1956,12 +1955,15 @@
 
                     if (res.ok) {
                         const data = await res.json();
-                        const count = data.count || 0;
-                        localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
-                        return count;
+                        // Abacus biasanya mengembalikan { value: count } atau { count: ... }
+                        const count = data.value || data.count || 0;
+                        if (count > 0) {
+                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                            return count;
+                        }
                     }
                 } catch (e) {
-                    console.warn('Counter API error, pakai fallback lokal');
+                    console.warn('Abacus API error, pakai fallback lokal');
                 }
 
                 // Fallback ke localStorage
@@ -2541,7 +2543,7 @@
                 if (!str) return '';
                 const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
                 if (urls.length === 0) return '';
-                // 🔥 TAMPILKAN 10 GAMBAR (sebelumnya 5)
+                // 🔥 TAMPILKAN 10 GAMBAR
                 const lim = urls.slice(0, 10);
                 const urlsAttr = urls.map(u => u.replace(/"/g, '&quot;')).join('|||');
                 return `<div class="screenshot-scroll" data-all-urls="${urlsAttr}">
@@ -2698,6 +2700,7 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
+                // Ambil jumlah dilihat dari Abacus
                 const viewCount = await getPostViewCount(name);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
