@@ -60,7 +60,7 @@
 
     <style>
         /* ============================================================
-           ROOT VARIABLES
+           ROOT VARIABLES (sama seperti sebelumnya)
            ============================================================ */
         :root {
             --bg: #04040e;
@@ -126,7 +126,7 @@
         }
 
         /* ============================================================
-           TRANSISI HALAMAN (BARU)
+           TRANSISI HALAMAN
            ============================================================ */
         .page-section {
             opacity: 1;
@@ -138,14 +138,12 @@
             transform: translateY(10px) !important;
             pointer-events: none;
             display: block !important;
-            /* biar transisi jalan, kita pake height 0 + overflow */
             height: 0;
             overflow: hidden;
             padding: 0 !important;
             margin: 0 !important;
             min-height: 0 !important;
         }
-        /* Khusus detail, biar gak kecompress waktu hidden */
         .page-section#detail-section.hidden {
             height: 0;
             overflow: hidden;
@@ -1460,7 +1458,7 @@
     <script>
         (function() {
             // ============================================================
-            // LEGACY HASH REDIRECT (AGAR LINK LAMA TETAP MASUK)
+            // LEGACY HASH REDIRECT
             // ============================================================
             const currentHash = window.location.hash;
             if (currentHash) {
@@ -1587,17 +1585,15 @@
                 adScriptElement.async = true;
                 document.head.appendChild(adScriptElement);
                 adScriptLoaded = true;
-                console.log('📢 Iklan di-load (halaman detail)');
             }
 
             function unloadAdScript() {
                 if (adScriptElement) { adScriptElement.remove();
                     adScriptElement = null; }
                 adScriptLoaded = false;
-                console.log('📢 Iklan di-unload');
             }
 
-            // ===== SEO: update meta tags =====
+            // ===== SEO =====
             function updateMetaTags(title, description, image, url) {
                 document.title = title || "Destaseo Mods • Premium Mod APK";
                 const desc = description || "Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.";
@@ -1745,9 +1741,6 @@
             let totalPopularSlides = 0;
             let topPopularPosts = [];
 
-            // Simpan halaman sebelumnya untuk tombol kembali
-            let previousPage = { page: 'home', post: null, q: null };
-
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) {
                 const a = document.getElementById('profile-avatar');
@@ -1858,7 +1851,7 @@
             }
 
             // ============================================================
-            // NAVIGASI BERBASIS QUERY STRING
+            // NAVIGASI
             // ============================================================
             function getPageFromQuery() {
                 const params = new URLSearchParams(window.location.search);
@@ -1884,9 +1877,6 @@
             }
 
             function navigateTo(page, postName, q) {
-                const current = getPageFromQuery();
-                previousPage = { page: current.page, post: current.post, q: current.q };
-
                 if (page !== 'detail') unloadAdScript();
                 setQuery(page, postName, q);
 
@@ -1960,15 +1950,12 @@
             }
 
             function showSection(s) {
-                // Sembunyikan semua section dengan class hidden (agar transisi jalan)
                 [homeSection, detailSection, profileSection].forEach(el => {
                     if (el !== s) {
                         el.classList.add('hidden');
-                        // Reset display block agar transisi bisa berjalan
                         el.style.display = '';
                     }
                 });
-                // Tampilkan section yang dituju
                 s.classList.remove('hidden');
                 s.style.display = 'block';
             }
@@ -2524,9 +2511,14 @@
             async function showDetail(name) {
                 const post = fetchedPosts.find(p => p.name === name);
                 if (!post) {
-                    console.error('❌ Post tidak ditemukan:', name);
+                    detailContent.innerHTML =
+                        `<div class="error-text">❌ Postingan tidak ditemukan. <br><small>${name}</small></div>`;
+                    showSection(detailSection);
+                    setActiveNav('detail');
+                    window.scrollTo({ top: 0 });
                     return;
                 }
+
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
                 const v = post.metadata.versi || post.metadata.version || '?';
@@ -2567,7 +2559,7 @@
                     recHtml += `</div></div>`;
                 }
 
-                // TAMPILKAN SPINNER DULU
+                // Tampilkan spinner
                 detailContent.innerHTML = '<div class="spinner"></div>';
                 showSection(detailSection);
                 setActiveNav('detail');
@@ -2599,7 +2591,6 @@
                     document.head.appendChild(script); }
                 script.textContent = JSON.stringify(articleJson);
 
-                // MASUKAN KONTEN + ANIMASI FADE-IN
                 detailContent.innerHTML = `
                 <div class="detail-header fade-in-content">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
@@ -2669,15 +2660,9 @@
 
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
-            // Tombol Kembali pakai previousPage
+            // TOMBOL KEMBALI: pakai history.back() agar sesuai dengan riwayat browser
             detailBack.addEventListener('click', () => {
-                if (previousPage.page === 'detail' && previousPage.post) {
-                    navigateTo('detail', previousPage.post);
-                } else if (previousPage.page === 'search') {
-                    navigateTo('search', null, previousPage.q);
-                } else {
-                    navigateTo('home');
-                }
+                window.history.back();
             });
 
             navItems.forEach(i => i.addEventListener('click', () => {
