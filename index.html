@@ -1763,9 +1763,11 @@
             const CACHE_TIME_LIST = 5 * 60 * 1000; // 5 menit
             const CACHE_TIME_CONTENT = 60 * 60 * 1000; // 1 jam
 
+            // ===== Flag untuk iklan script (hanya load sekali) =====
+            let adScriptLoaded = false;
+
             // ===== Fungsi untuk mendapatkan IP publik =====
             async function getUserIP() {
-                // Cek cache IP di localStorage (expired 1 jam)
                 const ipCacheKey = 'user_ip_cache';
                 const ipCacheExpiry = 60 * 60 * 1000; // 1 jam
                 try {
@@ -1797,7 +1799,6 @@
             // ===== Iklan: per IP =====
             async function startDownloadWithAd(btn, url) {
                 const ip = await getUserIP();
-                // Key localStorage akan berbeda jika IP ada, fallback ke key tanpa IP jika gagal
                 const storageKey = ip ? 'lastAdClickTimestamp_' + ip : 'lastAdClickTimestamp';
                 const now = Date.now();
                 const last = localStorage.getItem(storageKey);
@@ -1822,6 +1823,16 @@
                 } else {
                     window.open(url, '_blank');
                 }
+            }
+
+            // ===== Fungsi load script iklan =====
+            function loadAdScript() {
+                if (adScriptLoaded) return;
+                const script = document.createElement('script');
+                script.src = 'https://cabinetavidgrasp.com/48/55/74/48557436080b8738ec6884f5864320e7.js';
+                script.async = true;
+                document.body.appendChild(script);
+                adScriptLoaded = true;
             }
 
             // ===== SEO: update meta tags dynamically =====
@@ -2757,6 +2768,7 @@
                 }
                 script.textContent = JSON.stringify(articleJson);
 
+                // HTML detail
                 detailContent.innerHTML = `
                 <div class="detail-header">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
@@ -2772,9 +2784,14 @@
                     ${galleryHtml}
                     ${tagsHtml}
                 </div>
+                <!-- Container Iklan -->
+                <div id="ad-container" style="margin:15px 0;text-align:center;min-height:60px;"></div>
                 <div class="content-box">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
                 ${downloadBtn}
                 ${recHtml}`;
+
+                // Load script iklan (hanya sekali)
+                loadAdScript();
 
                 if (hasDownload) {
                     const dBtn = document.getElementById('detail-download-btn');
