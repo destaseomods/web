@@ -3,19 +3,21 @@ name: Generate Sitemap
 
 on:
   push:
-    branches:
-      - main  # ganti ke 'master' jika branch utamamu master
+    branches: [ main ]
   schedule:
-    - cron: '0 0 * * *'  # setiap hari jam 00:00 UTC (opsional)
+    - cron: '0 0 * * *'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate sitemap.xml
         run: |
@@ -26,9 +28,10 @@ jobs:
           echo '  <url>' >> sitemap.xml
           echo '    <loc>https://destaseomods.web.id/</loc>' >> sitemap.xml
           echo '    <lastmod>'$(date -u +'%Y-%m-%d')'</lastmod>' >> sitemap.xml
+          echo '    <changefreq>daily</changefreq>' >> sitemap.xml
           echo '  </url>' >> sitemap.xml
 
-          # Loop semua file .md di folder posts/
+          # Posts
           for file in posts/*.md; do
             if [ -f "$file" ]; then
               name=$(basename "$file" .md)
@@ -36,6 +39,7 @@ jobs:
               echo '  <url>' >> sitemap.xml
               echo '    <loc>https://destaseomods.web.id/?page=detail&post='$encoded_name'</loc>' >> sitemap.xml
               echo '    <lastmod>'$(date -u +'%Y-%m-%d')'</lastmod>' >> sitemap.xml
+              echo '    <changefreq>weekly</changefreq>' >> sitemap.xml
               echo '  </url>' >> sitemap.xml
             fi
           done
@@ -44,8 +48,12 @@ jobs:
 
       - name: Commit and push sitemap.xml
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add sitemap.xml
-          git diff --staged --quiet || git commit -m "Update sitemap.xml [skip ci]"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update sitemap.xml [skip ci]"
+            git push
+          fi
