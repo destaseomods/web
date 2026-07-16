@@ -635,6 +635,69 @@
             background: rgba(168, 127, 255, 0.4);
             color: #fff;
         }
+
+        /* 🔥 BADGE PREMIUM / VIP / NO ADS di kartu post */
+        .badge-premium {
+            background: linear-gradient(135deg, #f7b731, #f5a623);
+            color: #1a1a2e;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 2px 8px rgba(245, 166, 35, 0.3);
+        }
+        .badge-vip {
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+        }
+        .badge-noads {
+            background: linear-gradient(135deg, #34d399, #059669);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            box-shadow: 0 2px 8px rgba(52, 211, 153, 0.3);
+        }
+        .badge-custom {
+            background: var(--surface2);
+            color: var(--text2);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid var(--border);
+        }
+        @media (min-width: 500px) {
+            .badge-premium,
+            .badge-vip,
+            .badge-noads,
+            .badge-custom {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+        }
+
         .card-excerpt {
             font-size: 0.68rem;
             color: var(--text2);
@@ -2507,6 +2570,7 @@
                 renderLoadMoreButton(f.length);
             }
 
+            // 🔥 cardHTML - HANYA pakai metadata "badges"
             function cardHTML(post, index) {
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
@@ -2514,20 +2578,64 @@
                 const ver = post.metadata.versi || post.metadata.version || '';
                 const excerpt = getExcerpt(post.content);
                 const delay = index * 0.04 + 's';
+
+                // 🔥 Ambil badges dari metadata "badges" (HANYA ini, tidak ada fallback)
+                let badges = [];
+                if (post.metadata.badges) {
+                    if (Array.isArray(post.metadata.badges)) {
+                        badges = post.metadata.badges;
+                    } else {
+                        badges = post.metadata.badges.split(',').map(b => b.trim()).filter(b => b.length > 0);
+                    }
+                }
+
+                // 🔥 Fungsi untuk men-generate badge berdasarkan kata kunci
+                function getBadgeHTML(badgeText) {
+                    const text = badgeText.trim();
+                    const lower = text.toLowerCase();
+                    let className = 'badge-custom';
+                    let icon = 'fa-tag';
+                    if (lower === 'premium') {
+                        className = 'badge-premium';
+                        icon = 'fa-crown';
+                    } else if (lower === 'vip') {
+                        className = 'badge-vip';
+                        icon = 'fa-star';
+                    } else if (lower === 'no ads' || lower === 'noads' || lower === 'tanpa iklan' || lower ===
+                        'no iklan') {
+                        className = 'badge-noads';
+                        icon = 'fa-ban';
+                    }
+                    return `<span class="${className}"><i class="fas ${icon}"></i> ${text}</span>`;
+                }
+
+                // Generate badge HTML
+                const badgesHtml = badges.map(getBadgeHTML).join('');
+
                 const imgTag = img ?
                     `<img src="${img}" alt="${t}" loading="lazy" onerror="this.parentElement.classList.add('error')">` :
                     '';
                 const versionBadge = ver ? `<span class="version-badge-img"><i class="fas fa-code-branch"></i> v${ver}</span>` :
                     '';
+
                 return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
                     <div class="card-img${img ? '' : ' error'}">${imgTag}<span class="placeholder-icon"><i class="fas fa-box-open"></i></span>${versionBadge}</div>
-                    <div class="card-body"><div class="card-title">${t}</div><div class="card-meta">${kategori ? `<span class="badge" data-kat="${kategori}" role="button"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}</div>${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}</div>
+                    <div class="card-body">
+                        <div class="card-title">${t}</div>
+                        <div class="card-meta">
+                            ${kategori ? `<span class="badge" data-kat="${kategori}" role="button"><i class="fas fa-folder"></i> ${kategori}</span>` : ''}
+                            ${badgesHtml}
+                        </div>
+                        ${excerpt ? `<p class="card-excerpt">${excerpt}</p>` : ''}
+                    </div>
                 </div>`;
             }
 
             function attachCardEvents() {
                 document.querySelectorAll('.post-card').forEach(c => c.addEventListener('click', (e) => {
-                    if (e.target.closest('.badge')) return;
+                    if (e.target.closest('.badge') || e.target.closest('.badge-premium') ||
+                        e.target.closest('.badge-vip') || e.target.closest('.badge-noads') ||
+                        e.target.closest('.badge-custom')) return;
                     setHash('detail', c.dataset.name);
                 }));
                 document.querySelectorAll('.badge').forEach(b => b.addEventListener('click', (e) => {
@@ -2770,7 +2878,6 @@
                 }
                 script.textContent = JSON.stringify(articleJson);
 
-                // 🔥 "kali" diubah menjadi "x" tanpa spasi
                 detailContent.innerHTML = `
                 <div class="detail-header">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
