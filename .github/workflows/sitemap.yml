@@ -1,9 +1,9 @@
-# Fix sitemap otomatis
 name: Generate Sitemap
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   schedule:
     - cron: '0 0 * * *'
 
@@ -12,12 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate sitemap.xml
         run: |
@@ -28,18 +25,19 @@ jobs:
           echo '  <url>' >> sitemap.xml
           echo '    <loc>https://destaseomods.web.id/</loc>' >> sitemap.xml
           echo '    <lastmod>'$(date -u +'%Y-%m-%d')'</lastmod>' >> sitemap.xml
-          echo '    <changefreq>daily</changefreq>' >> sitemap.xml
           echo '  </url>' >> sitemap.xml
 
-          # Posts
+          # Loop semua file .md di folder posts/
           for file in posts/*.md; do
             if [ -f "$file" ]; then
-              name=$(basename "$file" .md)
-              encoded_name=$(echo "$name" | sed 's/ /%20/g')
+              # Ambil nama file tanpa ekstensi
+              raw_name=$(basename "$file" .md)
+              # URL-encode nama: spasi -> %20, & -> %26, dll.
+              encoded_name=$(echo "$raw_name" | sed 's/ /%20/g; s/&/%26/g; s/"/%22/g; s/</%3C/g; s/>/%3E/g; s/#/%23/g; s/?/%3F/g; s/\[/%5B/g; s/\]/%5D/g')
               echo '  <url>' >> sitemap.xml
-              echo '    <loc>https://destaseomods.web.id/?page=detail&post='$encoded_name'</loc>' >> sitemap.xml
+              # Perhatikan: gunakan &amp; (bukan &) di XML
+              echo '    <loc>https://destaseomods.web.id/?page=detail&amp;post='$encoded_name'</loc>' >> sitemap.xml
               echo '    <lastmod>'$(date -u +'%Y-%m-%d')'</lastmod>' >> sitemap.xml
-              echo '    <changefreq>weekly</changefreq>' >> sitemap.xml
               echo '  </url>' >> sitemap.xml
             fi
           done
@@ -48,12 +46,8 @@ jobs:
 
       - name: Commit and push sitemap.xml
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git add sitemap.xml
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update sitemap.xml [skip ci]"
-            git push
-          fi
+          git diff --staged --quiet || git commit -m "Update sitemap.xml [skip ci]"
+          git push
