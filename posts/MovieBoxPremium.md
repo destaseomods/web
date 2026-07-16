@@ -1,6 +1,7 @@
 ---
 tanggal: 2026-07-14 19:52
 populer: true
+badges: Premium
 judul: "MOVIEBOX MOD PREMIUM"
 gambar: "https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxlMJI9cVisUnAAirr_X4NHhMHcm1RJXMD0M5dZdpCEKcfvvUiq4kcePuzVNnFyvyjoLkv6cIKY8Zf1N1VNvQ.Wc-&format=source&h=307"
 versi: "3.0.16.0612"
