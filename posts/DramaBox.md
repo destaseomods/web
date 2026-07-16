@@ -1,6 +1,7 @@
 ---
 tanggal: 2026-07-12 17:22
 populer: true
+badges: VIP
 judul: "DRAMABOX MOD VIP"
 gambar: "https://www.apkmirror.com/wp-content/themes/APKMirror/ap_resize/ap_resize.php?src=https%3A%2F%2Fdownloadr2.apkmirror.com%2Fwp-content%2Fuploads%2F2024%2F07%2F52%2F66a9d09faac21_com.storymatrix.drama.png&w=384&h=384&q=100"
 versi: "6.2.1"
