@@ -126,6 +126,52 @@
         }
 
         /* ============================================================
+           TRANSISI HALAMAN (BARU)
+           ============================================================ */
+        .page-section {
+            opacity: 1;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(0);
+        }
+        .page-section.hidden {
+            opacity: 0 !important;
+            transform: translateY(10px) !important;
+            pointer-events: none;
+            display: block !important;
+            /* biar transisi jalan, kita pake height 0 + overflow */
+            height: 0;
+            overflow: hidden;
+            padding: 0 !important;
+            margin: 0 !important;
+            min-height: 0 !important;
+        }
+        /* Khusus detail, biar gak kecompress waktu hidden */
+        .page-section#detail-section.hidden {
+            height: 0;
+            overflow: hidden;
+        }
+        .page-section#detail-section:not(.hidden) {
+            height: auto;
+            overflow: visible;
+            padding-top: 10px;
+        }
+
+        .fade-in-content {
+            animation: fadeInUp 0.4s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================================
            TOPBAR
            ============================================================ */
         .topbar {
@@ -459,9 +505,6 @@
             animation: fadeInUp 0.5s ease forwards;
             opacity: 0;
             transform: translateY(25px);
-        }
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
         }
         .post-card:hover {
             transform: translateY(-6px) scale(1.01);
@@ -1168,10 +1211,10 @@
 
         /* Spinner, empty, filter indicator, daily visitor, rekomendasi, dsb. */
         .spinner {
-            width: 40px;
-            height: 40px;
-            margin: 40px auto;
-            border: 3px solid rgba(255, 255, 255, 0.06);
+            width: 50px;
+            height: 50px;
+            margin: 60px auto;
+            border: 4px solid rgba(255, 255, 255, 0.06);
             border-top-color: var(--accent2);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
@@ -1355,7 +1398,7 @@
 
     <!-- Main -->
     <main class="container" id="app">
-        <section id="home-section" aria-label="Beranda">
+        <section id="home-section" class="page-section" aria-label="Beranda">
             <div class="search-container hidden" id="search-box">
                 <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit..." aria-label="Cari mod" />
             </div>
@@ -1380,12 +1423,12 @@
             <div id="load-more-container" style="text-align:center;"></div>
         </section>
 
-        <section id="detail-section" class="hidden" aria-label="Detail Mod">
+        <section id="detail-section" class="page-section hidden" aria-label="Detail Mod">
             <button class="back-btn" id="detail-back" aria-label="Kembali"><i class="fas fa-arrow-left"></i> Kembali</button>
             <div id="detail-content"></div>
         </section>
 
-        <section id="profile-section" class="hidden" aria-label="Profil">
+        <section id="profile-section" class="page-section hidden" aria-label="Profil">
             <div class="profile-card">
                 <div class="premium-badge"><i class="fas fa-crown"></i> Premium</div>
                 <div class="profile-avatar" id="profile-avatar" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');" role="img" aria-label="Avatar Destaseo Mods"></div>
@@ -1450,7 +1493,6 @@
                 if (params.toString()) {
                     newUrl += '?' + params.toString();
                 }
-                // Ganti URL tanpa reload, agar hash hilang dan query muncul
                 window.history.replaceState({ page: targetPage, post: targetPost }, '', newUrl);
             }
 
@@ -1703,9 +1745,7 @@
             let totalPopularSlides = 0;
             let topPopularPosts = [];
 
-            // ============================================================
-            // SIMPAN HALAMAN SEBELUMNYA UNTUK TOMBOL KEMBALI
-            // ============================================================
+            // Simpan halaman sebelumnya untuk tombol kembali
             let previousPage = { page: 'home', post: null, q: null };
 
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
@@ -1844,7 +1884,6 @@
             }
 
             function navigateTo(page, postName, q) {
-                // Simpan halaman saat ini sebagai "previous" sebelum pindah
                 const current = getPageFromQuery();
                 previousPage = { page: current.page, post: current.post, q: current.q };
 
@@ -1921,8 +1960,17 @@
             }
 
             function showSection(s) {
-                [homeSection, detailSection, profileSection].forEach(x => x.classList.add('hidden'));
+                // Sembunyikan semua section dengan class hidden (agar transisi jalan)
+                [homeSection, detailSection, profileSection].forEach(el => {
+                    if (el !== s) {
+                        el.classList.add('hidden');
+                        // Reset display block agar transisi bisa berjalan
+                        el.style.display = '';
+                    }
+                });
+                // Tampilkan section yang dituju
                 s.classList.remove('hidden');
+                s.style.display = 'block';
             }
 
             function setActiveNav(p) {
@@ -2519,6 +2567,7 @@
                     recHtml += `</div></div>`;
                 }
 
+                // TAMPILKAN SPINNER DULU
                 detailContent.innerHTML = '<div class="spinner"></div>';
                 showSection(detailSection);
                 setActiveNav('detail');
@@ -2550,8 +2599,9 @@
                     document.head.appendChild(script); }
                 script.textContent = JSON.stringify(articleJson);
 
+                // MASUKAN KONTEN + ANIMASI FADE-IN
                 detailContent.innerHTML = `
-                <div class="detail-header">
+                <div class="detail-header fade-in-content">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
                     <h1 class="detail-title">${t}</h1>
                     <div class="detail-meta-grid">
@@ -2565,7 +2615,7 @@
                     ${galleryHtml}
                     ${tagsHtml}
                 </div>
-                <div class="content-box">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
+                <div class="content-box fade-in-content">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
                 ${downloadBtn}
                 ${recHtml}`;
 
@@ -2619,9 +2669,7 @@
 
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
-            // ============================================================
-            // TOMBOL KEMBALI - PAKAI PREVIOUS PAGE
-            // ============================================================
+            // Tombol Kembali pakai previousPage
             detailBack.addEventListener('click', () => {
                 if (previousPage.page === 'detail' && previousPage.post) {
                     navigateTo('detail', previousPage.post);
