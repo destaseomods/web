@@ -1,6 +1,7 @@
 ---
 tanggal: 2026-07-11 17:52
 populer: true
+badges: No Ads
 judul: "SUMALENGTV MOD NO ADS"
 gambar: "https://github.com/destaseomods/web/blob/main/posts/photo/image-18.jpg"
 versi: "1.2"
