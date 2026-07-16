@@ -1,0 +1,50 @@
+name: Generate Sitemap
+
+on:
+  push:
+    branches:
+      - main  # ganti ke 'master' jika branch utamamu master
+  schedule:
+    - cron: '0 0 * * *'  # setiap hari jam 00:00 UTC (opsional)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate sitemap.xml
+        run: |
+          echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
+          echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
+
+          # Homepage
+          echo '  <url>' >> sitemap.xml
+          echo '    <loc>https://destaseomods.web.id/</loc>' >> sitemap.xml
+          echo '    <lastmod>'$(date -u +'%Y-%m-%d')'</lastmod>' >> sitemap.xml
+          echo '  </url>' >> sitemap.xml
+
+          # Loop semua file .md di folder posts/
+          for file in posts/*.md; do
+            if [ -f "$file" ]; then
+              name=$(basename "$file" .md)
+              encoded_name=$(echo "$name" | sed 's/ /%20/g')
+              echo '  <url>' >> sitemap.xml
+              echo '    <loc>https://destaseomods.web.id/?page=detail&post='$encoded_name'</loc>' >> sitemap.xml
+              echo '    <lastmod>'$(date -u +'%Y-%m-%d')'</lastmod>' >> sitemap.xml
+              echo '  </url>' >> sitemap.xml
+            fi
+          done
+
+          echo '</urlset>' >> sitemap.xml
+
+      - name: Commit and push sitemap.xml
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add sitemap.xml
+          git diff --staged --quiet || git commit -m "Update sitemap.xml [skip ci]"
+          git push
