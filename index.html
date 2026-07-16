@@ -1935,7 +1935,7 @@
             }
 
             // ============================================================
-            // COUNTER PER POSTINGAN (localStorage + API background)
+            // COUNTER PER POSTINGAN (CountAPI)
             // ============================================================
             async function getPostViewCount(postName) {
                 const storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
@@ -1948,20 +1948,35 @@
                     if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
 
-                // Jika sudah ada hari ini, langsung return
+                // Jika sudah ada data hari ini, langsung return
                 if (localData && localData.date === today) {
                     return localData.count;
                 }
 
-                // Belum ada hari ini → increment lokal
+                // Belum ada hari ini → panggil CountAPI
+                const key = 'destaseomods-' + postName.replace(/[^a-zA-Z0-9]/g, '-');
+                const url = `https://countapi.mileshilliard.com/api/v1/hit/${key}`;
+                try {
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), 3000);
+                    const res = await fetch(url, { signal: controller.signal });
+                    clearTimeout(timeout);
+                    if (res.ok) {
+                        const data = await res.json();
+                        const count = data.value || 0;
+                        if (count > 0) {
+                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                            return count;
+                        }
+                    }
+                } catch (e) {
+                    console.warn('CountAPI error, fallback lokal');
+                }
+
+                // Fallback: increment lokal
                 const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
                 const newCount = prevCount + 1;
                 localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
-
-                // Panggil API di background (fire-and-forget) tanpa menunggu
-                const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/awesomeclick/${encodeURIComponent(postName)}`;
-                fetch(url, { method: 'GET', headers: { 'Content-Type': 'application/json' } }).catch(() => {});
-
                 return newCount;
             }
 
@@ -2684,7 +2699,7 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // Ambil jumlah dilihat (lokal, per hari, per post)
+                // Ambil jumlah dilihat menggunakan CountAPI
                 const viewCount = await getPostViewCount(name);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
