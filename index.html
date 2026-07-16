@@ -2074,6 +2074,9 @@
             let currentSlide = 0;
             let totalPopularSlides = 0;
 
+            // ==== Data untuk carousel populer ====
+            let topPopularPosts = [];
+
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) {
                 const a = document.getElementById('profile-avatar');
@@ -2082,9 +2085,9 @@
             }
 
             // ============================================================
-            // COUNTER PER POSTINGAN (CountAPI)
+            // COUNTER PER POSTINGAN (CountAPI) dengan parameter increment
             // ============================================================
-            async function getPostViewCount(postName) {
+            async function getPostViewCount(postName, increment = true) {
                 const storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
                 const today = new Date().toISOString().slice(0, 10);
                 const key = 'destaseomods-' + postName.replace(/[^a-zA-Z0-9]/g, '-');
@@ -2095,33 +2098,44 @@
                     if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
 
-                let count = 0;
-                if (!localData || localData.date !== today) {
+                // Jika increment false dan ada data lokal, langsung return
+                if (!increment && localData) {
+                    return localData.count;
+                }
+
+                // Jika increment true dan belum ada hari ini, lakukan hit
+                if (increment && (!localData || localData.date !== today)) {
                     try {
                         const res = await fetch(`https://countapi.mileshilliard.com/api/v1/hit/${key}`);
                         if (res.ok) {
                             const data = await res.json();
-                            count = data.value || 0;
+                            const count = data.value || 0;
                             localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
                             return count;
                         }
                     } catch (e) { /* fallback */ }
                     const prev = localData ? localData.count : 0;
-                    count = prev + 1;
+                    const count = prev + 1;
                     localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
                     return count;
-                } else {
+                }
+
+                // Jika increment false dan tidak ada data lokal, coba GET tanpa hit
+                if (!increment && !localData) {
                     try {
                         const res = await fetch(`https://countapi.mileshilliard.com/api/v1/get/${key}`);
                         if (res.ok) {
                             const data = await res.json();
-                            count = data.value || localData.count;
+                            const count = data.value || 0;
                             localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
                             return count;
                         }
                     } catch (e) { /* fallback */ }
-                    return localData.count || 0;
+                    return 0;
                 }
+
+                // Fallback: return dari localData
+                return localData ? localData.count : 0;
             }
 
             // ============================================================
@@ -2593,7 +2607,6 @@
                 const excerpt = getExcerpt(post.content);
                 const delay = index * 0.04 + 's';
 
-                // 🔥 Ambil badges dari metadata "badges" (HANYA ini)
                 let badges = [];
                 if (post.metadata.badges) {
                     if (Array.isArray(post.metadata.badges)) {
@@ -2603,7 +2616,6 @@
                     }
                 }
 
-                // 🔥 Fungsi untuk men-generate badge berdasarkan kata kunci
                 function getBadgeHTML(badgeText) {
                     const text = badgeText.trim();
                     const lower = text.toLowerCase();
@@ -2626,7 +2638,6 @@
                     return `<span class="${className}"><i class="fas ${icon}"></i> ${text}</span>`;
                 }
 
-                // Generate badge HTML
                 const badgesHtml = badges.map(getBadgeHTML).join('');
 
                 const imgTag = img ?
@@ -2687,12 +2698,14 @@
                 });
             }
 
+            // 🔥 renderPopularSection menggunakan topPopularPosts
             function renderPopularSection() {
-                if (!fetchedPosts.length) { carouselTrack.innerHTML = '';
-                    totalPopularSlides = 0; return; }
-                let pop = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() === 'true');
-                if (pop.length === 0) pop = fetchedPosts.slice(0, 4);
-                else pop = pop.slice(0, 4);
+                if (!topPopularPosts.length) {
+                    carouselTrack.innerHTML = '';
+                    totalPopularSlides = 0;
+                    return;
+                }
+                const pop = topPopularPosts.slice(0, 4);
                 totalPopularSlides = pop.length;
                 carouselTrack.innerHTML = pop.map((p, i) => {
                     const img = fixImageUrl(p.metadata.gambar || p.metadata.image || '');
@@ -2701,6 +2714,26 @@
                 }).join('');
                 document.querySelectorAll('.carousel-slide').forEach(s => s.addEventListener('click', () => setHash(
                     'detail', s.dataset.name)));
+            }
+
+            // 🔥 fungsi untuk mengurutkan postingan berdasarkan view count
+            async function sortPostsByView() {
+                const viewPromises = fetchedPosts.map(p => getPostViewCount(p.name, false));
+                const views = await Promise.all(viewPromises);
+                const postsWithViews = fetchedPosts.map((p, i) => ({ ...p, viewCount: views[i] || 0 }));
+                postsWithViews.sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0));
+
+                // Jika ada data view yang sama (0), gunakan metadata populer sebagai fallback
+                const hasViewData = postsWithViews.some(p => p.viewCount > 0);
+                if (!hasViewData) {
+                    // Fallback: ambil post dengan metadata populer = true, atau 4 post pertama
+                    let fallback = fetchedPosts.filter(p => p.metadata.populer && p.metadata.populer.toLowerCase() ===
+                        'true');
+                    if (fallback.length === 0) fallback = fetchedPosts.slice(0, 4);
+                    topPopularPosts = fallback;
+                } else {
+                    topPopularPosts = postsWithViews;
+                }
             }
 
             async function renderHome() {
@@ -2716,6 +2749,10 @@
                         return;
                     }
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
+
+                    // 🔥 Urutkan berdasarkan view untuk carousel
+                    await sortPostsByView();
+
                     renderPopularSection();
                     renderCategoryBar();
                     resetAndApplyFilters();
@@ -2865,7 +2902,8 @@
                 // 🔥 Load script iklan hanya di halaman detail
                 loadAdScript();
 
-                const viewCount = await getPostViewCount(name);
+                // 🔥 Ambil view count dengan increment = true (menambah hit)
+                const viewCount = await getPostViewCount(name, true);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
                 updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, 'https://destaseomods.web.id/#detail/' + name);
