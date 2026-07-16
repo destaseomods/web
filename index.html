@@ -1744,7 +1744,6 @@
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
             const AD_INTERVAL = 5 * 60 * 1000; // 5 menit
-            const AD_STORAGE_KEY = 'lastAdClickTimestamp';
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
@@ -1763,6 +1762,67 @@
             const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
             const CACHE_TIME_LIST = 5 * 60 * 1000; // 5 menit
             const CACHE_TIME_CONTENT = 60 * 60 * 1000; // 1 jam
+
+            // ===== Fungsi untuk mendapatkan IP publik =====
+            async function getUserIP() {
+                // Cek cache IP di localStorage (expired 1 jam)
+                const ipCacheKey = 'user_ip_cache';
+                const ipCacheExpiry = 60 * 60 * 1000; // 1 jam
+                try {
+                    const cached = localStorage.getItem(ipCacheKey);
+                    if (cached) {
+                        const data = JSON.parse(cached);
+                        if (Date.now() - data.t < ipCacheExpiry) {
+                            return data.ip;
+                        }
+                    }
+                } catch (_) {}
+                try {
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), 2000);
+                    const res = await fetch('https://api.ipify.org?format=json', { signal: controller.signal });
+                    clearTimeout(timeout);
+                    if (res.ok) {
+                        const data = await res.json();
+                        const ip = data.ip || null;
+                        if (ip) {
+                            localStorage.setItem(ipCacheKey, JSON.stringify({ ip, t: Date.now() }));
+                            return ip;
+                        }
+                    }
+                } catch (e) {}
+                return null;
+            }
+
+            // ===== Iklan: per IP =====
+            async function startDownloadWithAd(btn, url) {
+                const ip = await getUserIP();
+                // Key localStorage akan berbeda jika IP ada, fallback ke key tanpa IP jika gagal
+                const storageKey = ip ? 'lastAdClickTimestamp_' + ip : 'lastAdClickTimestamp';
+                const now = Date.now();
+                const last = localStorage.getItem(storageKey);
+
+                if (!last || (now - parseInt(last)) > AD_INTERVAL) {
+                    localStorage.setItem(storageKey, now.toString());
+                    if (AD_URL) window.open(AD_URL, '_blank');
+                    let sec = 5;
+                    btn.textContent = `⏳ ${sec} detik`;
+                    btn.classList.add('counting');
+                    const timer = setInterval(() => {
+                        sec--;
+                        if (sec <= 0) {
+                            clearInterval(timer);
+                            btn.innerHTML = '<i class="fas fa-download"></i> Download APK';
+                            btn.classList.remove('counting');
+                            window.open(url, '_blank');
+                        } else {
+                            btn.textContent = `⏳ ${sec} detik`;
+                        }
+                    }, 1000);
+                } else {
+                    window.open(url, '_blank');
+                }
+            }
 
             // ===== SEO: update meta tags dynamically =====
             function updateMetaTags(title, description, image, url) {
@@ -1935,14 +1995,13 @@
             }
 
             // ============================================================
-            // COUNTER PER POSTINGAN (CountAPI - selalu tampilkan nilai terbaru)
+            // COUNTER PER POSTINGAN (CountAPI)
             // ============================================================
             async function getPostViewCount(postName) {
                 const storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
                 const today = new Date().toISOString().slice(0, 10);
                 const key = 'destaseomods-' + postName.replace(/[^a-zA-Z0-9]/g, '-');
 
-                // Cek apakah hari ini sudah pernah hit dari perangkat ini
                 let localData = null;
                 try {
                     const raw = localStorage.getItem(storageKey);
@@ -1950,7 +2009,6 @@
                 } catch (_) {}
 
                 let count = 0;
-                // Jika belum ada hit hari ini, lakukan hit (increment) dan dapatkan nilai baru
                 if (!localData || localData.date !== today) {
                     try {
                         const res = await fetch(`https://countapi.mileshilliard.com/api/v1/hit/${key}`);
@@ -1961,30 +2019,26 @@
                             return count;
                         }
                     } catch (e) { /* fallback */ }
-                    // Jika gagal, increment lokal
                     const prev = localData ? localData.count : 0;
                     count = prev + 1;
                     localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
                     return count;
                 } else {
-                    // Sudah ada hit hari ini, ambil nilai terbaru dari API tanpa increment
                     try {
                         const res = await fetch(`https://countapi.mileshilliard.com/api/v1/get/${key}`);
                         if (res.ok) {
                             const data = await res.json();
                             count = data.value || localData.count;
-                            // Update lokal dengan nilai terbaru agar sinkron
                             localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
                             return count;
                         }
                     } catch (e) { /* fallback */ }
-                    // Jika API gagal, return dari lokal
                     return localData.count || 0;
                 }
             }
 
             // ============================================================
-            // DAILY VISITOR COUNTER (total global)
+            // DAILY VISITOR COUNTER
             // ============================================================
             async function getDailyVisitorCount() {
                 const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily`;
@@ -2545,7 +2599,6 @@
                 if (!str) return '';
                 const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
                 if (urls.length === 0) return '';
-                // 🔥 TAMPILKAN 10 GAMBAR
                 const lim = urls.slice(0, 10);
                 const urlsAttr = urls.map(u => u.replace(/"/g, '&quot;')).join('|||');
                 return `<div class="screenshot-scroll" data-all-urls="${urlsAttr}">
@@ -2621,34 +2674,6 @@
             };
 
             // ============================================================
-            // START DOWNLOAD DENGAN AD
-            // ============================================================
-            function startDownloadWithAd(btn, url) {
-                const now = Date.now();
-                const last = localStorage.getItem(AD_STORAGE_KEY);
-                if (!last || (now - parseInt(last)) > AD_INTERVAL) {
-                    localStorage.setItem(AD_STORAGE_KEY, now.toString());
-                    if (AD_URL) window.open(AD_URL, '_blank');
-                    let sec = 5;
-                    btn.textContent = `⏳ ${sec} detik`;
-                    btn.classList.add('counting');
-                    const timer = setInterval(() => {
-                        sec--;
-                        if (sec <= 0) {
-                            clearInterval(timer);
-                            btn.innerHTML = '<i class="fas fa-download"></i> Download APK';
-                            btn.classList.remove('counting');
-                            window.open(url, '_blank');
-                        } else {
-                            btn.textContent = `⏳ ${sec} detik`;
-                        }
-                    }, 1000);
-                } else {
-                    window.open(url, '_blank');
-                }
-            }
-
-            // ============================================================
             // SHOW DETAIL
             // ============================================================
             async function showDetail(name) {
@@ -2702,7 +2727,6 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // Ambil jumlah dilihat (selalu nilai terbaru dari CountAPI)
                 const viewCount = await getPostViewCount(name);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
@@ -2754,11 +2778,13 @@
 
                 if (hasDownload) {
                     const dBtn = document.getElementById('detail-download-btn');
-                    if (dBtn) dBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        if (this.classList.contains('counting')) return;
-                        startDownloadWithAd(this, dwn);
-                    });
+                    if (dBtn) {
+                        dBtn.addEventListener('click', async function(e) {
+                            e.preventDefault();
+                            if (this.classList.contains('counting')) return;
+                            await startDownloadWithAd(this, dwn);
+                        });
+                    }
                 }
 
                 document.querySelectorAll('.rec-card').forEach(card => {
