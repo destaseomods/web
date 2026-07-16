@@ -1,6 +1,7 @@
 ---
 tanggal: 2026-07-13 09:30
 populer: true
+badges: VIP
 judul: "GREENTUBER MOD VIP"
 gambar: "https://image.winudf.com/v2/image1/YnkuZ3JlZW4udHViZXJfaWNvbl8xNzgxMDA3NTYyXzA4MA/icon.webp?w=280&fakeurl=1&type=.webp"
 versi: "0.1.9.5F"
