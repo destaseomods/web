@@ -1,6 +1,7 @@
 ---
-tanggal: 2026-07-11 18:30
+tanggal: 2026-07-17 18:30
 populer: true
+badges: Unlocked
 judul: "HOT51 PRO UNLOCKED ROOM"
 gambar: "https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/image-45.jpg"
 versi: "1.1.999-95F"
