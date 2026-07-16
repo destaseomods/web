@@ -1935,52 +1935,33 @@
             }
 
             // ============================================================
-            // COUNTER PER POSTINGAN (menggunakan Abacus API, dibatasi per hari per device)
+            // COUNTER PER POSTINGAN (localStorage + API background)
             // ============================================================
             async function getPostViewCount(postName) {
                 const storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
                 const today = new Date().toISOString().slice(0, 10);
 
-                // Cek localStorage apakah sudah ada data hari ini
+                // Cek localStorage
                 let localData = null;
                 try {
                     const raw = localStorage.getItem(storageKey);
                     if (raw) localData = JSON.parse(raw);
                 } catch (_) {}
 
-                // Jika sudah ada hari ini, langsung return count tanpa panggil API
+                // Jika sudah ada hari ini, langsung return
                 if (localData && localData.date === today) {
                     return localData.count;
                 }
 
-                // Jika belum ada, panggil API Abacus
-                const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/awesomeclick?post=${encodeURIComponent(postName)}`;
-                try {
-                    const controller = new AbortController();
-                    const timeout = setTimeout(() => controller.abort(), 3000);
-                    const res = await fetch(url, {
-                        method: 'GET',
-                        signal: controller.signal,
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-                    clearTimeout(timeout);
-
-                    if (res.ok) {
-                        const data = await res.json();
-                        const count = data.value || data.count || 0;
-                        if (count > 0) {
-                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
-                            return count;
-                        }
-                    }
-                } catch (e) {
-                    console.warn('Abacus API error, pakai fallback lokal');
-                }
-
-                // Fallback: increment lokal jika API gagal
+                // Belum ada hari ini → increment lokal
                 const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
                 const newCount = prevCount + 1;
                 localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
+
+                // Panggil API di background (fire-and-forget) tanpa menunggu
+                const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/awesomeclick/${encodeURIComponent(postName)}`;
+                fetch(url, { method: 'GET', headers: { 'Content-Type': 'application/json' } }).catch(() => {});
+
                 return newCount;
             }
 
@@ -2703,7 +2684,7 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                // Ambil jumlah dilihat (per post, per hari)
+                // Ambil jumlah dilihat (lokal, per hari, per post)
                 const viewCount = await getPostViewCount(name);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
