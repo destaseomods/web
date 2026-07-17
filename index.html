@@ -126,11 +126,12 @@
         }
 
         /* ============================================================
-           TRANSISI HALAMAN — SANGAT CEPAT
+           TRANSISI HALAMAN — SANGAT CEPAT + GPU ACCELERATION
            ============================================================ */
         .page-section {
+            will-change: transform, opacity;
             opacity: 1;
-            transition: opacity 0.08s ease, transform 0.08s ease;
+            transition: opacity 0.05s ease, transform 0.05s ease;
             transform: translateY(0);
         }
         .page-section.hidden {
@@ -876,11 +877,11 @@
         .back-btn:hover { opacity: 0.8; }
 
         /* ============================================================
-           PROFIL — PADDING ATAS AGAR TIDAK TERTUTUP TOPBAR
+           PROFIL — PADDING ATAS TEPAT, TIDAK TERLALU KE BAWAH
            ============================================================ */
         #profile-section {
-            scroll-margin-top: 120px;
-            padding-top: 100px;
+            scroll-margin-top: 90px;
+            padding-top: 80px;
         }
         .profile-card {
             position: relative;
@@ -1846,7 +1847,7 @@
             }
 
             // ============================================================
-            // SHOW HOME / SEARCH / PROFILE
+            // SHOW HOME / SEARCH / PROFILE — DENGAN REQUESTANIMATIONFRAME
             // ============================================================
             function showHome() {
                 showSection(homeSection);
@@ -1856,12 +1857,17 @@
                 document.getElementById('popular-section').classList.remove('hidden');
                 filterIndicator.classList.add('hidden');
                 setActiveNav('home');
-                startCarousel();
+
+                // Jalankan render dalam requestAnimationFrame agar tidak blocking
                 if (fetchedPosts.length) {
-                    renderCategoryBar();
-                    resetAndApplyFilters();
-                    renderPopularSection();
-                    startCarousel();
+                    requestAnimationFrame(() => {
+                        renderCategoryBar();
+                        resetAndApplyFilters();
+                        renderPopularSection();
+                        startCarousel();
+                    });
+                } else {
+                    // Jika data belum siap, spinner tetap aktif
                 }
             }
 
@@ -1875,10 +1881,12 @@
                 stopCarousel();
                 if (q) searchInput.value = q;
                 else searchInput.value = '';
-                setTimeout(() => searchInput.focus(), 100);
+                setTimeout(() => searchInput.focus(), 50);
                 if (fetchedPosts.length) {
-                    renderCategoryBar();
-                    resetAndApplyFilters();
+                    requestAnimationFrame(() => {
+                        renderCategoryBar();
+                        resetAndApplyFilters();
+                    });
                 }
             }
 
@@ -1892,7 +1900,7 @@
                 setActiveNav('profile');
                 stopCarousel();
                 renderProfile();
-                // Scroll ke atas agar kartu profil tidak tertutup topbar
+                // Scroll ke posisi tepat di bawah topbar
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
