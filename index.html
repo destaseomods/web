@@ -1940,8 +1940,8 @@
 
             // Fungsi untuk menampilkan detail tanpa mengubah previousPage (digunakan saat refresh)
             function goToDetailDirectly(postName) {
-                if (page !== 'detail') unloadAdScript();
-                // Jangan ubah previousPage
+                // Hapus pengecekan page yang tidak terdefinisi
+                // Kita langsung set query dan tampilkan detail
                 setQuery('detail', postName, null);
                 showDetail(postName);
             }
