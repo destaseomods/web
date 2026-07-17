@@ -126,16 +126,16 @@
         }
 
         /* ============================================================
-           TRANSISI HALAMAN
+           TRANSISI HALAMAN — DIPERCEPAT
            ============================================================ */
         .page-section {
             opacity: 1;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.15s ease, transform 0.15s ease;
             transform: translateY(0);
         }
         .page-section.hidden {
             opacity: 0 !important;
-            transform: translateY(10px) !important;
+            transform: translateY(6px) !important;
             pointer-events: none;
             display: block !important;
             height: 0;
@@ -155,13 +155,13 @@
         }
 
         .fade-in-content {
-            animation: fadeInUp 0.4s ease forwards;
+            animation: fadeInUp 0.2s ease forwards;
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(12px);
             }
             to {
                 opacity: 1;
@@ -478,6 +478,25 @@
         }
 
         /* ============================================================
+           LOADING SPINNER — TENGAH BAWAH CAROUSEL
+           ============================================================ */
+        #loading-spinner-container {
+            text-align: center;
+            padding: 30px 0;
+            display: none;
+        }
+        #loading-spinner-container .spinner {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto;
+            border: 4px solid rgba(255, 255, 255, 0.06);
+            border-top-color: var(--accent2);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ============================================================
            POST GRID
            ============================================================ */
         .post-grid {
@@ -500,9 +519,9 @@
             transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
-            animation: fadeInUp 0.5s ease forwards;
+            animation: fadeInUp 0.3s ease forwards;
             opacity: 0;
-            transform: translateY(25px);
+            transform: translateY(20px);
         }
         .post-card:hover {
             transform: translateY(-6px) scale(1.01);
@@ -1407,6 +1426,10 @@
                     <div class="carousel-title-top"><i class="fas fa-hashtag"></i> Urutan Populer</div>
                     <div class="carousel-track" id="carousel-track"></div>
                 </div>
+                <!-- SPINNER LOADING — TENGAH BAWAH CAROUSEL -->
+                <div id="loading-spinner-container">
+                    <div class="spinner"></div>
+                </div>
             </div>
             <div class="sort-bar" id="sort-bar">
                 <span class="sort-label"><i class="fas fa-sort-amount-down"></i> Urutkan:</span>
@@ -1739,6 +1762,7 @@
             const qrisDownloadBtn = document.getElementById('qris-download-btn');
             const dailyCountEl = document.getElementById('daily-count');
             const logoArea = document.getElementById('logo-area');
+            const loadingSpinnerContainer = document.getElementById('loading-spinner-container');
 
             let postsData = [],
                 fetchedPosts = [];
@@ -2290,20 +2314,35 @@
             // RENDER HOME (async)
             // ============================================================
             async function renderHome() {
-                postContainer.innerHTML = '<div class="spinner"></div>';
-                loadMoreContainer.innerHTML = '';
-                categoryBar.innerHTML = '';
-                carouselTrack.innerHTML = '';
-                stopCarousel();
+                // Tampilkan spinner di bawah carousel, sembunyikan konten lain
+                loadingSpinnerContainer.style.display = 'block';
+                postContainer.style.display = 'none';
+                loadMoreContainer.style.display = 'none';
+                sortBar.style.display = 'none';
+                filterIndicator.style.display = 'none';
+                categoryBar.style.display = 'none';
+
                 try {
                     await fetchPostList();
                     if (!postsData.length) {
+                        postContainer.style.display = 'block';
                         postContainer.innerHTML =
                             '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
+                        loadMoreContainer.style.display = 'block';
+                        loadingSpinnerContainer.style.display = 'none';
                         return;
                     }
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
                     await sortPostsByView();
+
+                    // Sembunyikan spinner, tampilkan konten
+                    loadingSpinnerContainer.style.display = 'none';
+                    postContainer.style.display = 'grid';
+                    loadMoreContainer.style.display = 'block';
+                    sortBar.style.display = 'flex';
+                    filterIndicator.style.display = 'flex';
+                    categoryBar.style.display = 'flex';
+
                     renderPopularSection();
                     renderCategoryBar();
                     resetAndApplyFilters();
@@ -2320,8 +2359,11 @@
                         navigateTo('home');
                     }
                 } catch (err) {
+                    loadingSpinnerContainer.style.display = 'none';
+                    postContainer.style.display = 'block';
                     postContainer.innerHTML =
                         `<div class="error-text">⚠️ Gagal memuat data. Coba refresh halaman. <br><small>${err.message}</small></div>`;
+                    loadMoreContainer.style.display = 'block';
                 }
             }
 
