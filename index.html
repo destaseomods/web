@@ -123,153 +123,50 @@
             padding: 12px 16px;
             position: relative;
             z-index: 2;
-            min-height: 70vh;
         }
 
         /* ============================================================
-           TRANSISI HALAMAN — SEPERTI PINDAH ACTIVITY ANDROID (SLIDE)
+           TRANSISI HALAMAN
            ============================================================ */
         .page-section {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            min-height: 60vh;
-            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform, opacity;
-            opacity: 0;
-            transform: translateX(30px) scale(0.96);
+            opacity: 1;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(0);
+        }
+        .page-section.hidden {
+            opacity: 0 !important;
+            transform: translateY(10px) !important;
             pointer-events: none;
-            z-index: 1;
-            padding: 4px 0 20px 0;
-            background: var(--bg);
-            border-radius: var(--radius);
+            display: block !important;
+            height: 0;
+            overflow: hidden;
+            padding: 0 !important;
+            margin: 0 !important;
+            min-height: 0 !important;
         }
-        .page-section.active {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-            pointer-events: auto;
-            z-index: 2;
-            position: relative;
-            /* agar tidak absolute saat aktif, biar layout tetap */
+        .page-section#detail-section.hidden {
+            height: 0;
+            overflow: hidden;
         }
-        /* Mode absolute hanya saat transisi */
-        .page-section.transitioning {
-            position: absolute !important;
-        }
-        .page-section.transitioning.active {
-            position: absolute !important;
-            z-index: 3;
+        .page-section#detail-section:not(.hidden) {
+            height: auto;
+            overflow: visible;
+            padding-top: 10px;
         }
 
-        /* Animasi masuk dari kanan (seperti activity baru) */
-        .page-section.enter-from-right {
-            transform: translateX(100%) scale(0.96);
-            opacity: 0;
-        }
-        .page-section.enter-from-right.active {
-            transform: translateX(0) scale(1);
-            opacity: 1;
+        .fade-in-content {
+            animation: fadeInUp 0.4s ease forwards;
         }
 
-        /* Animasi keluar ke kiri (seperti activity lama) */
-        .page-section.exit-to-left {
-            transform: translateX(0) scale(1);
-            opacity: 1;
-        }
-        .page-section.exit-to-left.hidden {
-            transform: translateX(-30%) scale(0.96);
-            opacity: 0;
-        }
-
-        /* Animasi masuk dari kiri (saat back) */
-        .page-section.enter-from-left {
-            transform: translateX(-30%) scale(0.96);
-            opacity: 0;
-        }
-        .page-section.enter-from-left.active {
-            transform: translateX(0) scale(1);
-            opacity: 1;
-        }
-
-        /* Animasi keluar ke kanan (saat back) */
-        .page-section.exit-to-right {
-            transform: translateX(0) scale(1);
-            opacity: 1;
-        }
-        .page-section.exit-to-right.hidden {
-            transform: translateX(100%) scale(0.96);
-            opacity: 0;
-        }
-
-        /* ============================================================
-           OVERLAY SPINNER / ERROR — FULLSCREEN DI TENGAH LAYAR
-           ============================================================ */
-        .center-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            background: rgba(4, 4, 14, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 20px;
-            text-align: center;
-        }
-        .center-overlay .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255, 255, 255, 0.06);
-            border-top-color: var(--accent2);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-bottom: 16px;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .center-overlay .icon {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-            opacity: 0.5;
-        }
-        .center-overlay .message {
-            color: var(--text2);
-            font-size: 0.95rem;
-            max-width: 400px;
-            line-height: 1.6;
-        }
-        .center-overlay.error .message {
-            color: #ff6b6b;
-        }
-        .center-overlay.error .icon {
-            color: #ff6b6b;
-        }
-        .center-overlay .btn-retry {
-            margin-top: 16px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--accent2);
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-        .center-overlay .btn-retry:hover {
-            border-color: var(--accent2);
-            background: rgba(62, 224, 255, 0.1);
-        }
-        .center-overlay.hidden {
-            display: none !important;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ============================================================
@@ -600,23 +497,19 @@
             border-radius: var(--radius-sm);
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                border-color 0.3s ease;
+            transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
-            opacity: 1 !important;
-            transform: none !important;
-            animation: none !important;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+            transform: translateY(25px);
         }
         .post-card:hover {
-            transform: translateY(-6px) scale(1.02);
+            transform: translateY(-6px) scale(1.01);
             border-color: rgba(255, 255, 255, 0.2);
             box-shadow: var(--glow), 0 25px 50px rgba(0, 0, 0, 0.9);
         }
-        .post-card:active {
-            transform: scale(0.97);
-        }
+        .post-card:active { transform: scale(0.97); }
         .card-img {
             width: 100%;
             height: 130px;
@@ -805,8 +698,7 @@
         /* ============================================================
            DETAIL PAGE
            ============================================================ */
-        .detail-header,
-        .profile-card {
+        .detail-header, .profile-card {
             background: var(--surface);
             backdrop-filter: blur(24px);
             border: 1px solid var(--border);
@@ -816,8 +708,7 @@
             box-shadow: var(--shadow-card);
         }
         @media (min-width: 500px) {
-            .detail-header,
-            .profile-card { padding: 28px; }
+            .detail-header, .profile-card { padding: 28px; }
         }
         .detail-img {
             display: block;
@@ -1111,8 +1002,7 @@
             border-radius: 16px;
             margin-bottom: 14px;
         }
-        .qris-close-btn,
-        .qris-download-btn {
+        .qris-close-btn, .qris-download-btn {
             background: var(--surface);
             border: 1px solid var(--border);
             color: #fff;
@@ -1124,8 +1014,7 @@
             transition: 0.2s;
             margin: 4px;
         }
-        .qris-close-btn:hover,
-        .qris-download-btn:hover { background: rgba(255, 255, 255, 0.1); }
+        .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255, 255, 255, 0.1); }
 
         .tags-container {
             margin-top: 10px;
@@ -1226,8 +1115,7 @@
             backdrop-filter: blur(8px);
         }
         .lightbox-close:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
-        .lightbox-prev,
-        .lightbox-next {
+        .lightbox-prev, .lightbox-next {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -1248,8 +1136,7 @@
         }
         .lightbox-prev { left: 20px; }
         .lightbox-next { right: 20px; }
-        .lightbox-prev:hover,
-        .lightbox-next:hover {
+        .lightbox-prev:hover, .lightbox-next:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-50%) scale(1.05);
         }
@@ -1269,8 +1156,7 @@
             letter-spacing: 0.5px;
         }
         @media (max-width: 500px) {
-            .lightbox-prev,
-            .lightbox-next { width: 36px; height: 36px; font-size: 0.9rem; }
+            .lightbox-prev, .lightbox-next { width: 36px; height: 36px; font-size: 0.9rem; }
             .lightbox-prev { left: 8px; }
             .lightbox-next { right: 8px; }
             .lightbox-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1rem; }
@@ -1321,6 +1207,26 @@
         .nav-item i { font-size: 1.1rem; }
         @media (min-width: 500px) { .nav-item i { font-size: 1.3rem; } }
 
+        /* Spinner, empty, filter indicator, daily visitor, rekomendasi, dsb. */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            margin: 60px auto;
+            border: 4px solid rgba(255, 255, 255, 0.06);
+            border-top-color: var(--accent2);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .empty-text, .error-text {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text2);
+            background: rgba(255, 0, 0, 0.07);
+            border-radius: 24px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
         .filter-indicator {
             display: flex;
             align-items: center;
@@ -1379,22 +1285,18 @@
         }
         @media (min-width: 500px) { .rec-grid { gap: 12px; } }
         @media (min-width: 600px) { .rec-grid { grid-template-columns: repeat(4, 1fr); } }
-
         .rec-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 14px;
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            opacity: 1 !important;
-            transform: none !important;
-            animation: none !important;
         }
         .rec-card:hover {
-            transform: translateY(-4px) scale(1.02);
+            transform: translateY(-4px);
             border-color: var(--accent);
             box-shadow: 0 8px 24px rgba(168, 127, 255, 0.3);
         }
@@ -1426,14 +1328,14 @@
             overflow: hidden;
             word-wrap: break-word;
         }
-        .profile-card,
-        .content-box {
+        .profile-card, .content-box {
             max-width: 100%;
             box-sizing: border-box;
             overflow: hidden;
             word-wrap: break-word;
         }
 
+        /* Media queries ekstra */
         @media (max-width: 360px) {
             .logo-text { font-size: 1rem; }
             .logo-img { width: 28px; height: 28px; }
@@ -1495,7 +1397,7 @@
 
     <!-- Main -->
     <main class="container" id="app">
-        <section id="home-section" class="page-section active" aria-label="Beranda">
+        <section id="home-section" class="page-section" aria-label="Beranda">
             <div class="search-container hidden" id="search-box">
                 <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit..." aria-label="Cari mod" />
             </div>
@@ -1520,12 +1422,12 @@
             <div id="load-more-container" style="text-align:center;"></div>
         </section>
 
-        <section id="detail-section" class="page-section" aria-label="Detail Mod">
+        <section id="detail-section" class="page-section hidden" aria-label="Detail Mod">
             <button class="back-btn" id="detail-back" aria-label="Kembali"><i class="fas fa-arrow-left"></i> Kembali</button>
             <div id="detail-content"></div>
         </section>
 
-        <section id="profile-section" class="page-section" aria-label="Profil">
+        <section id="profile-section" class="page-section hidden" aria-label="Profil">
             <div class="profile-card">
                 <div class="premium-badge"><i class="fas fa-crown"></i> Premium</div>
                 <div class="profile-avatar" id="profile-avatar" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');" role="img" aria-label="Avatar Destaseo Mods"></div>
@@ -1554,61 +1456,25 @@
         <button class="nav-item" data-page="profile" aria-label="Profil"><i class="fas fa-user-circle"></i><span>Profil</span></button>
     </nav>
 
-    <!-- ============================================================
-         OVERLAY SPINNER / LOADING / ERROR — FULLSCREEN DI TENGAH
-         ============================================================ -->
-    <div id="app-overlay" class="center-overlay hidden">
-        <div class="spinner" id="overlay-spinner"></div>
-        <div class="icon" id="overlay-icon" style="display:none;"></div>
-        <div class="message" id="overlay-message">Memuat...</div>
-        <button class="btn-retry hidden" id="overlay-retry" onclick="location.reload()"><i class="fas fa-sync"></i> Coba Lagi</button>
-    </div>
-
     <script>
         (function() {
             // ============================================================
-            // OVERLAY — FUNGSI UNTUK TAMPILKAN DI TENGAH LAYAR
-            // ============================================================
-            const overlay = document.getElementById('app-overlay');
-            const overlaySpinner = document.getElementById('overlay-spinner');
-            const overlayIcon = document.getElementById('overlay-icon');
-            const overlayMessage = document.getElementById('overlay-message');
-            const overlayRetry = document.getElementById('overlay-retry');
-
-            function showLoading(message) {
-                overlay.classList.remove('hidden', 'error');
-                overlaySpinner.style.display = 'block';
-                overlayIcon.style.display = 'none';
-                overlayMessage.textContent = message || 'Memuat...';
-                overlayRetry.classList.add('hidden');
-            }
-
-            function showError(message) {
-                overlay.classList.remove('hidden');
-                overlay.classList.add('error');
-                overlaySpinner.style.display = 'none';
-                overlayIcon.style.display = 'block';
-                overlayIcon.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
-                overlayMessage.innerHTML = message || 'Terjadi kesalahan.';
-                overlayRetry.classList.remove('hidden');
-            }
-
-            function hideOverlay() {
-                overlay.classList.add('hidden');
-            }
-
-            // ============================================================
-            // REDIRECT SITEMAP & LEGACY HASH
+            // REDIRECT SITEMAP KE FILE XML
             // ============================================================
             if (window.location.search === '?sitemap') {
                 window.location.href = '/sitemap.xml';
                 return;
             }
+
+            // ============================================================
+            // LEGACY HASH REDIRECT
+            // ============================================================
             const currentHash = window.location.hash;
             if (currentHash) {
-                let targetPage = 'home',
-                    targetPost = null,
-                    targetQ = null;
+                let targetPage = 'home';
+                let targetPost = null;
+                let targetQ = null;
+
                 if (currentHash.startsWith('#detail/')) {
                     targetPage = 'detail';
                     targetPost = currentHash.split('/')[1];
@@ -1616,7 +1482,10 @@
                     targetPage = 'search';
                 } else if (currentHash === '#profile') {
                     targetPage = 'profile';
+                } else if (currentHash === '#home' || currentHash === '') {
+                    targetPage = 'home';
                 }
+
                 const baseUrl = window.location.origin + window.location.pathname;
                 let newUrl = baseUrl;
                 const params = new URLSearchParams();
@@ -1889,119 +1758,7 @@
             }
 
             // ============================================================
-            // FUNGSI TRANSISI HALAMAN — SEPERTI PINDAH ACTIVITY ANDROID
-            // ============================================================
-            let isTransitioning = false;
-            let currentActiveSection = homeSection;
-
-            function showSection(targetSection, direction) {
-                // direction: 'forward' (masuk dari kanan) atau 'back' (masuk dari kiri)
-                if (isTransitioning || targetSection === currentActiveSection) return;
-                isTransitioning = true;
-
-                // Sembunyikan semua section dari view
-                const allSections = [homeSection, detailSection, profileSection];
-                allSections.forEach(s => {
-                    s.classList.remove('active', 'enter-from-right', 'exit-to-left', 'enter-from-left',
-                        'exit-to-right', 'transitioning');
-                    // Reset transform agar tidak mengganggu
-                    s.style.transform = '';
-                    s.style.opacity = '';
-                    s.style.pointerEvents = 'none';
-                });
-
-                // Tentukan animasi berdasarkan arah
-                const isForward = (direction === 'forward');
-                const oldSection = currentActiveSection;
-
-                // Set posisi awal untuk section yang akan masuk
-                if (isForward) {
-                    targetSection.classList.add('enter-from-right');
-                } else {
-                    targetSection.classList.add('enter-from-left');
-                }
-                targetSection.style.display = 'block';
-                targetSection.style.position = 'absolute';
-                targetSection.style.top = '0';
-                targetSection.style.left = '0';
-                targetSection.style.width = '100%';
-                targetSection.style.pointerEvents = 'none';
-
-                // Set posisi awal untuk section yang akan keluar
-                oldSection.classList.add('transitioning');
-                oldSection.style.position = 'absolute';
-                oldSection.style.top = '0';
-                oldSection.style.left = '0';
-                oldSection.style.width = '100%';
-                oldSection.style.pointerEvents = 'none';
-                if (isForward) {
-                    oldSection.classList.add('exit-to-left');
-                } else {
-                    oldSection.classList.add('exit-to-right');
-                }
-
-                // Trigger reflow agar transisi berjalan
-                void targetSection.offsetHeight;
-
-                // Jalankan animasi masuk
-                requestAnimationFrame(() => {
-                    if (isForward) {
-                        targetSection.classList.remove('enter-from-right');
-                    } else {
-                        targetSection.classList.remove('enter-from-left');
-                    }
-                    targetSection.classList.add('active');
-                    targetSection.style.pointerEvents = 'auto';
-
-                    // Animasi keluar
-                    if (isForward) {
-                        oldSection.classList.remove('exit-to-left');
-                    } else {
-                        oldSection.classList.remove('exit-to-right');
-                    }
-                    oldSection.classList.add('hidden');
-
-                    // Setelah animasi selesai, bersihkan
-                    const duration = 350; // match CSS transition
-                    setTimeout(() => {
-                        // Sembunyikan old section
-                        oldSection.classList.remove('active', 'exit-to-left', 'exit-to-right', 'hidden',
-                            'transitioning');
-                        oldSection.style.display = 'none';
-                        oldSection.style.position = '';
-                        oldSection.style.top = '';
-                        oldSection.style.left = '';
-                        oldSection.style.width = '';
-                        oldSection.style.pointerEvents = '';
-                        oldSection.style.transform = '';
-                        oldSection.style.opacity = '';
-
-                        // Pastikan target tetap visible
-                        targetSection.classList.remove('enter-from-right', 'enter-from-left', 'transitioning');
-                        targetSection.style.position = '';
-                        targetSection.style.top = '';
-                        targetSection.style.left = '';
-                        targetSection.style.width = '';
-                        targetSection.style.pointerEvents = '';
-                        targetSection.style.transform = '';
-                        targetSection.style.opacity = '';
-                        targetSection.style.display = 'block';
-                        targetSection.classList.add('active');
-
-                        currentActiveSection = targetSection;
-                        isTransitioning = false;
-                    }, duration);
-                });
-            }
-
-            // Override showSection untuk navigasi normal
-            function navigateToSection(target, direction) {
-                // direction: 'forward' (dari beranda ke detail/profile) atau 'back' (kembali)
-                showSection(target, direction || 'forward');
-            }
-
-            // ============================================================
-            // FUNGSI NAVIGASI
+            // FUNGSI NAVIGASI – DENGAN PUSHSTATE / REPLACESTATE
             // ============================================================
             function getPageFromQuery() {
                 const params = new URLSearchParams(window.location.search);
@@ -2011,7 +1768,10 @@
                 return { page, post, q };
             }
 
-            function setQuery(page, postName, q) {
+            // Navigasi normal (klik kartu, navbar) – tambah history
+            function navigateTo(page, postName, q) {
+                if (page !== 'detail') unloadAdScript();
+
                 const params = new URLSearchParams();
                 if (page === 'search') {
                     params.set('page', 'search');
@@ -2024,50 +1784,39 @@
                 }
                 const url = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
                 window.history.pushState({ page, post: postName, q }, '', url);
-            }
-
-            function navigateTo(page, postName, q) {
-                if (page !== 'detail') unloadAdScript();
-
-                // Tentukan arah transisi
-                const currentPage = getPageFromQuery().page;
-                let direction = 'forward';
-                // Jika dari detail ke home (back), arahnya back
-                if (currentPage === 'detail' && page === 'home') direction = 'back';
-                else if (currentPage === 'profile' && page === 'home') direction = 'back';
-                else if (currentPage === 'detail' && page === 'profile') direction = 'forward';
-                else if (currentPage === 'profile' && page === 'detail') direction = 'forward';
-                else if (currentPage === 'home' && (page === 'detail' || page === 'profile')) direction = 'forward';
-                else direction = 'forward';
-
-                setQuery(page, postName, q);
 
                 if (page === 'home') {
-                    navigateToSection(homeSection, direction);
-                    showHomeContent();
+                    showHome();
                     updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik.',
                         LOGO_URL, 'https://destaseomods.web.id/');
                 } else if (page === 'search') {
-                    navigateToSection(homeSection, direction);
-                    showSearchContent(q);
+                    showSearch(q);
                     updateMetaTags('Cari Mod • Destaseo Mods', 'Cari mod APK premium favorit Anda.', LOGO_URL,
                         'https://destaseomods.web.id/?page=search');
                 } else if (page === 'profile') {
-                    navigateToSection(profileSection, direction);
-                    renderProfile();
+                    showProfile();
                     updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.',
                         AVATAR_URL, 'https://destaseomods.web.id/?page=profile');
                 } else if (page === 'detail' && postName) {
-                    navigateToSection(detailSection, direction);
                     showDetail(postName);
                 }
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Untuk refresh di halaman detail – replaceState (tidak tambah history)
+            function goToDetailDirectly(postName) {
+                const params = new URLSearchParams();
+                params.set('page', 'detail');
+                params.set('post', postName);
+                const url = window.location.pathname + '?' + params.toString();
+                window.history.replaceState({ page: 'detail', post: postName }, '', url);
+                showDetail(postName);
             }
 
             // ============================================================
-            // SHOW HOME / SEARCH / PROFILE CONTENT (tanpa transisi)
+            // SHOW HOME / SEARCH / PROFILE
             // ============================================================
-            function showHomeContent() {
+            function showHome() {
+                showSection(homeSection);
                 searchBox.classList.add('hidden');
                 categoryBar.classList.remove('hidden');
                 sortBar.classList.remove('hidden');
@@ -2083,7 +1832,8 @@
                 }
             }
 
-            function showSearchContent(q) {
+            function showSearch(q) {
+                showSection(homeSection);
                 searchBox.classList.remove('hidden');
                 categoryBar.classList.remove('hidden');
                 sortBar.classList.add('hidden');
@@ -2099,17 +1849,33 @@
                 }
             }
 
-            function showHome() {
-                // Dipanggil saat pertama kali atau saat back dari detail
-                // Arah transisi ditentukan di navigateTo
-            }
-
-            function showSearch(q) {
-                // Dipanggil dari navigateTo
-            }
-
             function showProfile() {
-                // Dipanggil dari navigateTo
+                showSection(profileSection);
+                searchBox.classList.add('hidden');
+                categoryBar.classList.add('hidden');
+                sortBar.classList.add('hidden');
+                document.getElementById('popular-section').classList.add('hidden');
+                filterIndicator.classList.add('hidden');
+                setActiveNav('profile');
+                stopCarousel();
+                renderProfile();
+                setTimeout(() => {
+                    const rect = profileSection.getBoundingClientRect();
+                    if (rect.top < 20) {
+                        window.scrollTo({ top: window.scrollY + rect.top - 80, behavior: 'smooth' });
+                    }
+                }, 100);
+            }
+
+            function showSection(s) {
+                [homeSection, detailSection, profileSection].forEach(el => {
+                    if (el !== s) {
+                        el.classList.add('hidden');
+                        el.style.display = '';
+                    }
+                });
+                s.classList.remove('hidden');
+                s.style.display = 'block';
             }
 
             function setActiveNav(p) {
@@ -2214,16 +1980,9 @@
             }
 
             function displayPosts(posts) {
-                if (posts.length) {
-                    postContainer.innerHTML = posts.map((p, i) => cardHTML(p, i)).join('');
-                    attachCardEvents();
-                } else {
-                    postContainer.innerHTML = '';
-                    showLoading('Tidak ada postingan.');
-                    setTimeout(() => {
-                        hideOverlay();
-                    }, 1500);
-                }
+                postContainer.innerHTML = posts.length ? posts.map((p, i) => cardHTML(p, i)).join('') :
+                    '<div class="empty-text">🔍 Tidak ada postingan yang cocok.</div>';
+                attachCardEvents();
             }
 
             function renderLoadMoreButton(t) {
@@ -2256,6 +2015,7 @@
                 const kategori = post.metadata.kategori || '';
                 const ver = post.metadata.versi || post.metadata.version || '';
                 const excerpt = getExcerpt(post.content);
+                const delay = index * 0.04 + 's';
 
                 let badges = [];
                 if (post.metadata.badges) {
@@ -2289,7 +2049,7 @@
                 const versionBadge = ver ? `<span class="version-badge-img"><i class="fas fa-code-branch"></i> v${ver}</span>` :
                     '';
 
-                return `<div class="post-card" data-name="${post.name}">
+                return `<div class="post-card" data-name="${post.name}" style="animation-delay:${delay};">
                     <div class="card-img${img ? '' : ' error'}">${imgTag}<span class="placeholder-icon"><i class="fas fa-box-open"></i></span>${versionBadge}</div>
                     <div class="card-body">
                         <div class="card-title">${t}</div>
@@ -2530,12 +2290,16 @@
             // RENDER HOME (async)
             // ============================================================
             async function renderHome() {
-                showLoading('Memuat data...');
-
+                postContainer.innerHTML = '<div class="spinner"></div>';
+                loadMoreContainer.innerHTML = '';
+                categoryBar.innerHTML = '';
+                carouselTrack.innerHTML = '';
+                stopCarousel();
                 try {
                     await fetchPostList();
                     if (!postsData.length) {
-                        showError('Tidak ada postingan ditemukan.');
+                        postContainer.innerHTML =
+                            '<div class="empty-text"><i class="far fa-folder-open"></i> Tidak ada postingan.</div>';
                         return;
                     }
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
@@ -2545,16 +2309,9 @@
                     resetAndApplyFilters();
                     startCarousel();
 
-                    hideOverlay();
-
                     const { page, post, q } = getPageFromQuery();
                     if (page === 'detail' && post) {
-                        // langsung tampilkan detail tanpa transisi
-                        setQuery('detail', post, null);
-                        showDetail(post);
-                        // set active section manual
-                        detailSection.classList.add('active');
-                        currentActiveSection = detailSection;
+                        goToDetailDirectly(post);
                     } else if (page === 'search') {
                         navigateTo('search', null, q || '');
                     } else if (page === 'profile') {
@@ -2563,7 +2320,8 @@
                         navigateTo('home');
                     }
                 } catch (err) {
-                    showError(err.message || 'Gagal memuat data. Coba refresh halaman.');
+                    postContainer.innerHTML =
+                        `<div class="error-text">⚠️ Gagal memuat data. Coba refresh halaman. <br><small>${err.message}</small></div>`;
                 }
             }
 
@@ -2577,8 +2335,6 @@
                     `<a href="${l.url}" target="_blank" class="social-link" rel="noopener"><i class="${l.icon}"></i> ${l.label}</a>`
                 ).join('');
                 updateDailyVisitor();
-                // set active section
-                currentActiveSection = profileSection;
             }
 
             async function updateDailyVisitor() {
@@ -2674,7 +2430,11 @@
             async function showDetail(name) {
                 const post = fetchedPosts.find(p => p.name === name);
                 if (!post) {
-                    showError(`Postingan "${name}" tidak ditemukan.`);
+                    detailContent.innerHTML =
+                        `<div class="error-text">❌ Postingan tidak ditemukan. <br><small>${name}</small></div>`;
+                    showSection(detailSection);
+                    setActiveNav('detail');
+                    window.scrollTo({ top: 0 });
                     return;
                 }
 
@@ -2718,9 +2478,12 @@
                     recHtml += `</div></div>`;
                 }
 
-                showLoading('Memuat detail...');
-                // Tampilkan section detail (transisi sudah di handle di navigateTo)
-                // Tapi di sini kita isi konten
+                // Tampilkan spinner
+                detailContent.innerHTML = '<div class="spinner"></div>';
+                showSection(detailSection);
+                setActiveNav('detail');
+                window.scrollTo({ top: 0 });
+
                 const viewCount = await getPostViewCount(name, true);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
@@ -2746,7 +2509,7 @@
                 script.textContent = JSON.stringify(articleJson);
 
                 detailContent.innerHTML = `
-                <div class="detail-header">
+                <div class="detail-header fade-in-content">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
                     <h1 class="detail-title">${t}</h1>
                     <div class="detail-meta-grid">
@@ -2760,7 +2523,7 @@
                     ${galleryHtml}
                     ${tagsHtml}
                 </div>
-                <div class="content-box">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
+                <div class="content-box fade-in-content">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
                 ${downloadBtn}
                 ${recHtml}
                 <div id="ad-container" style="margin-top:20px; text-align:center;"></div>
@@ -2789,10 +2552,6 @@
                     unloadAdScript();
                     loadAdScript(adContainer);
                 }
-
-                hideOverlay();
-                // set current active section
-                currentActiveSection = detailSection;
             }
 
             // ============================================================
@@ -2928,7 +2687,9 @@
 
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
-            // Tombol kembali menggunakan history.back() – browser akan handle transisi
+            // ============================================================
+            // TOMBOL KEMBALI – PAKAI HISTORY.BACK() DENGAN FALLBACK
+            // ============================================================
             detailBack.addEventListener('click', function() {
                 if (window.history.length > 1) {
                     window.history.back();
