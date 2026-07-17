@@ -126,16 +126,16 @@
         }
 
         /* ============================================================
-           TRANSISI HALAMAN — DIPERCEPAT
+           TRANSISI HALAMAN — SANGAT CEPAT
            ============================================================ */
         .page-section {
             opacity: 1;
-            transition: opacity 0.15s ease, transform 0.15s ease;
+            transition: opacity 0.08s ease, transform 0.08s ease;
             transform: translateY(0);
         }
         .page-section.hidden {
             opacity: 0 !important;
-            transform: translateY(6px) !important;
+            transform: translateY(4px) !important;
             pointer-events: none;
             display: block !important;
             height: 0;
@@ -155,13 +155,13 @@
         }
 
         .fade-in-content {
-            animation: fadeInUp 0.2s ease forwards;
+            animation: fadeInUp 0.12s ease forwards;
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(12px);
+                transform: translateY(8px);
             }
             to {
                 opacity: 1;
@@ -875,8 +875,17 @@
         }
         .back-btn:hover { opacity: 0.8; }
 
-        #profile-section { scroll-margin-top: 100px; padding-top: 10px; }
-        .profile-card { position: relative; overflow: hidden; }
+        /* ============================================================
+           PROFIL — PADDING ATAS AGAR TIDAK TERTUTUP TOPBAR
+           ============================================================ */
+        #profile-section {
+            scroll-margin-top: 120px;
+            padding-top: 100px;
+        }
+        .profile-card {
+            position: relative;
+            overflow: hidden;
+        }
         .premium-badge {
             position: absolute;
             top: 14px;
@@ -1883,12 +1892,8 @@
                 setActiveNav('profile');
                 stopCarousel();
                 renderProfile();
-                setTimeout(() => {
-                    const rect = profileSection.getBoundingClientRect();
-                    if (rect.top < 20) {
-                        window.scrollTo({ top: window.scrollY + rect.top - 80, behavior: 'smooth' });
-                    }
-                }, 100);
+                // Scroll ke atas agar kartu profil tidak tertutup topbar
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
             function showSection(s) {
