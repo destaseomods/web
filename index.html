@@ -126,60 +126,83 @@
         }
 
         /* ============================================================
-           SPINNER & ERROR – POSISI TENGAH LAYAR
+           OVERLAY SPINNER & ERROR — POSISI TENGAH LAYAR (FIXED)
            ============================================================ */
-        .spinner-wrapper {
+        .center-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            min-height: 60vh;
-            width: 100%;
+            justify-content: center;
+            z-index: 999;
+            background: rgba(4, 4, 14, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 20px;
+            text-align: center;
         }
-        .spinner {
+        .center-overlay .spinner {
             width: 50px;
             height: 50px;
             border: 4px solid rgba(255, 255, 255, 0.06);
             border-top-color: var(--accent2);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
+            margin-bottom: 16px;
         }
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
-        .empty-text,
-        .error-text {
-            text-align: center;
-            padding: 30px 20px;
+        .center-overlay .icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+        .center-overlay .message {
             color: var(--text2);
-            border-radius: 24px;
-            margin: 0 auto;
-            font-size: 0.9rem;
-            max-width: 500px;
+            font-size: 0.95rem;
+            max-width: 400px;
+            line-height: 1.6;
         }
-        .error-text {
-            background: rgba(255, 0, 0, 0.07);
-            border: 1px solid rgba(255, 0, 0, 0.15);
+        .center-overlay .message strong {
+            color: #fff;
         }
-        .empty-text {
-            background: rgba(255, 255, 255, 0.03);
+        .center-overlay .message .small {
+            opacity: 0.6;
+            font-size: 0.8rem;
+            margin-top: 6px;
+            display: block;
+        }
+        .center-overlay.error .message {
+            color: #ff6b6b;
+        }
+        .center-overlay.error .icon {
+            color: #ff6b6b;
+        }
+        .center-overlay .btn-retry {
+            margin-top: 16px;
+            background: var(--surface);
             border: 1px solid var(--border);
+            color: var(--accent2);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+        .center-overlay .btn-retry:hover {
+            border-color: var(--accent2);
+            background: rgba(62, 224, 255, 0.1);
         }
 
-        #post-container .spinner-wrapper,
-        #post-container .empty-text,
-        #post-container .error-text {
-            flex: 1;
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        #post-container .empty-text,
-        #post-container .error-text {
-            display: flex !important;
-            flex-direction: column;
-            gap: 8px;
+        /* Sembunyikan overlay saat tidak aktif */
+        .center-overlay.hidden {
+            display: none !important;
         }
 
         /* ============================================================
@@ -1492,8 +1515,49 @@
         <button class="nav-item" data-page="profile" aria-label="Profil"><i class="fas fa-user-circle"></i><span>Profil</span></button>
     </nav>
 
+    <!-- ============================================================
+         OVERLAY SPINNER / LOADING / ERROR — TAMPIL DI TENGAH LAYAR
+         ============================================================ -->
+    <div id="app-overlay" class="center-overlay hidden">
+        <div class="spinner" id="overlay-spinner"></div>
+        <div class="icon" id="overlay-icon" style="display:none;"></div>
+        <div class="message" id="overlay-message">Memuat...</div>
+        <button class="btn-retry hidden" id="overlay-retry" onclick="location.reload()"><i class="fas fa-sync"></i> Coba Lagi</button>
+    </div>
+
     <script>
         (function() {
+            // ============================================================
+            // OVERLAY — FUNGSI UNTUK TAMPILKAN DI TENGAH LAYAR
+            // ============================================================
+            const overlay = document.getElementById('app-overlay');
+            const overlaySpinner = document.getElementById('overlay-spinner');
+            const overlayIcon = document.getElementById('overlay-icon');
+            const overlayMessage = document.getElementById('overlay-message');
+            const overlayRetry = document.getElementById('overlay-retry');
+
+            function showLoading(message) {
+                overlay.classList.remove('hidden', 'error');
+                overlaySpinner.style.display = 'block';
+                overlayIcon.style.display = 'none';
+                overlayMessage.textContent = message || 'Memuat...';
+                overlayRetry.classList.add('hidden');
+            }
+
+            function showError(message) {
+                overlay.classList.remove('hidden');
+                overlay.classList.add('error');
+                overlaySpinner.style.display = 'none';
+                overlayIcon.style.display = 'block';
+                overlayIcon.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+                overlayMessage.innerHTML = message || 'Terjadi kesalahan.';
+                overlayRetry.classList.remove('hidden');
+            }
+
+            function hideOverlay() {
+                overlay.classList.add('hidden');
+            }
+
             // ============================================================
             // REDIRECT SITEMAP & LEGACY HASH
             // ============================================================
@@ -2010,12 +2074,12 @@
                     postContainer.innerHTML = posts.map((p, i) => cardHTML(p, i)).join('');
                     attachCardEvents();
                 } else {
-                    postContainer.innerHTML = `
-                        <div class="empty-text" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;">
-                            <i class="fas fa-search" style="font-size:2rem;margin-bottom:12px;opacity:0.4;"></i>
-                            🔍 Tidak ada postingan yang cocok.
-                        </div>
-                    `;
+                    postContainer.innerHTML = '';
+                    // Tampilkan empty state di overlay
+                    showLoading('Tidak ada postingan.');
+                    setTimeout(() => {
+                        hideOverlay();
+                    }, 1500);
                 }
             }
 
@@ -2324,24 +2388,12 @@
             // RENDER HOME (async)
             // ============================================================
             async function renderHome() {
-                postContainer.innerHTML = `
-                    <div class="spinner-wrapper">
-                        <div class="spinner"></div>
-                    </div>
-                `;
-                loadMoreContainer.innerHTML = '';
-                categoryBar.innerHTML = '';
-                carouselTrack.innerHTML = '';
-                stopCarousel();
+                showLoading('Memuat data...');
+
                 try {
                     await fetchPostList();
                     if (!postsData.length) {
-                        postContainer.innerHTML = `
-                            <div class="empty-text" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;">
-                                <i class="far fa-folder-open" style="font-size:2.5rem;margin-bottom:12px;opacity:0.4;"></i>
-                                Tidak ada postingan.
-                            </div>
-                        `;
+                        showError('Tidak ada postingan ditemukan.');
                         return;
                     }
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
@@ -2350,6 +2402,8 @@
                     renderCategoryBar();
                     resetAndApplyFilters();
                     startCarousel();
+
+                    hideOverlay();
 
                     const { page, post, q } = getPageFromQuery();
                     if (page === 'detail' && post) {
@@ -2362,13 +2416,7 @@
                         navigateTo('home');
                     }
                 } catch (err) {
-                    postContainer.innerHTML = `
-                        <div class="error-text" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;">
-                            <i class="fas fa-exclamation-triangle" style="font-size:2rem;margin-bottom:12px;color:#ff6b6b;"></i>
-                            ⚠️ Gagal memuat data. Coba refresh halaman.
-                            <br><small style="opacity:0.6;margin-top:6px;">${err.message}</small>
-                        </div>
-                    `;
+                    showError(err.message || 'Gagal memuat data. Coba refresh halaman.');
                 }
             }
 
@@ -2477,16 +2525,7 @@
             async function showDetail(name) {
                 const post = fetchedPosts.find(p => p.name === name);
                 if (!post) {
-                    detailContent.innerHTML = `
-                        <div class="error-text" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;">
-                            <i class="fas fa-exclamation-circle" style="font-size:2rem;margin-bottom:12px;color:#ff6b6b;"></i>
-                            ❌ Postingan tidak ditemukan.
-                            <br><small style="opacity:0.6;margin-top:6px;">${name}</small>
-                        </div>
-                    `;
-                    showSection(detailSection);
-                    setActiveNav('detail');
-                    window.scrollTo({ top: 0 });
+                    showError(`Postingan "${name}" tidak ditemukan.`);
                     return;
                 }
 
@@ -2530,11 +2569,7 @@
                     recHtml += `</div></div>`;
                 }
 
-                detailContent.innerHTML = `
-                    <div class="spinner-wrapper">
-                        <div class="spinner"></div>
-                    </div>
-                `;
+                showLoading('Memuat detail...');
                 showSection(detailSection);
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
@@ -2607,6 +2642,8 @@
                     unloadAdScript();
                     loadAdScript(adContainer);
                 }
+
+                hideOverlay();
             }
 
             // ============================================================
@@ -2742,9 +2779,6 @@
 
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
-            // ============================================================
-            // TOMBOL KEMBALI
-            // ============================================================
             detailBack.addEventListener('click', function() {
                 if (window.history.length > 1) {
                     window.history.back();
