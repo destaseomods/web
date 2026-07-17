@@ -1585,21 +1585,13 @@
             let adScriptElement = null;
 
             function loadAdScript(container) {
-                // Hapus script iklan lama jika ada
                 if (adScriptElement) {
                     adScriptElement.remove();
                     adScriptElement = null;
                 }
-                // Buat script baru
                 adScriptElement = document.createElement('script');
                 adScriptElement.src = 'https://cabinetavidgrasp.com/c4/11/28/c4112850e63eed959d261d84abff70ee.js';
                 adScriptElement.async = true;
-                adScriptElement.onload = function() {
-                    console.log('✅ Iklan berhasil dimuat');
-                };
-                adScriptElement.onerror = function() {
-                    console.error('❌ Gagal memuat iklan');
-                };
                 container.appendChild(adScriptElement);
             }
 
@@ -1766,136 +1758,7 @@
             }
 
             // ============================================================
-            // PREVIOUS PAGE - DISIMPAN DI SESSION STORAGE
-            // ============================================================
-            let previousPage = { page: 'home', post: null, q: null };
-
-            function loadPreviousPage() {
-                try {
-                    const stored = sessionStorage.getItem('prevPage');
-                    if (stored) {
-                        const data = JSON.parse(stored);
-                        if (data && data.page) {
-                            previousPage = data;
-                            return;
-                        }
-                    }
-                } catch (e) {}
-                previousPage = { page: 'home', post: null, q: null };
-            }
-
-            function savePreviousPage() {
-                try {
-                    sessionStorage.setItem('prevPage', JSON.stringify(previousPage));
-                } catch (e) {}
-            }
-
-            loadPreviousPage();
-
-            // ============================================================
-            // COUNTER PER POSTINGAN
-            // ============================================================
-            async function getPostViewCount(postName, increment = true) {
-                const storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
-                const today = new Date().toISOString().slice(0, 10);
-                const key = 'destaseomods-' + postName.replace(/[^a-zA-Z0-9]/g, '-');
-
-                let localData = null;
-                try {
-                    const raw = localStorage.getItem(storageKey);
-                    if (raw) localData = JSON.parse(raw);
-                } catch (_) {}
-
-                if (!increment && localData) return localData.count;
-
-                if (increment && (!localData || localData.date !== today)) {
-                    try {
-                        const res = await fetch(`https://countapi.mileshilliard.com/api/v1/hit/${key}`);
-                        if (res.ok) {
-                            const data = await res.json();
-                            const count = data.value || 0;
-                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
-                            return count;
-                        }
-                    } catch (e) {}
-                    const prev = localData ? localData.count : 0;
-                    const count = prev + 1;
-                    localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
-                    return count;
-                }
-
-                if (!increment && !localData) {
-                    try {
-                        const res = await fetch(`https://countapi.mileshilliard.com/api/v1/get/${key}`);
-                        if (res.ok) {
-                            const data = await res.json();
-                            const count = data.value || 0;
-                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
-                            return count;
-                        }
-                    } catch (e) {}
-                    return 0;
-                }
-                return localData ? localData.count : 0;
-            }
-
-            // ============================================================
-            // DAILY VISITOR
-            // ============================================================
-            async function getDailyVisitorCount() {
-                const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily`;
-                const storageKey = 'daily_visitor';
-                const today = new Date().toISOString().slice(0, 10);
-                let localData = null;
-                try {
-                    const raw = localStorage.getItem(storageKey);
-                    if (raw) localData = JSON.parse(raw);
-                } catch (_) {}
-                if (localData && localData.date === today) return localData.count;
-                try {
-                    const controller = new AbortController();
-                    const timeout = setTimeout(() => controller.abort(), 2000);
-                    const res = await fetch(url, { method: 'GET', signal: controller.signal, headers: {
-                            'Content-Type': 'application/json' } });
-                    clearTimeout(timeout);
-                    if (res.ok) {
-                        const data = await res.json();
-                        const count = data.value || data.count || data.views || data.hits || 1;
-                        if (typeof count === 'number' && count > 0) {
-                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
-                            return count;
-                        }
-                    }
-                } catch (e) {}
-                const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
-                const newCount = prevCount + 1;
-                localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
-                return newCount;
-            }
-
-            // ============================================================
-            // REKOMENDASI
-            // ============================================================
-            function getRecommendations(currentPost, limit = 4) {
-                if (!fetchedPosts || fetchedPosts.length === 0) return [];
-                const others = fetchedPosts.filter(p => p.name !== currentPost.name);
-                if (others.length === 0) return [];
-                const currentCategory = currentPost.metadata.kategori || '';
-                const sameCategory = others.filter(p => {
-                    const cat = p.metadata.kategori || '';
-                    return cat === currentCategory && cat !== '';
-                });
-                const differentCategory = others.filter(p => {
-                    const cat = p.metadata.kategori || '';
-                    return cat !== currentCategory || cat === '';
-                });
-                const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
-                const combined = [...shuffle(sameCategory), ...shuffle(differentCategory)];
-                return combined.slice(0, limit);
-            }
-
-            // ============================================================
-            // NAVIGASI
+            // FUNGSI NAVIGASI – DENGAN PUSHSTATE / REPLACESTATE
             // ============================================================
             function getPageFromQuery() {
                 const params = new URLSearchParams(window.location.search);
@@ -1905,9 +1768,12 @@
                 return { page, post, q };
             }
 
-            function setQuery(page, postName, q) {
+            // Navigasi normal (klik kartu, navbar) – tambah history
+            function navigateTo(page, postName, q) {
+                if (page !== 'detail') unloadAdScript();
+
                 const params = new URLSearchParams();
-                if (page === 'home') { /* no params */ } else if (page === 'search') {
+                if (page === 'search') {
                     params.set('page', 'search');
                     if (q) params.set('q', q);
                 } else if (page === 'profile') {
@@ -1918,35 +1784,37 @@
                 }
                 const url = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
                 window.history.pushState({ page, post: postName, q }, '', url);
-            }
-
-            function navigateTo(page, postName, q) {
-                const current = getPageFromQuery();
-                previousPage = { page: current.page, post: current.post, q: current.q };
-                savePreviousPage();
-
-                if (page !== 'detail') unloadAdScript();
-                setQuery(page, postName, q);
 
                 if (page === 'home') {
                     showHome();
-                    updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.', LOGO_URL, 'https://destaseomods.web.id/');
+                    updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik.',
+                        LOGO_URL, 'https://destaseomods.web.id/');
                 } else if (page === 'search') {
                     showSearch(q);
-                    updateMetaTags('Cari Mod • Destaseo Mods', 'Cari mod APK premium favorit Anda di Destaseo Mods.', LOGO_URL, 'https://destaseomods.web.id/?page=search');
+                    updateMetaTags('Cari Mod • Destaseo Mods', 'Cari mod APK premium favorit Anda.', LOGO_URL,
+                        'https://destaseomods.web.id/?page=search');
                 } else if (page === 'profile') {
                     showProfile();
-                    updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.', AVATAR_URL, 'https://destaseomods.web.id/?page=profile');
+                    updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.',
+                        AVATAR_URL, 'https://destaseomods.web.id/?page=profile');
                 } else if (page === 'detail' && postName) {
                     showDetail(postName);
                 }
             }
 
+            // Untuk refresh di halaman detail – replaceState (tidak tambah history)
             function goToDetailDirectly(postName) {
-                setQuery('detail', postName, null);
+                const params = new URLSearchParams();
+                params.set('page', 'detail');
+                params.set('post', postName);
+                const url = window.location.pathname + '?' + params.toString();
+                window.history.replaceState({ page: 'detail', post: postName }, '', url);
                 showDetail(postName);
             }
 
+            // ============================================================
+            // SHOW HOME / SEARCH / PROFILE
+            // ============================================================
             function showHome() {
                 showSection(homeSection);
                 searchBox.classList.add('hidden');
@@ -1972,11 +1840,8 @@
                 document.getElementById('popular-section').classList.add('hidden');
                 setActiveNav('search');
                 stopCarousel();
-                if (q) {
-                    searchInput.value = q;
-                } else {
-                    searchInput.value = '';
-                }
+                if (q) searchInput.value = q;
+                else searchInput.value = '';
                 setTimeout(() => searchInput.focus(), 100);
                 if (fetchedPosts.length) {
                     renderCategoryBar();
@@ -2643,7 +2508,6 @@
                     document.head.appendChild(script); }
                 script.textContent = JSON.stringify(articleJson);
 
-                // Konten detail
                 detailContent.innerHTML = `
                 <div class="detail-header fade-in-content">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
@@ -2683,14 +2547,113 @@
                     });
                 });
 
-                // === Load iklan ===
                 const adContainer = document.getElementById('ad-container');
                 if (adContainer) {
-                    // Hapus script iklan lama jika ada
                     unloadAdScript();
-                    // Muat script baru di container
                     loadAdScript(adContainer);
                 }
+            }
+
+            // ============================================================
+            // COUNTER PER POSTINGAN
+            // ============================================================
+            async function getPostViewCount(postName, increment = true) {
+                const storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
+                const today = new Date().toISOString().slice(0, 10);
+                const key = 'destaseomods-' + postName.replace(/[^a-zA-Z0-9]/g, '-');
+
+                let localData = null;
+                try {
+                    const raw = localStorage.getItem(storageKey);
+                    if (raw) localData = JSON.parse(raw);
+                } catch (_) {}
+
+                if (!increment && localData) return localData.count;
+
+                if (increment && (!localData || localData.date !== today)) {
+                    try {
+                        const res = await fetch(`https://countapi.mileshilliard.com/api/v1/hit/${key}`);
+                        if (res.ok) {
+                            const data = await res.json();
+                            const count = data.value || 0;
+                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                            return count;
+                        }
+                    } catch (e) {}
+                    const prev = localData ? localData.count : 0;
+                    const count = prev + 1;
+                    localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                    return count;
+                }
+
+                if (!increment && !localData) {
+                    try {
+                        const res = await fetch(`https://countapi.mileshilliard.com/api/v1/get/${key}`);
+                        if (res.ok) {
+                            const data = await res.json();
+                            const count = data.value || 0;
+                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                            return count;
+                        }
+                    } catch (e) {}
+                    return 0;
+                }
+                return localData ? localData.count : 0;
+            }
+
+            // ============================================================
+            // DAILY VISITOR
+            // ============================================================
+            async function getDailyVisitorCount() {
+                const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily`;
+                const storageKey = 'daily_visitor';
+                const today = new Date().toISOString().slice(0, 10);
+                let localData = null;
+                try {
+                    const raw = localStorage.getItem(storageKey);
+                    if (raw) localData = JSON.parse(raw);
+                } catch (_) {}
+                if (localData && localData.date === today) return localData.count;
+                try {
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), 2000);
+                    const res = await fetch(url, { method: 'GET', signal: controller.signal, headers: {
+                            'Content-Type': 'application/json' } });
+                    clearTimeout(timeout);
+                    if (res.ok) {
+                        const data = await res.json();
+                        const count = data.value || data.count || data.views || data.hits || 1;
+                        if (typeof count === 'number' && count > 0) {
+                            localStorage.setItem(storageKey, JSON.stringify({ count, date: today }));
+                            return count;
+                        }
+                    }
+                } catch (e) {}
+                const prevCount = (localData && typeof localData.count === 'number') ? localData.count : 0;
+                const newCount = prevCount + 1;
+                localStorage.setItem(storageKey, JSON.stringify({ count: newCount, date: today }));
+                return newCount;
+            }
+
+            // ============================================================
+            // REKOMENDASI
+            // ============================================================
+            function getRecommendations(currentPost, limit = 4) {
+                if (!fetchedPosts || fetchedPosts.length === 0) return [];
+                const others = fetchedPosts.filter(p => p.name !== currentPost.name);
+                if (others.length === 0) return [];
+                const currentCategory = currentPost.metadata.kategori || '';
+                const sameCategory = others.filter(p => {
+                    const cat = p.metadata.kategori || '';
+                    return cat === currentCategory && cat !== '';
+                });
+                const differentCategory = others.filter(p => {
+                    const cat = p.metadata.kategori || '';
+                    return cat !== currentCategory || cat === '';
+                });
+                const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+                const combined = [...shuffle(sameCategory), ...shuffle(differentCategory)];
+                return combined.slice(0, limit);
             }
 
             // ============================================================
@@ -2725,16 +2688,11 @@
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
             // ============================================================
-            // TOMBOL KEMBALI
+            // TOMBOL KEMBALI – PAKAI HISTORY.BACK() DENGAN FALLBACK
             // ============================================================
             detailBack.addEventListener('click', function() {
-                loadPreviousPage();
-                if (previousPage.page === 'detail' && previousPage.post) {
-                    navigateTo('detail', previousPage.post);
-                } else if (previousPage.page === 'search') {
-                    navigateTo('search', null, previousPage.q);
-                } else if (previousPage.page === 'profile') {
-                    navigateTo('profile');
+                if (window.history.length > 1) {
+                    window.history.back();
                 } else {
                     navigateTo('home');
                 }
