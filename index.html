@@ -130,13 +130,14 @@
            ============================================================ */
         .page-section {
             will-change: transform, opacity;
+            backface-visibility: hidden;
             opacity: 1;
-            transition: opacity 0.05s ease, transform 0.05s ease;
+            transition: opacity 0.01s ease, transform 0.01s ease;
             transform: translateY(0);
         }
         .page-section.hidden {
             opacity: 0 !important;
-            transform: translateY(4px) !important;
+            transform: translateY(2px) !important;
             pointer-events: none;
             display: block !important;
             height: 0;
@@ -156,13 +157,13 @@
         }
 
         .fade-in-content {
-            animation: fadeInUp 0.12s ease forwards;
+            animation: fadeInUp 0.1s ease forwards;
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(8px);
+                transform: translateY(5px);
             }
             to {
                 opacity: 1;
@@ -520,9 +521,9 @@
             transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
-            animation: fadeInUp 0.3s ease forwards;
+            animation: fadeInUp 0.15s ease forwards;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(12px);
         }
         .post-card:hover {
             transform: translateY(-6px) scale(1.01);
@@ -877,11 +878,11 @@
         .back-btn:hover { opacity: 0.8; }
 
         /* ============================================================
-           PROFIL — PADDING ATAS TEPAT, TIDAK TERLALU KE BAWAH
+           PROFIL — POSISI PAS DI BAWAH TOPBAR
            ============================================================ */
         #profile-section {
-            scroll-margin-top: 90px;
-            padding-top: 80px;
+            scroll-margin-top: 80px;
+            padding-top: 70px;
         }
         .profile-card {
             position: relative;
@@ -1820,9 +1821,12 @@
                 window.history.pushState({ page, post: postName, q }, '', url);
 
                 if (page === 'home') {
-                    showHome();
-                    updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik.',
-                        LOGO_URL, 'https://destaseomods.web.id/');
+                    // Panggil showHome dengan microtask agar tidak blocking
+                    requestAnimationFrame(() => {
+                        showHome();
+                        updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik.',
+                            LOGO_URL, 'https://destaseomods.web.id/');
+                    });
                 } else if (page === 'search') {
                     showSearch(q);
                     updateMetaTags('Cari Mod • Destaseo Mods', 'Cari mod APK premium favorit Anda.', LOGO_URL,
@@ -1847,7 +1851,7 @@
             }
 
             // ============================================================
-            // SHOW HOME / SEARCH / PROFILE — DENGAN REQUESTANIMATIONFRAME
+            // SHOW HOME / SEARCH / PROFILE
             // ============================================================
             function showHome() {
                 showSection(homeSection);
@@ -1858,17 +1862,15 @@
                 filterIndicator.classList.add('hidden');
                 setActiveNav('home');
 
-                // Jalankan render dalam requestAnimationFrame agar tidak blocking
-                if (fetchedPosts.length) {
-                    requestAnimationFrame(() => {
+                // Render ringan dengan setTimeout 0 agar browser selesai paint
+                setTimeout(() => {
+                    if (fetchedPosts.length) {
                         renderCategoryBar();
                         resetAndApplyFilters();
                         renderPopularSection();
                         startCarousel();
-                    });
-                } else {
-                    // Jika data belum siap, spinner tetap aktif
-                }
+                    }
+                }, 0);
             }
 
             function showSearch(q) {
@@ -1883,10 +1885,10 @@
                 else searchInput.value = '';
                 setTimeout(() => searchInput.focus(), 50);
                 if (fetchedPosts.length) {
-                    requestAnimationFrame(() => {
+                    setTimeout(() => {
                         renderCategoryBar();
                         resetAndApplyFilters();
-                    });
+                    }, 0);
                 }
             }
 
@@ -1900,7 +1902,7 @@
                 setActiveNav('profile');
                 stopCarousel();
                 renderProfile();
-                // Scroll ke posisi tepat di bawah topbar
+                // Scroll ke posisi paling atas agar kartu profil pas di bawah topbar
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
@@ -2052,7 +2054,7 @@
                 const kategori = post.metadata.kategori || '';
                 const ver = post.metadata.versi || post.metadata.version || '';
                 const excerpt = getExcerpt(post.content);
-                const delay = index * 0.04 + 's';
+                const delay = index * 0.03 + 's';
 
                 let badges = [];
                 if (post.metadata.badges) {
