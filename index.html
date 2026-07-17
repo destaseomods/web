@@ -123,6 +123,84 @@
             padding: 12px 16px;
             position: relative;
             z-index: 2;
+            min-height: 70vh;
+        }
+
+        /* ============================================================
+           TRANSISI HALAMAN — SEPERTI PINDAH ACTIVITY ANDROID (SLIDE)
+           ============================================================ */
+        .page-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 60vh;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform, opacity;
+            opacity: 0;
+            transform: translateX(30px) scale(0.96);
+            pointer-events: none;
+            z-index: 1;
+            padding: 4px 0 20px 0;
+            background: var(--bg);
+            border-radius: var(--radius);
+        }
+        .page-section.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: auto;
+            z-index: 2;
+            position: relative;
+            /* agar tidak absolute saat aktif, biar layout tetap */
+        }
+        /* Mode absolute hanya saat transisi */
+        .page-section.transitioning {
+            position: absolute !important;
+        }
+        .page-section.transitioning.active {
+            position: absolute !important;
+            z-index: 3;
+        }
+
+        /* Animasi masuk dari kanan (seperti activity baru) */
+        .page-section.enter-from-right {
+            transform: translateX(100%) scale(0.96);
+            opacity: 0;
+        }
+        .page-section.enter-from-right.active {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+        }
+
+        /* Animasi keluar ke kiri (seperti activity lama) */
+        .page-section.exit-to-left {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+        }
+        .page-section.exit-to-left.hidden {
+            transform: translateX(-30%) scale(0.96);
+            opacity: 0;
+        }
+
+        /* Animasi masuk dari kiri (saat back) */
+        .page-section.enter-from-left {
+            transform: translateX(-30%) scale(0.96);
+            opacity: 0;
+        }
+        .page-section.enter-from-left.active {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+        }
+
+        /* Animasi keluar ke kanan (saat back) */
+        .page-section.exit-to-right {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+        }
+        .page-section.exit-to-right.hidden {
+            transform: translateX(100%) scale(0.96);
+            opacity: 0;
         }
 
         /* ============================================================
@@ -192,119 +270,6 @@
         }
         .center-overlay.hidden {
             display: none !important;
-        }
-
-        /* ============================================================
-           TRANSISI HALAMAN — TANPA GESER (HANYA FADE + SCALE RINGAN)
-           ============================================================ */
-        .page-section {
-            opacity: 1;
-            transform: scale(1);
-            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .page-section.hidden {
-            opacity: 0 !important;
-            transform: scale(0.96) !important;
-            pointer-events: none;
-            display: block !important;
-            height: 0;
-            overflow: hidden;
-            padding: 0 !important;
-            margin: 0 !important;
-            min-height: 0 !important;
-        }
-        .page-section#detail-section.hidden {
-            height: 0;
-            overflow: hidden;
-        }
-        .page-section#detail-section:not(.hidden) {
-            height: auto;
-            overflow: visible;
-            padding-top: 10px;
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        /* Animasi zoom-in ringan untuk detail */
-        .fade-scale-in {
-            animation: fadeScaleIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-        @keyframes fadeScaleIn {
-            0% { opacity: 0; transform: scale(0.96); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        /* ============================================================
-           POST CARD — LANGSUNG MUNCUL (TANPA FADE / ZOOM / SLIDE)
-           ============================================================ */
-        .post-card {
-            background: var(--surface);
-            backdrop-filter: blur(22px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        border-color 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            /* LANGSUNG MUNCUL — TANPA ANIMASI */
-            opacity: 1 !important;
-            transform: none !important;
-            animation: none !important;
-        }
-        .post-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: var(--glow), 0 25px 50px rgba(0, 0, 0, 0.9);
-        }
-        .post-card:active {
-            transform: scale(0.97);
-        }
-
-        /* ============================================================
-           REKOMENDASI CARD — LANGSUNG MUNCUL
-           ============================================================ */
-        .rec-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            opacity: 1 !important;
-            transform: none !important;
-            animation: none !important;
-        }
-        .rec-card:hover {
-            transform: translateY(-4px) scale(1.02);
-            border-color: var(--accent);
-            box-shadow: 0 8px 24px rgba(168, 127, 255, 0.3);
-        }
-        .rec-card img {
-            width: 100%;
-            height: 90px;
-            object-fit: cover;
-            background: var(--surface2);
-        }
-        @media (min-width: 500px) { .rec-card img { height: 110px; } }
-        .rec-card .rec-title {
-            padding: 8px 10px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #fff;
-            line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        @media (min-width: 500px) {
-            .rec-card .rec-title { padding: 10px 12px; font-size: 0.75rem; }
         }
 
         /* ============================================================
@@ -616,7 +581,7 @@
         }
 
         /* ============================================================
-           POST GRID — KARTU LANGSUNG MUNCUL
+           POST GRID
            ============================================================ */
         .post-grid {
             display: grid;
@@ -628,6 +593,30 @@
         @media (min-width: 768px) { .post-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; } }
         @media (min-width: 1024px) { .post-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
 
+        .post-card {
+            background: var(--surface);
+            backdrop-filter: blur(22px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            opacity: 1 !important;
+            transform: none !important;
+            animation: none !important;
+        }
+        .post-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: var(--glow), 0 25px 50px rgba(0, 0, 0, 0.9);
+        }
+        .post-card:active {
+            transform: scale(0.97);
+        }
         .card-img {
             width: 100%;
             height: 130px;
@@ -816,7 +805,8 @@
         /* ============================================================
            DETAIL PAGE
            ============================================================ */
-        .detail-header, .profile-card {
+        .detail-header,
+        .profile-card {
             background: var(--surface);
             backdrop-filter: blur(24px);
             border: 1px solid var(--border);
@@ -826,7 +816,8 @@
             box-shadow: var(--shadow-card);
         }
         @media (min-width: 500px) {
-            .detail-header, .profile-card { padding: 28px; }
+            .detail-header,
+            .profile-card { padding: 28px; }
         }
         .detail-img {
             display: block;
@@ -1120,7 +1111,8 @@
             border-radius: 16px;
             margin-bottom: 14px;
         }
-        .qris-close-btn, .qris-download-btn {
+        .qris-close-btn,
+        .qris-download-btn {
             background: var(--surface);
             border: 1px solid var(--border);
             color: #fff;
@@ -1132,7 +1124,8 @@
             transition: 0.2s;
             margin: 4px;
         }
-        .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255, 255, 255, 0.1); }
+        .qris-close-btn:hover,
+        .qris-download-btn:hover { background: rgba(255, 255, 255, 0.1); }
 
         .tags-container {
             margin-top: 10px;
@@ -1233,7 +1226,8 @@
             backdrop-filter: blur(8px);
         }
         .lightbox-close:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
-        .lightbox-prev, .lightbox-next {
+        .lightbox-prev,
+        .lightbox-next {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -1254,7 +1248,8 @@
         }
         .lightbox-prev { left: 20px; }
         .lightbox-next { right: 20px; }
-        .lightbox-prev:hover, .lightbox-next:hover {
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-50%) scale(1.05);
         }
@@ -1274,7 +1269,8 @@
             letter-spacing: 0.5px;
         }
         @media (max-width: 500px) {
-            .lightbox-prev, .lightbox-next { width: 36px; height: 36px; font-size: 0.9rem; }
+            .lightbox-prev,
+            .lightbox-next { width: 36px; height: 36px; font-size: 0.9rem; }
             .lightbox-prev { left: 8px; }
             .lightbox-next { right: 8px; }
             .lightbox-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1rem; }
@@ -1384,13 +1380,54 @@
         @media (min-width: 500px) { .rec-grid { gap: 12px; } }
         @media (min-width: 600px) { .rec-grid { grid-template-columns: repeat(4, 1fr); } }
 
+        .rec-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            opacity: 1 !important;
+            transform: none !important;
+            animation: none !important;
+        }
+        .rec-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(168, 127, 255, 0.3);
+        }
+        .rec-card img {
+            width: 100%;
+            height: 90px;
+            object-fit: cover;
+            background: var(--surface2);
+        }
+        @media (min-width: 500px) { .rec-card img { height: 110px; } }
+        .rec-card .rec-title {
+            padding: 8px 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        @media (min-width: 500px) {
+            .rec-card .rec-title { padding: 10px 12px; font-size: 0.75rem; }
+        }
+
         #profile-footer-text {
             max-width: 100%;
             box-sizing: border-box;
             overflow: hidden;
             word-wrap: break-word;
         }
-        .profile-card, .content-box {
+        .profile-card,
+        .content-box {
             max-width: 100%;
             box-sizing: border-box;
             overflow: hidden;
@@ -1458,7 +1495,7 @@
 
     <!-- Main -->
     <main class="container" id="app">
-        <section id="home-section" class="page-section" aria-label="Beranda">
+        <section id="home-section" class="page-section active" aria-label="Beranda">
             <div class="search-container hidden" id="search-box">
                 <input type="text" class="search-input" id="search-input" placeholder="Cari mod favorit..." aria-label="Cari mod" />
             </div>
@@ -1483,12 +1520,12 @@
             <div id="load-more-container" style="text-align:center;"></div>
         </section>
 
-        <section id="detail-section" class="page-section hidden" aria-label="Detail Mod">
+        <section id="detail-section" class="page-section" aria-label="Detail Mod">
             <button class="back-btn" id="detail-back" aria-label="Kembali"><i class="fas fa-arrow-left"></i> Kembali</button>
             <div id="detail-content"></div>
         </section>
 
-        <section id="profile-section" class="page-section hidden" aria-label="Profil">
+        <section id="profile-section" class="page-section" aria-label="Profil">
             <div class="profile-card">
                 <div class="premium-badge"><i class="fas fa-crown"></i> Premium</div>
                 <div class="profile-avatar" id="profile-avatar" style="background-image:url('https://avatars.githubusercontent.com/u/189899710?v=4');" role="img" aria-label="Avatar Destaseo Mods"></div>
@@ -1852,6 +1889,118 @@
             }
 
             // ============================================================
+            // FUNGSI TRANSISI HALAMAN — SEPERTI PINDAH ACTIVITY ANDROID
+            // ============================================================
+            let isTransitioning = false;
+            let currentActiveSection = homeSection;
+
+            function showSection(targetSection, direction) {
+                // direction: 'forward' (masuk dari kanan) atau 'back' (masuk dari kiri)
+                if (isTransitioning || targetSection === currentActiveSection) return;
+                isTransitioning = true;
+
+                // Sembunyikan semua section dari view
+                const allSections = [homeSection, detailSection, profileSection];
+                allSections.forEach(s => {
+                    s.classList.remove('active', 'enter-from-right', 'exit-to-left', 'enter-from-left',
+                        'exit-to-right', 'transitioning');
+                    // Reset transform agar tidak mengganggu
+                    s.style.transform = '';
+                    s.style.opacity = '';
+                    s.style.pointerEvents = 'none';
+                });
+
+                // Tentukan animasi berdasarkan arah
+                const isForward = (direction === 'forward');
+                const oldSection = currentActiveSection;
+
+                // Set posisi awal untuk section yang akan masuk
+                if (isForward) {
+                    targetSection.classList.add('enter-from-right');
+                } else {
+                    targetSection.classList.add('enter-from-left');
+                }
+                targetSection.style.display = 'block';
+                targetSection.style.position = 'absolute';
+                targetSection.style.top = '0';
+                targetSection.style.left = '0';
+                targetSection.style.width = '100%';
+                targetSection.style.pointerEvents = 'none';
+
+                // Set posisi awal untuk section yang akan keluar
+                oldSection.classList.add('transitioning');
+                oldSection.style.position = 'absolute';
+                oldSection.style.top = '0';
+                oldSection.style.left = '0';
+                oldSection.style.width = '100%';
+                oldSection.style.pointerEvents = 'none';
+                if (isForward) {
+                    oldSection.classList.add('exit-to-left');
+                } else {
+                    oldSection.classList.add('exit-to-right');
+                }
+
+                // Trigger reflow agar transisi berjalan
+                void targetSection.offsetHeight;
+
+                // Jalankan animasi masuk
+                requestAnimationFrame(() => {
+                    if (isForward) {
+                        targetSection.classList.remove('enter-from-right');
+                    } else {
+                        targetSection.classList.remove('enter-from-left');
+                    }
+                    targetSection.classList.add('active');
+                    targetSection.style.pointerEvents = 'auto';
+
+                    // Animasi keluar
+                    if (isForward) {
+                        oldSection.classList.remove('exit-to-left');
+                    } else {
+                        oldSection.classList.remove('exit-to-right');
+                    }
+                    oldSection.classList.add('hidden');
+
+                    // Setelah animasi selesai, bersihkan
+                    const duration = 350; // match CSS transition
+                    setTimeout(() => {
+                        // Sembunyikan old section
+                        oldSection.classList.remove('active', 'exit-to-left', 'exit-to-right', 'hidden',
+                            'transitioning');
+                        oldSection.style.display = 'none';
+                        oldSection.style.position = '';
+                        oldSection.style.top = '';
+                        oldSection.style.left = '';
+                        oldSection.style.width = '';
+                        oldSection.style.pointerEvents = '';
+                        oldSection.style.transform = '';
+                        oldSection.style.opacity = '';
+
+                        // Pastikan target tetap visible
+                        targetSection.classList.remove('enter-from-right', 'enter-from-left', 'transitioning');
+                        targetSection.style.position = '';
+                        targetSection.style.top = '';
+                        targetSection.style.left = '';
+                        targetSection.style.width = '';
+                        targetSection.style.pointerEvents = '';
+                        targetSection.style.transform = '';
+                        targetSection.style.opacity = '';
+                        targetSection.style.display = 'block';
+                        targetSection.classList.add('active');
+
+                        currentActiveSection = targetSection;
+                        isTransitioning = false;
+                    }, duration);
+                });
+            }
+
+            // Override showSection untuk navigasi normal
+            function navigateToSection(target, direction) {
+                // direction: 'forward' (dari beranda ke detail/profile) atau 'back' (kembali)
+                showSection(target, direction || 'forward');
+            }
+
+            // ============================================================
             // FUNGSI NAVIGASI
             // ============================================================
             function getPageFromQuery() {
@@ -1862,9 +2011,7 @@
                 return { page, post, q };
             }
 
-            function navigateTo(page, postName, q) {
-                if (page !== 'detail') unloadAdScript();
-
+            function setQuery(page, postName, q) {
                 const params = new URLSearchParams();
                 if (page === 'search') {
                     params.set('page', 'search');
@@ -1877,38 +2024,50 @@
                 }
                 const url = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
                 window.history.pushState({ page, post: postName, q }, '', url);
+            }
+
+            function navigateTo(page, postName, q) {
+                if (page !== 'detail') unloadAdScript();
+
+                // Tentukan arah transisi
+                const currentPage = getPageFromQuery().page;
+                let direction = 'forward';
+                // Jika dari detail ke home (back), arahnya back
+                if (currentPage === 'detail' && page === 'home') direction = 'back';
+                else if (currentPage === 'profile' && page === 'home') direction = 'back';
+                else if (currentPage === 'detail' && page === 'profile') direction = 'forward';
+                else if (currentPage === 'profile' && page === 'detail') direction = 'forward';
+                else if (currentPage === 'home' && (page === 'detail' || page === 'profile')) direction = 'forward';
+                else direction = 'forward';
+
+                setQuery(page, postName, q);
 
                 if (page === 'home') {
-                    showHome();
+                    navigateToSection(homeSection, direction);
+                    showHomeContent();
                     updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik.',
                         LOGO_URL, 'https://destaseomods.web.id/');
                 } else if (page === 'search') {
-                    showSearch(q);
+                    navigateToSection(homeSection, direction);
+                    showSearchContent(q);
                     updateMetaTags('Cari Mod • Destaseo Mods', 'Cari mod APK premium favorit Anda.', LOGO_URL,
                         'https://destaseomods.web.id/?page=search');
                 } else if (page === 'profile') {
-                    showProfile();
+                    navigateToSection(profileSection, direction);
+                    renderProfile();
                     updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.',
                         AVATAR_URL, 'https://destaseomods.web.id/?page=profile');
                 } else if (page === 'detail' && postName) {
+                    navigateToSection(detailSection, direction);
                     showDetail(postName);
                 }
-            }
-
-            function goToDetailDirectly(postName) {
-                const params = new URLSearchParams();
-                params.set('page', 'detail');
-                params.set('post', postName);
-                const url = window.location.pathname + '?' + params.toString();
-                window.history.replaceState({ page: 'detail', post: postName }, '', url);
-                showDetail(postName);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
             // ============================================================
-            // SHOW HOME / SEARCH / PROFILE
+            // SHOW HOME / SEARCH / PROFILE CONTENT (tanpa transisi)
             // ============================================================
-            function showHome() {
-                showSection(homeSection);
+            function showHomeContent() {
                 searchBox.classList.add('hidden');
                 categoryBar.classList.remove('hidden');
                 sortBar.classList.remove('hidden');
@@ -1924,8 +2083,7 @@
                 }
             }
 
-            function showSearch(q) {
-                showSection(homeSection);
+            function showSearchContent(q) {
                 searchBox.classList.remove('hidden');
                 categoryBar.classList.remove('hidden');
                 sortBar.classList.add('hidden');
@@ -1941,33 +2099,17 @@
                 }
             }
 
-            function showProfile() {
-                showSection(profileSection);
-                searchBox.classList.add('hidden');
-                categoryBar.classList.add('hidden');
-                sortBar.classList.add('hidden');
-                document.getElementById('popular-section').classList.add('hidden');
-                filterIndicator.classList.add('hidden');
-                setActiveNav('profile');
-                stopCarousel();
-                renderProfile();
-                setTimeout(() => {
-                    const rect = profileSection.getBoundingClientRect();
-                    if (rect.top < 20) {
-                        window.scrollTo({ top: window.scrollY + rect.top - 80, behavior: 'smooth' });
-                    }
-                }, 100);
+            function showHome() {
+                // Dipanggil saat pertama kali atau saat back dari detail
+                // Arah transisi ditentukan di navigateTo
             }
 
-            function showSection(s) {
-                [homeSection, detailSection, profileSection].forEach(el => {
-                    if (el !== s) {
-                        el.classList.add('hidden');
-                        el.style.display = '';
-                    }
-                });
-                s.classList.remove('hidden');
-                s.style.display = 'block';
+            function showSearch(q) {
+                // Dipanggil dari navigateTo
+            }
+
+            function showProfile() {
+                // Dipanggil dari navigateTo
             }
 
             function setActiveNav(p) {
@@ -2407,7 +2549,12 @@
 
                     const { page, post, q } = getPageFromQuery();
                     if (page === 'detail' && post) {
-                        goToDetailDirectly(post);
+                        // langsung tampilkan detail tanpa transisi
+                        setQuery('detail', post, null);
+                        showDetail(post);
+                        // set active section manual
+                        detailSection.classList.add('active');
+                        currentActiveSection = detailSection;
                     } else if (page === 'search') {
                         navigateTo('search', null, q || '');
                     } else if (page === 'profile') {
@@ -2430,6 +2577,8 @@
                     `<a href="${l.url}" target="_blank" class="social-link" rel="noopener"><i class="${l.icon}"></i> ${l.label}</a>`
                 ).join('');
                 updateDailyVisitor();
+                // set active section
+                currentActiveSection = profileSection;
             }
 
             async function updateDailyVisitor() {
@@ -2570,10 +2719,8 @@
                 }
 
                 showLoading('Memuat detail...');
-                showSection(detailSection);
-                setActiveNav('detail');
-                window.scrollTo({ top: 0 });
-
+                // Tampilkan section detail (transisi sudah di handle di navigateTo)
+                // Tapi di sini kita isi konten
                 const viewCount = await getPostViewCount(name, true);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
@@ -2599,7 +2746,7 @@
                 script.textContent = JSON.stringify(articleJson);
 
                 detailContent.innerHTML = `
-                <div class="detail-header fade-scale-in">
+                <div class="detail-header">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
                     <h1 class="detail-title">${t}</h1>
                     <div class="detail-meta-grid">
@@ -2613,7 +2760,7 @@
                     ${galleryHtml}
                     ${tagsHtml}
                 </div>
-                <div class="content-box fade-scale-in">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
+                <div class="content-box">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
                 ${downloadBtn}
                 ${recHtml}
                 <div id="ad-container" style="margin-top:20px; text-align:center;"></div>
@@ -2644,6 +2791,8 @@
                 }
 
                 hideOverlay();
+                // set current active section
+                currentActiveSection = detailSection;
             }
 
             // ============================================================
@@ -2779,6 +2928,7 @@
 
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
+            // Tombol kembali menggunakan history.back() – browser akan handle transisi
             detailBack.addEventListener('click', function() {
                 if (window.history.length > 1) {
                     window.history.back();
