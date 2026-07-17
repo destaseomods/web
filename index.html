@@ -1582,24 +1582,32 @@
             }
 
             // ===== Ad script =====
-            let adScriptLoaded = false;
             let adScriptElement = null;
 
-            function loadAdScript() {
-                if (adScriptLoaded) return;
-                if (adScriptElement) { adScriptElement.remove();
-                    adScriptElement = null; }
+            function loadAdScript(container) {
+                // Hapus script iklan lama jika ada
+                if (adScriptElement) {
+                    adScriptElement.remove();
+                    adScriptElement = null;
+                }
+                // Buat script baru
                 adScriptElement = document.createElement('script');
                 adScriptElement.src = 'https://cabinetavidgrasp.com/c4/11/28/c4112850e63eed959d261d84abff70ee.js';
                 adScriptElement.async = true;
-                document.head.appendChild(adScriptElement);
-                adScriptLoaded = true;
+                adScriptElement.onload = function() {
+                    console.log('✅ Iklan berhasil dimuat');
+                };
+                adScriptElement.onerror = function() {
+                    console.error('❌ Gagal memuat iklan');
+                };
+                container.appendChild(adScriptElement);
             }
 
             function unloadAdScript() {
-                if (adScriptElement) { adScriptElement.remove();
-                    adScriptElement = null; }
-                adScriptLoaded = false;
+                if (adScriptElement) {
+                    adScriptElement.remove();
+                    adScriptElement = null;
+                }
             }
 
             // ===== SEO =====
@@ -1758,7 +1766,7 @@
             }
 
             // ============================================================
-            // PREVIOUS PAGE - DISIMPAN DI SESSION STORAGE (AGAR TAHAN REFRESH)
+            // PREVIOUS PAGE - DISIMPAN DI SESSION STORAGE
             // ============================================================
             let previousPage = { page: 'home', post: null, q: null };
 
@@ -1773,7 +1781,6 @@
                         }
                     }
                 } catch (e) {}
-                // Default jika tidak ada: home
                 previousPage = { page: 'home', post: null, q: null };
             }
 
@@ -1783,7 +1790,6 @@
                 } catch (e) {}
             }
 
-            // Muat previousPage dari storage
             loadPreviousPage();
 
             // ============================================================
@@ -1914,9 +1920,7 @@
                 window.history.pushState({ page, post: postName, q }, '', url);
             }
 
-            // Fungsi navigasi utama – hanya dipanggil saat interaksi pengguna
             function navigateTo(page, postName, q) {
-                // Simpan halaman sebelumnya (sebelum navigasi) ke sessionStorage
                 const current = getPageFromQuery();
                 previousPage = { page: current.page, post: current.post, q: current.q };
                 savePreviousPage();
@@ -1938,10 +1942,7 @@
                 }
             }
 
-            // Fungsi untuk menampilkan detail tanpa mengubah previousPage (digunakan saat refresh)
             function goToDetailDirectly(postName) {
-                // Hapus pengecekan page yang tidak terdefinisi
-                // Kita langsung set query dan tampilkan detail
                 setQuery('detail', postName, null);
                 showDetail(postName);
             }
@@ -2443,10 +2444,8 @@
                     resetAndApplyFilters();
                     startCarousel();
 
-                    // Periksa halaman dari query
                     const { page, post, q } = getPageFromQuery();
                     if (page === 'detail' && post) {
-                        // Halaman detail – tampilkan langsung tanpa mengubah previousPage
                         goToDetailDirectly(post);
                     } else if (page === 'search') {
                         navigateTo('search', null, q || '');
@@ -2620,8 +2619,6 @@
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
 
-                loadAdScript();
-
                 const viewCount = await getPostViewCount(name, true);
 
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
@@ -2646,6 +2643,7 @@
                     document.head.appendChild(script); }
                 script.textContent = JSON.stringify(articleJson);
 
+                // Konten detail
                 detailContent.innerHTML = `
                 <div class="detail-header fade-in-content">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
@@ -2663,7 +2661,9 @@
                 </div>
                 <div class="content-box fade-in-content">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
                 ${downloadBtn}
-                ${recHtml}`;
+                ${recHtml}
+                <div id="ad-container" style="margin-top:20px; text-align:center;"></div>
+            `;
 
                 if (hasDownload) {
                     const dBtn = document.getElementById('detail-download-btn');
@@ -2682,6 +2682,15 @@
                         if (name) navigateTo('detail', name);
                     });
                 });
+
+                // === Load iklan ===
+                const adContainer = document.getElementById('ad-container');
+                if (adContainer) {
+                    // Hapus script iklan lama jika ada
+                    unloadAdScript();
+                    // Muat script baru di container
+                    loadAdScript(adContainer);
+                }
             }
 
             // ============================================================
@@ -2716,10 +2725,9 @@
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
             // ============================================================
-            // TOMBOL KEMBALI - PAKAI PREVIOUS PAGE DARI SESSION STORAGE
+            // TOMBOL KEMBALI
             // ============================================================
             detailBack.addEventListener('click', function() {
-                // Muat ulang previousPage dari storage
                 loadPreviousPage();
                 if (previousPage.page === 'detail' && previousPage.post) {
                     navigateTo('detail', previousPage.post);
@@ -2728,7 +2736,6 @@
                 } else if (previousPage.page === 'profile') {
                     navigateTo('profile');
                 } else {
-                    // default ke home
                     navigateTo('home');
                 }
             });
@@ -2769,7 +2776,7 @@
             });
 
             // ============================================================
-            // START APLIKASI
+            // START
             // ============================================================
             (async () => {
                 await renderHome();
