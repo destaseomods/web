@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <title>Destaseo Mods • Detail</title>
+    <meta name="description" content="Detail mod APK premium Destaseo Mods." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://destaseomods.web.id/" id="canonical-link" />
+
+    <meta property="og:title" content="Destaseo Mods • Detail" id="og-title" />
+    <meta property="og:description" content="Detail mod APK premium Destaseo Mods." id="og-description" />
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/189899710?v=4" id="og-image" />
+    <meta property="og:url" content="https://destaseomods.web.id/" id="og-url" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Destaseo Mods" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Destaseo Mods • Detail" id="tw-title" />
+    <meta name="twitter:description" content="Detail mod APK premium Destaseo Mods." id="tw-description" />
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/189899710?v=4" id="tw-image" />
+
+    <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/189899710?v=4" />
+    <link rel="apple-touch-icon" href="https://avatars.githubusercontent.com/u/189899710?v=4" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
+    </script>
+
+    <style>
+        :root {
+            --bg: #04040e;
+            --surface: rgba(15, 15, 30, 0.7);
+            --surface2: rgba(25, 25, 45, 0.8);
+            --border: rgba(255, 255, 255, 0.07);
+            --text: #f5f5ff;
+            --text2: #b8b8d0;
+            --accent: #a87fff;
+            --accent2: #3ee0ff;
+            --grad1: linear-gradient(135deg, #a87fff, #3ee0ff);
+            --radius: 28px;
+            --radius-sm: 20px;
+            --nav-height: 76px;
+            --safe-bottom: env(safe-area-inset-bottom, 16px);
+            --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06);
+            --glow: 0 0 60px rgba(168, 127, 255, 0.4);
+            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --topbar-height: 76px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+        }
+        canvas#particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 12px 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 18px;
+            background: rgba(12, 12, 25, 0.65);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--border);
+            border-radius: 34px;
+            margin: 12px auto;
+            max-width: 700px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            position: sticky;
+            top: 14px;
+            z-index: 99;
+            gap: 8px;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(168, 127, 255, 0.4);
+        }
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #c084fc, #60a5fa, #34d399);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite alternate;
+            white-space: nowrap;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% center; }
+            100% { background-position: 100% center; }
+        }
+        .telegram-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+        .telegram-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--accent2);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+            backdrop-filter: blur(16px);
+            white-space: nowrap;
+        }
+        .telegram-btn:hover {
+            border-color: var(--accent2);
+            box-shadow: 0 0 25px rgba(62, 224, 255, 0.4);
+            background: rgba(62, 224, 255, 0.1);
+        }
+        .telegram-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: var(--surface);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 6px;
+            min-width: 160px;
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+            z-index: 150;
+        }
+        .telegram-dropdown.show { display: flex; }
+        .telegram-dropdown a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .telegram-dropdown a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+        .telegram-dropdown a i { width: 18px;
+            text-align: center; }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--accent2);
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            transition: opacity 0.2s;
+            text-decoration: none;
+        }
+        .back-btn:hover { opacity: 0.8; }
+
+        .detail-header {
+            background: var(--surface);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-card);
+        }
+        @media (min-width:500px) { .detail-header { padding: 28px; } }
+        .detail-img {
+            display: block;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 20px;
+            background: var(--surface2);
+            margin: 0 auto 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+        }
+        @media (min-width:500px) {
+            .detail-img { width: 100px;
+                height: 100px;
+                margin-bottom: 16px; }
+        }
+        .detail-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            text-align: center;
+            line-height: 1.3;
+        }
+        @media (min-width:500px) { .detail-title { font-size: 1.05rem; } }
+        .detail-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin: 10px 0 4px;
+        }
+        @media (min-width:500px) {
+            .detail-meta-grid { gap: 8px;
+                margin: 12px 0 6px; }
+        }
+        @media (min-width:640px) {
+            .detail-meta-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        @media (min-width:820px) {
+            .detail-meta-grid { grid-template-columns: repeat(4, 1fr);
+                gap: 10px; }
+        }
+        .meta-item {
+            background: var(--surface2);
+            padding: 6px 6px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+        }
+        @media (min-width:500px) {
+            .meta-item { padding: 8px 8px;
+                font-size: 0.7rem;
+                min-height: 58px; }
+        }
+        .meta-item i {
+            color: var(--accent2);
+            margin-bottom: 2px;
+            font-size: 0.75rem;
+        }
+        @media (min-width:500px) {
+            .meta-item i { font-size: 0.85rem;
+                margin-bottom: 3px; }
+        }
+        .meta-item strong {
+            color: var(--accent2);
+            font-size: 0.6rem;
+            font-weight: 700;
+        }
+        @media (min-width:500px) { .meta-item strong { font-size: 0.7rem; } }
+
+        .download-note {
+            background: rgba(255, 215, 0, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin: 16px 0 8px;
+            font-size: 0.75rem;
+            color: #f5e56b;
+            line-height: 1.6;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            text-align: left;
+        }
+        .download-note i {
+            color: #f5a623;
+            font-size: 1rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        .download-note strong {
+            color: #fff;
+        }
+        @media (min-width:500px) {
+            .download-note { font-size: 0.85rem;
+                padding: 14px 20px; }
+            .download-note i { font-size: 1.1rem; }
+        }
+
+        .big-download {
+            display: block;
+            width: 100%;
+            background: var(--grad1);
+            border: none;
+            color: #04040e;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 14px;
+            border-radius: 18px;
+            margin: 8px 0 0;
+            cursor: pointer;
+            transition: 0.2s;
+            letter-spacing: -0.3px;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+        }
+        @media (min-width:500px) {
+            .big-download { font-size: 1rem;
+                padding: 15px;
+                margin-top: 10px; }
+        }
+        .big-download i { margin-right: 6px; }
+        .big-download:active { transform: scale(0.96); }
+        .big-download.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .big-download.counting {
+            opacity: 0.8;
+            pointer-events: none;
+            background: var(--surface2);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .content-box {
+            background: var(--surface);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            line-height: 1.8;
+            box-shadow: var(--shadow-card);
+            white-space: pre-line;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+        @media (min-width:500px) { .content-box { padding: 16px 28px; } }
+        .content-box img {
+            max-width: 100%;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+        .content-box pre {
+            background: #050510;
+            padding: 16px;
+            border-radius: 16px;
+            overflow-x: auto;
+            white-space: pre;
+            font-size: 0.8rem;
+        }
+
+        .tags-container {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .tag-badge {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text2);
+            padding: 2px 8px;
+            border-radius: 14px;
+            font-size: 0.6rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        @media (min-width:500px) { .tag-badge { font-size: 0.65rem;
+                padding: 3px 10px; } }
+
+        .screenshot-scroll {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 10px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+            margin-top: 12px;
+            max-width: 100%;
+            touch-action: pan-x;
+        }
+        .screenshot-scroll img {
+            flex: 0 0 auto;
+            width: 120px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+        }
+        @media (min-width:500px) {
+            .screenshot-scroll img { width: 150px;
+                height: 220px; }
+        }
+        .screenshot-scroll img:hover {
+            transform: scale(1.03);
+            border-color: var(--accent);
+        }
+
+        .recommendations-section {
+            margin-top: 20px;
+            padding: 16px 0;
+            border-top: 1px solid var(--border);
+        }
+        @media (min-width:500px) {
+            .recommendations-section { margin-top: 24px;
+                padding: 20px 0; }
+        }
+        .recommendations-section h3 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        @media (min-width:500px) {
+            .recommendations-section h3 { font-size: 0.95rem;
+                margin-bottom: 14px; }
+        }
+        .recommendations-section h3 i { color: var(--accent2); }
+        .rec-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        @media (min-width:500px) { .rec-grid { gap: 12px; } }
+        @media (min-width:600px) { .rec-grid { grid-template-columns: repeat(4, 1fr); } }
+        .rec-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .rec-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(168, 127, 255, 0.3);
+        }
+        .rec-card img {
+            width: 100%;
+            height: 90px;
+            object-fit: cover;
+            background: var(--surface2);
+        }
+        @media (min-width:500px) { .rec-card img { height: 110px; } }
+        .rec-card .rec-title {
+            padding: 8px 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        @media (min-width:500px) {
+            .rec-card .rec-title { padding: 10px 12px;
+                font-size: 0.75rem; }
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            cursor: default;
+            animation: fadeInLight 0.25s ease;
+        }
+        @keyframes fadeInLight {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 82vh;
+            border-radius: 16px;
+            object-fit: contain;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+        }
+        .lightbox-close:hover { background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05); }
+        .lightbox-prev,
+        .lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .lightbox-counter {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            letter-spacing: 0.5px;
+        }
+        @media (max-width:500px) {
+            .lightbox-prev,
+            .lightbox-next { width: 36px;
+                height: 36px;
+                font-size: 0.9rem; }
+            .lightbox-prev { left: 8px; }
+            .lightbox-next { right: 8px; }
+            .lightbox-close { top: 12px;
+                right: 12px;
+                width: 36px;
+                height: 36px;
+                font-size: 1rem; }
+            .lightbox img { max-width: 98vw;
+                max-height: 78vh; }
+            .lightbox-counter { font-size: 0.7rem;
+                padding: 4px 14px;
+                bottom: 18px; }
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            margin: 60px auto;
+            border: 4px solid rgba(255, 255, 255, 0.06);
+            border-top-color: var(--accent2);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .error-text {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text2);
+            background: rgba(255, 0, 0, 0.07);
+            border-radius: 24px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(5, 5, 15, 0.85);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: var(--nav-height);
+            padding-bottom: var(--safe-bottom);
+            z-index: 100;
+            box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.8);
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text2);
+            font-size: 0.6rem;
+            font-weight: 600;
+            gap: 3px;
+            transition: 0.25s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 24px;
+            text-decoration: none;
+        }
+        @media (min-width:500px) {
+            .nav-item { font-size: 0.7rem;
+                padding: 10px 18px;
+                gap: 5px; }
+        }
+        .nav-item.active {
+            color: var(--accent2);
+            background: rgba(62, 224, 255, 0.12);
+        }
+        .nav-item i { font-size: 1.1rem; }
+        @media (min-width:500px) { .nav-item i { font-size: 1.3rem; } }
+
+        @media (max-width:360px) {
+            .logo-text { font-size: 1rem; }
+            .logo-img { width: 28px;
+                height: 28px; }
+            .topbar { padding: 10px 14px;
+                border-radius: 28px; }
+            .telegram-btn { font-size: 0.65rem;
+                padding: 5px 10px; }
+            .container { padding: 8px 12px; }
+            .detail-title { font-size: 0.85rem; }
+            .detail-header { padding: 14px; }
+            .meta-item { font-size: 0.5rem;
+                padding: 4px 4px;
+                min-height: 44px; }
+            .meta-item strong { font-size: 0.5rem; }
+            .meta-item i { font-size: 0.65rem; }
+            .rec-card img { height: 70px; }
+            .rec-card .rec-title { font-size: 0.6rem;
+                padding: 6px 8px; }
+            .rec-grid { gap: 8px; }
+            .nav-item { font-size: 0.5rem;
+                padding: 6px 10px; }
+            .nav-item i { font-size: 0.9rem; }
+            .bottom-nav { height: 64px; }
+            .download-note { font-size: 0.65rem;
+                padding: 10px 12px; }
+            .download-note i { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles"></canvas>
+
+    <div class="qris-overlay hidden" id="qris-overlay">
+        <div class="qris-container">
+            <img src="https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png" alt="QRIS Dana" id="qris-img" />
+            <div>
+                <button class="qris-download-btn" id="qris-download-btn"><i class="fas fa-download"></i> Download Gambar</button>
+                <button class="qris-close-btn" id="qris-close-btn"><i class="fas fa-times"></i> Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="topbar">
+        <div class="logo-area" id="logo-area">
+            <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo Destaseo Mods" class="logo-img" />
+            <span class="logo-text">Destaseo Mods</span>
+        </div>
+        <div class="telegram-wrapper">
+            <button class="telegram-btn" id="telegram-btn" aria-label="Menu Telegram"><i class="fab fa-telegram-plane"></i> Telegram</button>
+            <div class="telegram-dropdown" id="telegram-dropdown">
+                <a href="https://t.me/destaseo" target="_blank"><i class="fas fa-user"></i> Admin</a>
+                <a href="https://t.me/+wlXhR-M2BbliMDU1" target="_blank"><i class="fas fa-bullhorn"></i> Channel</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="container" id="app">
+        <a href="/" class="back-btn" id="detail-back"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
+        <div id="detail-content"></div>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navigasi utama">
+        <a href="/" class="nav-item" data-page="home" aria-label="Beranda"><i class="fas fa-home"></i><span>Beranda</span></a>
+        <a href="/?page=search" class="nav-item" data-page="search" aria-label="Cari"><i class="fas fa-search"></i><span>Cari</span></a>
+        <a href="/?page=profile" class="nav-item" data-page="profile" aria-label="Profil"><i class="fas fa-user-circle"></i><span>Profil</span></a>
+    </nav>
+
+    <script>
+        (function() {
+            // ============================================================
+            // KONFIGURASI
+            // ============================================================
+            const GITHUB_REPO = "destaseomods/web";
+            const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
+            const AD_INTERVAL = 5 * 60 * 1000;
+            const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
+            const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
+            const QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
+            const CACHE_KEY_LIST = 'destaseo_post_list_v4';
+            const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
+
+            // ============================================================
+            // PARTIKEL
+            // ============================================================
+            const canvas = document.getElementById('particles');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const maxParticles = 35;
+            let animationFrameId = null;
+            let frameSkip = 0;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Particle {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.4;
+                    this.vy = (Math.random() - 0.5) * 0.4;
+                    this.radius = Math.random() * 2 + 1;
+                    this.opacity = Math.random() * 0.4 + 0.1;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(168,127,255,${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+            for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
+
+            function animateParticles() {
+                frameSkip++;
+                if (frameSkip % 2 === 0) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    particles.forEach(p => { p.update();
+                        p.draw(); });
+                }
+                animationFrameId = requestAnimationFrame(animateParticles);
+            }
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    if (animationFrameId) { cancelAnimationFrame(animationFrameId);
+                        animationFrameId = null; }
+                } else {
+                    if (!animationFrameId) { animateParticles(); }
+                }
+            });
+            animateParticles();
+
+            // ============================================================
+            // DOM
+            // ============================================================
+            const detailContent = document.getElementById('detail-content');
+            const detailBack = document.getElementById('detail-back');
+            const logoArea = document.getElementById('logo-area');
+            const telegramBtn = document.getElementById('telegram-btn');
+            const telegramDropdown = document.getElementById('telegram-dropdown');
+
+            // ============================================================
+            // FUNGSI UTILITY
+            // ============================================================
+            function fixImageUrl(url) {
+                if (!url) return '';
+                if (url.includes('github.com') && !url.includes('raw.githubusercontent.com')) {
+                    url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                return url;
+            }
+
+            function formatDate(d) {
+                if (!d) return '';
+                const dt = new Date(d);
+                if (isNaN(dt.getTime())) return '';
+                const m = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+                return `${dt.getDate()} ${m[dt.getMonth()]} ${dt.getFullYear()}`;
+            }
+
+            function getExcerpt(c) {
+                if (!c) return '';
+                let t = c.replace(/[#*`>\[\]()!|]/g, '').replace(/\n/g, ' ').trim();
+                if (t.length > 80) t = t.slice(0, 80) + '...';
+                return t;
+            }
+
+            function parseFrontmatter(md) {
+                const m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
+                if (!m) return { metadata: {}, content: md };
+                const meta = {};
+                m[1].split('\n').forEach(line => {
+                    const i = line.indexOf(':');
+                    if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim().replace(/^["']|["']$/g,
+                    '');
+                });
+                return { metadata: meta, content: m[2] };
+            }
+
+            function getCachedList() {
+                const raw = localStorage.getItem(CACHE_KEY_LIST);
+                if (!raw) return null;
+                try { const data = JSON.parse(raw); return data.posts; } catch (e) { return null; }
+            }
+
+            function getCachedContent(postName) {
+                const key = CACHE_KEY_CONTENT_PREFIX + postName;
+                const raw = localStorage.getItem(key);
+                if (!raw) return null;
+                try { const data = JSON.parse(raw); return data.content; } catch (e) { return null; }
+            }
+
+            // ============================================================
+            // GET POST FROM QUERY
+            // ============================================================
+            function getPostNameFromQuery() {
+                const params = new URLSearchParams(window.location.search);
+                return params.get('post') || null;
+            }
+
+            // ============================================================
+            // UPDATE SEO META
+            // ============================================================
+            function updateMetaTags(title, description, image, url) {
+                document.title = title || "Destaseo Mods • Premium Mod APK";
+                const desc = description || "Situs download mod APK premium terbaik.";
+                const img = image || "https://avatars.githubusercontent.com/u/189899710?v=4";
+                const link = url || window.location.href;
+
+                let metaDesc = document.querySelector('meta[name="description"]');
+                if (!metaDesc) { metaDesc = document.createElement('meta');
+                    metaDesc.name = 'description';
+                    document.head.appendChild(metaDesc); }
+                metaDesc.content = desc;
+
+                let ogTitle = document.querySelector('meta[property="og:title"]');
+                if (!ogTitle) { ogTitle = document.createElement('meta');
+                    ogTitle.setAttribute('property', 'og:title');
+                    document.head.appendChild(ogTitle); }
+                ogTitle.content = title;
+
+                let ogDesc = document.querySelector('meta[property="og:description"]');
+                if (!ogDesc) { ogDesc = document.createElement('meta');
+                    ogDesc.setAttribute('property', 'og:description');
+                    document.head.appendChild(ogDesc); }
+                ogDesc.content = desc;
+
+                let ogImage = document.querySelector('meta[property="og:image"]');
+                if (!ogImage) { ogImage = document.createElement('meta');
+                    ogImage.setAttribute('property', 'og:image');
+                    document.head.appendChild(ogImage); }
+                ogImage.content = img;
+
+                let ogUrl = document.querySelector('meta[property="og:url"]');
+                if (!ogUrl) { ogUrl = document.createElement('meta');
+                    ogUrl.setAttribute('property', 'og:url');
+                    document.head.appendChild(ogUrl); }
+                ogUrl.content = link;
+
+                let twTitle = document.querySelector('meta[name="twitter:title"]');
+                if (!twTitle) { twTitle = document.createElement('meta');
+                    twTitle.name = 'twitter:title';
+                    document.head.appendChild(twTitle); }
+                twTitle.content = title;
+
+                let twDesc = document.querySelector('meta[name="twitter:description"]');
+                if (!twDesc) { twDesc = document.createElement('meta');
+                    twDesc.name = 'twitter:description';
+                    document.head.appendChild(twDesc); }
+                twDesc.content = desc;
+
+                let twImage = document.querySelector('meta[name="twitter:image"]');
+                if (!twImage) { twImage = document.createElement('meta');
+                    twImage.name = 'twitter:image';
+                    document.head.appendChild(twImage); }
+                twImage.content = img;
+
+                let canonical = document.getElementById('canonical-link');
+                if (!canonical) { canonical = document.createElement('link');
+                    canonical.rel = 'canonical';
+                    canonical.id = 'canonical-link';
+                    document.head.appendChild(canonical); }
+                canonical.href = link;
+            }
+
+            // ============================================================
+            // GET POST BY NAME
+            // ============================================================
+            function getPostByName(name) {
+                const list = getCachedList();
+                if (!list || !list.length) return null;
+                const found = list.find(p => p.name === name);
+                if (!found) return null;
+                const cachedContent = getCachedContent(name);
+                if (cachedContent) {
+                    const { metadata, content } = parseFrontmatter(cachedContent);
+                    const html = marked.parse(content);
+                    return { ...found, metadata, content, html };
+                }
+                return null;
+            }
+
+            // ============================================================
+            // BUILD SCREENSHOT GALLERY
+            // ============================================================
+            function buildScreenshotGallery(str) {
+                if (!str) return '';
+                const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
+                if (urls.length === 0) return '';
+                const lim = urls.slice(0, 10);
+                const urlsAttr = urls.map(u => u.replace(/"/g, '&quot;')).join('|||');
+                return `<div class="screenshot-scroll" data-all-urls="${urlsAttr}">
+                    ${lim.map((u, i) => `<img src="${u}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox(this, ${i})">`).join('')}
+                </div>`;
+            }
+
+            // ============================================================
+            // LIGHTBOX
+            // ============================================================
+            window.openLightbox = function(imgEl, index) {
+                const container = imgEl.closest('.screenshot-scroll');
+                if (!container) return;
+                const allUrlsStr = container.dataset.allUrls || '';
+                if (!allUrlsStr) return;
+                const allUrls = allUrlsStr.split('|||');
+                if (allUrls.length === 0) return;
+                const existing = document.querySelector('.lightbox');
+                if (existing) existing.remove();
+
+                const lb = document.createElement('div');
+                lb.className = 'lightbox';
+                lb.innerHTML = `
+                    <button class="lightbox-close" aria-label="Tutup"><i class="fas fa-times"></i></button>
+                    <button class="lightbox-prev" aria-label="Sebelumnya"><i class="fas fa-chevron-left"></i></button>
+                    <button class="lightbox-next" aria-label="Berikutnya"><i class="fas fa-chevron-right"></i></button>
+                    <img src="${allUrls[index]}" alt="Screenshot" />
+                    <div class="lightbox-counter">${index+1} / ${allUrls.length}</div>
+                `;
+                document.body.appendChild(lb);
+
+                let currentIndex = index;
+                const img = lb.querySelector('img');
+                const counter = lb.querySelector('.lightbox-counter');
+
+                function updateImage(i) {
+                    if (i < 0) i = allUrls.length - 1;
+                    if (i >= allUrls.length) i = 0;
+                    currentIndex = i;
+                    img.src = allUrls[currentIndex];
+                    counter.textContent = `${currentIndex+1} / ${allUrls.length}`;
+                }
+
+                lb.querySelector('.lightbox-close').addEventListener('click', (e) => { e.stopPropagation();
+                    lb.remove(); });
+                lb.querySelector('.lightbox-prev').addEventListener('click', (e) => { e.stopPropagation();
+                    updateImage(currentIndex - 1); });
+                lb.querySelector('.lightbox-next').addEventListener('click', (e) => { e.stopPropagation();
+                    updateImage(currentIndex + 1); });
+                lb.addEventListener('click', (e) => { if (e.target === lb) lb.remove(); });
+
+                function keyHandler(e) {
+                    if (e.key === 'Escape') { lb.remove();
+                        document.removeEventListener('keydown', keyHandler); }
+                    if (e.key === 'ArrowLeft') { e.preventDefault();
+                        updateImage(currentIndex - 1); }
+                    if (e.key === 'ArrowRight') { e.preventDefault();
+                        updateImage(currentIndex + 1); }
+                }
+                document.addEventListener('keydown', keyHandler);
+
+                let touchStartX = 0;
+                lb.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+                lb.addEventListener('touchend', (e) => {
+                    const diff = touchStartX - e.changedTouches[0].screenX;
+                    if (Math.abs(diff) > 40) {
+                        if (diff > 0) updateImage(currentIndex + 1);
+                        else updateImage(currentIndex - 1);
+                    }
+                }, { passive: true });
+            };
+
+            // ============================================================
+            // DOWNLOAD WITH AD
+            // ============================================================
+            async function getUserIP() {
+                const ipCacheKey = 'user_ip_cache';
+                const ipCacheExpiry = 60 * 60 * 1000;
+                try {
+                    const cached = localStorage.getItem(ipCacheKey);
+                    if (cached) {
+                        const data = JSON.parse(cached);
+                        if (Date.now() - data.t < ipCacheExpiry) return data.ip;
+                    }
+                } catch (_) {}
+                try {
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), 2000);
+                    const res = await fetch('https://api.ipify.org?format=json', { signal: controller.signal });
+                    clearTimeout(timeout);
+                    if (res.ok) {
+                        const data = await res.json();
+                        const ip = data.ip || null;
+                        if (ip) localStorage.setItem(ipCacheKey, JSON.stringify({ ip, t: Date.now() }));
+                        return ip;
+                    }
+                } catch (e) {}
+                return null;
+            }
+
+            async function startDownloadWithAd(btn, url) {
+                const ip = await getUserIP();
+                const storageKey = ip ? 'lastAdClickTimestamp_' + ip : 'lastAdClickTimestamp';
+                const now = Date.now();
+                const last = localStorage.getItem(storageKey);
+
+                if (!last || (now - parseInt(last)) > AD_INTERVAL) {
+                    localStorage.setItem(storageKey, now.toString());
+                    if (AD_URL) window.open(AD_URL, '_blank');
+                    let sec = 5;
+                    btn.textContent = `⏳ ${sec} detik`;
+                    btn.classList.add('counting');
+                    const timer = setInterval(() => {
+                        sec--;
+                        if (sec <= 0) {
+                            clearInterval(timer);
+                            btn.innerHTML = '<i class="fas fa-download"></i> Download APK';
+                            btn.classList.remove('counting');
+                            window.open(url, '_blank');
+                        } else {
+                            btn.textContent = `⏳ ${sec} detik`;
+                        }
+                    }, 1000);
+                } else {
+                    window.open(url, '_blank');
+                }
+            }
+
+            // ============================================================
+            // AD SCRIPT
+            // ============================================================
+            let adScriptElement = null;
+
+            function loadAdScript(container) {
+                if (adScriptElement) { adScriptElement.remove();
+                    adScriptElement = null; }
+                adScriptElement = document.createElement('script');
+                adScriptElement.src = 'https://cabinetavidgrasp.com/c4/11/28/c4112850e63eed959d261d84abff70ee.js';
+                adScriptElement.async = true;
+                container.appendChild(adScriptElement);
+            }
+
+            function unloadAdScript() {
+                if (adScriptElement) { adScriptElement.remove();
+                    adScriptElement = null; }
+            }
+
+            // ============================================================
+            // RENDER DETAIL
+            // ============================================================
+            function renderDetail(name) {
+                const post = getPostByName(name);
+                if (!post) {
+                    detailContent.innerHTML = `
+                        <div class="error-text">
+                            ❌ Postingan tidak ditemukan. <br><small>${name}</small>
+                            <br><br>
+                            <a href="/" style="color:var(--accent2);text-decoration:underline;">Kembali ke Beranda</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
+                const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
+                const v = post.metadata.versi || post.metadata.version || '?';
+                const s = post.metadata.ukuran || post.metadata.size || '?';
+                const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
+                const dwn = post.metadata.download || post.metadata.link || '';
+                const kategori = post.metadata.kategori || '';
+                const tags = post.metadata.tag ? post.metadata.tag.split(',').map(t => t.trim()).filter(t => t) : [];
+                const dateRaw = post.metadata.tanggal || post.metadata.date || '';
+                const dateFormatted = formatDate(dateRaw);
+                const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
+                const galleryHtml = buildScreenshotGallery(screenshots);
+                const hasDownload = dwn && dwn !== '#';
+
+                const downloadNoteHtml = `
+                    <div class="download-note">
+                        <i class="fas fa-info-circle"></i>
+                        <span>
+                            Jika anda klik download masuk ke iklan, tekan tombol kembali di ponsel anda, lalu kalau masuk iklan lagi, tekan lagi tombol kembali pada ponsel anda dan <strong>tunggu 5 detik</strong> nanti di arahkan ke halaman download file nya.
+                        </span>
+                    </div>
+                `;
+
+                const downloadBtn = hasDownload ?
+                    `${downloadNoteHtml}<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` :
+                    `<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>`;
+
+                const tagsHtml = tags.length > 0 ?
+                    `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` :
+                    '';
+
+                // Rekomendasi dari cache
+                const recPosts = getRecommendations(name, 4);
+                let recHtml = '';
+                if (recPosts.length > 0) {
+                    recHtml = `<div class="recommendations-section">
+                        <h3><i class="fas fa-lightbulb"></i> Rekomendasi untuk Anda</h3>
+                        <div class="rec-grid">`;
+                    recPosts.forEach(rec => {
+                        const recTitle = rec.metadata.judul || rec.metadata.title || rec.name.replace(
+                            /[-_]/g, ' ');
+                        const recImg = fixImageUrl(rec.metadata.gambar || rec.metadata.image || '');
+                        recHtml += `
+                            <div class="rec-card" onclick="location.href='/detail.html?post=${rec.name}'">
+                                ${recImg ? `<img src="${recImg}" alt="${recTitle}" loading="lazy" onerror="this.style.display='none'">` : `<div style="height:90px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:2rem;"><i class="fas fa-box"></i></div>`}
+                                <div class="rec-title">${recTitle}</div>
+                            </div>
+                        `;
+                    });
+                    recHtml += `</div></div>`;
+                }
+
+                // SEO
+                const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
+                const detailUrl = window.location.origin + window.location.pathname + '?post=' + encodeURIComponent(name);
+                updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, detailUrl);
+
+                // JSON-LD
+                const articleJson = {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": t,
+                    "description": desc,
+                    "image": img || LOGO_URL,
+                    "author": { "@type": "Person", "name": dev },
+                    "datePublished": dateRaw || new Date().toISOString(),
+                    "mainEntityOfPage": { "@type": "WebPage", "@id": detailUrl }
+                };
+                let script = document.querySelector('#article-ld-json');
+                if (!script) { script = document.createElement('script');
+                    script.id = 'article-ld-json';
+                    script.type = 'application/ld+json';
+                    document.head.appendChild(script); }
+                script.textContent = JSON.stringify(articleJson);
+
+                detailContent.innerHTML = `
+                <div class="detail-header fade-in-content">
+                    ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
+                    <h1 class="detail-title">${t}</h1>
+                    <div class="detail-meta-grid">
+                        <div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ${v}</div>
+                        <div class="meta-item"><i class="fas fa-weight-hanging"></i> <strong>Ukuran</strong> ${s}</div>
+                        <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
+                        ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
+                        ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
+                    </div>
+                    ${galleryHtml}
+                    ${tagsHtml}
+                </div>
+                <div class="content-box fade-in-content">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
+                ${downloadBtn}
+                ${recHtml}
+                <div id="ad-container" style="margin-top:20px; text-align:center;"></div>
+            `;
+
+                if (hasDownload) {
+                    const dBtn = document.getElementById('detail-download-btn');
+                    if (dBtn) {
+                        dBtn.addEventListener('click', async function(e) {
+                            e.preventDefault();
+                            if (this.classList.contains('counting')) return;
+                            await startDownloadWithAd(this, dwn);
+                        });
+                    }
+                }
+
+                const adContainer = document.getElementById('ad-container');
+                if (adContainer) {
+                    unloadAdScript();
+                    loadAdScript(adContainer);
+                }
+            }
+
+            // ============================================================
+            // REKOMENDASI DARI CACHE
+            // ============================================================
+            function getRecommendations(currentName, limit = 4) {
+                const list = getCachedList();
+                if (!list || !list.length) return [];
+                const currentPost = list.find(p => p.name === currentName);
+                if (!currentPost) return [];
+
+                const postsWithMeta = list.map(p => {
+                    const content = getCachedContent(p.name);
+                    if (content) {
+                        const { metadata } = parseFrontmatter(content);
+                        return { ...p, metadata };
+                    }
+                    return { ...p, metadata: {} };
+                });
+
+                const others = postsWithMeta.filter(p => p.name !== currentName);
+                if (others.length === 0) return [];
+
+                const currentCategory = currentPost.metadata?.kategori || '';
+                const sameCategory = others.filter(p => {
+                    const cat = p.metadata?.kategori || '';
+                    return cat === currentCategory && cat !== '';
+                });
+                const differentCategory = others.filter(p => {
+                    const cat = p.metadata?.kategori || '';
+                    return cat !== currentCategory || cat === '';
+                });
+                const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+                const combined = [...shuffle(sameCategory), ...shuffle(differentCategory)];
+                return combined.slice(0, limit);
+            }
+
+            // ============================================================
+            // LOAD
+            // ============================================================
+            const postName = getPostNameFromQuery();
+            if (postName) {
+                renderDetail(postName);
+            } else {
+                detailContent.innerHTML = `
+                    <div class="error-text">
+                        ⚠️ Tidak ada parameter postingan. <br>
+                        <a href="/" style="color:var(--accent2);text-decoration:underline;">Kembali ke Beranda</a>
+                    </div>
+                `;
+            }
+
+            // ============================================================
+            // EVENT LISTENER
+            // ============================================================
+            logoArea.addEventListener('click', () => { window.location.href = '/'; });
+
+            telegramBtn.addEventListener('click', (e) => { e.stopPropagation();
+                telegramDropdown.classList.toggle('show'); });
+            document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
+            telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
+
+            // QRIS
+            const qrisOverlay = document.getElementById('qris-overlay');
+            const qrisCloseBtn = document.getElementById('qris-close-btn');
+            const qrisDanaBtn = document.getElementById('qris-dana-btn');
+            const qrisDownloadBtn = document.getElementById('qris-download-btn');
+
+            qrisDanaBtn.addEventListener('click', () => qrisOverlay.classList.remove('hidden'));
+            qrisCloseBtn.addEventListener('click', () => qrisOverlay.classList.add('hidden'));
+            qrisOverlay.addEventListener('click', (e) => { if (e.target === qrisOverlay) qrisOverlay.classList.add(
+                    'hidden'); });
+            qrisDownloadBtn.addEventListener('click', async () => {
+                try {
+                    const r = await fetch(QRIS_URL);
+                    const b = await r.blob();
+                    const u = URL.createObjectURL(b);
+                    const a = document.createElement('a');
+                    a.href = u;
+                    a.download = 'qris-destaseo.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(u);
+                } catch { window.open(QRIS_URL, '_blank'); }
+            });
+
+            console.log('✅ Detail page loaded. Post:', postName);
+        })();
+    </script>
+</body>
+</html>

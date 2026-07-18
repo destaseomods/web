@@ -71,7 +71,6 @@
             --glow: 0 0 60px rgba(168, 127, 255, 0.4);
             --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             --topbar-height: 76px;
-            --profile-top-offset: 20px;
         }
 
         * {
@@ -132,20 +131,10 @@
             margin: 0 !important;
             min-height: 0 !important;
         }
-        .page-section#detail-section.hidden {
-            height: 0;
-            overflow: hidden;
-        }
-        .page-section#detail-section:not(.hidden) {
-            height: auto;
-            overflow: visible;
-            padding-top: 10px;
-        }
 
         .fade-in-content {
             animation: fadeInUp 0.15s ease forwards;
         }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -265,7 +254,8 @@
             background: rgba(255, 255, 255, 0.05);
             color: #fff;
         }
-        .telegram-dropdown a i { width: 18px; text-align: center; }
+        .telegram-dropdown a i { width: 18px;
+            text-align: center; }
 
         .search-container {
             margin: 8px 0 16px;
@@ -371,8 +361,8 @@
             box-shadow: var(--shadow-card);
             height: 180px;
         }
-        @media (min-width: 500px) { .carousel-wrapper { height: 220px; } }
-        @media (min-width: 768px) { .carousel-wrapper { height: 260px; } }
+        @media (min-width:500px) { .carousel-wrapper { height: 220px; } }
+        @media (min-width:768px) { .carousel-wrapper { height: 260px; } }
         .carousel-track {
             display: flex;
             height: 100%;
@@ -389,7 +379,8 @@
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
         }
-        .carousel-slide.active { opacity: 1; z-index: 1; }
+        .carousel-slide.active { opacity: 1;
+            z-index: 1; }
         .carousel-slide img {
             width: 100%;
             height: 100%;
@@ -415,7 +406,7 @@
             font-size: 0.9rem;
             line-height: 1.3;
         }
-        @media (min-width: 500px) { .carousel-slide .slide-title { font-size: 1rem; } }
+        @media (min-width:500px) { .carousel-slide .slide-title { font-size: 1rem; } }
         .carousel-title-top {
             position: absolute;
             top: 12px;
@@ -433,8 +424,9 @@
             gap: 6px;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
         }
-        @media (min-width: 500px) {
-            .carousel-title-top { font-size: 0.8rem; padding: 5px 14px; }
+        @media (min-width:500px) {
+            .carousel-title-top { font-size: 0.8rem;
+                padding: 5px 14px; }
         }
         .carousel-counter {
             background: rgba(0, 0, 0, 0.5);
@@ -446,8 +438,9 @@
             font-weight: 600;
             letter-spacing: 0.5px;
         }
-        @media (min-width: 500px) {
-            .carousel-counter { font-size: 0.75rem; padding: 4px 12px; }
+        @media (min-width:500px) {
+            .carousel-counter { font-size: 0.75rem;
+                padding: 4px 12px; }
         }
 
         #loading-spinner-container {
@@ -472,9 +465,12 @@
             gap: 14px;
             margin-top: 2px;
         }
-        @media (min-width: 420px) { .post-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
-        @media (min-width: 768px) { .post-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; } }
-        @media (min-width: 1024px) { .post-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+        @media (min-width:420px) { .post-grid { grid-template-columns: repeat(2, 1fr);
+                gap: 16px; } }
+        @media (min-width:768px) { .post-grid { grid-template-columns: repeat(2, 1fr);
+                gap: 18px; } }
+        @media (min-width:1024px) { .post-grid { grid-template-columns: repeat(3, 1fr);
+                gap: 20px; } }
 
         .post-card {
             background: var(--surface);
@@ -509,15 +505,16 @@
             position: relative;
             overflow: hidden;
         }
-        @media (min-width: 420px) { .card-img { height: 140px; } }
-        @media (min-width: 768px) { .card-img { height: 160px; } }
+        @media (min-width:420px) { .card-img { height: 140px; } }
+        @media (min-width:768px) { .card-img { height: 160px; } }
         .card-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-        .card-img .placeholder-icon { display: none; font-size: 2.5rem; }
+        .card-img .placeholder-icon { display: none;
+            font-size: 2.5rem; }
         .card-img.error .placeholder-icon { display: block; }
         .card-img.error img { display: none; }
         .version-badge-img {
@@ -537,8 +534,9 @@
             gap: 4px;
             z-index: 2;
         }
-        @media (min-width: 500px) {
-            .version-badge-img { font-size: 0.65rem; padding: 3px 10px; }
+        @media (min-width:500px) {
+            .version-badge-img { font-size: 0.65rem;
+                padding: 3px 10px; }
         }
         .card-body {
             padding: 12px 14px 14px;
@@ -553,7 +551,7 @@
             line-height: 1.3;
             color: #fff;
         }
-        @media (min-width: 500px) { .card-title { font-size: 0.85rem; } }
+        @media (min-width:500px) { .card-title { font-size: 0.85rem; } }
         .card-meta {
             font-size: 0.65rem;
             color: var(--text2);
@@ -640,11 +638,13 @@
             gap: 4px;
             border: 1px solid var(--border);
         }
-        @media (min-width: 500px) {
-            .badge-premium, .badge-vip, .badge-noads, .badge-unlocked, .badge-custom {
-                font-size: 0.65rem;
-                padding: 3px 10px;
-            }
+        @media (min-width:500px) {
+            .badge-premium,
+            .badge-vip,
+            .badge-noads,
+            .badge-unlocked,
+            .badge-custom { font-size: 0.65rem;
+                padding: 3px 10px; }
         }
         .card-excerpt {
             font-size: 0.68rem;
@@ -678,7 +678,7 @@
 
         .hidden { display: none !important; }
 
-        .detail-header, .profile-card {
+        .profile-card {
             background: var(--surface);
             backdrop-filter: blur(24px);
             border: 1px solid var(--border);
@@ -686,197 +686,10 @@
             padding: 20px;
             margin-bottom: 12px;
             box-shadow: var(--shadow-card);
-        }
-        @media (min-width: 500px) {
-            .detail-header, .profile-card { padding: 28px; }
-        }
-        .detail-img {
-            display: block;
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 20px;
-            background: var(--surface2);
-            margin: 0 auto 14px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-        }
-        @media (min-width: 500px) {
-            .detail-img { width: 100px; height: 100px; margin-bottom: 16px; }
-        }
-        .detail-title {
-            font-size: 0.95rem;
-            font-weight: 800;
-            letter-spacing: -0.3px;
-            text-align: center;
-            line-height: 1.3;
-        }
-        @media (min-width: 500px) { .detail-title { font-size: 1.05rem; } }
-        .detail-meta-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            margin: 10px 0 4px;
-        }
-        @media (min-width: 500px) {
-            .detail-meta-grid { gap: 8px; margin: 12px 0 6px; }
-        }
-        @media (min-width: 640px) {
-            .detail-meta-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-        @media (min-width: 820px) {
-            .detail-meta-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        }
-        .meta-item {
-            background: var(--surface2);
-            padding: 6px 6px;
-            border-radius: 12px;
-            font-size: 0.6rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 52px;
-        }
-        @media (min-width: 500px) {
-            .meta-item { padding: 8px 8px; font-size: 0.7rem; min-height: 58px; }
-        }
-        .meta-item i {
-            color: var(--accent2);
-            margin-bottom: 2px;
-            font-size: 0.75rem;
-        }
-        @media (min-width: 500px) {
-            .meta-item i { font-size: 0.85rem; margin-bottom: 3px; }
-        }
-        .meta-item strong {
-            color: var(--accent2);
-            font-size: 0.6rem;
-            font-weight: 700;
-        }
-        @media (min-width: 500px) { .meta-item strong { font-size: 0.7rem; } }
-
-        .download-note {
-            background: rgba(255, 215, 0, 0.08);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 16px;
-            padding: 12px 16px;
-            margin: 16px 0 8px;
-            font-size: 0.75rem;
-            color: #f5e56b;
-            line-height: 1.6;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            text-align: left;
-        }
-        .download-note i {
-            color: #f5a623;
-            font-size: 1rem;
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-        .download-note strong {
-            color: #fff;
-        }
-        @media (min-width: 500px) {
-            .download-note {
-                font-size: 0.85rem;
-                padding: 14px 20px;
-            }
-            .download-note i {
-                font-size: 1.1rem;
-            }
-        }
-
-        .big-download {
-            display: block;
-            width: 100%;
-            background: var(--grad1);
-            border: none;
-            color: #04040e;
-            font-weight: 700;
-            font-size: 0.95rem;
-            padding: 14px;
-            border-radius: 18px;
-            margin: 8px 0 0;
-            cursor: pointer;
-            transition: 0.2s;
-            letter-spacing: -0.3px;
-            text-decoration: none;
-            text-align: center;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
-        }
-        @media (min-width: 500px) {
-            .big-download { font-size: 1rem; padding: 15px; margin-top: 10px; }
-        }
-        .big-download i { margin-right: 6px; }
-        .big-download:active { transform: scale(0.96); }
-        .big-download.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-        .big-download.counting {
-            opacity: 0.8;
-            pointer-events: none;
-            background: var(--surface2);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-
-        .content-box {
-            background: var(--surface);
-            backdrop-filter: blur(24px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px 20px;
-            line-height: 1.8;
-            box-shadow: var(--shadow-card);
-            white-space: pre-line;
-            max-width: 100%;
-            box-sizing: border-box;
-            overflow: hidden;
-            word-wrap: break-word;
-        }
-        @media (min-width: 500px) { .content-box { padding: 16px 28px; } }
-        .content-box img {
-            max-width: 100%;
-            border-radius: 16px;
-            margin: 12px 0;
-        }
-        .content-box pre {
-            background: #050510;
-            padding: 16px;
-            border-radius: 16px;
-            overflow-x: auto;
-            white-space: pre;
-            font-size: 0.8rem;
-        }
-
-        .back-btn {
-            background: none;
-            border: none;
-            color: var(--accent2);
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 14px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            padding: 8px 0;
-            transition: opacity 0.2s;
-        }
-        .back-btn:hover { opacity: 0.8; }
-
-        #profile-section {
-            scroll-margin-top: 76px;
-            padding-top: 12px;
-        }
-        .profile-card {
             position: relative;
             overflow: hidden;
         }
+        @media (min-width:500px) { .profile-card { padding: 28px; } }
         .premium-badge {
             position: absolute;
             top: 14px;
@@ -897,9 +710,13 @@
             border: 1px solid rgba(255, 215, 0, 0.3);
             backdrop-filter: blur(4px);
         }
-        .premium-badge i { font-size: 0.55rem; color: #1a1a2e; }
-        @media (min-width: 500px) {
-            .premium-badge { top: 18px; right: 18px; font-size: 0.7rem; padding: 5px 14px; }
+        .premium-badge i { font-size: 0.55rem;
+            color: #1a1a2e; }
+        @media (min-width:500px) {
+            .premium-badge { top: 18px;
+                right: 18px;
+                font-size: 0.7rem;
+                padding: 5px 14px; }
             .premium-badge i { font-size: 0.65rem; }
         }
         .profile-avatar {
@@ -919,11 +736,18 @@
             position: relative;
             z-index: 1;
         }
-        @media (min-width: 500px) {
-            .profile-avatar { width: 100px; height: 100px; font-size: 2.8rem; margin-bottom: 20px; }
+        @media (min-width:500px) {
+            .profile-avatar { width: 100px;
+                height: 100px;
+                font-size: 2.8rem;
+                margin-bottom: 20px; }
         }
-        .profile-name { text-align: center; font-size: 1.3rem; font-weight: 800; position: relative; z-index: 1; }
-        @media (min-width: 500px) { .profile-name { font-size: 1.5rem; } }
+        .profile-name { text-align: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            position: relative;
+            z-index: 1; }
+        @media (min-width:500px) { .profile-name { font-size: 1.5rem; } }
         .profile-bio {
             text-align: center;
             color: var(--text2);
@@ -932,7 +756,7 @@
             position: relative;
             z-index: 1;
         }
-        @media (min-width: 500px) { .profile-bio { margin: 10px 0 20px; } }
+        @media (min-width:500px) { .profile-bio { margin: 10px 0 20px; } }
         .social-links {
             display: flex;
             gap: 10px;
@@ -955,8 +779,10 @@
             align-items: center;
             gap: 6px;
         }
-        @media (min-width: 500px) {
-            .social-link { padding: 10px 20px; font-size: 0.85rem; gap: 8px; }
+        @media (min-width:500px) {
+            .social-link { padding: 10px 20px;
+                font-size: 0.85rem;
+                gap: 8px; }
         }
         .social-link i { font-size: 0.9rem; }
         .social-link:hover {
@@ -971,8 +797,9 @@
             position: relative;
             z-index: 1;
         }
-        @media (min-width: 500px) {
-            .donate-section { margin-top: 24px; padding-top: 20px; }
+        @media (min-width:500px) {
+            .donate-section { margin-top: 24px;
+                padding-top: 20px; }
         }
         .donate-title {
             color: var(--text2);
@@ -1012,15 +839,17 @@
             max-width: 340px;
             width: 90%;
         }
-        @media (min-width: 500px) {
-            .qris-container { padding: 24px; max-width: 360px; }
+        @media (min-width:500px) {
+            .qris-container { padding: 24px;
+                max-width: 360px; }
         }
         .qris-container img {
             width: 100%;
             border-radius: 16px;
             margin-bottom: 14px;
         }
-        .qris-close-btn, .qris-download-btn {
+        .qris-close-btn,
+        .qris-download-btn {
             background: var(--surface);
             border: 1px solid var(--border);
             color: #fff;
@@ -1032,155 +861,66 @@
             transition: 0.2s;
             margin: 4px;
         }
-        .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255, 255, 255, 0.1); }
+        .qris-close-btn:hover,
+        .qris-download-btn:hover { background: rgba(255, 255, 255, 0.1); }
 
-        .tags-container {
-            margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .tag-badge {
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text2);
-            padding: 2px 8px;
-            border-radius: 14px;
-            font-size: 0.6rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        @media (min-width: 500px) { .tag-badge { font-size: 0.65rem; padding: 3px 10px; } }
-
-        .screenshot-scroll {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 10px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 8px;
-            margin-top: 12px;
-            max-width: 100%;
-            touch-action: pan-x;
-        }
-        .screenshot-scroll img {
-            flex: 0 0 auto;
-            width: 120px;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            background: var(--surface2);
+        .content-box {
+            background: var(--surface);
+            backdrop-filter: blur(24px);
             border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            line-height: 1.8;
+            box-shadow: var(--shadow-card);
+            white-space: pre-line;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            word-wrap: break-word;
         }
-        @media (min-width: 500px) {
-            .screenshot-scroll img { width: 150px; height: 220px; }
+        @media (min-width:500px) { .content-box { padding: 16px 28px; } }
+        .content-box img {
+            max-width: 100%;
+            border-radius: 16px;
+            margin: 12px 0;
         }
-        .screenshot-scroll img:hover {
-            transform: scale(1.03);
-            border-color: var(--accent);
+        .content-box pre {
+            background: #050510;
+            padding: 16px;
+            border-radius: 16px;
+            overflow-x: auto;
+            white-space: pre;
+            font-size: 0.8rem;
         }
 
-        .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(12px);
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            cursor: default;
-            animation: fadeInLight 0.25s ease;
+        #profile-section {
+            scroll-margin-top: 76px;
+            padding-top: 12px;
         }
-        @keyframes fadeInLight {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .lightbox img {
-            max-width: 92vw;
-            max-height: 82vh;
+
+        .daily-visitor {
+            margin-top: 14px;
+            padding: 10px 14px;
+            background: var(--surface2);
             border-radius: 16px;
-            object-fit: contain;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
-            user-select: none;
-            -webkit-user-drag: none;
-        }
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #fff;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            backdrop-filter: blur(8px);
-        }
-        .lightbox-close:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
-        .lightbox-prev, .lightbox-next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #fff;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            backdrop-filter: blur(8px);
-        }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-        .lightbox-prev:hover, .lightbox-next:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-50%) scale(1.05);
-        }
-        .lightbox-counter {
-            position: absolute;
-            bottom: 28px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.8);
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 0.8rem;
+            text-align: center;
+            border: 1px solid var(--border);
             font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            letter-spacing: 0.5px;
+            color: var(--accent2);
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            word-wrap: break-word;
+            font-size: 0.85rem;
         }
-        @media (max-width: 500px) {
-            .lightbox-prev, .lightbox-next { width: 36px; height: 36px; font-size: 0.9rem; }
-            .lightbox-prev { left: 8px; }
-            .lightbox-next { right: 8px; }
-            .lightbox-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1rem; }
-            .lightbox img { max-width: 98vw; max-height: 78vh; }
-            .lightbox-counter { font-size: 0.7rem; padding: 4px 14px; bottom: 18px; }
+        @media (min-width:500px) {
+            .daily-visitor { margin-top: 16px;
+                padding: 12px 16px;
+                font-size: 0.95rem; }
         }
+        .daily-visitor i { margin-right: 6px; }
+        .daily-visitor span { color: #fff;
+            font-weight: 700; }
 
         .bottom-nav {
             position: fixed;
@@ -1213,16 +953,19 @@
             border: none;
             padding: 8px 14px;
             border-radius: 24px;
+            text-decoration: none;
         }
-        @media (min-width: 500px) {
-            .nav-item { font-size: 0.7rem; padding: 10px 18px; gap: 5px; }
+        @media (min-width:500px) {
+            .nav-item { font-size: 0.7rem;
+                padding: 10px 18px;
+                gap: 5px; }
         }
         .nav-item.active {
             color: var(--accent2);
             background: rgba(62, 224, 255, 0.12);
         }
         .nav-item i { font-size: 1.1rem; }
-        @media (min-width: 500px) { .nav-item i { font-size: 1.3rem; } }
+        @media (min-width:500px) { .nav-item i { font-size: 1.3rem; } }
 
         .spinner {
             width: 50px;
@@ -1233,8 +976,8 @@
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .empty-text, .error-text {
+        .empty-text,
+        .error-text {
             text-align: center;
             padding: 40px 20px;
             color: var(--text2);
@@ -1252,110 +995,15 @@
             color: var(--accent2);
             flex-wrap: wrap;
         }
-        .daily-visitor {
-            margin-top: 14px;
-            padding: 10px 14px;
-            background: var(--surface2);
-            border-radius: 16px;
-            text-align: center;
-            border: 1px solid var(--border);
-            font-weight: 600;
-            color: var(--accent2);
-            max-width: 100%;
-            box-sizing: border-box;
-            overflow: hidden;
-            word-wrap: break-word;
-            font-size: 0.85rem;
-        }
-        @media (min-width: 500px) {
-            .daily-visitor { margin-top: 16px; padding: 12px 16px; font-size: 0.95rem; }
-        }
-        .daily-visitor i { margin-right: 6px; }
-        .daily-visitor span { color: #fff; font-weight: 700; }
 
-        .recommendations-section {
-            margin-top: 20px;
-            padding: 16px 0;
-            border-top: 1px solid var(--border);
-        }
-        @media (min-width: 500px) {
-            .recommendations-section { margin-top: 24px; padding: 20px 0; }
-        }
-        .recommendations-section h3 {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        @media (min-width: 500px) {
-            .recommendations-section h3 { font-size: 0.95rem; margin-bottom: 14px; }
-        }
-        .recommendations-section h3 i { color: var(--accent2); }
-        .rec-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        @media (min-width: 500px) { .rec-grid { gap: 12px; } }
-        @media (min-width: 600px) { .rec-grid { grid-template-columns: repeat(4, 1fr); } }
-        .rec-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        .rec-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-            box-shadow: 0 8px 24px rgba(168, 127, 255, 0.3);
-        }
-        .rec-card img {
-            width: 100%;
-            height: 90px;
-            object-fit: cover;
-            background: var(--surface2);
-        }
-        @media (min-width: 500px) { .rec-card img { height: 110px; } }
-        .rec-card .rec-title {
-            padding: 8px 10px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #fff;
-            line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        @media (min-width: 500px) {
-            .rec-card .rec-title { padding: 10px 12px; font-size: 0.75rem; }
-        }
-
-        #profile-footer-text {
-            max-width: 100%;
-            box-sizing: border-box;
-            overflow: hidden;
-            word-wrap: break-word;
-        }
-        .profile-card, .content-box {
-            max-width: 100%;
-            box-sizing: border-box;
-            overflow: hidden;
-            word-wrap: break-word;
-        }
-
-        @media (max-width: 360px) {
+        @media (max-width:360px) {
             .logo-text { font-size: 1rem; }
-            .logo-img { width: 28px; height: 28px; }
-            .topbar { padding: 10px 14px; border-radius: 28px; }
-            .telegram-btn { font-size: 0.65rem; padding: 5px 10px; }
+            .logo-img { width: 28px;
+                height: 28px; }
+            .topbar { padding: 10px 14px;
+                border-radius: 28px; }
+            .telegram-btn { font-size: 0.65rem;
+                padding: 5px 10px; }
             .container { padding: 8px 12px; }
             .post-grid { gap: 10px; }
             .card-img { height: 100px; }
@@ -1363,27 +1011,25 @@
             .card-body { padding: 8px 10px 10px; }
             .carousel-wrapper { height: 140px; }
             .carousel-slide .slide-title { font-size: 0.75rem; }
-            .detail-title { font-size: 0.85rem; }
-            .detail-header { padding: 14px; }
-            .meta-item { font-size: 0.5rem; padding: 4px 4px; min-height: 44px; }
-            .meta-item strong { font-size: 0.5rem; }
-            .meta-item i { font-size: 0.65rem; }
             .rec-card img { height: 70px; }
-            .rec-card .rec-title { font-size: 0.6rem; padding: 6px 8px; }
+            .rec-card .rec-title { font-size: 0.6rem;
+                padding: 6px 8px; }
             .rec-grid { gap: 8px; }
-            .daily-visitor { font-size: 0.75rem; padding: 8px 10px; }
-            .nav-item { font-size: 0.5rem; padding: 6px 10px; }
+            .daily-visitor { font-size: 0.75rem;
+                padding: 8px 10px; }
+            .nav-item { font-size: 0.5rem;
+                padding: 6px 10px; }
             .nav-item i { font-size: 0.9rem; }
             .bottom-nav { height: 64px; }
-            .premium-badge { top: 10px; right: 10px; font-size: 0.5rem; padding: 3px 10px; }
+            .premium-badge { top: 10px;
+                right: 10px;
+                font-size: 0.5rem;
+                padding: 3px 10px; }
             .premium-badge i { font-size: 0.45rem; }
-            .download-note { font-size: 0.65rem; padding: 10px 12px; }
-            .download-note i { font-size: 0.8rem; }
         }
     </style>
 </head>
 <body>
-    <!-- ===== HTML ===== -->
     <canvas id="particles"></canvas>
 
     <div class="qris-overlay hidden" id="qris-overlay">
@@ -1439,11 +1085,6 @@
             <div id="load-more-container" style="text-align:center;"></div>
         </section>
 
-        <section id="detail-section" class="page-section hidden" aria-label="Detail Mod">
-            <button class="back-btn" id="detail-back" aria-label="Kembali"><i class="fas fa-arrow-left"></i> Kembali</button>
-            <div id="detail-content"></div>
-        </section>
-
         <section id="profile-section" class="page-section hidden" aria-label="Profil">
             <div class="profile-card">
                 <div class="premium-badge"><i class="fas fa-crown"></i> Premium</div>
@@ -1467,15 +1108,15 @@
     </main>
 
     <nav class="bottom-nav" aria-label="Navigasi utama">
-        <button class="nav-item active" data-page="home" aria-label="Beranda"><i class="fas fa-home"></i><span>Beranda</span></button>
-        <button class="nav-item" data-page="search" aria-label="Cari"><i class="fas fa-search"></i><span>Cari</span></button>
-        <button class="nav-item" data-page="profile" aria-label="Profil"><i class="fas fa-user-circle"></i><span>Profil</span></button>
+        <a href="/" class="nav-item active" data-page="home" aria-label="Beranda"><i class="fas fa-home"></i><span>Beranda</span></a>
+        <a href="/?page=search" class="nav-item" data-page="search" aria-label="Cari"><i class="fas fa-search"></i><span>Cari</span></a>
+        <a href="/?page=profile" class="nav-item" data-page="profile" aria-label="Profil"><i class="fas fa-user-circle"></i><span>Profil</span></a>
     </nav>
 
     <script>
         (function() {
             // ============================================================
-            // REDIRECT SITEMAP
+            // SITEMAP & REDIRECT
             // ============================================================
             if (window.location.search === '?sitemap') {
                 window.location.href = '/sitemap.xml';
@@ -1490,41 +1131,30 @@
                 let targetPage = 'home';
                 let targetPost = null;
                 let targetQ = null;
-
                 if (currentHash.startsWith('#detail/')) {
                     targetPage = 'detail';
                     targetPost = currentHash.split('/')[1];
-                } else if (currentHash === '#search') {
-                    targetPage = 'search';
-                } else if (currentHash === '#profile') {
-                    targetPage = 'profile';
-                } else if (currentHash === '#home' || currentHash === '') {
-                    targetPage = 'home';
-                }
+                } else if (currentHash === '#search') { targetPage = 'search'; } else if (currentHash === '#profile') {
+                    targetPage = 'profile'; } else if (currentHash === '#home' || currentHash === '') { targetPage =
+                        'home'; }
 
                 const baseUrl = window.location.origin + window.location.pathname;
                 let newUrl = baseUrl;
                 const params = new URLSearchParams();
                 if (targetPage === 'detail' && targetPost) {
-                    params.set('page', 'detail');
-                    params.set('post', targetPost);
-                } else if (targetPage === 'search') {
-                    params.set('page', 'search');
-                } else if (targetPage === 'profile') {
-                    params.set('page', 'profile');
-                }
-                if (params.toString()) {
-                    newUrl += '?' + params.toString();
-                }
-                window.history.replaceState({ page: targetPage, post: targetPost }, '', newUrl);
+                    // Redirect ke detail.html
+                    window.location.href = '/detail.html?post=' + encodeURIComponent(targetPost);
+                    return;
+                } else if (targetPage === 'search') { params.set('page', 'search'); } else if (targetPage ===
+                    'profile') { params.set('page', 'profile'); }
+                if (params.toString()) { newUrl += '?' + params.toString(); }
+                window.history.replaceState({ page: targetPage }, '', newUrl);
             }
 
             // ============================================================
             // KONFIGURASI
             // ============================================================
             const GITHUB_REPO = "destaseomods/web";
-            const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
-            const AD_INTERVAL = 5 * 60 * 1000;
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const AVATAR_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
             const QRIS_URL = "https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png";
@@ -1537,13 +1167,11 @@
                     { label: "Telegram", url: "https://t.me/+wlXhR-M2BbliMDU1", icon: "fab fa-telegram-plane" }
                 ]
             };
-
             const CACHE_KEY_LIST = 'destaseo_post_list_v4';
             const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
-            const CACHE_KEY_TIMESTAMP = 'destaseo_cache_timestamp';
 
             // ============================================================
-            // PARTIKEL — OPTIMASI
+            // PARTIKEL
             // ============================================================
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
@@ -1588,176 +1216,30 @@
                 frameSkip++;
                 if (frameSkip % 2 === 0) {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    particles.forEach(p => { p.update(); p.draw(); });
+                    particles.forEach(p => { p.update();
+                        p.draw(); });
                 }
                 animationFrameId = requestAnimationFrame(animateParticles);
             }
 
             document.addEventListener('visibilitychange', () => {
                 if (document.hidden) {
-                    if (animationFrameId) {
-                        cancelAnimationFrame(animationFrameId);
-                        animationFrameId = null;
-                    }
+                    if (animationFrameId) { cancelAnimationFrame(animationFrameId);
+                        animationFrameId = null; }
                 } else {
-                    if (!animationFrameId) {
-                        animateParticles();
-                    }
+                    if (!animationFrameId) { animateParticles(); }
                 }
             });
-
             animateParticles();
 
             // ============================================================
-            // IP, DOWNLOAD, AD, SEO
-            // ============================================================
-            async function getUserIP() {
-                const ipCacheKey = 'user_ip_cache';
-                const ipCacheExpiry = 60 * 60 * 1000;
-                try {
-                    const cached = localStorage.getItem(ipCacheKey);
-                    if (cached) {
-                        const data = JSON.parse(cached);
-                        if (Date.now() - data.t < ipCacheExpiry) return data.ip;
-                    }
-                } catch (_) {}
-                try {
-                    const controller = new AbortController();
-                    const timeout = setTimeout(() => controller.abort(), 2000);
-                    const res = await fetch('https://api.ipify.org?format=json', { signal: controller.signal });
-                    clearTimeout(timeout);
-                    if (res.ok) {
-                        const data = await res.json();
-                        const ip = data.ip || null;
-                        if (ip) localStorage.setItem(ipCacheKey, JSON.stringify({ ip, t: Date.now() }));
-                        return ip;
-                    }
-                } catch (e) {}
-                return null;
-            }
-
-            async function startDownloadWithAd(btn, url) {
-                const ip = await getUserIP();
-                const storageKey = ip ? 'lastAdClickTimestamp_' + ip : 'lastAdClickTimestamp';
-                const now = Date.now();
-                const last = localStorage.getItem(storageKey);
-
-                if (!last || (now - parseInt(last)) > AD_INTERVAL) {
-                    localStorage.setItem(storageKey, now.toString());
-                    if (AD_URL) window.open(AD_URL, '_blank');
-                    let sec = 5;
-                    btn.textContent = `⏳ ${sec} detik`;
-                    btn.classList.add('counting');
-                    const timer = setInterval(() => {
-                        sec--;
-                        if (sec <= 0) {
-                            clearInterval(timer);
-                            btn.innerHTML = '<i class="fas fa-download"></i> Download APK';
-                            btn.classList.remove('counting');
-                            window.open(url, '_blank');
-                        } else {
-                            btn.textContent = `⏳ ${sec} detik`;
-                        }
-                    }, 1000);
-                } else {
-                    window.open(url, '_blank');
-                }
-            }
-
-            let adScriptElement = null;
-
-            function loadAdScript(container) {
-                if (adScriptElement) {
-                    adScriptElement.remove();
-                    adScriptElement = null;
-                }
-                adScriptElement = document.createElement('script');
-                adScriptElement.src = 'https://cabinetavidgrasp.com/c4/11/28/c4112850e63eed959d261d84abff70ee.js';
-                adScriptElement.async = true;
-                container.appendChild(adScriptElement);
-            }
-
-            function unloadAdScript() {
-                if (adScriptElement) {
-                    adScriptElement.remove();
-                    adScriptElement = null;
-                }
-            }
-
-            function updateMetaTags(title, description, image, url) {
-                document.title = title || "Destaseo Mods • Premium Mod APK";
-                const desc = description || "Situs download mod APK premium terbaik. Dapatkan aplikasi modifikasi terbaru gratis.";
-                const img = image || "https://avatars.githubusercontent.com/u/189899710?v=4";
-                const link = url || window.location.href;
-
-                let metaDesc = document.querySelector('meta[name="description"]');
-                if (!metaDesc) { metaDesc = document.createElement('meta');
-                    metaDesc.name = 'description';
-                    document.head.appendChild(metaDesc); }
-                metaDesc.content = desc;
-
-                let ogTitle = document.querySelector('meta[property="og:title"]');
-                if (!ogTitle) { ogTitle = document.createElement('meta');
-                    ogTitle.setAttribute('property', 'og:title');
-                    document.head.appendChild(ogTitle); }
-                ogTitle.content = title;
-
-                let ogDesc = document.querySelector('meta[property="og:description"]');
-                if (!ogDesc) { ogDesc = document.createElement('meta');
-                    ogDesc.setAttribute('property', 'og:description');
-                    document.head.appendChild(ogDesc); }
-                ogDesc.content = desc;
-
-                let ogImage = document.querySelector('meta[property="og:image"]');
-                if (!ogImage) { ogImage = document.createElement('meta');
-                    ogImage.setAttribute('property', 'og:image');
-                    document.head.appendChild(ogImage); }
-                ogImage.content = img;
-
-                let ogUrl = document.querySelector('meta[property="og:url"]');
-                if (!ogUrl) { ogUrl = document.createElement('meta');
-                    ogUrl.setAttribute('property', 'og:url');
-                    document.head.appendChild(ogUrl); }
-                ogUrl.content = link;
-
-                let twTitle = document.querySelector('meta[name="twitter:title"]');
-                if (!twTitle) { twTitle = document.createElement('meta');
-                    twTitle.name = 'twitter:title';
-                    document.head.appendChild(twTitle); }
-                twTitle.content = title;
-
-                let twDesc = document.querySelector('meta[name="twitter:description"]');
-                if (!twDesc) { twDesc = document.createElement('meta');
-                    twDesc.name = 'twitter:description';
-                    document.head.appendChild(twDesc); }
-                twDesc.content = desc;
-
-                let twImage = document.querySelector('meta[name="twitter:image"]');
-                if (!twImage) { twImage = document.createElement('meta');
-                    twImage.name = 'twitter:image';
-                    document.head.appendChild(twImage); }
-                twImage.content = img;
-
-                let canonical = document.getElementById('canonical-link');
-                if (!canonical) { canonical = document.createElement('link');
-                    canonical.rel = 'canonical';
-                    canonical.id = 'canonical-link';
-                    document.head.appendChild(canonical); }
-                canonical.href = link;
-            }
-
-            // ============================================================
-            // DOM REFERENCES
+            // DOM
             // ============================================================
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
             const loadMoreContainer = document.getElementById('load-more-container');
             const homeSection = document.getElementById('home-section');
-            const detailSection = document.getElementById('detail-section');
             const profileSection = document.getElementById('profile-section');
-            const detailContent = document.getElementById('detail-content');
-            const detailBack = document.getElementById('detail-back');
-            const navItems = document.querySelectorAll('.nav-item');
             const searchBox = document.getElementById('search-box');
             const searchInput = document.getElementById('search-input');
             const categoryBar = document.getElementById('category-bar');
@@ -1773,6 +1255,7 @@
             const dailyCountEl = document.getElementById('daily-count');
             const logoArea = document.getElementById('logo-area');
             const loadingSpinnerContainer = document.getElementById('loading-spinner-container');
+            const navItems = document.querySelectorAll('.nav-item');
 
             let postsData = [],
                 fetchedPosts = [];
@@ -1783,7 +1266,6 @@
             let currentSlide = 0;
             let totalPopularSlides = 0;
             let topPopularPosts = [];
-            let isFirstLoad = true;
 
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) {
@@ -1798,53 +1280,8 @@
             function getPageFromQuery() {
                 const params = new URLSearchParams(window.location.search);
                 const page = params.get('page') || 'home';
-                const post = params.get('post') || null;
                 const q = params.get('q') || null;
-                return { page, post, q };
-            }
-
-            function navigateTo(page, postName, q) {
-                if (page !== 'detail') unloadAdScript();
-
-                const params = new URLSearchParams();
-                if (page === 'search') {
-                    params.set('page', 'search');
-                    if (q) params.set('q', q);
-                } else if (page === 'profile') {
-                    params.set('page', 'profile');
-                } else if (page === 'detail' && postName) {
-                    params.set('page', 'detail');
-                    params.set('post', postName);
-                }
-                const url = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
-                window.history.pushState({ page, post: postName, q }, '', url);
-
-                requestAnimationFrame(() => {
-                    if (page === 'home') {
-                        showHome();
-                        updateMetaTags('Destaseo Mods • Premium Mod APK', 'Situs download mod APK premium terbaik.',
-                            LOGO_URL, 'https://destaseomods.web.id/');
-                    } else if (page === 'search') {
-                        showSearch(q);
-                        updateMetaTags('Cari Mod • Destaseo Mods', 'Cari mod APK premium favorit Anda.', LOGO_URL,
-                            'https://destaseomods.web.id/?page=search');
-                    } else if (page === 'profile') {
-                        showProfile();
-                        updateMetaTags('Profil Destaseo Mods', 'Profil Destaseo Mods - Premium modder & content creator.',
-                            AVATAR_URL, 'https://destaseomods.web.id/?page=profile');
-                    } else if (page === 'detail' && postName) {
-                        showDetail(postName);
-                    }
-                });
-            }
-
-            function goToDetailDirectly(postName) {
-                const params = new URLSearchParams();
-                params.set('page', 'detail');
-                params.set('post', postName);
-                const url = window.location.pathname + '?' + params.toString();
-                window.history.replaceState({ page: 'detail', post: postName }, '', url);
-                showDetail(postName);
+                return { page, q };
             }
 
             function showHome() {
@@ -1899,7 +1336,7 @@
             }
 
             function showSection(s) {
-                [homeSection, detailSection, profileSection].forEach(el => {
+                [homeSection, profileSection].forEach(el => {
                     if (el !== s) {
                         el.classList.add('hidden');
                         el.style.display = '';
@@ -1910,8 +1347,7 @@
             }
 
             function setActiveNav(p) {
-                navItems.forEach(i => i.classList.toggle('active', i.dataset.page === p || (p === 'detail' && i.dataset
-                    .page === 'home')));
+                navItems.forEach(i => i.classList.toggle('active', i.dataset.page === p));
             }
 
             // ============================================================
@@ -2050,11 +1486,8 @@
 
                 let badges = [];
                 if (post.metadata.badges) {
-                    if (Array.isArray(post.metadata.badges)) {
-                        badges = post.metadata.badges;
-                    } else {
-                        badges = post.metadata.badges.split(',').map(b => b.trim()).filter(b => b.length > 0);
-                    }
+                    if (Array.isArray(post.metadata.badges)) { badges = post.metadata.badges; } else { badges = post
+                            .metadata.badges.split(',').map(b => b.trim()).filter(b => b.length > 0); }
                 }
 
                 function getBadgeHTML(badgeText) {
@@ -2099,7 +1532,9 @@
                         e.target.closest('.badge-vip') || e.target.closest('.badge-noads') ||
                         e.target.closest('.badge-unlocked') || e.target.closest('.badge-custom')) return;
                     const name = c.dataset.name;
-                    if (name) navigateTo('detail', name);
+                    if (name) {
+                        window.location.href = '/detail.html?post=' + encodeURIComponent(name);
+                    }
                 }));
                 document.querySelectorAll('.badge').forEach(b => b.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -2148,7 +1583,9 @@
                 }).join('');
                 document.querySelectorAll('.carousel-slide').forEach(s => s.addEventListener('click', () => {
                     const name = s.dataset.name;
-                    if (name) navigateTo('detail', name);
+                    if (name) {
+                        window.location.href = '/detail.html?post=' + encodeURIComponent(name);
+                    }
                 }));
             }
 
@@ -2169,32 +1606,23 @@
             }
 
             // ============================================================
-            // CACHE — STRATEGI AGGRESIF: CACHE TIDAK PERNAH KEDALUWARSA
+            // CACHE — STRATEGI AGGRESIF
             // ============================================================
             function getCachedList() {
                 const raw = localStorage.getItem(CACHE_KEY_LIST);
                 if (!raw) return null;
-                try {
-                    const data = JSON.parse(raw);
-                    // Tidak ada pengecekan waktu — selalu pakai jika ada
-                    return data.posts;
-                } catch (e) { return null; }
+                try { const data = JSON.parse(raw); return data.posts; } catch (e) { return null; }
             }
 
             function setCachedList(posts) {
                 localStorage.setItem(CACHE_KEY_LIST, JSON.stringify({ posts }));
-                localStorage.setItem(CACHE_KEY_TIMESTAMP, Date.now().toString());
             }
 
             function getCachedContent(postName) {
                 const key = CACHE_KEY_CONTENT_PREFIX + postName;
                 const raw = localStorage.getItem(key);
                 if (!raw) return null;
-                try {
-                    const data = JSON.parse(raw);
-                    // Tidak ada pengecekan waktu — selalu pakai jika ada
-                    return data.content;
-                } catch (e) { return null; }
+                try { const data = JSON.parse(raw); return data.content; } catch (e) { return null; }
             }
 
             function setCachedContent(postName, content) {
@@ -2203,17 +1631,15 @@
             }
 
             // ============================================================
-            // FETCH DATA — DENGAN CACHE AGGRESIF
+            // FETCH
             // ============================================================
             async function fetchPostList(forceRefresh = false) {
-                // 1. Cek cache dulu
                 const cached = getCachedList();
                 if (cached && cached.length && !forceRefresh) {
                     postsData = cached;
-                    return true; // data dari cache
+                    return true;
                 }
 
-                // 2. Fallback statis
                 const fallbackPosts = [
                     { filename: "capcut-mod-premium.md", name: "capcut-mod-premium", download_url: "https://raw.githubusercontent.com/destaseomods/web/main/posts/capcut-mod-premium.md" },
                     { filename: "snapchat-mod-premium.md", name: "snapchat-mod-premium", download_url: "https://raw.githubusercontent.com/destaseomods/web/main/posts/snapchat-mod-premium.md" },
@@ -2227,7 +1653,6 @@
                     try {
                         const controller = new AbortController();
                         const timeout = setTimeout(() => controller.abort(), 5000);
-
                         const res = await fetch(apiUrl, {
                             signal: controller.signal,
                             headers: {
@@ -2240,10 +1665,8 @@
                         if (!res.ok) {
                             if (res.status === 403) {
                                 console.warn('⚠️ GitHub API rate limit, pakai cache/fallback.');
-                                if (!cached || !cached.length) {
-                                    postsData = fallbackPosts;
-                                    setCachedList(postsData);
-                                }
+                                if (!cached || !cached.length) { postsData = fallbackPosts;
+                                    setCachedList(postsData); }
                                 return false;
                             }
                             throw new Error(`HTTP ${res.status}`);
@@ -2260,16 +1683,13 @@
                         }));
 
                         setCachedList(postsData);
-                        return true; // sukses dari GitHub
+                        return true;
 
                     } catch (err) {
                         console.warn(`❌ Percobaan ${attempt} gagal:`, err.message);
                         if (attempt === 3) {
-                            if (!cached || !cached.length) {
-                                console.warn('⚠️ Semua gagal, pakai fallback statis.');
-                                postsData = fallbackPosts;
-                                setCachedList(postsData);
-                            }
+                            if (!cached || !cached.length) { postsData = fallbackPosts;
+                                setCachedList(postsData); }
                             return false;
                         }
                         await new Promise(r => setTimeout(r, 1000 * attempt));
@@ -2285,13 +1705,12 @@
                 m[1].split('\n').forEach(line => {
                     const i = line.indexOf(':');
                     if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim().replace(/^["']|["']$/g,
-                        '');
+                    '');
                 });
                 return { metadata: meta, content: m[2] };
             }
 
             async function fetchPost(p, forceRefresh = false) {
-                // Cek cache dulu
                 if (!forceRefresh) {
                     const cachedContent = getCachedContent(p.name);
                     if (cachedContent) {
@@ -2314,7 +1733,6 @@
                     const lastModified = r.headers.get('Last-Modified');
                     return { ...p, metadata, content, lastModified, html: marked.parse(content), fromCache: false };
                 } catch (err) {
-                    // Jika fetch gagal, coba pakai cache lama
                     const fallbackContent = getCachedContent(p.name);
                     if (fallbackContent) {
                         const { metadata, content } = parseFrontmatter(fallbackContent);
@@ -2349,10 +1767,9 @@
             }
 
             // ============================================================
-            // RENDER HOME — DENGAN CACHE AGGRESIF
+            // RENDER HOME (UTAMA)
             // ============================================================
             async function renderHome() {
-                // Sembunyikan spinner jika sudah ada cache
                 const hasCache = getCachedList() && getCachedList().length > 0;
 
                 if (!hasCache) {
@@ -2363,7 +1780,6 @@
                     filterIndicator.style.display = 'none';
                     categoryBar.style.display = 'none';
                 } else {
-                    // Jika ada cache, langsung tampilkan (spinner tetap tersembunyi)
                     loadingSpinnerContainer.style.display = 'none';
                     postContainer.style.display = 'grid';
                     loadMoreContainer.style.display = 'block';
@@ -2373,38 +1789,25 @@
                 }
 
                 try {
-                    // Ambil data dari cache dulu (instan)
                     const cachedData = getCachedList();
                     if (cachedData && cachedData.length) {
                         postsData = cachedData;
-                        // Fetch konten dari cache juga
                         const cachedFetched = await Promise.all(postsData.map(p => fetchPost(p, false)));
                         fetchedPosts = cachedFetched;
                         await sortPostsByView();
 
-                        // Tampilkan konten dari cache
                         renderPopularSection();
                         renderCategoryBar();
                         resetAndApplyFilters();
                         startCarousel();
 
-                        // Setelah tampil, fetch ulang di background untuk update
                         fetchBackgroundUpdates();
 
-                        const { page, post, q } = getPageFromQuery();
-                        if (page === 'detail' && post) {
-                            goToDetailDirectly(post);
-                        } else if (page === 'search') {
-                            navigateTo('search', null, q || '');
-                        } else if (page === 'profile') {
-                            navigateTo('profile');
-                        } else {
-                            navigateTo('home');
-                        }
+                        const { page, q } = getPageFromQuery();
+                        if (page === 'search') { showSearch(q || ''); } else if (page === 'profile') { showProfile(); }
                         return;
                     }
 
-                    // Jika tidak ada cache, fetch dari GitHub dengan loading
                     loadingSpinnerContainer.style.display = 'block';
                     postContainer.style.display = 'none';
                     loadMoreContainer.style.display = 'none';
@@ -2437,21 +1840,11 @@
                     resetAndApplyFilters();
                     startCarousel();
 
-                    // Jika data dari cache, update background
-                    if (!fromCache) {
-                        fetchBackgroundUpdates();
-                    }
+                    if (!fromCache) { fetchBackgroundUpdates(); }
 
-                    const { page, post, q } = getPageFromQuery();
-                    if (page === 'detail' && post) {
-                        goToDetailDirectly(post);
-                    } else if (page === 'search') {
-                        navigateTo('search', null, q || '');
-                    } else if (page === 'profile') {
-                        navigateTo('profile');
-                    } else {
-                        navigateTo('home');
-                    }
+                    const { page, q } = getPageFromQuery();
+                    if (page === 'search') { showSearch(q || ''); } else if (page === 'profile') { showProfile(); }
+
                 } catch (err) {
                     loadingSpinnerContainer.style.display = 'none';
                     postContainer.style.display = 'block';
@@ -2469,286 +1862,28 @@
                 }
             }
 
-            // ============================================================
-            // FETCH BACKGROUND — UPDATE CACHE TANPA MENGGANGGU UI
-            // ============================================================
             async function fetchBackgroundUpdates() {
                 try {
-                    const success = await fetchPostList(true); // force refresh
+                    const success = await fetchPostList(true);
                     if (success) {
-                        // Jika ada perubahan, update konten di background
                         const newFetched = await Promise.all(postsData.map(p => fetchPost(p, true)));
-                        // Bandingkan apakah ada perubahan (sederhana: cek jumlah)
-                        if (newFetched.length !== fetchedPosts.length) {
+                        let hasChange = false;
+                        if (newFetched.length !== fetchedPosts.length) { hasChange = true; } else {
+                            for (let i = 0; i < newFetched.length; i++) {
+                                if (newFetched[i].metadata.judul !== fetchedPosts[i]?.metadata.judul) { hasChange =
+                                        true; break; }
+                            }
+                        }
+                        if (hasChange) {
                             fetchedPosts = newFetched;
                             await sortPostsByView();
-                            // Refresh tampilan tanpa mereset scroll
                             renderPopularSection();
                             renderCategoryBar();
                             resetAndApplyFilters();
                             startCarousel();
-                        } else {
-                            // Cek apakah ada konten yang berubah (misal update metadata)
-                            // Untuk simpel, kita update jika ada perbedaan
-                            let hasChange = false;
-                            for (let i = 0; i < newFetched.length; i++) {
-                                if (newFetched[i].metadata.judul !== fetchedPosts[i]?.metadata.judul) {
-                                    hasChange = true;
-                                    break;
-                                }
-                            }
-                            if (hasChange) {
-                                fetchedPosts = newFetched;
-                                await sortPostsByView();
-                                renderPopularSection();
-                                renderCategoryBar();
-                                resetAndApplyFilters();
-                                startCarousel();
-                            }
                         }
                     }
-                } catch (e) {
-                    console.warn('Background update gagal:', e);
-                }
-            }
-
-            // ============================================================
-            // RENDER PROFILE
-            // ============================================================
-            function renderProfile() {
-                document.getElementById('profile-name').textContent = PROFILE.name;
-                document.getElementById('profile-bio').textContent = PROFILE.bio;
-                document.getElementById('social-links').innerHTML = PROFILE.links.map(l =>
-                    `<a href="${l.url}" target="_blank" class="social-link" rel="noopener"><i class="${l.icon}"></i> ${l.label}</a>`
-                ).join('');
-                updateDailyVisitor();
-            }
-
-            async function updateDailyVisitor() {
-                try {
-                    const count = await getDailyVisitorCount();
-                    if (dailyCountEl) dailyCountEl.textContent = count;
-                } catch (e) {
-                    if (dailyCountEl) dailyCountEl.textContent = '?';
-                }
-            }
-
-            // ============================================================
-            // DETAIL
-            // ============================================================
-            function buildScreenshotGallery(str) {
-                if (!str) return '';
-                const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
-                if (urls.length === 0) return '';
-                const lim = urls.slice(0, 10);
-                const urlsAttr = urls.map(u => u.replace(/"/g, '&quot;')).join('|||');
-                return `<div class="screenshot-scroll" data-all-urls="${urlsAttr}">
-                    ${lim.map((u, i) => `<img src="${u}" alt="Screenshot" loading="lazy" onclick="event.stopPropagation(); openLightbox(this, ${i})">`).join('')}
-                </div>`;
-            }
-
-            window.openLightbox = function(imgEl, index) {
-                const container = imgEl.closest('.screenshot-scroll');
-                if (!container) return;
-                const allUrlsStr = container.dataset.allUrls || '';
-                if (!allUrlsStr) return;
-                const allUrls = allUrlsStr.split('|||');
-                if (allUrls.length === 0) return;
-                const existing = document.querySelector('.lightbox');
-                if (existing) existing.remove();
-
-                const lb = document.createElement('div');
-                lb.className = 'lightbox';
-                lb.innerHTML = `
-                    <button class="lightbox-close" aria-label="Tutup"><i class="fas fa-times"></i></button>
-                    <button class="lightbox-prev" aria-label="Sebelumnya"><i class="fas fa-chevron-left"></i></button>
-                    <button class="lightbox-next" aria-label="Berikutnya"><i class="fas fa-chevron-right"></i></button>
-                    <img src="${allUrls[index]}" alt="Screenshot" />
-                    <div class="lightbox-counter">${index+1} / ${allUrls.length}</div>
-                `;
-                document.body.appendChild(lb);
-
-                let currentIndex = index;
-                const img = lb.querySelector('img');
-                const counter = lb.querySelector('.lightbox-counter');
-
-                function updateImage(i) {
-                    if (i < 0) i = allUrls.length - 1;
-                    if (i >= allUrls.length) i = 0;
-                    currentIndex = i;
-                    img.src = allUrls[currentIndex];
-                    counter.textContent = `${currentIndex+1} / ${allUrls.length}`;
-                }
-
-                lb.querySelector('.lightbox-close').addEventListener('click', (e) => { e.stopPropagation();
-                    lb.remove(); });
-                lb.querySelector('.lightbox-prev').addEventListener('click', (e) => { e.stopPropagation();
-                    updateImage(currentIndex - 1); });
-                lb.querySelector('.lightbox-next').addEventListener('click', (e) => { e.stopPropagation();
-                    updateImage(currentIndex + 1); });
-
-                lb.addEventListener('click', (e) => {
-                    if (e.target === lb) lb.remove();
-                });
-
-                function keyHandler(e) {
-                    if (e.key === 'Escape') { lb.remove();
-                        document.removeEventListener('keydown', keyHandler); }
-                    if (e.key === 'ArrowLeft') { e.preventDefault();
-                        updateImage(currentIndex - 1); }
-                    if (e.key === 'ArrowRight') { e.preventDefault();
-                        updateImage(currentIndex + 1); }
-                }
-                document.addEventListener('keydown', keyHandler);
-
-                let touchStartX = 0;
-                lb.addEventListener('touchstart', (e) => {
-                    touchStartX = e.changedTouches[0].screenX;
-                }, { passive: true });
-                lb.addEventListener('touchend', (e) => {
-                    const diff = touchStartX - e.changedTouches[0].screenX;
-                    if (Math.abs(diff) > 40) {
-                        if (diff > 0) updateImage(currentIndex + 1);
-                        else updateImage(currentIndex - 1);
-                    }
-                }, { passive: true });
-            };
-
-            async function showDetail(name) {
-                const post = fetchedPosts.find(p => p.name === name);
-                if (!post) {
-                    detailContent.innerHTML =
-                        `<div class="error-text">❌ Postingan tidak ditemukan. <br><small>${name}</small></div>`;
-                    showSection(detailSection);
-                    setActiveNav('detail');
-                    window.scrollTo({ top: 0 });
-                    return;
-                }
-
-                const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
-                const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
-                const v = post.metadata.versi || post.metadata.version || '?';
-                const s = post.metadata.ukuran || post.metadata.size || '?';
-                const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
-                const dwn = post.metadata.download || post.metadata.link || '';
-                const kategori = post.metadata.kategori || '';
-                const tags = post.metadata.tag ? post.metadata.tag.split(',').map(t => t.trim()).filter(t => t) : [];
-                const dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
-                const dateFormatted = formatDate(dateRaw);
-                const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
-                const galleryHtml = buildScreenshotGallery(screenshots);
-                const hasDownload = dwn && dwn !== '#';
-
-                const downloadNoteHtml = `
-                    <div class="download-note">
-                        <i class="fas fa-info-circle"></i>
-                        <span>
-                            Jika anda klik download masuk ke iklan, tekan tombol kembali di ponsel anda, lalu kalau masuk iklan lagi, tekan lagi tombol kembali pada ponsel anda dan <strong>tunggu 5 detik</strong> nanti di arahkan ke halaman download file nya.
-                        </span>
-                    </div>
-                `;
-
-                const downloadBtn = hasDownload ?
-                    `${downloadNoteHtml}<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` :
-                    `<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>`;
-
-                const tagsHtml = tags.length > 0 ?
-                    `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` :
-                    '';
-
-                const recommendations = getRecommendations(post, 4);
-                let recHtml = '';
-                if (recommendations.length > 0) {
-                    recHtml = `<div class="recommendations-section">
-                        <h3><i class="fas fa-lightbulb"></i> Rekomendasi untuk Anda</h3>
-                        <div class="rec-grid">`;
-                    recommendations.forEach(rec => {
-                        const recTitle = rec.metadata.judul || rec.metadata.title || rec.name.replace(
-                            /[-_]/g, ' ');
-                        const recImg = fixImageUrl(rec.metadata.gambar || rec.metadata.image || '');
-                        recHtml += `
-                            <div class="rec-card" data-name="${rec.name}">
-                                ${recImg ? `<img src="${recImg}" alt="${recTitle}" loading="lazy" onerror="this.style.display='none'">` : `<div style="height:90px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:2rem;"><i class="fas fa-box"></i></div>`}
-                                <div class="rec-title">${recTitle}</div>
-                            </div>
-                        `;
-                    });
-                    recHtml += `</div></div>`;
-                }
-
-                detailContent.innerHTML = '<div class="spinner"></div>';
-                showSection(detailSection);
-                setActiveNav('detail');
-                window.scrollTo({ top: 0 });
-
-                const viewCount = await getPostViewCount(name, true);
-
-                const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
-                const detailUrl = window.location.origin + window.location.pathname + '?page=detail&post=' + encodeURIComponent(
-                    name);
-                updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, detailUrl);
-
-                const articleJson = {
-                    "@context": "https://schema.org",
-                    "@type": "Article",
-                    "headline": t,
-                    "description": desc,
-                    "image": img || LOGO_URL,
-                    "author": { "@type": "Person", "name": dev },
-                    "datePublished": dateRaw || new Date().toISOString(),
-                    "mainEntityOfPage": { "@type": "WebPage", "@id": detailUrl }
-                };
-                let script = document.querySelector('#article-ld-json');
-                if (!script) { script = document.createElement('script');
-                    script.id = 'article-ld-json';
-                    script.type = 'application/ld+json';
-                    document.head.appendChild(script); }
-                script.textContent = JSON.stringify(articleJson);
-
-                detailContent.innerHTML = `
-                <div class="detail-header fade-in-content">
-                    ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
-                    <h1 class="detail-title">${t}</h1>
-                    <div class="detail-meta-grid">
-                        <div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ${v}</div>
-                        <div class="meta-item"><i class="fas fa-weight-hanging"></i> <strong>Ukuran</strong> ${s}</div>
-                        <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
-                        ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
-                        ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
-                        <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ${viewCount}X</div>
-                    </div>
-                    ${galleryHtml}
-                    ${tagsHtml}
-                </div>
-                <div class="content-box fade-in-content">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
-                ${downloadBtn}
-                ${recHtml}
-                <div id="ad-container" style="margin-top:20px; text-align:center;"></div>
-            `;
-
-                if (hasDownload) {
-                    const dBtn = document.getElementById('detail-download-btn');
-                    if (dBtn) {
-                        dBtn.addEventListener('click', async function(e) {
-                            e.preventDefault();
-                            if (this.classList.contains('counting')) return;
-                            await startDownloadWithAd(this, dwn);
-                        });
-                    }
-                }
-
-                document.querySelectorAll('.rec-card').forEach(card => {
-                    card.addEventListener('click', function() {
-                        const name = this.dataset.name;
-                        if (name) navigateTo('detail', name);
-                    });
-                });
-
-                const adContainer = document.getElementById('ad-container');
-                if (adContainer) {
-                    unloadAdScript();
-                    loadAdScript(adContainer);
-                }
+                } catch (e) { console.warn('Background update gagal:', e); }
             }
 
             // ============================================================
@@ -2760,10 +1895,7 @@
                 const key = 'destaseomods-' + postName.replace(/[^a-zA-Z0-9]/g, '-');
 
                 let localData = null;
-                try {
-                    const raw = localStorage.getItem(storageKey);
-                    if (raw) localData = JSON.parse(raw);
-                } catch (_) {}
+                try { const raw = localStorage.getItem(storageKey); if (raw) localData = JSON.parse(raw); } catch (_) {}
 
                 if (!increment && localData) return localData.count;
 
@@ -2806,16 +1938,12 @@
                 const storageKey = 'daily_visitor';
                 const today = new Date().toISOString().slice(0, 10);
                 let localData = null;
-                try {
-                    const raw = localStorage.getItem(storageKey);
-                    if (raw) localData = JSON.parse(raw);
-                } catch (_) {}
+                try { const raw = localStorage.getItem(storageKey); if (raw) localData = JSON.parse(raw); } catch (_) {}
                 if (localData && localData.date === today) return localData.count;
                 try {
                     const controller = new AbortController();
                     const timeout = setTimeout(() => controller.abort(), 2000);
-                    const res = await fetch(url, { method: 'GET', signal: controller.signal, headers: {
-                            'Content-Type': 'application/json' } });
+                    const res = await fetch(url, { method: 'GET', signal: controller.signal, headers: { 'Content-Type': 'application/json' } });
                     clearTimeout(timeout);
                     if (res.ok) {
                         const data = await res.json();
@@ -2833,30 +1961,26 @@
             }
 
             // ============================================================
-            // REKOMENDASI
+            // RENDER PROFILE
             // ============================================================
-            function getRecommendations(currentPost, limit = 4) {
-                if (!fetchedPosts || fetchedPosts.length === 0) return [];
-                const others = fetchedPosts.filter(p => p.name !== currentPost.name);
-                if (others.length === 0) return [];
-                const currentCategory = currentPost.metadata.kategori || '';
-                const sameCategory = others.filter(p => {
-                    const cat = p.metadata.kategori || '';
-                    return cat === currentCategory && cat !== '';
-                });
-                const differentCategory = others.filter(p => {
-                    const cat = p.metadata.kategori || '';
-                    return cat !== currentCategory || cat === '';
-                });
-                const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
-                const combined = [...shuffle(sameCategory), ...shuffle(differentCategory)];
-                return combined.slice(0, limit);
+            function renderProfile() {
+                document.getElementById('profile-name').textContent = PROFILE.name;
+                document.getElementById('profile-bio').textContent = PROFILE.bio;
+                document.getElementById('social-links').innerHTML = PROFILE.links.map(l =>
+                    `<a href="${l.url}" target="_blank" class="social-link" rel="noopener"><i class="${l.icon}"></i> ${l.label}</a>`
+                ).join('');
+                updateDailyVisitor();
+            }
+
+            async function updateDailyVisitor() {
+                try { const count = await getDailyVisitorCount(); if (dailyCountEl) dailyCountEl.textContent = count; } catch (
+                e) { if (dailyCountEl) dailyCountEl.textContent = '?'; }
             }
 
             // ============================================================
-            // EVENT LISTENER
+            // EVENT
             // ============================================================
-            logoArea.addEventListener('click', () => navigateTo('home'));
+            logoArea.addEventListener('click', () => { window.location.href = '/'; });
 
             telegramBtn.addEventListener('click', (e) => { e.stopPropagation();
                 telegramDropdown.classList.toggle('show'); });
@@ -2884,34 +2008,28 @@
 
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
-            detailBack.addEventListener('click', function() {
-                if (window.history.length > 1) {
-                    window.history.back();
-                } else {
-                    navigateTo('home');
-                }
-            });
-
-            navItems.forEach(i => i.addEventListener('click', () => {
+            navItems.forEach(i => i.addEventListener('click', (e) => {
+                e.preventDefault();
                 const page = i.dataset.page;
                 if (page === 'search') {
                     const q = searchInput.value.trim() || '';
-                    navigateTo('search', null, q);
+                    window.history.pushState({ page: 'search' }, '', '/?page=search' + (q ? '&q=' +
+                        encodeURIComponent(q) : ''));
+                    showSearch(q);
+                } else if (page === 'profile') {
+                    window.history.pushState({ page: 'profile' }, '', '/?page=profile');
+                    showProfile();
                 } else {
-                    navigateTo(page);
+                    window.history.pushState({ page: 'home' }, '', '/');
+                    showHome();
                 }
             }));
 
             searchInput.addEventListener('input', () => {
                 const q = searchInput.value.trim();
-                const params = new URLSearchParams(window.location.search);
-                if (q) {
-                    params.set('q', q);
-                    params.set('page', 'search');
-                } else {
-                    params.delete('q');
-                    if (params.get('page') === 'search') params.set('page', 'home');
-                }
+                const params = new URLSearchParams();
+                if (q) { params.set('page', 'search');
+                    params.set('q', q); }
                 const url = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
                 window.history.replaceState({ page: 'search', q }, '', url);
                 resetAndApplyFilters();
@@ -2919,20 +2037,15 @@
 
             window.addEventListener('popstate', (e) => {
                 const state = e.state || {};
-                if (state.page) {
-                    navigateTo(state.page, state.post, state.q);
-                } else {
-                    const { page, post, q } = getPageFromQuery();
-                    navigateTo(page, post, q);
-                }
+                if (state.page === 'profile') { showProfile(); } else if (state.page === 'search') { showSearch(state
+                        .q || ''); } else { showHome(); }
             });
 
             // ============================================================
             // START
             // ============================================================
-            (async () => {
-                await renderHome();
-            })();
+            (async () => { await renderHome(); })();
+
         })();
     </script>
 </body>
