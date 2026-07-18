@@ -797,6 +797,40 @@
         }
         @media (min-width: 500px) { .meta-item strong { font-size: 0.7rem; } }
 
+        /* ===== CATATAN DOWNLOAD ===== */
+        .download-note {
+            background: rgba(255, 215, 0, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin: 16px 0 8px;
+            font-size: 0.75rem;
+            color: #f5e56b;
+            line-height: 1.6;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            text-align: left;
+        }
+        .download-note i {
+            color: #f5a623;
+            font-size: 1rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        .download-note strong {
+            color: #fff;
+        }
+        @media (min-width: 500px) {
+            .download-note {
+                font-size: 0.85rem;
+                padding: 14px 20px;
+            }
+            .download-note i {
+                font-size: 1.1rem;
+            }
+        }
+
         .big-download {
             display: block;
             width: 100%;
@@ -807,7 +841,7 @@
             font-size: 0.95rem;
             padding: 14px;
             border-radius: 18px;
-            margin: 16px 0 0;
+            margin: 8px 0 0;
             cursor: pointer;
             transition: 0.2s;
             letter-spacing: -0.3px;
@@ -816,7 +850,7 @@
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
         }
         @media (min-width: 500px) {
-            .big-download { font-size: 1rem; padding: 15px; margin-top: 20px; }
+            .big-download { font-size: 1rem; padding: 15px; margin-top: 10px; }
         }
         .big-download i { margin-right: 6px; }
         .big-download:active { transform: scale(0.96); }
@@ -1392,6 +1426,8 @@
             .bottom-nav { height: 64px; }
             .premium-badge { top: 10px; right: 10px; font-size: 0.5rem; padding: 3px 10px; }
             .premium-badge i { font-size: 0.45rem; }
+            .download-note { font-size: 0.65rem; padding: 10px 12px; }
+            .download-note i { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -2555,9 +2591,21 @@
                 const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
                 const galleryHtml = buildScreenshotGallery(screenshots);
                 const hasDownload = dwn && dwn !== '#';
+
+                // Catatan download
+                const downloadNoteHtml = `
+                    <div class="download-note">
+                        <i class="fas fa-info-circle"></i>
+                        <span>
+                            Jika anda klik download masuk ke iklan, tekan tombol kembali di ponsel anda, lalu kalau masuk iklan lagi, tekan lagi tombol kembali pada ponsel anda dan <strong>tunggu 5 detik</strong> nanti di arahkan ke halaman download file nya.
+                        </span>
+                    </div>
+                `;
+
                 const downloadBtn = hasDownload ?
-                    `<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` :
+                    `${downloadNoteHtml}<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` :
                     `<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>`;
+
                 const tagsHtml = tags.length > 0 ?
                     `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` :
                     '';
