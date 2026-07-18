@@ -115,7 +115,6 @@
             z-index: 2;
         }
 
-        /* ===== Transisi lebih ringan ===== */
         .page-section {
             backface-visibility: hidden;
             opacity: 1;
@@ -158,7 +157,6 @@
             }
         }
 
-        /* ===== TOPBAR ===== */
         .topbar {
             display: flex;
             align-items: center;
@@ -269,7 +267,6 @@
         }
         .telegram-dropdown a i { width: 18px; text-align: center; }
 
-        /* ===== SEARCH ===== */
         .search-container {
             margin: 8px 0 16px;
             display: flex;
@@ -296,7 +293,6 @@
         }
         .search-input::placeholder { color: var(--text2); }
 
-        /* ===== CATEGORY ===== */
         .category-bar {
             display: flex;
             flex-wrap: wrap;
@@ -335,7 +331,6 @@
         }
         .reset-filter i { margin-right: 4px; }
 
-        /* ===== SORT ===== */
         .sort-bar {
             display: flex;
             align-items: center;
@@ -365,7 +360,6 @@
         }
         .sort-select:hover { border-color: var(--accent2); }
 
-        /* ===== CAROUSEL ===== */
         .popular-section { margin-bottom: 0; }
         .carousel-wrapper {
             position: relative;
@@ -456,7 +450,6 @@
             .carousel-counter { font-size: 0.75rem; padding: 4px 12px; }
         }
 
-        /* ===== LOADING SPINNER ===== */
         #loading-spinner-container {
             text-align: center;
             padding: 30px 0;
@@ -473,7 +466,6 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ===== POST GRID ===== */
         .post-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -664,7 +656,6 @@
             overflow: hidden;
         }
 
-        /* ===== LOAD MORE ===== */
         .load-more-btn {
             display: block;
             margin: 20px auto 0;
@@ -687,7 +678,6 @@
 
         .hidden { display: none !important; }
 
-        /* ===== DETAIL ===== */
         .detail-header, .profile-card {
             background: var(--surface);
             backdrop-filter: blur(24px);
@@ -766,7 +756,6 @@
         }
         @media (min-width: 500px) { .meta-item strong { font-size: 0.7rem; } }
 
-        /* ===== CATATAN DOWNLOAD ===== */
         .download-note {
             background: rgba(255, 215, 0, 0.08);
             border: 1px solid rgba(255, 215, 0, 0.2);
@@ -880,7 +869,6 @@
         }
         .back-btn:hover { opacity: 0.8; }
 
-        /* ===== PROFIL ===== */
         #profile-section {
             scroll-margin-top: 76px;
             padding-top: 12px;
@@ -999,7 +987,6 @@
             flex-wrap: wrap;
         }
 
-        /* ===== QRIS ===== */
         .qris-overlay {
             position: fixed;
             top: 0;
@@ -1047,7 +1034,6 @@
         }
         .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255, 255, 255, 0.1); }
 
-        /* ===== TAGS ===== */
         .tags-container {
             margin-top: 10px;
             display: flex;
@@ -1067,7 +1053,6 @@
         }
         @media (min-width: 500px) { .tag-badge { font-size: 0.65rem; padding: 3px 10px; } }
 
-        /* ===== SCREENSHOT ===== */
         .screenshot-scroll {
             display: flex;
             flex-wrap: nowrap;
@@ -1099,7 +1084,6 @@
             border-color: var(--accent);
         }
 
-        /* ===== LIGHTBOX ===== */
         .lightbox {
             position: fixed;
             top: 0;
@@ -1198,7 +1182,6 @@
             .lightbox-counter { font-size: 0.7rem; padding: 4px 14px; bottom: 18px; }
         }
 
-        /* ===== BOTTOM NAV ===== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -1241,7 +1224,6 @@
         .nav-item i { font-size: 1.1rem; }
         @media (min-width: 500px) { .nav-item i { font-size: 1.3rem; } }
 
-        /* ===== UTILITY ===== */
         .spinner {
             width: 50px;
             height: 50px;
@@ -1369,7 +1351,6 @@
             word-wrap: break-word;
         }
 
-        /* Media queries ekstra */
         @media (max-width: 360px) {
             .logo-text { font-size: 1rem; }
             .logo-img { width: 28px; height: 28px; }
@@ -1405,7 +1386,6 @@
     <!-- ===== HTML ===== -->
     <canvas id="particles"></canvas>
 
-    <!-- QRIS Overlay -->
     <div class="qris-overlay hidden" id="qris-overlay">
         <div class="qris-container">
             <img src="https://i.ibb.co.com/JR9twX72/20250220-123026-destaseo-wapkizs-com.png" alt="QRIS Dana" id="qris-img" />
@@ -1416,7 +1396,6 @@
         </div>
     </div>
 
-    <!-- Topbar -->
     <div class="topbar">
         <div class="logo-area" id="logo-area">
             <img src="https://avatars.githubusercontent.com/u/189899710?v=4" alt="Logo Destaseo Mods" class="logo-img" />
@@ -1431,7 +1410,6 @@
         </div>
     </div>
 
-    <!-- Main -->
     <main class="container" id="app">
         <section id="home-section" class="page-section" aria-label="Beranda">
             <div class="search-container hidden" id="search-box">
@@ -1488,7 +1466,6 @@
         </section>
     </main>
 
-    <!-- Bottom Nav -->
     <nav class="bottom-nav" aria-label="Navigasi utama">
         <button class="nav-item active" data-page="home" aria-label="Beranda"><i class="fas fa-home"></i><span>Beranda</span></button>
         <button class="nav-item" data-page="search" aria-label="Cari"><i class="fas fa-search"></i><span>Cari</span></button>
@@ -1561,10 +1538,9 @@
                 ]
             };
 
-            const CACHE_KEY_LIST = 'destaseo_post_list_v3';
+            const CACHE_KEY_LIST = 'destaseo_post_list_v4';
             const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
-            const CACHE_TIME_LIST = 60 * 60 * 1000;
-            const CACHE_TIME_CONTENT = 60 * 60 * 1000;
+            const CACHE_KEY_TIMESTAMP = 'destaseo_cache_timestamp';
 
             // ============================================================
             // PARTIKEL — OPTIMASI
@@ -1572,7 +1548,7 @@
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
             let particles = [];
-            const maxParticles = 35; // dikurangi dari 70
+            const maxParticles = 35;
             let animationFrameId = null;
             let frameSkip = 0;
 
@@ -1610,14 +1586,13 @@
 
             function animateParticles() {
                 frameSkip++;
-                if (frameSkip % 2 === 0) { // proses setiap 2 frame
+                if (frameSkip % 2 === 0) {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     particles.forEach(p => { p.update(); p.draw(); });
                 }
                 animationFrameId = requestAnimationFrame(animateParticles);
             }
 
-            // Hentikan animasi saat tab tidak aktif
             document.addEventListener('visibilitychange', () => {
                 if (document.hidden) {
                     if (animationFrameId) {
@@ -1634,7 +1609,7 @@
             animateParticles();
 
             // ============================================================
-            // IP, DOWNLOAD, AD, SEO, dll (sama seperti sebelumnya)
+            // IP, DOWNLOAD, AD, SEO
             // ============================================================
             async function getUserIP() {
                 const ipCacheKey = 'user_ip_cache';
@@ -1808,6 +1783,7 @@
             let currentSlide = 0;
             let totalPopularSlides = 0;
             let topPopularPosts = [];
+            let isFirstLoad = true;
 
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) {
@@ -2193,15 +2169,51 @@
             }
 
             // ============================================================
-            // FETCH DATA
+            // CACHE — STRATEGI AGGRESIF: CACHE TIDAK PERNAH KEDALUWARSA
             // ============================================================
-            async function fetchPostList() {
+            function getCachedList() {
+                const raw = localStorage.getItem(CACHE_KEY_LIST);
+                if (!raw) return null;
+                try {
+                    const data = JSON.parse(raw);
+                    // Tidak ada pengecekan waktu — selalu pakai jika ada
+                    return data.posts;
+                } catch (e) { return null; }
+            }
+
+            function setCachedList(posts) {
+                localStorage.setItem(CACHE_KEY_LIST, JSON.stringify({ posts }));
+                localStorage.setItem(CACHE_KEY_TIMESTAMP, Date.now().toString());
+            }
+
+            function getCachedContent(postName) {
+                const key = CACHE_KEY_CONTENT_PREFIX + postName;
+                const raw = localStorage.getItem(key);
+                if (!raw) return null;
+                try {
+                    const data = JSON.parse(raw);
+                    // Tidak ada pengecekan waktu — selalu pakai jika ada
+                    return data.content;
+                } catch (e) { return null; }
+            }
+
+            function setCachedContent(postName, content) {
+                const key = CACHE_KEY_CONTENT_PREFIX + postName;
+                localStorage.setItem(key, JSON.stringify({ content }));
+            }
+
+            // ============================================================
+            // FETCH DATA — DENGAN CACHE AGGRESIF
+            // ============================================================
+            async function fetchPostList(forceRefresh = false) {
+                // 1. Cek cache dulu
                 const cached = getCachedList();
-                if (cached && cached.length) {
+                if (cached && cached.length && !forceRefresh) {
                     postsData = cached;
-                    return;
+                    return true; // data dari cache
                 }
 
+                // 2. Fallback statis
                 const fallbackPosts = [
                     { filename: "capcut-mod-premium.md", name: "capcut-mod-premium", download_url: "https://raw.githubusercontent.com/destaseomods/web/main/posts/capcut-mod-premium.md" },
                     { filename: "snapchat-mod-premium.md", name: "snapchat-mod-premium", download_url: "https://raw.githubusercontent.com/destaseomods/web/main/posts/snapchat-mod-premium.md" },
@@ -2227,10 +2239,12 @@
 
                         if (!res.ok) {
                             if (res.status === 403) {
-                                console.warn('⚠️ GitHub API rate limit, pakai data statis.');
-                                postsData = fallbackPosts;
-                                setCachedList(postsData);
-                                return;
+                                console.warn('⚠️ GitHub API rate limit, pakai cache/fallback.');
+                                if (!cached || !cached.length) {
+                                    postsData = fallbackPosts;
+                                    setCachedList(postsData);
+                                }
+                                return false;
                             }
                             throw new Error(`HTTP ${res.status}`);
                         }
@@ -2246,59 +2260,22 @@
                         }));
 
                         setCachedList(postsData);
-                        return;
+                        return true; // sukses dari GitHub
 
                     } catch (err) {
                         console.warn(`❌ Percobaan ${attempt} gagal:`, err.message);
                         if (attempt === 3) {
-                            console.warn('⚠️ Semua percobaan gagal, pakai data statis.');
-                            postsData = fallbackPosts;
-                            setCachedList(postsData);
-                            return;
+                            if (!cached || !cached.length) {
+                                console.warn('⚠️ Semua gagal, pakai fallback statis.');
+                                postsData = fallbackPosts;
+                                setCachedList(postsData);
+                            }
+                            return false;
                         }
                         await new Promise(r => setTimeout(r, 1000 * attempt));
                     }
                 }
-            }
-
-            function getCachedList() {
-                const raw = localStorage.getItem(CACHE_KEY_LIST);
-                if (!raw) return null;
-                try {
-                    const data = JSON.parse(raw);
-                    if (Date.now() - data.t < CACHE_TIME_LIST) return data.posts;
-                    return null;
-                } catch (e) { return null; }
-            }
-
-            function setCachedList(posts) {
-                localStorage.setItem(CACHE_KEY_LIST, JSON.stringify({ t: Date.now(), posts }));
-            }
-
-            function getCachedContent(postName) {
-                const key = CACHE_KEY_CONTENT_PREFIX + postName;
-                const raw = localStorage.getItem(key);
-                if (!raw) return null;
-                try {
-                    const data = JSON.parse(raw);
-                    if (Date.now() - data.t < CACHE_TIME_CONTENT) return data.content;
-                    return null;
-                } catch (e) { return null; }
-            }
-
-            function getCachedContentFallback(postName) {
-                const key = CACHE_KEY_CONTENT_PREFIX + postName;
-                const raw = localStorage.getItem(key);
-                if (!raw) return null;
-                try {
-                    const data = JSON.parse(raw);
-                    return data.content;
-                } catch (e) { return null; }
-            }
-
-            function setCachedContent(postName, content) {
-                const key = CACHE_KEY_CONTENT_PREFIX + postName;
-                localStorage.setItem(key, JSON.stringify({ t: Date.now(), content }));
+                return false;
             }
 
             function parseFrontmatter(md) {
@@ -2313,21 +2290,18 @@
                 return { metadata: meta, content: m[2] };
             }
 
-            async function fetchPost(p) {
-                const cachedContent = getCachedContent(p.name);
-                if (cachedContent) {
-                    const { metadata, content } = parseFrontmatter(cachedContent);
-                    const html = marked.parse(content);
-                    return { ...p, metadata, content, html, lastModified: null, fromCache: true };
-                }
-
-                if (!p.download_url) {
-                    const fallbackContent = getCachedContentFallback(p.name);
-                    if (fallbackContent) {
-                        const { metadata, content } = parseFrontmatter(fallbackContent);
+            async function fetchPost(p, forceRefresh = false) {
+                // Cek cache dulu
+                if (!forceRefresh) {
+                    const cachedContent = getCachedContent(p.name);
+                    if (cachedContent) {
+                        const { metadata, content } = parseFrontmatter(cachedContent);
                         const html = marked.parse(content);
                         return { ...p, metadata, content, html, lastModified: null, fromCache: true };
                     }
+                }
+
+                if (!p.download_url) {
                     return { ...p, metadata: {}, content: '', html: '<p>Konten tidak tersedia.</p>', lastModified: null };
                 }
 
@@ -2340,7 +2314,8 @@
                     const lastModified = r.headers.get('Last-Modified');
                     return { ...p, metadata, content, lastModified, html: marked.parse(content), fromCache: false };
                 } catch (err) {
-                    const fallbackContent = getCachedContentFallback(p.name);
+                    // Jika fetch gagal, coba pakai cache lama
+                    const fallbackContent = getCachedContent(p.name);
                     if (fallbackContent) {
                         const { metadata, content } = parseFrontmatter(fallbackContent);
                         const html = marked.parse(content);
@@ -2374,18 +2349,70 @@
             }
 
             // ============================================================
-            // RENDER HOME
+            // RENDER HOME — DENGAN CACHE AGGRESIF
             // ============================================================
             async function renderHome() {
-                loadingSpinnerContainer.style.display = 'block';
-                postContainer.style.display = 'none';
-                loadMoreContainer.style.display = 'none';
-                sortBar.style.display = 'none';
-                filterIndicator.style.display = 'none';
-                categoryBar.style.display = 'none';
+                // Sembunyikan spinner jika sudah ada cache
+                const hasCache = getCachedList() && getCachedList().length > 0;
+
+                if (!hasCache) {
+                    loadingSpinnerContainer.style.display = 'block';
+                    postContainer.style.display = 'none';
+                    loadMoreContainer.style.display = 'none';
+                    sortBar.style.display = 'none';
+                    filterIndicator.style.display = 'none';
+                    categoryBar.style.display = 'none';
+                } else {
+                    // Jika ada cache, langsung tampilkan (spinner tetap tersembunyi)
+                    loadingSpinnerContainer.style.display = 'none';
+                    postContainer.style.display = 'grid';
+                    loadMoreContainer.style.display = 'block';
+                    sortBar.style.display = 'flex';
+                    filterIndicator.style.display = 'flex';
+                    categoryBar.style.display = 'flex';
+                }
 
                 try {
-                    await fetchPostList();
+                    // Ambil data dari cache dulu (instan)
+                    const cachedData = getCachedList();
+                    if (cachedData && cachedData.length) {
+                        postsData = cachedData;
+                        // Fetch konten dari cache juga
+                        const cachedFetched = await Promise.all(postsData.map(p => fetchPost(p, false)));
+                        fetchedPosts = cachedFetched;
+                        await sortPostsByView();
+
+                        // Tampilkan konten dari cache
+                        renderPopularSection();
+                        renderCategoryBar();
+                        resetAndApplyFilters();
+                        startCarousel();
+
+                        // Setelah tampil, fetch ulang di background untuk update
+                        fetchBackgroundUpdates();
+
+                        const { page, post, q } = getPageFromQuery();
+                        if (page === 'detail' && post) {
+                            goToDetailDirectly(post);
+                        } else if (page === 'search') {
+                            navigateTo('search', null, q || '');
+                        } else if (page === 'profile') {
+                            navigateTo('profile');
+                        } else {
+                            navigateTo('home');
+                        }
+                        return;
+                    }
+
+                    // Jika tidak ada cache, fetch dari GitHub dengan loading
+                    loadingSpinnerContainer.style.display = 'block';
+                    postContainer.style.display = 'none';
+                    loadMoreContainer.style.display = 'none';
+                    sortBar.style.display = 'none';
+                    filterIndicator.style.display = 'none';
+                    categoryBar.style.display = 'none';
+
+                    const fromCache = await fetchPostList(false);
                     if (!postsData.length) {
                         postContainer.style.display = 'block';
                         postContainer.innerHTML =
@@ -2394,7 +2421,8 @@
                         loadingSpinnerContainer.style.display = 'none';
                         return;
                     }
-                    fetchedPosts = await Promise.all(postsData.map(fetchPost));
+
+                    fetchedPosts = await Promise.all(postsData.map(p => fetchPost(p, false)));
                     await sortPostsByView();
 
                     loadingSpinnerContainer.style.display = 'none';
@@ -2408,6 +2436,11 @@
                     renderCategoryBar();
                     resetAndApplyFilters();
                     startCarousel();
+
+                    // Jika data dari cache, update background
+                    if (!fromCache) {
+                        fetchBackgroundUpdates();
+                    }
 
                     const { page, post, q } = getPageFromQuery();
                     if (page === 'detail' && post) {
@@ -2433,6 +2466,49 @@
                         </div>
                     `;
                     loadMoreContainer.style.display = 'block';
+                }
+            }
+
+            // ============================================================
+            // FETCH BACKGROUND — UPDATE CACHE TANPA MENGGANGGU UI
+            // ============================================================
+            async function fetchBackgroundUpdates() {
+                try {
+                    const success = await fetchPostList(true); // force refresh
+                    if (success) {
+                        // Jika ada perubahan, update konten di background
+                        const newFetched = await Promise.all(postsData.map(p => fetchPost(p, true)));
+                        // Bandingkan apakah ada perubahan (sederhana: cek jumlah)
+                        if (newFetched.length !== fetchedPosts.length) {
+                            fetchedPosts = newFetched;
+                            await sortPostsByView();
+                            // Refresh tampilan tanpa mereset scroll
+                            renderPopularSection();
+                            renderCategoryBar();
+                            resetAndApplyFilters();
+                            startCarousel();
+                        } else {
+                            // Cek apakah ada konten yang berubah (misal update metadata)
+                            // Untuk simpel, kita update jika ada perbedaan
+                            let hasChange = false;
+                            for (let i = 0; i < newFetched.length; i++) {
+                                if (newFetched[i].metadata.judul !== fetchedPosts[i]?.metadata.judul) {
+                                    hasChange = true;
+                                    break;
+                                }
+                            }
+                            if (hasChange) {
+                                fetchedPosts = newFetched;
+                                await sortPostsByView();
+                                renderPopularSection();
+                                renderCategoryBar();
+                                resetAndApplyFilters();
+                                startCarousel();
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Background update gagal:', e);
                 }
             }
 
