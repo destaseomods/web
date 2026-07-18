@@ -881,8 +881,8 @@
            PROFIL — POSISI AWAL & TIDAK BISA SCROLL MELEWATI TOPBAR
            ============================================================ */
         #profile-section {
-            scroll-margin-top: 76px;  /* tinggi topbar */
-            padding-top: 12px;        /* kembali ke default container padding */
+            scroll-margin-top: 76px;
+            padding-top: 12px;
         }
         .profile-card {
             position: relative;
@@ -1558,8 +1558,8 @@
 
             const CACHE_KEY_LIST = 'destaseo_post_list_v3';
             const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
-            const CACHE_TIME_LIST = 60 * 1000;
-            const CACHE_TIME_CONTENT = 60 * 1000;
+            const CACHE_TIME_LIST = 60 * 60 * 1000; // 1 jam
+            const CACHE_TIME_CONTENT = 60 * 60 * 1000; // 1 jam
 
             // ===== IP =====
             async function getUserIP() {
@@ -1820,7 +1820,6 @@
                 const url = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
                 window.history.pushState({ page, post: postName, q }, '', url);
 
-                // Gunakan requestAnimationFrame agar tidak memblokir UI
                 requestAnimationFrame(() => {
                     if (page === 'home') {
                         showHome();
@@ -1863,7 +1862,6 @@
                 setActiveNav('home');
 
                 if (fetchedPosts.length) {
-                    // Render ulang dengan microtask agar tidak blocking
                     requestAnimationFrame(() => {
                         renderCategoryBar();
                         resetAndApplyFilters();
@@ -1902,7 +1900,6 @@
                 setActiveNav('profile');
                 stopCarousel();
                 renderProfile();
-                // Scroll ke posisi paling atas — dengan scroll-margin-top, berhenti di bawah topbar
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
@@ -2177,8 +2174,77 @@
             }
 
             // ============================================================
-            // FETCH DATA
+            // FETCH DATA — DENGAN RETRY 3X DAN FALLBACK STATIS
             // ============================================================
+            async function fetchPostList() {
+                // Cek cache dulu
+                const cached = getCachedList();
+                if (cached && cached.length) {
+                    postsData = cached;
+                    return;
+                }
+
+                // Fallback data statis jika semua gagal
+                const fallbackPosts = [
+                    { filename: "capcut-mod-premium.md", name: "capcut-mod-premium", download_url: "https://raw.githubusercontent.com/destaseomods/web/main/posts/capcut-mod-premium.md" },
+                    { filename: "snapchat-mod-premium.md", name: "snapchat-mod-premium", download_url: "https://raw.githubusercontent.com/destaseomods/web/main/posts/snapchat-mod-premium.md" },
+                    { filename: "instagram-mod-premium.md", name: "instagram-mod-premium", download_url: "https://raw.githubusercontent.com/destaseomods/web/main/posts/instagram-mod-premium.md" },
+                    { filename: "whatsapp-mod-premium.md", name: "whatsapp-mod-premium", download_url: "https://raw.githubusercontent.com/destaseomods/web/main/posts/whatsapp-mod-premium.md" }
+                ];
+
+                const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
+
+                // Retry 3 kali
+                for (let attempt = 1; attempt <= 3; attempt++) {
+                    try {
+                        const controller = new AbortController();
+                        const timeout = setTimeout(() => controller.abort(), 5000);
+
+                        const res = await fetch(apiUrl, {
+                            signal: controller.signal,
+                            headers: {
+                                'Accept': 'application/vnd.github.v3+json',
+                                'User-Agent': 'DestaseoMods/1.0'
+                            }
+                        });
+                        clearTimeout(timeout);
+
+                        if (!res.ok) {
+                            if (res.status === 403) {
+                                console.warn('⚠️ GitHub API rate limit, pakai data statis.');
+                                postsData = fallbackPosts;
+                                setCachedList(postsData);
+                                return;
+                            }
+                            throw new Error(`HTTP ${res.status}`);
+                        }
+
+                        const files = await res.json();
+                        const mdFiles = files.filter(f => f.name.endsWith('.md'));
+                        if (!mdFiles.length) throw new Error('Tidak ada file .md');
+
+                        postsData = mdFiles.map(f => ({
+                            filename: f.name,
+                            name: f.name.replace('.md', ''),
+                            download_url: f.download_url
+                        }));
+
+                        setCachedList(postsData);
+                        return; // Sukses
+
+                    } catch (err) {
+                        console.warn(`❌ Percobaan ${attempt} gagal:`, err.message);
+                        if (attempt === 3) {
+                            console.warn('⚠️ Semua percobaan gagal, pakai data statis.');
+                            postsData = fallbackPosts;
+                            setCachedList(postsData);
+                            return;
+                        }
+                        await new Promise(r => setTimeout(r, 1000 * attempt));
+                    }
+                }
+            }
+
             function getCachedList() {
                 const raw = localStorage.getItem(CACHE_KEY_LIST);
                 if (!raw) return null;
@@ -2226,31 +2292,6 @@
             function setCachedContent(postName, content) {
                 const key = CACHE_KEY_CONTENT_PREFIX + postName;
                 localStorage.setItem(key, JSON.stringify({ t: Date.now(), content }));
-            }
-
-            async function fetchPostList() {
-                const cached = getCachedList();
-                if (cached) { postsData = cached; return; }
-
-                const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
-                try {
-                    const res = await fetch(apiUrl);
-                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                    const files = await res.json();
-                    const mdFiles = files.filter(f => f.name.endsWith('.md'));
-                    if (!mdFiles.length) throw new Error('Tidak ada file .md');
-                    postsData = mdFiles.map(f => ({ filename: f.name, name: f.name.replace('.md', ''), download_url: f
-                            .download_url }));
-                    setCachedList(postsData);
-                } catch (err) {
-                    const fallback = getCachedListFallback();
-                    if (fallback && fallback.length) {
-                        console.warn('⚠️ Gagal fetch list, pakai cache fallback (mungkin usang).');
-                        postsData = fallback;
-                        return;
-                    }
-                    throw new Error('Gagal mengambil daftar postingan dan tidak ada cache.');
-                }
             }
 
             function parseFrontmatter(md) {
@@ -2329,7 +2370,6 @@
             // RENDER HOME (async)
             // ============================================================
             async function renderHome() {
-                // Tampilkan spinner di bawah carousel, sembunyikan konten lain
                 loadingSpinnerContainer.style.display = 'block';
                 postContainer.style.display = 'none';
                 loadMoreContainer.style.display = 'none';
@@ -2350,7 +2390,6 @@
                     fetchedPosts = await Promise.all(postsData.map(fetchPost));
                     await sortPostsByView();
 
-                    // Sembunyikan spinner, tampilkan konten
                     loadingSpinnerContainer.style.display = 'none';
                     postContainer.style.display = 'grid';
                     loadMoreContainer.style.display = 'block';
@@ -2376,8 +2415,16 @@
                 } catch (err) {
                     loadingSpinnerContainer.style.display = 'none';
                     postContainer.style.display = 'block';
-                    postContainer.innerHTML =
-                        `<div class="error-text">⚠️ Gagal memuat data. Coba refresh halaman. <br><small>${err.message}</small></div>`;
+                    postContainer.innerHTML = `
+                        <div class="error-text">
+                            ⚠️ Gagal memuat data. Coba refresh halaman. <br>
+                            <small>${err.message}</small>
+                            <br><br>
+                            <button onclick="location.reload()" style="background:var(--accent2);color:#04040e;border:none;padding:10px 24px;border-radius:30px;font-weight:700;cursor:pointer;">
+                                <i class="fas fa-sync"></i> Coba Lagi
+                            </button>
+                        </div>
+                    `;
                     loadMoreContainer.style.display = 'block';
                 }
             }
@@ -2535,7 +2582,6 @@
                     recHtml += `</div></div>`;
                 }
 
-                // Tampilkan spinner
                 detailContent.innerHTML = '<div class="spinner"></div>';
                 showSection(detailSection);
                 setActiveNav('detail');
@@ -2744,9 +2790,6 @@
 
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
-            // ============================================================
-            // TOMBOL KEMBALI – PAKAI HISTORY.BACK() DENGAN FALLBACK
-            // ============================================================
             detailBack.addEventListener('click', function() {
                 if (window.history.length > 1) {
                     window.history.back();
