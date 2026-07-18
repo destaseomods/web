@@ -965,9 +965,6 @@
             .card-body { padding: 8px 10px 10px; }
             .carousel-wrapper { height: 140px; }
             .carousel-slide .slide-title { font-size: 0.75rem; }
-            .rec-card img { height: 70px; }
-            .rec-card .rec-title { font-size: 0.6rem; padding: 6px 8px; }
-            .rec-grid { gap: 8px; }
             .daily-visitor { font-size: 0.75rem; padding: 8px 10px; }
             .nav-item { font-size: 0.5rem; padding: 6px 10px; }
             .nav-item i { font-size: 0.9rem; }
@@ -1089,7 +1086,7 @@
             }
 
             // ============================================================
-            // FALLBACK MARKED PARSER (jika marked gagal)
+            // FALLBACK MARKED PARSER
             // ============================================================
             function safeMarkedParse(content) {
                 try {
@@ -1101,12 +1098,13 @@
                 } catch (e) {
                     console.warn('Marked parse error, pakai fallback:', e);
                 }
-                // Fallback sederhana: ubah newline ke <br>, dan bungkus # menjadi heading
                 let html = content || '';
                 html = html.replace(/\n/g, '<br>');
                 html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
                 html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
                 html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+                html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
                 return html;
             }
 

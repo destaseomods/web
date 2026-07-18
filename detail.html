@@ -790,6 +790,16 @@
     <script>
         (function() {
             // ============================================================
+            // ALIAS — MAPPING ID ANGKA KE NAMA POST
+            // ============================================================
+            const POST_ALIAS = {
+                '1': 'capcut-mod-premium',
+                '2': 'snapchat-mod-premium',
+                '3': 'instagram-mod-premium',
+                '4': 'whatsapp-mod-premium'
+            };
+
+            // ============================================================
             // FALLBACK MARKED PARSER
             // ============================================================
             function safeMarkedParse(content) {
@@ -802,7 +812,6 @@
                 } catch (e) {
                     console.warn('Marked parse error, pakai fallback:', e);
                 }
-                // Fallback sederhana
                 let html = content || '';
                 html = html.replace(/\n/g, '<br>');
                 html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
@@ -936,11 +945,18 @@
             }
 
             // ============================================================
-            // GET POST FROM QUERY
+            // GET POST FROM QUERY — DENGAN ALIAS
             // ============================================================
             function getPostNameFromQuery() {
                 const params = new URLSearchParams(window.location.search);
-                return params.get('post') || null;
+                let raw = params.get('post') || null;
+                if (!raw) return null;
+
+                // Cek apakah raw adalah angka dan ada di alias
+                if (POST_ALIAS[raw]) {
+                    return POST_ALIAS[raw];
+                }
+                return raw;
             }
 
             // ============================================================
@@ -1253,14 +1269,18 @@
             // RENDER DETAIL
             // ============================================================
             async function renderDetail(name) {
-                // Tampilkan spinner loading
                 detailContent.innerHTML = '<div class="spinner"></div>';
 
                 const post = getPostByName(name);
                 if (!post) {
+                    // Tampilkan daftar alias yang tersedia
+                    const available = Object.entries(POST_ALIAS).map(([id, nama]) => `ID ${id} → ${nama}`).join('<br>');
                     detailContent.innerHTML = `
                         <div class="error-text">
                             ❌ Postingan tidak ditemukan. <br><small>${name}</small>
+                            <br><br>
+                            <strong>Alias yang tersedia:</strong><br>
+                            ${available}
                             <br><br>
                             <a href="/" style="color:var(--accent2);text-decoration:underline;">Kembali ke Beranda</a>
                         </div>
@@ -1268,7 +1288,6 @@
                     return;
                 }
 
-                // Ambil view count
                 const viewCount = await getPostViewCount(name, true);
 
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
@@ -1302,7 +1321,6 @@
                     `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` :
                     '';
 
-                // Rekomendasi
                 const recPosts = getRecommendations(name, 4);
                 let recHtml = '';
                 if (recPosts.length > 0) {
@@ -1322,12 +1340,10 @@
                     recHtml += `</div></div>`;
                 }
 
-                // SEO
                 const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
                 const detailUrl = window.location.origin + window.location.pathname + '?post=' + encodeURIComponent(name);
                 updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, detailUrl);
 
-                // JSON-LD
                 const articleJson = {
                     "@context": "https://schema.org",
                     "@type": "Article",
@@ -1342,7 +1358,6 @@
                 if (!script) { script = document.createElement('script'); script.id = 'article-ld-json'; script.type = 'application/ld+json'; document.head.appendChild(script); }
                 script.textContent = JSON.stringify(articleJson);
 
-                // Render HTML
                 detailContent.innerHTML = `
                 <div class="detail-header fade-in-content">
                     ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
@@ -1364,7 +1379,6 @@
                 <div id="ad-container" style="margin-top:20px; text-align:center;"></div>
             `;
 
-                // Event tombol download
                 if (hasDownload) {
                     const dBtn = document.getElementById('detail-download-btn');
                     if (dBtn) {
@@ -1376,7 +1390,6 @@
                     }
                 }
 
-                // Load iklan setelah konten dirender
                 const adContainer = document.getElementById('ad-container');
                 if (adContainer) {
                     setTimeout(() => {
@@ -1387,7 +1400,6 @@
                     console.warn('⚠️ Container iklan tidak ditemukan.');
                 }
 
-                // Event untuk rekomendasi
                 document.querySelectorAll('.rec-card').forEach(card => {
                     card.addEventListener('click', function() {
                         const href = this.getAttribute('onclick');
@@ -1404,9 +1416,21 @@
             // ============================================================
             // LOAD
             // ============================================================
+            const rawPost = new URLSearchParams(window.location.search).get('post');
             const postName = getPostNameFromQuery();
+
             if (postName) {
                 renderDetail(postName);
+            } else if (rawPost) {
+                // Jika ada parameter post tapi tidak ditemukan di alias
+                detailContent.innerHTML = `
+                    <div class="error-text">
+                        ❌ Postingan dengan ID/Nama "${rawPost}" tidak ditemukan. <br>
+                        <small>Pastikan Anda menggunakan ID atau nama yang benar.</small>
+                        <br><br>
+                        <a href="/" style="color:var(--accent2);text-decoration:underline;">Kembali ke Beranda</a>
+                    </div>
+                `;
             } else {
                 detailContent.innerHTML = `
                     <div class="error-text">
@@ -1425,7 +1449,6 @@
             document.addEventListener('click', () => telegramDropdown.classList.remove('show'));
             telegramDropdown.addEventListener('click', (e) => e.stopPropagation());
 
-            // QRIS
             const qrisOverlay = document.getElementById('qris-overlay');
             const qrisCloseBtn = document.getElementById('qris-close-btn');
             const qrisDanaBtn = document.getElementById('qris-dana-btn');
@@ -1449,7 +1472,6 @@
                 } catch { window.open(QRIS_URL, '_blank'); }
             });
 
-            // Navigasi bottom nav
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1458,7 +1480,7 @@
                 });
             });
 
-            console.log('✅ Detail page loaded. Post:', postName);
+            console.log('✅ Detail page loaded. Post:', postName, 'Raw:', rawPost);
         })();
     </script>
 </body>
