@@ -988,9 +988,20 @@
                 if (!found) return null;
                 const cachedContent = getCachedContent(name);
                 if (cachedContent) {
-                    const { metadata, content } = parseFrontmatter(cachedContent);
-                    const html = marked.parse(content);
-                    return { ...found, metadata, content, html };
+                    try {
+                        const { metadata, content } = parseFrontmatter(cachedContent);
+                        // Pastikan marked sudah siap
+                        if (typeof marked !== 'undefined' && marked.parse) {
+                            const html = marked.parse(content);
+                            return { ...found, metadata, content, html };
+                        } else {
+                            // Fallback: marked belum siap, gunakan content mentah
+                            return { ...found, metadata, content, html: '<pre>' + content + '</pre>' };
+                        }
+                    } catch (e) {
+                        console.warn('Gagal parse konten:', e);
+                        return { ...found, metadata: {}, content: '', html: '<p>Konten error.</p>' };
+                    }
                 }
                 return null;
             }
@@ -1174,15 +1185,26 @@
             let adScriptElement = null;
 
             function loadAdScript(container) {
-                if (adScriptElement) { adScriptElement.remove(); adScriptElement = null; }
+                if (adScriptElement) {
+                    try { adScriptElement.remove(); } catch(e) {}
+                    adScriptElement = null;
+                }
                 adScriptElement = document.createElement('script');
                 adScriptElement.src = 'https://cabinetavidgrasp.com/c4/11/28/c4112850e63eed959d261d84abff70ee.js';
                 adScriptElement.async = true;
+                adScriptElement.defer = true;
+                adScriptElement.onerror = function() {
+                    console.warn('Gagal memuat script iklan. Coba lagi nanti.');
+                };
                 container.appendChild(adScriptElement);
+                console.log('✅ Script iklan dimuat.');
             }
 
             function unloadAdScript() {
-                if (adScriptElement) { adScriptElement.remove(); adScriptElement = null; }
+                if (adScriptElement) {
+                    try { adScriptElement.remove(); } catch(e) {}
+                    adScriptElement = null;
+                }
             }
 
             // ============================================================
@@ -1197,8 +1219,10 @@
                 const postsWithMeta = list.map(p => {
                     const content = getCachedContent(p.name);
                     if (content) {
-                        const { metadata } = parseFrontmatter(content);
-                        return { ...p, metadata };
+                        try {
+                            const { metadata } = parseFrontmatter(content);
+                            return { ...p, metadata };
+                        } catch(e) { return { ...p, metadata: {} }; }
                     }
                     return { ...p, metadata: {} };
                 });
@@ -1224,6 +1248,9 @@
             // RENDER DETAIL
             // ============================================================
             async function renderDetail(name) {
+                // Tampilkan spinner loading
+                detailContent.innerHTML = '<div class="spinner"></div>';
+
                 const post = getPostByName(name);
                 if (!post) {
                     detailContent.innerHTML = `
@@ -1332,6 +1359,7 @@
                 <div id="ad-container" style="margin-top:20px; text-align:center;"></div>
             `;
 
+                // Event tombol download
                 if (hasDownload) {
                     const dBtn = document.getElementById('detail-download-btn');
                     if (dBtn) {
@@ -1343,18 +1371,29 @@
                     }
                 }
 
-                // Load iklan
+                // Load iklan setelah konten dirender
                 const adContainer = document.getElementById('ad-container');
                 if (adContainer) {
-                    unloadAdScript();
-                    loadAdScript(adContainer);
+                    // Beri jeda kecil agar DOM benar-benar siap
+                    setTimeout(() => {
+                        unloadAdScript();
+                        loadAdScript(adContainer);
+                    }, 100);
+                } else {
+                    console.warn('⚠️ Container iklan tidak ditemukan.');
                 }
 
-                // Event untuk rekomendasi (jika ada)
+                // Event untuk rekomendasi
                 document.querySelectorAll('.rec-card').forEach(card => {
                     card.addEventListener('click', function() {
                         const href = this.getAttribute('onclick');
-                        if (href) eval(href);
+                        if (href) {
+                            // Ekstrak URL dari onclick
+                            const match = href.match(/\/detail\.html\?post=([^']+)/);
+                            if (match) {
+                                window.location.href = '/detail.html?post=' + match[1];
+                            }
+                        }
                     });
                 });
             }
