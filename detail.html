@@ -104,7 +104,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== TOPBAR ===== */
         .topbar {
             display: flex;
             align-items: center;
@@ -215,7 +214,6 @@
         }
         .telegram-dropdown a i { width: 18px; text-align: center; }
 
-        /* ===== BACK BUTTON ===== */
         .back-btn {
             background: none;
             border: none;
@@ -233,7 +231,6 @@
         }
         .back-btn:hover { opacity: 0.8; }
 
-        /* ===== DETAIL ===== */
         .detail-header {
             background: var(--surface);
             backdrop-filter: blur(24px);
@@ -311,7 +308,6 @@
         }
         @media (min-width: 500px) { .meta-item strong { font-size: 0.7rem; } }
 
-        /* ===== DOWNLOAD NOTE ===== */
         .download-note {
             background: rgba(255, 215, 0, 0.08);
             border: 1px solid rgba(255, 215, 0, 0.2);
@@ -373,7 +369,6 @@
             border: 1px solid var(--border);
         }
 
-        /* ===== CONTENT ===== */
         .content-box {
             background: var(--surface);
             backdrop-filter: blur(24px);
@@ -403,7 +398,6 @@
             font-size: 0.8rem;
         }
 
-        /* ===== TAGS ===== */
         .tags-container {
             margin-top: 10px;
             display: flex;
@@ -423,7 +417,6 @@
         }
         @media (min-width: 500px) { .tag-badge { font-size: 0.65rem; padding: 3px 10px; } }
 
-        /* ===== SCREENSHOT ===== */
         .screenshot-scroll {
             display: flex;
             flex-wrap: nowrap;
@@ -455,7 +448,6 @@
             border-color: var(--accent);
         }
 
-        /* ===== LIGHTBOX ===== */
         .lightbox {
             position: fixed;
             top: 0;
@@ -554,7 +546,6 @@
             .lightbox-counter { font-size: 0.7rem; padding: 4px 14px; bottom: 18px; }
         }
 
-        /* ===== RECOMMENDATIONS ===== */
         .recommendations-section {
             margin-top: 20px;
             padding: 16px 0;
@@ -620,7 +611,6 @@
             .rec-card .rec-title { padding: 10px 12px; font-size: 0.75rem; }
         }
 
-        /* ===== QRIS ===== */
         .qris-overlay {
             position: fixed;
             top: 0;
@@ -668,7 +658,6 @@
         }
         .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255, 255, 255, 0.1); }
 
-        /* ===== SPINNER & ERROR ===== */
         .spinner {
             width: 50px;
             height: 50px;
@@ -689,7 +678,6 @@
             font-size: 0.9rem;
         }
 
-        /* ===== BOTTOM NAV ===== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -733,7 +721,6 @@
         .nav-item i { font-size: 1.1rem; }
         @media (min-width: 500px) { .nav-item i { font-size: 1.3rem; } }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 360px) {
             .logo-text { font-size: 1rem; }
             .logo-img { width: 28px; height: 28px; }
@@ -802,6 +789,30 @@
 
     <script>
         (function() {
+            // ============================================================
+            // FALLBACK MARKED PARSER
+            // ============================================================
+            function safeMarkedParse(content) {
+                try {
+                    if (typeof marked !== 'undefined' && marked && typeof marked.parse === 'function') {
+                        return marked.parse(content);
+                    } else if (typeof marked !== 'undefined' && typeof marked === 'function') {
+                        return marked(content);
+                    }
+                } catch (e) {
+                    console.warn('Marked parse error, pakai fallback:', e);
+                }
+                // Fallback sederhana
+                let html = content || '';
+                html = html.replace(/\n/g, '<br>');
+                html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+                html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+                html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+                html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                return html;
+            }
+
             // ============================================================
             // KONFIGURASI
             // ============================================================
@@ -990,14 +1001,8 @@
                 if (cachedContent) {
                     try {
                         const { metadata, content } = parseFrontmatter(cachedContent);
-                        // Pastikan marked sudah siap
-                        if (typeof marked !== 'undefined' && marked.parse) {
-                            const html = marked.parse(content);
-                            return { ...found, metadata, content, html };
-                        } else {
-                            // Fallback: marked belum siap, gunakan content mentah
-                            return { ...found, metadata, content, html: '<pre>' + content + '</pre>' };
-                        }
+                        const html = safeMarkedParse(content);
+                        return { ...found, metadata, content, html };
                     } catch (e) {
                         console.warn('Gagal parse konten:', e);
                         return { ...found, metadata: {}, content: '', html: '<p>Konten error.</p>' };
@@ -1374,7 +1379,6 @@
                 // Load iklan setelah konten dirender
                 const adContainer = document.getElementById('ad-container');
                 if (adContainer) {
-                    // Beri jeda kecil agar DOM benar-benar siap
                     setTimeout(() => {
                         unloadAdScript();
                         loadAdScript(adContainer);
@@ -1388,7 +1392,6 @@
                     card.addEventListener('click', function() {
                         const href = this.getAttribute('onclick');
                         if (href) {
-                            // Ekstrak URL dari onclick
                             const match = href.match(/\/detail\.html\?post=([^']+)/);
                             if (match) {
                                 window.location.href = '/detail.html?post=' + match[1];
