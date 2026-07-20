@@ -466,15 +466,25 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        /* ===== GRID 3 KOLOM DI SEMUA UKURAN LAYAR ===== */
         .post-grid {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 14px;
             margin-top: 2px;
         }
-        @media (min-width: 420px) { .post-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
-        @media (min-width: 768px) { .post-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; } }
-        @media (min-width: 1024px) { .post-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+
+        /* Penyesuaian gap di layar kecil agar tetap rapi */
+        @media (max-width: 480px) {
+            .post-grid {
+                gap: 10px;
+            }
+        }
+        @media (max-width: 360px) {
+            .post-grid {
+                gap: 8px;
+            }
+        }
 
         .post-card {
             background: var(--surface);
@@ -509,8 +519,17 @@
             position: relative;
             overflow: hidden;
         }
-        @media (min-width: 420px) { .card-img { height: 140px; } }
-        @media (min-width: 768px) { .card-img { height: 160px; } }
+        /* Di layar sangat kecil, tinggi gambar dikurangi agar proporsional */
+        @media (max-width: 420px) {
+            .card-img {
+                height: 110px;
+            }
+        }
+        @media (max-width: 360px) {
+            .card-img {
+                height: 90px;
+            }
+        }
         .card-img img {
             width: 100%;
             height: 100%;
@@ -547,13 +566,34 @@
             flex-direction: column;
             gap: 6px;
         }
+        @media (max-width: 420px) {
+            .card-body {
+                padding: 10px 10px 12px;
+                gap: 4px;
+            }
+        }
+        @media (max-width: 360px) {
+            .card-body {
+                padding: 8px 8px 10px;
+                gap: 3px;
+            }
+        }
         .card-title {
             font-weight: 800;
             font-size: 0.8rem;
             line-height: 1.3;
             color: #fff;
         }
-        @media (min-width: 500px) { .card-title { font-size: 0.85rem; } }
+        @media (max-width: 420px) {
+            .card-title {
+                font-size: 0.7rem;
+            }
+        }
+        @media (max-width: 360px) {
+            .card-title {
+                font-size: 0.6rem;
+            }
+        }
         .card-meta {
             font-size: 0.65rem;
             color: var(--text2);
@@ -561,6 +601,18 @@
             align-items: center;
             gap: 6px;
             flex-wrap: wrap;
+        }
+        @media (max-width: 420px) {
+            .card-meta {
+                font-size: 0.55rem;
+                gap: 4px;
+            }
+        }
+        @media (max-width: 360px) {
+            .card-meta {
+                font-size: 0.5rem;
+                gap: 3px;
+            }
         }
         .badge {
             background: rgba(168, 127, 255, 0.2);
@@ -654,6 +706,18 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+        }
+        @media (max-width: 420px) {
+            .card-excerpt {
+                font-size: 0.6rem;
+                -webkit-line-clamp: 1;
+            }
+        }
+        @media (max-width: 360px) {
+            .card-excerpt {
+                font-size: 0.5rem;
+                -webkit-line-clamp: 1;
+            }
         }
 
         .load-more-btn {
@@ -1351,16 +1415,19 @@
             word-wrap: break-word;
         }
 
+        /* Penyesuaian ukuran untuk layar sangat kecil */
         @media (max-width: 360px) {
             .logo-text { font-size: 1rem; }
             .logo-img { width: 28px; height: 28px; }
             .topbar { padding: 10px 14px; border-radius: 28px; }
             .telegram-btn { font-size: 0.65rem; padding: 5px 10px; }
             .container { padding: 8px 12px; }
-            .post-grid { gap: 10px; }
-            .card-img { height: 100px; }
-            .card-title { font-size: 0.7rem; }
-            .card-body { padding: 8px 10px 10px; }
+            .post-grid { gap: 8px; }
+            .card-img { height: 90px; }
+            .card-title { font-size: 0.6rem; }
+            .card-body { padding: 8px 8px 10px; gap: 3px; }
+            .card-meta { font-size: 0.5rem; gap: 3px; }
+            .card-excerpt { font-size: 0.5rem; -webkit-line-clamp: 1; }
             .carousel-wrapper { height: 140px; }
             .carousel-slide .slide-title { font-size: 0.75rem; }
             .detail-title { font-size: 0.85rem; }
