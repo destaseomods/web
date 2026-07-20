@@ -2949,12 +2949,9 @@
 
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
+            // ===== PERUBAHAN: Tombol Kembali selalu ke Beranda =====
             detailBack.addEventListener('click', function() {
-                if (window.history.length > 1) {
-                    window.history.back();
-                } else {
-                    navigateTo('home');
-                }
+                navigateTo('home');
             });
 
             navItems.forEach(i => i.addEventListener('click', () => {
