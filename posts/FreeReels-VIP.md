@@ -3,7 +3,7 @@ tanggal: 2026-07-16 22:22
 populer: true
 badges: VIP
 judul: "FREEREELS MOD VIP"
-gambar: "https://leeapk.com/wp-content/uploads/2026/04/FreeReels-App-Logo.webp"
+gambar: "https://play-lh.googleusercontent.com/1ybMEp7xw4kTY-K7ocih3vcbTEyCEqaxerVB6tDT8WcE3k5zCRR-jhKwS6Ct0UXIorczCIat3wTV0QLiuoLPdbY"
 versi: "2.3.81"
 ukuran: "68 MB"
 developer: "SKYWORK AI PTE.LTD."
