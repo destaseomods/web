@@ -53,6 +53,7 @@
     </script>
 
     <style>
+        /* ===== CSS SAMA SEPERTI SEBELUMNYA (tidak diubah) ===== */
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -474,16 +475,11 @@
             margin-top: 2px;
         }
 
-        /* Penyesuaian gap dan ukuran untuk layar kecil */
         @media (max-width: 480px) {
-            .post-grid {
-                gap: 10px;
-            }
+            .post-grid { gap: 10px; }
         }
         @media (max-width: 360px) {
-            .post-grid {
-                gap: 8px;
-            }
+            .post-grid { gap: 8px; }
         }
 
         .post-card {
@@ -519,16 +515,8 @@
             position: relative;
             overflow: hidden;
         }
-        @media (max-width: 420px) {
-            .card-img {
-                height: 110px;
-            }
-        }
-        @media (max-width: 360px) {
-            .card-img {
-                height: 90px;
-            }
-        }
+        @media (max-width: 420px) { .card-img { height: 110px; } }
+        @media (max-width: 360px) { .card-img { height: 90px; } }
         .card-img img {
             width: 100%;
             height: 100%;
@@ -566,19 +554,12 @@
             gap: 6px;
         }
         @media (max-width: 420px) {
-            .card-body {
-                padding: 10px 10px 12px;
-                gap: 4px;
-            }
+            .card-body { padding: 10px 10px 12px; gap: 4px; }
         }
         @media (max-width: 360px) {
-            .card-body {
-                padding: 8px 8px 10px;
-                gap: 3px;
-            }
+            .card-body { padding: 8px 8px 10px; gap: 3px; }
         }
 
-        /* ===== PENYESUAIAN UKURAN FONT DI CARD ===== */
         .card-title {
             font-weight: 800;
             font-size: clamp(0.7rem, 2.5vw, 0.95rem);
@@ -602,7 +583,6 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        /* Badge kategori (warna ungu) */
         .badge {
             background: rgba(168, 127, 255, 0.2);
             color: #cfc4ff;
@@ -620,7 +600,6 @@
             background: rgba(168, 127, 255, 0.4);
             color: #fff;
         }
-        /* Badge premium, vip, noads, unlocked */
         .badge-premium {
             background: linear-gradient(135deg, #f7b731, #f5a623);
             color: #1a1a2e;
@@ -685,19 +664,10 @@
             gap: 4px;
             border: 1px solid var(--border);
         }
-        /* Pada layar sangat kecil, kita tetap menjaga keterbacaan */
         @media (max-width: 360px) {
-            .card-title {
-                font-size: clamp(0.6rem, 2.5vw, 0.7rem);
-            }
-            .card-meta {
-                font-size: clamp(0.5rem, 2vw, 0.6rem);
-                gap: 3px;
-            }
-            .card-excerpt {
-                font-size: clamp(0.5rem, 2vw, 0.6rem);
-                -webkit-line-clamp: 1;
-            }
+            .card-title { font-size: clamp(0.6rem, 2.5vw, 0.7rem); }
+            .card-meta { font-size: clamp(0.5rem, 2vw, 0.6rem); gap: 3px; }
+            .card-excerpt { font-size: clamp(0.5rem, 2vw, 0.6rem); -webkit-line-clamp: 1; }
             .badge,
             .badge-premium,
             .badge-vip,
@@ -833,13 +803,8 @@
             color: #fff;
         }
         @media (min-width: 500px) {
-            .download-note {
-                font-size: 0.85rem;
-                padding: 14px 20px;
-            }
-            .download-note i {
-                font-size: 1.1rem;
-            }
+            .download-note { font-size: 0.85rem; padding: 14px 20px; }
+            .download-note i { font-size: 1.1rem; }
         }
 
         .big-download {
@@ -1404,7 +1369,6 @@
             word-wrap: break-word;
         }
 
-        /* Penyesuaian untuk layar sangat kecil */
         @media (max-width: 360px) {
             .logo-text { font-size: 1rem; }
             .logo-img { width: 28px; height: 28px; }
@@ -1617,12 +1581,10 @@
                 if (!raw) return null;
                 try {
                     const data = JSON.parse(raw);
-                    // CEK KADALUWARSA
                     const timestamp = localStorage.getItem(CACHE_KEY_TIMESTAMP);
                     if (timestamp) {
                         const elapsed = Date.now() - parseInt(timestamp);
                         if (elapsed > CACHE_EXPIRY_MS) {
-                            // Cache sudah kadaluwarsa, hapus
                             localStorage.removeItem(CACHE_KEY_LIST);
                             localStorage.removeItem(CACHE_KEY_TIMESTAMP);
                             return null;
@@ -2265,7 +2227,6 @@
 
             // ============================================================
             // CACHE — FUNGSI TELAH DIATUR DENGAN MASA KADALUWARSA 1 JAM
-            // (getCachedList dan setCachedList sudah di-declare di atas)
             // ============================================================
 
             function getCachedContent(postName) {
@@ -2274,7 +2235,6 @@
                 if (!raw) return null;
                 try {
                     const data = JSON.parse(raw);
-                    // Cek kadaluwarsa 1 jam juga untuk konten
                     const timestamp = localStorage.getItem(key + '_timestamp');
                     if (timestamp) {
                         const elapsed = Date.now() - parseInt(timestamp);
@@ -2298,14 +2258,12 @@
             // FETCH DATA — DENGAN CACHE KADALUWARSA 1 JAM
             // ============================================================
             async function fetchPostList(forceRefresh = false) {
-                // 1. Cek cache dulu
                 const cached = getCachedList();
                 if (cached && cached.length && !forceRefresh) {
                     postsData = cached;
-                    return true; // data dari cache
+                    return true;
                 }
 
-                // 2. Fallback statis
                 const fallbackPosts = [
                     { filename: "capcut-mod-premium.md", name: "capcut-mod-premium", download_url: "https://raw.githubusercontent.com/destaseomods/web/main/posts/capcut-mod-premium.md" },
                     { filename: "snapchat-mod-premium.md", name: "snapchat-mod-premium", download_url: "https://raw.githubusercontent.com/destaseomods/web/main/posts/snapchat-mod-premium.md" },
@@ -2352,7 +2310,7 @@
                         }));
 
                         setCachedList(postsData);
-                        return true; // sukses dari GitHub
+                        return true;
 
                     } catch (err) {
                         console.warn(`❌ Percobaan ${attempt} gagal:`, err.message);
@@ -2383,7 +2341,6 @@
             }
 
             async function fetchPost(p, forceRefresh = false) {
-                // Cek cache dulu
                 if (!forceRefresh) {
                     const cachedContent = getCachedContent(p.name);
                     if (cachedContent) {
@@ -2406,7 +2363,6 @@
                     const lastModified = r.headers.get('Last-Modified');
                     return { ...p, metadata, content, lastModified, html: marked.parse(content), fromCache: false };
                 } catch (err) {
-                    // Jika fetch gagal, coba pakai cache lama
                     const fallbackContent = getCachedContent(p.name);
                     if (fallbackContent) {
                         const { metadata, content } = parseFrontmatter(fallbackContent);
@@ -2444,7 +2400,6 @@
             // RENDER HOME — DENGAN CACHE KADALUWARSA 1 JAM
             // ============================================================
             async function renderHome() {
-                // Sembunyikan spinner jika sudah ada cache dan belum kadaluwarsa
                 const cachedList = getCachedList();
                 const hasCache = cachedList && cachedList.length > 0;
 
@@ -2465,21 +2420,17 @@
                 }
 
                 try {
-                    // Ambil data dari cache dulu (instan)
                     if (cachedList && cachedList.length) {
                         postsData = cachedList;
-                        // Fetch konten dari cache juga
                         const cachedFetched = await Promise.all(postsData.map(p => fetchPost(p, false)));
                         fetchedPosts = cachedFetched;
                         await sortPostsByView();
 
-                        // Tampilkan konten dari cache
                         renderPopularSection();
                         renderCategoryBar();
                         resetAndApplyFilters();
                         startCarousel();
 
-                        // Setelah tampil, fetch ulang di background untuk update
                         fetchBackgroundUpdates();
 
                         const { page, post, q } = getPageFromQuery();
@@ -2495,7 +2446,6 @@
                         return;
                     }
 
-                    // Jika tidak ada cache, fetch dari GitHub dengan loading
                     loadingSpinnerContainer.style.display = 'block';
                     postContainer.style.display = 'none';
                     loadMoreContainer.style.display = 'none';
@@ -2528,7 +2478,6 @@
                     resetAndApplyFilters();
                     startCarousel();
 
-                    // Jika data dari cache, update background
                     if (!fromCache) {
                         fetchBackgroundUpdates();
                     }
@@ -2565,7 +2514,7 @@
             // ============================================================
             async function fetchBackgroundUpdates() {
                 try {
-                    const success = await fetchPostList(true); // force refresh
+                    const success = await fetchPostList(true);
                     if (success) {
                         const newFetched = await Promise.all(postsData.map(p => fetchPost(p, true)));
                         if (newFetched.length !== fetchedPosts.length) {
@@ -3000,13 +2949,16 @@
                 resetAndApplyFilters();
             });
 
+            // ===== PERBAIKAN: Tombol back device juga ke Beranda =====
             window.addEventListener('popstate', (e) => {
                 const state = e.state || {};
-                if (state.page) {
-                    navigateTo(state.page, state.post, state.q);
+                // Jika tidak ada state atau state.page === 'detail', arahkan ke home
+                if (!state.page || state.page === 'detail') {
+                    navigateTo('home');
+                    // Replace state agar tidak kembali ke detail lagi
+                    history.replaceState({ page: 'home' }, '', window.location.pathname);
                 } else {
-                    const { page, post, q } = getPageFromQuery();
-                    navigateTo(page, post, q);
+                    navigateTo(state.page, state.post, state.q);
                 }
             });
 
