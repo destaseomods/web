@@ -1608,6 +1608,36 @@
             const CACHE_KEY_TIMESTAMP = 'destaseo_cache_timestamp';
 
             // ============================================================
+            // CACHE DENGAN MASA KADALUWARSA 1 JAM
+            // ============================================================
+            const CACHE_EXPIRY_MS = 60 * 60 * 1000; // 1 jam
+
+            function getCachedList() {
+                const raw = localStorage.getItem(CACHE_KEY_LIST);
+                if (!raw) return null;
+                try {
+                    const data = JSON.parse(raw);
+                    // CEK KADALUWARSA
+                    const timestamp = localStorage.getItem(CACHE_KEY_TIMESTAMP);
+                    if (timestamp) {
+                        const elapsed = Date.now() - parseInt(timestamp);
+                        if (elapsed > CACHE_EXPIRY_MS) {
+                            // Cache sudah kadaluwarsa, hapus
+                            localStorage.removeItem(CACHE_KEY_LIST);
+                            localStorage.removeItem(CACHE_KEY_TIMESTAMP);
+                            return null;
+                        }
+                    }
+                    return data.posts;
+                } catch (e) { return null; }
+            }
+
+            function setCachedList(posts) {
+                localStorage.setItem(CACHE_KEY_LIST, JSON.stringify({ posts }));
+                localStorage.setItem(CACHE_KEY_TIMESTAMP, Date.now().toString());
+            }
+
+            // ============================================================
             // PARTIKEL — OPTIMASI
             // ============================================================
             const canvas = document.getElementById('particles');
@@ -2234,22 +2264,9 @@
             }
 
             // ============================================================
-            // CACHE — STRATEGI AGGRESIF: CACHE TIDAK PERNAH KEDALUWARSA
+            // CACHE — FUNGSI TELAH DIATUR DENGAN MASA KADALUWARSA 1 JAM
+            // (getCachedList dan setCachedList sudah di-declare di atas)
             // ============================================================
-            function getCachedList() {
-                const raw = localStorage.getItem(CACHE_KEY_LIST);
-                if (!raw) return null;
-                try {
-                    const data = JSON.parse(raw);
-                    // Tidak ada pengecekan waktu — selalu pakai jika ada
-                    return data.posts;
-                } catch (e) { return null; }
-            }
-
-            function setCachedList(posts) {
-                localStorage.setItem(CACHE_KEY_LIST, JSON.stringify({ posts }));
-                localStorage.setItem(CACHE_KEY_TIMESTAMP, Date.now().toString());
-            }
 
             function getCachedContent(postName) {
                 const key = CACHE_KEY_CONTENT_PREFIX + postName;
@@ -2257,7 +2274,16 @@
                 if (!raw) return null;
                 try {
                     const data = JSON.parse(raw);
-                    // Tidak ada pengecekan waktu — selalu pakai jika ada
+                    // Cek kadaluwarsa 1 jam juga untuk konten
+                    const timestamp = localStorage.getItem(key + '_timestamp');
+                    if (timestamp) {
+                        const elapsed = Date.now() - parseInt(timestamp);
+                        if (elapsed > CACHE_EXPIRY_MS) {
+                            localStorage.removeItem(key);
+                            localStorage.removeItem(key + '_timestamp');
+                            return null;
+                        }
+                    }
                     return data.content;
                 } catch (e) { return null; }
             }
@@ -2265,10 +2291,11 @@
             function setCachedContent(postName, content) {
                 const key = CACHE_KEY_CONTENT_PREFIX + postName;
                 localStorage.setItem(key, JSON.stringify({ content }));
+                localStorage.setItem(key + '_timestamp', Date.now().toString());
             }
 
             // ============================================================
-            // FETCH DATA — DENGAN CACHE AGGRESIF
+            // FETCH DATA — DENGAN CACHE KADALUWARSA 1 JAM
             // ============================================================
             async function fetchPostList(forceRefresh = false) {
                 // 1. Cek cache dulu
@@ -2414,11 +2441,12 @@
             }
 
             // ============================================================
-            // RENDER HOME — DENGAN CACHE AGGRESIF
+            // RENDER HOME — DENGAN CACHE KADALUWARSA 1 JAM
             // ============================================================
             async function renderHome() {
-                // Sembunyikan spinner jika sudah ada cache
-                const hasCache = getCachedList() && getCachedList().length > 0;
+                // Sembunyikan spinner jika sudah ada cache dan belum kadaluwarsa
+                const cachedList = getCachedList();
+                const hasCache = cachedList && cachedList.length > 0;
 
                 if (!hasCache) {
                     loadingSpinnerContainer.style.display = 'block';
@@ -2428,7 +2456,6 @@
                     filterIndicator.style.display = 'none';
                     categoryBar.style.display = 'none';
                 } else {
-                    // Jika ada cache, langsung tampilkan (spinner tetap tersembunyi)
                     loadingSpinnerContainer.style.display = 'none';
                     postContainer.style.display = 'grid';
                     loadMoreContainer.style.display = 'block';
@@ -2439,9 +2466,8 @@
 
                 try {
                     // Ambil data dari cache dulu (instan)
-                    const cachedData = getCachedList();
-                    if (cachedData && cachedData.length) {
-                        postsData = cachedData;
+                    if (cachedList && cachedList.length) {
+                        postsData = cachedList;
                         // Fetch konten dari cache juga
                         const cachedFetched = await Promise.all(postsData.map(p => fetchPost(p, false)));
                         fetchedPosts = cachedFetched;
@@ -2541,20 +2567,15 @@
                 try {
                     const success = await fetchPostList(true); // force refresh
                     if (success) {
-                        // Jika ada perubahan, update konten di background
                         const newFetched = await Promise.all(postsData.map(p => fetchPost(p, true)));
-                        // Bandingkan apakah ada perubahan (sederhana: cek jumlah)
                         if (newFetched.length !== fetchedPosts.length) {
                             fetchedPosts = newFetched;
                             await sortPostsByView();
-                            // Refresh tampilan tanpa mereset scroll
                             renderPopularSection();
                             renderCategoryBar();
                             resetAndApplyFilters();
                             startCarousel();
                         } else {
-                            // Cek apakah ada konten yang berubah (misal update metadata)
-                            // Untuk simpel, kita update jika ada perbedaan
                             let hasChange = false;
                             for (let i = 0; i < newFetched.length; i++) {
                                 if (newFetched[i].metadata.judul !== fetchedPosts[i]?.metadata.judul) {
