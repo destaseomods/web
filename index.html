@@ -53,7 +53,9 @@
     </script>
 
     <style>
-        /* ===== CSS SAMA SEPERTI SEBELUMNYA (tidak diubah) ===== */
+        /* ============================================================
+           CSS SAMA DENGAN SEBELUMNYA (tidak diubah)
+           ============================================================ */
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -1412,7 +1414,6 @@
     </style>
 </head>
 <body>
-    <!-- ===== HTML ===== -->
     <canvas id="particles"></canvas>
 
     <div class="qris-overlay hidden" id="qris-overlay">
@@ -1503,17 +1504,13 @@
 
     <script>
         (function() {
-            // ============================================================
-            // REDIRECT SITEMAP
-            // ============================================================
+            // ===== REDIRECT SITEMAP =====
             if (window.location.search === '?sitemap') {
                 window.location.href = '/sitemap.xml';
                 return;
             }
 
-            // ============================================================
-            // LEGACY HASH
-            // ============================================================
+            // ===== LEGACY HASH =====
             const currentHash = window.location.hash;
             if (currentHash) {
                 let targetPage = 'home';
@@ -1548,9 +1545,7 @@
                 window.history.replaceState({ page: targetPage, post: targetPost }, '', newUrl);
             }
 
-            // ============================================================
-            // KONFIGURASI
-            // ============================================================
+            // ===== KONFIGURASI =====
             const GITHUB_REPO = "destaseomods/web";
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
             const AD_INTERVAL = 5 * 60 * 1000;
@@ -1571,10 +1566,8 @@
             const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
             const CACHE_KEY_TIMESTAMP = 'destaseo_cache_timestamp';
 
-            // ============================================================
-            // CACHE DENGAN MASA KADALUWARSA 1 JAM
-            // ============================================================
-            const CACHE_EXPIRY_MS = 60 * 60 * 1000; // 1 jam
+            // ===== CACHE 1 JAM =====
+            const CACHE_EXPIRY_MS = 60 * 60 * 1000;
 
             function getCachedList() {
                 const raw = localStorage.getItem(CACHE_KEY_LIST);
@@ -1599,9 +1592,7 @@
                 localStorage.setItem(CACHE_KEY_TIMESTAMP, Date.now().toString());
             }
 
-            // ============================================================
-            // PARTIKEL — OPTIMASI
-            // ============================================================
+            // ===== PARTIKEL =====
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
             let particles = [];
@@ -1665,9 +1656,7 @@
 
             animateParticles();
 
-            // ============================================================
-            // IP, DOWNLOAD, AD, SEO
-            // ============================================================
+            // ===== IP, DOWNLOAD, AD, SEO =====
             async function getUserIP() {
                 const ipCacheKey = 'user_ip_cache';
                 const ipCacheExpiry = 60 * 60 * 1000;
@@ -1803,9 +1792,7 @@
                 canonical.href = link;
             }
 
-            // ============================================================
-            // DOM REFERENCES
-            // ============================================================
+            // ===== DOM REFERENCES =====
             const postContainer = document.getElementById('post-container');
             const carouselTrack = document.getElementById('carousel-track');
             const loadMoreContainer = document.getElementById('load-more-container');
@@ -1840,7 +1827,6 @@
             let currentSlide = 0;
             let totalPopularSlides = 0;
             let topPopularPosts = [];
-            let isFirstLoad = true;
 
             if (LOGO_URL) document.querySelector('.logo-img').src = LOGO_URL;
             if (AVATAR_URL) {
@@ -1849,9 +1835,7 @@
                 a.textContent = '';
             }
 
-            // ============================================================
-            // NAVIGASI
-            // ============================================================
+            // ===== NAVIGASI =====
             function getPageFromQuery() {
                 const params = new URLSearchParams(window.location.search);
                 const page = params.get('page') || 'home';
@@ -1971,9 +1955,7 @@
                     .page === 'home')));
             }
 
-            // ============================================================
-            // RENDER HOME
-            // ============================================================
+            // ===== RENDER HOME =====
             function renderCategoryBar() {
                 const kats = getAllKategori();
                 let html = '<span class="category-chip' + (!activeKatFilter ? ' active' : '') +
@@ -2225,10 +2207,7 @@
                 }
             }
 
-            // ============================================================
-            // CACHE — FUNGSI TELAH DIATUR DENGAN MASA KADALUWARSA 1 JAM
-            // ============================================================
-
+            // ===== CACHE FUNCTIONS =====
             function getCachedContent(postName) {
                 const key = CACHE_KEY_CONTENT_PREFIX + postName;
                 const raw = localStorage.getItem(key);
@@ -2254,9 +2233,7 @@
                 localStorage.setItem(key + '_timestamp', Date.now().toString());
             }
 
-            // ============================================================
-            // FETCH DATA — DENGAN CACHE KADALUWARSA 1 JAM
-            // ============================================================
+            // ===== FETCH DATA =====
             async function fetchPostList(forceRefresh = false) {
                 const cached = getCachedList();
                 if (cached && cached.length && !forceRefresh) {
@@ -2396,9 +2373,7 @@
                 return `${dt.getDate()} ${m[dt.getMonth()]} ${dt.getFullYear()}`;
             }
 
-            // ============================================================
-            // RENDER HOME — DENGAN CACHE KADALUWARSA 1 JAM
-            // ============================================================
+            // ===== RENDER HOME =====
             async function renderHome() {
                 const cachedList = getCachedList();
                 const hasCache = cachedList && cachedList.length > 0;
@@ -2509,9 +2484,7 @@
                 }
             }
 
-            // ============================================================
-            // FETCH BACKGROUND — UPDATE CACHE TANPA MENGGANGGU UI
-            // ============================================================
+            // ===== FETCH BACKGROUND =====
             async function fetchBackgroundUpdates() {
                 try {
                     const success = await fetchPostList(true);
@@ -2547,9 +2520,7 @@
                 }
             }
 
-            // ============================================================
-            // RENDER PROFILE
-            // ============================================================
+            // ===== RENDER PROFILE =====
             function renderProfile() {
                 document.getElementById('profile-name').textContent = PROFILE.name;
                 document.getElementById('profile-bio').textContent = PROFILE.bio;
@@ -2568,9 +2539,7 @@
                 }
             }
 
-            // ============================================================
-            // DETAIL
-            // ============================================================
+            // ===== DETAIL =====
             function buildScreenshotGallery(str) {
                 if (!str) return '';
                 const urls = str.split(',').map(u => fixImageUrl(u.trim())).filter(u => u.length > 0);
@@ -2649,17 +2618,92 @@
                 }, { passive: true });
             };
 
+            // ===== FUNGSI FETCH DENGAN RETRY =====
+            async function fetchWithRetry(url, retries = 2) {
+                let lastError;
+                for (let i = 0; i < retries; i++) {
+                    try {
+                        const controller = new AbortController();
+                        const timeout = setTimeout(() => controller.abort(), 8000); // timeout 8 detik
+                        const response = await fetch(url, { signal: controller.signal });
+                        clearTimeout(timeout);
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+                        return response;
+                    } catch (err) {
+                        lastError = err;
+                        console.warn(`⚠️ Percobaan ${i+1} gagal:`, err.message);
+                        if (i < retries - 1) {
+                            // Tunggu sebentar sebelum retry (1 detik, 2 detik, dst)
+                            await new Promise(r => setTimeout(r, 1000 * (i + 1)));
+                        }
+                    }
+                }
+                throw lastError || new Error('Gagal mengambil data setelah beberapa percobaan');
+            }
+
+            // ===== SHOW DETAIL (DENGAN DIRECT FETCH + RETRY + LOADING) =====
             async function showDetail(name) {
-                const post = fetchedPosts.find(p => p.name === name);
+                // 1. Cari di fetchedPosts (cache)
+                let post = fetchedPosts.find(p => p.name === name);
+
+                // 2. Jika tidak ditemukan, fetch langsung dari GitHub dengan loading & retry
                 if (!post) {
-                    detailContent.innerHTML =
-                        `<div class="error-text">❌ Postingan tidak ditemukan. <br><small>${name}</small></div>`;
+                    // Tampilkan loading spinner
+                    detailContent.innerHTML = `
+                        <div style="text-align:center;padding:40px 0;">
+                            <div class="spinner"></div>
+                            <p style="color:var(--text2);margin-top:12px;font-size:0.9rem;">
+                                <i class="fas fa-spinner fa-pulse"></i> Memuat postingan...
+                            </p>
+                        </div>
+                    `;
                     showSection(detailSection);
                     setActiveNav('detail');
                     window.scrollTo({ top: 0 });
-                    return;
+
+                    try {
+                        const url = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/posts/${name}.md`;
+                        const response = await fetchWithRetry(url, 2); // 2 kali percobaan
+                        const md = await response.text();
+                        const { metadata, content } = parseFrontmatter(md);
+                        const html = marked.parse(content);
+                        post = {
+                            name: name,
+                            metadata: metadata,
+                            content: content,
+                            html: html,
+                            fromCache: false,
+                            isDirectFetch: true
+                        };
+                        // Simpan ke fetchedPosts agar tidak perlu fetch ulang
+                        fetchedPosts.push(post);
+                    } catch (err) {
+                        console.warn('Direct fetch gagal:', err);
+                        detailContent.innerHTML = `
+                            <div class="error-text">
+                                <i class="fas fa-exclamation-triangle" style="font-size:2rem;display:block;margin-bottom:12px;color:#f5a623;"></i>
+                                ❌ Postingan tidak ditemukan atau gagal dimuat. <br>
+                                <small>${name}</small>
+                                <br><br>
+                                <button onclick="navigateTo('home')" style="background:var(--accent2);color:#04040e;border:none;padding:10px 24px;border-radius:30px;font-weight:700;cursor:pointer;">
+                                    <i class="fas fa-home"></i> Kembali ke Beranda
+                                </button>
+                                <br><br>
+                                <button onclick="location.reload()" style="background:var(--surface);color:var(--accent2);border:1px solid var(--border);padding:8px 20px;border-radius:30px;font-weight:600;cursor:pointer;">
+                                    <i class="fas fa-sync"></i> Coba Ulang
+                                </button>
+                            </div>
+                        `;
+                        showSection(detailSection);
+                        setActiveNav('detail');
+                        window.scrollTo({ top: 0 });
+                        return;
+                    }
                 }
 
+                // ===== RENDER DETAIL (kode yang sudah ada) =====
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
                 const v = post.metadata.versi || post.metadata.version || '?';
@@ -2711,7 +2755,8 @@
                     recHtml += `</div></div>`;
                 }
 
-                detailContent.innerHTML = '<div class="spinner"></div>';
+                // Kosongkan detail content sebelum render
+                detailContent.innerHTML = '';
                 showSection(detailSection);
                 setActiveNav('detail');
                 window.scrollTo({ top: 0 });
@@ -2786,9 +2831,7 @@
                 }
             }
 
-            // ============================================================
-            // COUNTER VIEW
-            // ============================================================
+            // ===== COUNTER VIEW =====
             async function getPostViewCount(postName, increment = true) {
                 const storageKey = 'view_' + postName.replace(/[^a-zA-Z0-9]/g, '_');
                 const today = new Date().toISOString().slice(0, 10);
@@ -2833,9 +2876,7 @@
                 return localData ? localData.count : 0;
             }
 
-            // ============================================================
-            // DAILY VISITOR
-            // ============================================================
+            // ===== DAILY VISITOR =====
             async function getDailyVisitorCount() {
                 const url = `https://abacus.jasoncameron.dev/hit/destaseomods.web.id/daily`;
                 const storageKey = 'daily_visitor';
@@ -2867,9 +2908,7 @@
                 return newCount;
             }
 
-            // ============================================================
-            // REKOMENDASI
-            // ============================================================
+            // ===== REKOMENDASI =====
             function getRecommendations(currentPost, limit = 4) {
                 if (!fetchedPosts || fetchedPosts.length === 0) return [];
                 const others = fetchedPosts.filter(p => p.name !== currentPost.name);
@@ -2888,9 +2927,7 @@
                 return combined.slice(0, limit);
             }
 
-            // ============================================================
-            // EVENT LISTENER
-            // ============================================================
+            // ===== EVENT LISTENER =====
             logoArea.addEventListener('click', () => navigateTo('home'));
 
             telegramBtn.addEventListener('click', (e) => { e.stopPropagation();
@@ -2919,7 +2956,7 @@
 
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
-            // ===== PERUBAHAN: Tombol Kembali selalu ke Beranda =====
+            // Tombol Kembali ke Beranda
             detailBack.addEventListener('click', function() {
                 navigateTo('home');
             });
@@ -2949,22 +2986,18 @@
                 resetAndApplyFilters();
             });
 
-            // ===== PERBAIKAN: Tombol back device juga ke Beranda =====
+            // Back device ke Beranda
             window.addEventListener('popstate', (e) => {
                 const state = e.state || {};
-                // Jika tidak ada state atau state.page === 'detail', arahkan ke home
                 if (!state.page || state.page === 'detail') {
                     navigateTo('home');
-                    // Replace state agar tidak kembali ke detail lagi
                     history.replaceState({ page: 'home' }, '', window.location.pathname);
                 } else {
                     navigateTo(state.page, state.post, state.q);
                 }
             });
 
-            // ============================================================
-            // START
-            // ============================================================
+            // ===== START =====
             (async () => {
                 await renderHome();
             })();
