@@ -1,13 +1,13 @@
 ---
-tanggal: 2026-07-22 12:30
+tanggal: 2026-07-24 07:45
 populer: true
 badges: Unlocked
 judul: "HOT51 PRO UNLOCKED ROOM"
 gambar: "https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/image-45.jpg"
-versi: "1.1.999-95F"
-ukuran: "62 MB"
+versi: "1.1.999-96"
+ukuran: "64 MB"
 developer: "HOT51 INC."
-screenshot: "https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/bg_start.jpg, https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/Screenshot_2026-07-11-10-49-13-841_com.sagadsg.user.mady501857.jpg, https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/Screenshot_2026-07-11-10-48-42-978_com.sagadsg.user.mady501857.jpg, https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/Screenshot_2026-07-11-10-48-32-278_com.sagadsg.user.mady501857.jpg"
+screenshot: "https://github.com/destaseomods/web/blob/main/posts/photo/Screenshot_2026-07-24-07-44-54-055_com.sagadsg.user.mady501857.jpg, https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/Screenshot_2026-07-11-10-49-13-841_com.sagadsg.user.mady501857.jpg, https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/Screenshot_2026-07-11-10-48-42-978_com.sagadsg.user.mady501857.jpg, https://raw.githubusercontent.com/destaseomods/web/refs/heads/main/posts/photo/Screenshot_2026-07-11-10-48-32-278_com.sagadsg.user.mady501857.jpg"
 download: "https://sfile.co/68pElvSUQmf"
 tag: "Media, Live Streaming, Permainan"
 kategori: "Streaming"
@@ -15,7 +15,6 @@ kategori: "Streaming"
 
 FITUR MOD:
 
-⦿ FIXED DIALOG
 ⦿ STABIL
 ⦿ PERBAIKAN MACET / LAG
 ⦿ 100% WORK
