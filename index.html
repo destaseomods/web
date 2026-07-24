@@ -54,7 +54,7 @@
 
     <style>
         /* ============================================================
-           CSS (SAMA DENGAN SEBELUMNYA, tidak diubah)
+           CSS SAMA DENGAN SEBELUMNYA (tidak diubah)
            ============================================================ */
         :root {
             --bg: #04040e;
@@ -1547,11 +1547,6 @@
 
             // ===== KONFIGURASI =====
             const GITHUB_REPO = "destaseomods/web";
-            // ===== GitHub Token (kosongkan jika tidak ingin memakai token) =====
-            // Buat token di: https://github.com/settings/tokens (izin: repo atau public_repo saja)
-            // Simpan token di sini, jangan bagikan ke publik secara terbuka.
-            const GITHUB_TOKEN = "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"; // <-- isi dengan token kamu jika ada
-
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
             const AD_INTERVAL = 5 * 60 * 1000;
             const LOGO_URL = "https://avatars.githubusercontent.com/u/189899710?v=4";
@@ -1571,8 +1566,8 @@
             const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
             const CACHE_KEY_TIMESTAMP = 'destaseo_cache_timestamp';
 
-            // ===== CACHE 5 MENIT (agar lebih responsif) =====
-            const CACHE_EXPIRY_MS = 5 * 60 * 1000; // 5 menit
+            // ===== CACHE 1 JAM =====
+            const CACHE_EXPIRY_MS = 60 * 60 * 1000;
 
             function getCachedList() {
                 const raw = localStorage.getItem(CACHE_KEY_LIST);
@@ -2238,7 +2233,7 @@
                 localStorage.setItem(key + '_timestamp', Date.now().toString());
             }
 
-            // ===== FETCH DATA DENGAN DUKUNGAN GITHUB TOKEN =====
+            // ===== FETCH DATA =====
             async function fetchPostList(forceRefresh = false) {
                 const cached = getCachedList();
                 if (cached && cached.length && !forceRefresh) {
@@ -2255,18 +2250,6 @@
 
                 const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/posts`;
 
-                // Siapkan header untuk request
-                const headers = {
-                    'Accept': 'application/vnd.github.v3+json',
-                    'User-Agent': 'DestaseoMods/1.0'
-                };
-                if (GITHUB_TOKEN && GITHUB_TOKEN.trim() !== '') {
-                    headers['Authorization'] = `token ${GITHUB_TOKEN.trim()}`;
-                    console.log('🔑 Menggunakan GitHub Token untuk request API.');
-                } else {
-                    console.log('ℹ️ Tidak ada GitHub Token, request tanpa autentikasi (rate limit lebih rendah).');
-                }
-
                 for (let attempt = 1; attempt <= 3; attempt++) {
                     try {
                         const controller = new AbortController();
@@ -2274,13 +2257,16 @@
 
                         const res = await fetch(apiUrl, {
                             signal: controller.signal,
-                            headers: headers
+                            headers: {
+                                'Accept': 'application/vnd.github.v3+json',
+                                'User-Agent': 'DestaseoMods/1.0'
+                            }
                         });
                         clearTimeout(timeout);
 
                         if (!res.ok) {
-                            if (res.status === 403 || res.status === 429) {
-                                console.warn('⚠️ Rate limit atau forbidden, pakai cache/fallback.');
+                            if (res.status === 403) {
+                                console.warn('⚠️ GitHub API rate limit, pakai cache/fallback.');
                                 if (!cached || !cached.length) {
                                     postsData = fallbackPosts;
                                     setCachedList(postsData);
@@ -2346,12 +2332,7 @@
                 }
 
                 try {
-                    // Untuk file raw, tidak perlu token, tapi kita tetap bisa pakai header jika token ada
-                    const headers = {};
-                    if (GITHUB_TOKEN && GITHUB_TOKEN.trim() !== '') {
-                        headers['Authorization'] = `token ${GITHUB_TOKEN.trim()}`;
-                    }
-                    const r = await fetch(p.download_url, { headers });
+                    const r = await fetch(p.download_url);
                     if (!r.ok) throw new Error('fail');
                     const md = await r.text();
                     setCachedContent(p.name, md);
@@ -2425,15 +2406,7 @@
                         resetAndApplyFilters();
                         startCarousel();
 
-                        // Jalankan background update setelah render awal
                         fetchBackgroundUpdates();
-
-                        // Mulai interval untuk refresh otomatis setiap 2 menit
-                        if (window._refreshInterval) clearInterval(window._refreshInterval);
-                        window._refreshInterval = setInterval(() => {
-                            console.log('🔄 Auto-refresh background setiap 2 menit...');
-                            fetchBackgroundUpdates();
-                        }, 2 * 60 * 1000);
 
                         const { page, post, q } = getPageFromQuery();
                         if (page === 'detail' && post) {
@@ -2480,15 +2453,9 @@
                     resetAndApplyFilters();
                     startCarousel();
 
-                    // Jalankan background update dan interval
                     if (!fromCache) {
                         fetchBackgroundUpdates();
                     }
-                    if (window._refreshInterval) clearInterval(window._refreshInterval);
-                    window._refreshInterval = setInterval(() => {
-                        console.log('🔄 Auto-refresh background setiap 2 menit...');
-                        fetchBackgroundUpdates();
-                    }, 2 * 60 * 1000);
 
                     const { page, post, q } = getPageFromQuery();
                     if (page === 'detail' && post) {
@@ -2657,7 +2624,7 @@
                 for (let i = 0; i < retries; i++) {
                     try {
                         const controller = new AbortController();
-                        const timeout = setTimeout(() => controller.abort(), 8000);
+                        const timeout = setTimeout(() => controller.abort(), 8000); // timeout 8 detik
                         const response = await fetch(url, { signal: controller.signal });
                         clearTimeout(timeout);
                         if (!response.ok) {
@@ -2668,6 +2635,7 @@
                         lastError = err;
                         console.warn(`⚠️ Percobaan ${i+1} gagal:`, err.message);
                         if (i < retries - 1) {
+                            // Tunggu sebentar sebelum retry (1 detik, 2 detik, dst)
                             await new Promise(r => setTimeout(r, 1000 * (i + 1)));
                         }
                     }
@@ -2697,7 +2665,7 @@
 
                     try {
                         const url = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/posts/${name}.md`;
-                        const response = await fetchWithRetry(url, 2);
+                        const response = await fetchWithRetry(url, 2); // 2 kali percobaan
                         const md = await response.text();
                         const { metadata, content } = parseFrontmatter(md);
                         const html = marked.parse(content);
@@ -2735,7 +2703,7 @@
                     }
                 }
 
-                // ===== RENDER DETAIL =====
+                // ===== RENDER DETAIL (kode yang sudah ada) =====
                 const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
                 const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
                 const v = post.metadata.versi || post.metadata.version || '?';
@@ -2787,6 +2755,7 @@
                     recHtml += `</div></div>`;
                 }
 
+                // Kosongkan detail content sebelum render
                 detailContent.innerHTML = '';
                 showSection(detailSection);
                 setActiveNav('detail');
