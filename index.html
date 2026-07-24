@@ -53,9 +53,7 @@
     </script>
 
     <style>
-        /* ============================================================
-           CSS SAMA DENGAN SEBELUMNYA (tidak diubah)
-           ============================================================ */
+        /* ===== CSS SAMA DENGAN SEBELUMNYA (tidak diubah) ===== */
         :root {
             --bg: #04040e;
             --surface: rgba(15, 15, 30, 0.7);
@@ -469,20 +467,14 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ===== GRID 2 KOLOM UNTUK SEMUA LAYAR ===== */
         .post-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 14px;
             margin-top: 2px;
         }
-
-        @media (max-width: 480px) {
-            .post-grid { gap: 10px; }
-        }
-        @media (max-width: 360px) {
-            .post-grid { gap: 8px; }
-        }
+        @media (max-width: 480px) { .post-grid { gap: 10px; } }
+        @media (max-width: 360px) { .post-grid { gap: 8px; } }
 
         .post-card {
             background: var(--surface);
@@ -555,12 +547,8 @@
             flex-direction: column;
             gap: 6px;
         }
-        @media (max-width: 420px) {
-            .card-body { padding: 10px 10px 12px; gap: 4px; }
-        }
-        @media (max-width: 360px) {
-            .card-body { padding: 8px 8px 10px; gap: 3px; }
-        }
+        @media (max-width: 420px) { .card-body { padding: 10px 10px 12px; gap: 4px; } }
+        @media (max-width: 360px) { .card-body { padding: 8px 8px 10px; gap: 3px; } }
 
         .card-title {
             font-weight: 800;
@@ -712,9 +700,7 @@
             margin-bottom: 12px;
             box-shadow: var(--shadow-card);
         }
-        @media (min-width: 500px) {
-            .detail-header, .profile-card { padding: 28px; }
-        }
+        @media (min-width: 500px) { .detail-header, .profile-card { padding: 28px; } }
         .detail-img {
             display: block;
             width: 80px;
@@ -725,9 +711,7 @@
             margin: 0 auto 14px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
         }
-        @media (min-width: 500px) {
-            .detail-img { width: 100px; height: 100px; margin-bottom: 16px; }
-        }
+        @media (min-width: 500px) { .detail-img { width: 100px; height: 100px; margin-bottom: 16px; } }
         .detail-title {
             font-size: 0.95rem;
             font-weight: 800;
@@ -742,15 +726,9 @@
             gap: 6px;
             margin: 10px 0 4px;
         }
-        @media (min-width: 500px) {
-            .detail-meta-grid { gap: 8px; margin: 12px 0 6px; }
-        }
-        @media (min-width: 640px) {
-            .detail-meta-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-        @media (min-width: 820px) {
-            .detail-meta-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        }
+        @media (min-width: 500px) { .detail-meta-grid { gap: 8px; margin: 12px 0 6px; } }
+        @media (min-width: 640px) { .detail-meta-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 820px) { .detail-meta-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; } }
         .meta-item {
             background: var(--surface2);
             padding: 6px 6px;
@@ -763,17 +741,13 @@
             justify-content: center;
             min-height: 52px;
         }
-        @media (min-width: 500px) {
-            .meta-item { padding: 8px 8px; font-size: 0.7rem; min-height: 58px; }
-        }
+        @media (min-width: 500px) { .meta-item { padding: 8px 8px; font-size: 0.7rem; min-height: 58px; } }
         .meta-item i {
             color: var(--accent2);
             margin-bottom: 2px;
             font-size: 0.75rem;
         }
-        @media (min-width: 500px) {
-            .meta-item i { font-size: 0.85rem; margin-bottom: 3px; }
-        }
+        @media (min-width: 500px) { .meta-item i { font-size: 0.85rem; margin-bottom: 3px; } }
         .meta-item strong {
             color: var(--accent2);
             font-size: 0.6rem;
@@ -801,13 +775,9 @@
             margin-top: 2px;
             flex-shrink: 0;
         }
-        .download-note strong {
-            color: #fff;
-        }
-        @media (min-width: 500px) {
-            .download-note { font-size: 0.85rem; padding: 14px 20px; }
-            .download-note i { font-size: 1.1rem; }
-        }
+        .download-note strong { color: #fff; }
+        @media (min-width: 500px) { .download-note { font-size: 0.85rem; padding: 14px 20px; }
+            .download-note i { font-size: 1.1rem; } }
 
         .big-download {
             display: block;
@@ -827,22 +797,12 @@
             text-align: center;
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
         }
-        @media (min-width: 500px) {
-            .big-download { font-size: 1rem; padding: 15px; margin-top: 10px; }
-        }
+        @media (min-width: 500px) { .big-download { font-size: 1rem; padding: 15px; margin-top: 10px; } }
         .big-download i { margin-right: 6px; }
         .big-download:active { transform: scale(0.96); }
-        .big-download.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-        .big-download.counting {
-            opacity: 0.8;
-            pointer-events: none;
-            background: var(--surface2);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
+        .big-download.disabled { opacity: 0.5; pointer-events: none; }
+        .big-download.counting { opacity: 0.8; pointer-events: none; background: var(--surface2); color: var(--text);
+            border: 1px solid var(--border); }
 
         .content-box {
             background: var(--surface);
@@ -859,19 +819,9 @@
             word-wrap: break-word;
         }
         @media (min-width: 500px) { .content-box { padding: 16px 28px; } }
-        .content-box img {
-            max-width: 100%;
-            border-radius: 16px;
-            margin: 12px 0;
-        }
-        .content-box pre {
-            background: #050510;
-            padding: 16px;
-            border-radius: 16px;
-            overflow-x: auto;
-            white-space: pre;
-            font-size: 0.8rem;
-        }
+        .content-box img { max-width: 100%; border-radius: 16px; margin: 12px 0; }
+        .content-box pre { background: #050510; padding: 16px; border-radius: 16px; overflow-x: auto; white-space: pre;
+            font-size: 0.8rem; }
 
         .back-btn {
             background: none;
@@ -889,14 +839,8 @@
         }
         .back-btn:hover { opacity: 0.8; }
 
-        #profile-section {
-            scroll-margin-top: 76px;
-            padding-top: 12px;
-        }
-        .profile-card {
-            position: relative;
-            overflow: hidden;
-        }
+        #profile-section { scroll-margin-top: 76px; padding-top: 12px; }
+        .profile-card { position: relative; overflow: hidden; }
         .premium-badge {
             position: absolute;
             top: 14px;
@@ -918,10 +862,8 @@
             backdrop-filter: blur(4px);
         }
         .premium-badge i { font-size: 0.55rem; color: #1a1a2e; }
-        @media (min-width: 500px) {
-            .premium-badge { top: 18px; right: 18px; font-size: 0.7rem; padding: 5px 14px; }
-            .premium-badge i { font-size: 0.65rem; }
-        }
+        @media (min-width: 500px) { .premium-badge { top: 18px; right: 18px; font-size: 0.7rem; padding: 5px 14px; }
+            .premium-badge i { font-size: 0.65rem; } }
         .profile-avatar {
             width: 80px;
             height: 80px;
@@ -939,28 +881,13 @@
             position: relative;
             z-index: 1;
         }
-        @media (min-width: 500px) {
-            .profile-avatar { width: 100px; height: 100px; font-size: 2.8rem; margin-bottom: 20px; }
-        }
+        @media (min-width: 500px) { .profile-avatar { width: 100px; height: 100px; font-size: 2.8rem; margin-bottom: 20px; } }
         .profile-name { text-align: center; font-size: 1.3rem; font-weight: 800; position: relative; z-index: 1; }
         @media (min-width: 500px) { .profile-name { font-size: 1.5rem; } }
-        .profile-bio {
-            text-align: center;
-            color: var(--text2);
-            margin: 8px 0 16px;
-            font-size: 0.9rem;
-            position: relative;
-            z-index: 1;
-        }
+        .profile-bio { text-align: center; color: var(--text2); margin: 8px 0 16px; font-size: 0.9rem; position: relative;
+            z-index: 1; }
         @media (min-width: 500px) { .profile-bio { margin: 10px 0 20px; } }
-        .social-links {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
-        }
+        .social-links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
         .social-link {
             background: var(--surface2);
             padding: 8px 16px;
@@ -975,37 +902,14 @@
             align-items: center;
             gap: 6px;
         }
-        @media (min-width: 500px) {
-            .social-link { padding: 10px 20px; font-size: 0.85rem; gap: 8px; }
-        }
+        @media (min-width: 500px) { .social-link { padding: 10px 20px; font-size: 0.85rem; gap: 8px; } }
         .social-link i { font-size: 0.9rem; }
-        .social-link:hover {
-            border-color: var(--accent2);
-            background: rgba(62, 224, 255, 0.1);
-        }
-        .donate-section {
-            margin-top: 20px;
-            text-align: center;
-            border-top: 1px solid var(--border);
-            padding-top: 16px;
-            position: relative;
-            z-index: 1;
-        }
-        @media (min-width: 500px) {
-            .donate-section { margin-top: 24px; padding-top: 20px; }
-        }
-        .donate-title {
-            color: var(--text2);
-            margin-bottom: 10px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        .donate-links {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+        .social-link:hover { border-color: var(--accent2); background: rgba(62, 224, 255, 0.1); }
+        .donate-section { margin-top: 20px; text-align: center; border-top: 1px solid var(--border); padding-top: 16px;
+            position: relative; z-index: 1; }
+        @media (min-width: 500px) { .donate-section { margin-top: 24px; padding-top: 20px; } }
+        .donate-title { color: var(--text2); margin-bottom: 10px; font-weight: 600; font-size: 0.9rem; }
+        .donate-links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
         .qris-overlay {
             position: fixed;
@@ -1032,15 +936,10 @@
             max-width: 340px;
             width: 90%;
         }
-        @media (min-width: 500px) {
-            .qris-container { padding: 24px; max-width: 360px; }
-        }
-        .qris-container img {
-            width: 100%;
-            border-radius: 16px;
-            margin-bottom: 14px;
-        }
-        .qris-close-btn, .qris-download-btn {
+        @media (min-width: 500px) { .qris-container { padding: 24px; max-width: 360px; } }
+        .qris-container img { width: 100%; border-radius: 16px; margin-bottom: 14px; }
+        .qris-close-btn,
+        .qris-download-btn {
             background: var(--surface);
             border: 1px solid var(--border);
             color: #fff;
@@ -1052,14 +951,10 @@
             transition: 0.2s;
             margin: 4px;
         }
-        .qris-close-btn:hover, .qris-download-btn:hover { background: rgba(255, 255, 255, 0.1); }
+        .qris-close-btn:hover,
+        .qris-download-btn:hover { background: rgba(255, 255, 255, 0.1); }
 
-        .tags-container {
-            margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
+        .tags-container { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
         .tag-badge {
             background: rgba(255, 255, 255, 0.06);
             color: var(--text2);
@@ -1096,13 +991,8 @@
             background: var(--surface2);
             border: 1px solid var(--border);
         }
-        @media (min-width: 500px) {
-            .screenshot-scroll img { width: 150px; height: 220px; }
-        }
-        .screenshot-scroll img:hover {
-            transform: scale(1.03);
-            border-color: var(--accent);
-        }
+        @media (min-width: 500px) { .screenshot-scroll img { width: 150px; height: 220px; } }
+        .screenshot-scroll img:hover { transform: scale(1.03); border-color: var(--accent); }
 
         .lightbox {
             position: fixed;
@@ -1120,19 +1010,10 @@
             cursor: default;
             animation: fadeInLight 0.25s ease;
         }
-        @keyframes fadeInLight {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .lightbox img {
-            max-width: 92vw;
-            max-height: 82vh;
-            border-radius: 16px;
-            object-fit: contain;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
-            user-select: none;
-            -webkit-user-drag: none;
-        }
+        @keyframes fadeInLight { from { opacity: 0; }
+            to { opacity: 1; } }
+        .lightbox img { max-width: 92vw; max-height: 82vh; border-radius: 16px; object-fit: contain; box-shadow: 0 20px 60px rgba(0,
+                    0, 0, 0.9); user-select: none; -webkit-user-drag: none; }
         .lightbox-close {
             position: absolute;
             top: 20px;
@@ -1153,7 +1034,8 @@
             backdrop-filter: blur(8px);
         }
         .lightbox-close:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
-        .lightbox-prev, .lightbox-next {
+        .lightbox-prev,
+        .lightbox-next {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -1174,10 +1056,8 @@
         }
         .lightbox-prev { left: 20px; }
         .lightbox-next { right: 20px; }
-        .lightbox-prev:hover, .lightbox-next:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-50%) scale(1.05);
-        }
+        .lightbox-prev:hover,
+        .lightbox-next:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-50%) scale(1.05); }
         .lightbox-counter {
             position: absolute;
             bottom: 28px;
@@ -1194,7 +1074,8 @@
             letter-spacing: 0.5px;
         }
         @media (max-width: 500px) {
-            .lightbox-prev, .lightbox-next { width: 36px; height: 36px; font-size: 0.9rem; }
+            .lightbox-prev,
+            .lightbox-next { width: 36px; height: 36px; font-size: 0.9rem; }
             .lightbox-prev { left: 8px; }
             .lightbox-next { right: 8px; }
             .lightbox-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1rem; }
@@ -1234,13 +1115,8 @@
             padding: 8px 14px;
             border-radius: 24px;
         }
-        @media (min-width: 500px) {
-            .nav-item { font-size: 0.7rem; padding: 10px 18px; gap: 5px; }
-        }
-        .nav-item.active {
-            color: var(--accent2);
-            background: rgba(62, 224, 255, 0.12);
-        }
+        @media (min-width: 500px) { .nav-item { font-size: 0.7rem; padding: 10px 18px; gap: 5px; } }
+        .nav-item.active { color: var(--accent2); background: rgba(62, 224, 255, 0.12); }
         .nav-item i { font-size: 1.1rem; }
         @media (min-width: 500px) { .nav-item i { font-size: 1.3rem; } }
 
@@ -1254,7 +1130,8 @@
             animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .empty-text, .error-text {
+        .empty-text,
+        .error-text {
             text-align: center;
             padding: 40px 20px;
             color: var(--text2);
@@ -1263,15 +1140,8 @@
             margin: 20px 0;
             font-size: 0.9rem;
         }
-        .filter-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
-            font-size: 0.8rem;
-            color: var(--accent2);
-            flex-wrap: wrap;
-        }
+        .filter-indicator { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 0.8rem;
+            color: var(--accent2); flex-wrap: wrap; }
         .daily-visitor {
             margin-top: 14px;
             padding: 10px 14px;
@@ -1287,38 +1157,17 @@
             word-wrap: break-word;
             font-size: 0.85rem;
         }
-        @media (min-width: 500px) {
-            .daily-visitor { margin-top: 16px; padding: 12px 16px; font-size: 0.95rem; }
-        }
+        @media (min-width: 500px) { .daily-visitor { margin-top: 16px; padding: 12px 16px; font-size: 0.95rem; } }
         .daily-visitor i { margin-right: 6px; }
         .daily-visitor span { color: #fff; font-weight: 700; }
 
-        .recommendations-section {
-            margin-top: 20px;
-            padding: 16px 0;
-            border-top: 1px solid var(--border);
-        }
-        @media (min-width: 500px) {
-            .recommendations-section { margin-top: 24px; padding: 20px 0; }
-        }
-        .recommendations-section h3 {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        @media (min-width: 500px) {
-            .recommendations-section h3 { font-size: 0.95rem; margin-bottom: 14px; }
-        }
+        .recommendations-section { margin-top: 20px; padding: 16px 0; border-top: 1px solid var(--border); }
+        @media (min-width: 500px) { .recommendations-section { margin-top: 24px; padding: 20px 0; } }
+        .recommendations-section h3 { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 12px;
+            display: flex; align-items: center; gap: 8px; }
+        @media (min-width: 500px) { .recommendations-section h3 { font-size: 0.95rem; margin-bottom: 14px; } }
         .recommendations-section h3 i { color: var(--accent2); }
-        .rec-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
+        .rec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         @media (min-width: 500px) { .rec-grid { gap: 12px; } }
         @media (min-width: 600px) { .rec-grid { grid-template-columns: repeat(4, 1fr); } }
         .rec-card {
@@ -1331,17 +1180,9 @@
             display: flex;
             flex-direction: column;
         }
-        .rec-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-            box-shadow: 0 8px 24px rgba(168, 127, 255, 0.3);
-        }
-        .rec-card img {
-            width: 100%;
-            height: 90px;
-            object-fit: cover;
-            background: var(--surface2);
-        }
+        .rec-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 8px 24px rgba(168, 127, 255,
+                    0.3); }
+        .rec-card img { width: 100%; height: 90px; object-fit: cover; background: var(--surface2); }
         @media (min-width: 500px) { .rec-card img { height: 110px; } }
         .rec-card .rec-title {
             padding: 8px 10px;
@@ -1354,22 +1195,11 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        @media (min-width: 500px) {
-            .rec-card .rec-title { padding: 10px 12px; font-size: 0.75rem; }
-        }
+        @media (min-width: 500px) { .rec-card .rec-title { padding: 10px 12px; font-size: 0.75rem; } }
 
-        #profile-footer-text {
-            max-width: 100%;
-            box-sizing: border-box;
-            overflow: hidden;
-            word-wrap: break-word;
-        }
-        .profile-card, .content-box {
-            max-width: 100%;
-            box-sizing: border-box;
-            overflow: hidden;
-            word-wrap: break-word;
-        }
+        #profile-footer-text { max-width: 100%; box-sizing: border-box; overflow: hidden; word-wrap: break-word; }
+        .profile-card,
+        .content-box { max-width: 100%; box-sizing: border-box; overflow: hidden; word-wrap: break-word; }
 
         @media (max-width: 360px) {
             .logo-text { font-size: 1rem; }
@@ -1388,10 +1218,7 @@
             .badge-vip,
             .badge-noads,
             .badge-unlocked,
-            .badge-custom {
-                font-size: clamp(0.45rem, 1.8vw, 0.55rem);
-                padding: 1px 6px;
-            }
+            .badge-custom { font-size: clamp(0.45rem, 1.8vw, 0.55rem); padding: 1px 6px; }
             .carousel-wrapper { height: 140px; }
             .carousel-slide .slide-title { font-size: 0.75rem; }
             .detail-title { font-size: 0.85rem; }
@@ -1414,6 +1241,7 @@
     </style>
 </head>
 <body>
+    <!-- ===== HTML SAMA DENGAN SEBELUMNYA ===== -->
     <canvas id="particles"></canvas>
 
     <div class="qris-overlay hidden" id="qris-overlay">
@@ -1503,6 +1331,18 @@
     </nav>
 
     <script>
+        // ===== LOGGING UNTUK DEBUG =====
+        console.log('🚀 Destaseo Mods loaded');
+        window.onerror = function(msg, url, line, col, error) {
+            console.error('❌ Global Error:', msg, error);
+            // Tampilkan error di halaman jika terjadi error fatal
+            const errorDiv = document.createElement('div');
+            errorDiv.style.cssText =
+                'background:rgba(255,0,0,0.15);color:#ff6b6b;padding:12px 20px;border-radius:12px;margin:12px;font-size:0.85rem;border:1px solid rgba(255,0,0,0.2);text-align:center;';
+            errorDiv.textContent = `⚠️ Terjadi error: ${msg}`;
+            document.body.prepend(errorDiv);
+        };
+
         (function() {
             // ===== REDIRECT SITEMAP =====
             if (window.location.search === '?sitemap') {
@@ -1562,12 +1402,16 @@
                 ]
             };
 
+            // ===== GITHUB TOKEN (ISI DENGAN TOKEN KAMU) =====
+            // Cara dapat: https://github.com/settings/tokens -> Generate new token (classic) -> centang repo
+            const GITHUB_TOKEN = "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"; // <-- ISI TOKEN DI SINI
+
             const CACHE_KEY_LIST = 'destaseo_post_list_v4';
             const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
             const CACHE_KEY_TIMESTAMP = 'destaseo_cache_timestamp';
 
-            // ===== CACHE 1 JAM =====
-            const CACHE_EXPIRY_MS = 60 * 60 * 1000;
+            // ===== CACHE 10 MENIT =====
+            const CACHE_EXPIRY_MS = 10 * 60 * 1000;
 
             function getCachedList() {
                 const raw = localStorage.getItem(CACHE_KEY_LIST);
@@ -2233,7 +2077,7 @@
                 localStorage.setItem(key + '_timestamp', Date.now().toString());
             }
 
-            // ===== FETCH DATA =====
+            // ===== FETCH DATA (DENGAN GITHUB TOKEN) =====
             async function fetchPostList(forceRefresh = false) {
                 const cached = getCachedList();
                 if (cached && cached.length && !forceRefresh) {
@@ -2255,18 +2099,28 @@
                         const controller = new AbortController();
                         const timeout = setTimeout(() => controller.abort(), 5000);
 
+                        const headers = {
+                            'Accept': 'application/vnd.github.v3+json',
+                            'User-Agent': 'DestaseoMods/1.0'
+                        };
+
+                        // Tambahkan token jika ada
+                        if (GITHUB_TOKEN) {
+                            headers['Authorization'] = `token ${GITHUB_TOKEN}`;
+                            console.log('🔑 Menggunakan GitHub Token (rate limit: 5000/jam)');
+                        } else {
+                            console.warn('⚠️ Tidak ada GitHub Token (rate limit: 60/jam)');
+                        }
+
                         const res = await fetch(apiUrl, {
                             signal: controller.signal,
-                            headers: {
-                                'Accept': 'application/vnd.github.v3+json',
-                                'User-Agent': 'DestaseoMods/1.0'
-                            }
+                            headers: headers
                         });
                         clearTimeout(timeout);
 
                         if (!res.ok) {
-                            if (res.status === 403) {
-                                console.warn('⚠️ GitHub API rate limit, pakai cache/fallback.');
+                            if (res.status === 403 || res.status === 429) {
+                                console.warn('⚠️ Rate limit atau forbidden, pakai cache/fallback.');
                                 if (!cached || !cached.length) {
                                     postsData = fallbackPosts;
                                     setCachedList(postsData);
@@ -2468,6 +2322,7 @@
                         navigateTo('home');
                     }
                 } catch (err) {
+                    console.error('❌ Error renderHome:', err);
                     loadingSpinnerContainer.style.display = 'none';
                     postContainer.style.display = 'block';
                     postContainer.innerHTML = `
@@ -2624,7 +2479,7 @@
                 for (let i = 0; i < retries; i++) {
                     try {
                         const controller = new AbortController();
-                        const timeout = setTimeout(() => controller.abort(), 8000); // timeout 8 detik
+                        const timeout = setTimeout(() => controller.abort(), 8000);
                         const response = await fetch(url, { signal: controller.signal });
                         clearTimeout(timeout);
                         if (!response.ok) {
@@ -2635,7 +2490,6 @@
                         lastError = err;
                         console.warn(`⚠️ Percobaan ${i+1} gagal:`, err.message);
                         if (i < retries - 1) {
-                            // Tunggu sebentar sebelum retry (1 detik, 2 detik, dst)
                             await new Promise(r => setTimeout(r, 1000 * (i + 1)));
                         }
                     }
@@ -2643,7 +2497,7 @@
                 throw lastError || new Error('Gagal mengambil data setelah beberapa percobaan');
             }
 
-            // ===== SHOW DETAIL (DENGAN DIRECT FETCH + RETRY + LOADING) =====
+            // ===== SHOW DETAIL (DENGAN DIRECT FETCH + RETRY + LOADING + CASE-INSENSITIVE FALLBACK) =====
             async function showDetail(name) {
                 // 1. Cari di fetchedPosts (cache)
                 let post = fetchedPosts.find(p => p.name === name);
@@ -2664,28 +2518,63 @@
                     window.scrollTo({ top: 0 });
 
                     try {
-                        const url = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/posts/${name}.md`;
-                        const response = await fetchWithRetry(url, 2); // 2 kali percobaan
-                        const md = await response.text();
+                        // ===== FALLBACK CASE-INSENSITIVE =====
+                        const nameVariants = [
+                            name,
+                            name.toLowerCase(),
+                            name.toUpperCase(),
+                            name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
+                            name.charAt(0).toLowerCase() + name.slice(1).toUpperCase()
+                        ];
+                        const uniqueVariants = [...new Set(nameVariants)];
+
+                        let found = false;
+                        let md = null;
+                        let usedName = name;
+
+                        for (let variant of uniqueVariants) {
+                            try {
+                                const url =
+                                    `https://raw.githubusercontent.com/${GITHUB_REPO}/main/posts/${variant}.md`;
+                                console.log(`🔍 Mencoba: ${variant}`);
+                                const response = await fetchWithRetry(url, 1);
+                                if (response.ok) {
+                                    md = await response.text();
+                                    usedName = variant;
+                                    found = true;
+                                    console.log(`✅ Berhasil dengan: ${variant}`);
+                                    break;
+                                }
+                            } catch (e) {
+                                console.log(`❌ Gagal: ${variant}`);
+                                continue;
+                            }
+                        }
+
+                        if (!found || !md) {
+                            throw new Error('File tidak ditemukan (semua variasi nama gagal)');
+                        }
+
                         const { metadata, content } = parseFrontmatter(md);
                         const html = marked.parse(content);
                         post = {
-                            name: name,
+                            name: usedName,
                             metadata: metadata,
                             content: content,
                             html: html,
                             fromCache: false,
                             isDirectFetch: true
                         };
-                        // Simpan ke fetchedPosts agar tidak perlu fetch ulang
                         fetchedPosts.push(post);
                     } catch (err) {
-                        console.warn('Direct fetch gagal:', err);
+                        console.error('❌ Direct fetch gagal:', err);
                         detailContent.innerHTML = `
                             <div class="error-text">
                                 <i class="fas fa-exclamation-triangle" style="font-size:2rem;display:block;margin-bottom:12px;color:#f5a623;"></i>
                                 ❌ Postingan tidak ditemukan atau gagal dimuat. <br>
                                 <small>${name}</small>
+                                <br>
+                                <small style="color:#ff6b6b;">${err.message}</small>
                                 <br><br>
                                 <button onclick="navigateTo('home')" style="background:var(--accent2);color:#04040e;border:none;padding:10px 24px;border-radius:30px;font-weight:700;cursor:pointer;">
                                     <i class="fas fa-home"></i> Kembali ke Beranda
@@ -2703,131 +2592,145 @@
                     }
                 }
 
-                // ===== RENDER DETAIL (kode yang sudah ada) =====
-                const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
-                const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
-                const v = post.metadata.versi || post.metadata.version || '?';
-                const s = post.metadata.ukuran || post.metadata.size || '?';
-                const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
-                const dwn = post.metadata.download || post.metadata.link || '';
-                const kategori = post.metadata.kategori || '';
-                const tags = post.metadata.tag ? post.metadata.tag.split(',').map(t => t.trim()).filter(t => t) : [];
-                const dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
-                const dateFormatted = formatDate(dateRaw);
-                const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
-                const galleryHtml = buildScreenshotGallery(screenshots);
-                const hasDownload = dwn && dwn !== '#';
+                // ===== RENDER DETAIL =====
+                try {
+                    const t = post.metadata.judul || post.metadata.title || post.name.replace(/[-_]/g, ' ');
+                    const img = fixImageUrl(post.metadata.gambar || post.metadata.image || '');
+                    const v = post.metadata.versi || post.metadata.version || '?';
+                    const s = post.metadata.ukuran || post.metadata.size || '?';
+                    const dev = post.metadata.developer || post.metadata.dev || 'Destaseo';
+                    const dwn = post.metadata.download || post.metadata.link || '';
+                    const kategori = post.metadata.kategori || '';
+                    const tags = post.metadata.tag ? post.metadata.tag.split(',').map(t => t.trim()).filter(t => t) : [];
+                    const dateRaw = post.metadata.tanggal || post.metadata.date || post.lastModified || '';
+                    const dateFormatted = formatDate(dateRaw);
+                    const screenshots = post.metadata.screenshot || post.metadata.screenshots || '';
+                    const galleryHtml = buildScreenshotGallery(screenshots);
+                    const hasDownload = dwn && dwn !== '#';
 
-                const downloadNoteHtml = `
-                    <div class="download-note">
-                        <i class="fas fa-info-circle"></i>
-                        <span>
-                            Jika anda klik download masuk ke iklan, tekan tombol kembali di ponsel anda, lalu kalau masuk iklan lagi, tekan lagi tombol kembali pada ponsel anda dan <strong>tunggu 5 detik</strong> nanti di arahkan ke halaman download file nya.
-                        </span>
+                    const downloadNoteHtml = `
+                        <div class="download-note">
+                            <i class="fas fa-info-circle"></i>
+                            <span>
+                                Jika anda klik download masuk ke iklan, tekan tombol kembali di ponsel anda, lalu kalau masuk iklan lagi, tekan lagi tombol kembali pada ponsel anda dan <strong>tunggu 5 detik</strong> nanti di arahkan ke halaman download file nya.
+                            </span>
+                        </div>
+                    `;
+
+                    const downloadBtn = hasDownload ?
+                        `${downloadNoteHtml}<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` :
+                        `<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>`;
+
+                    const tagsHtml = tags.length > 0 ?
+                        `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` :
+                        '';
+
+                    const recommendations = getRecommendations(post, 4);
+                    let recHtml = '';
+                    if (recommendations.length > 0) {
+                        recHtml = `<div class="recommendations-section">
+                            <h3><i class="fas fa-lightbulb"></i> Rekomendasi untuk Anda</h3>
+                            <div class="rec-grid">`;
+                        recommendations.forEach(rec => {
+                            const recTitle = rec.metadata.judul || rec.metadata.title || rec.name.replace(
+                                /[-_]/g, ' ');
+                            const recImg = fixImageUrl(rec.metadata.gambar || rec.metadata.image || '');
+                            recHtml += `
+                                <div class="rec-card" data-name="${rec.name}">
+                                    ${recImg ? `<img src="${recImg}" alt="${recTitle}" loading="lazy" onerror="this.style.display='none'">` : `<div style="height:90px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:2rem;"><i class="fas fa-box"></i></div>`}
+                                    <div class="rec-title">${recTitle}</div>
+                                </div>
+                            `;
+                        });
+                        recHtml += `</div></div>`;
+                    }
+
+                    detailContent.innerHTML = '';
+                    showSection(detailSection);
+                    setActiveNav('detail');
+                    window.scrollTo({ top: 0 });
+
+                    const viewCount = await getPostViewCount(name, true);
+
+                    const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
+                    const detailUrl = window.location.origin + window.location.pathname + '?page=detail&post=' + encodeURIComponent(
+                        name);
+                    updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, detailUrl);
+
+                    const articleJson = {
+                        "@context": "https://schema.org",
+                        "@type": "Article",
+                        "headline": t,
+                        "description": desc,
+                        "image": img || LOGO_URL,
+                        "author": { "@type": "Person", "name": dev },
+                        "datePublished": dateRaw || new Date().toISOString(),
+                        "mainEntityOfPage": { "@type": "WebPage", "@id": detailUrl }
+                    };
+                    let script = document.querySelector('#article-ld-json');
+                    if (!script) { script = document.createElement('script');
+                        script.id = 'article-ld-json';
+                        script.type = 'application/ld+json';
+                        document.head.appendChild(script); }
+                    script.textContent = JSON.stringify(articleJson);
+
+                    detailContent.innerHTML = `
+                    <div class="detail-header fade-in-content">
+                        ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
+                        <h1 class="detail-title">${t}</h1>
+                        <div class="detail-meta-grid">
+                            <div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ${v}</div>
+                            <div class="meta-item"><i class="fas fa-weight-hanging"></i> <strong>Ukuran</strong> ${s}</div>
+                            <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
+                            ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
+                            ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
+                            <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ${viewCount}</div>
+                        </div>
+                        ${galleryHtml}
+                        ${tagsHtml}
                     </div>
+                    <div class="content-box fade-in-content">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
+                    ${downloadBtn}
+                    ${recHtml}
+                    <div id="ad-container" style="margin-top:20px; text-align:center;"></div>
                 `;
 
-                const downloadBtn = hasDownload ?
-                    `${downloadNoteHtml}<button class="big-download" id="detail-download-btn"><i class="fas fa-download"></i> Download APK</button>` :
-                    `<div class="big-download disabled"><i class="fas fa-exclamation-circle"></i> Link Download Tidak Tersedia</div>`;
-
-                const tagsHtml = tags.length > 0 ?
-                    `<div class="tags-container">${tags.map(tag => `<span class="tag-badge"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}</div>` :
-                    '';
-
-                const recommendations = getRecommendations(post, 4);
-                let recHtml = '';
-                if (recommendations.length > 0) {
-                    recHtml = `<div class="recommendations-section">
-                        <h3><i class="fas fa-lightbulb"></i> Rekomendasi untuk Anda</h3>
-                        <div class="rec-grid">`;
-                    recommendations.forEach(rec => {
-                        const recTitle = rec.metadata.judul || rec.metadata.title || rec.name.replace(
-                            /[-_]/g, ' ');
-                        const recImg = fixImageUrl(rec.metadata.gambar || rec.metadata.image || '');
-                        recHtml += `
-                            <div class="rec-card" data-name="${rec.name}">
-                                ${recImg ? `<img src="${recImg}" alt="${recTitle}" loading="lazy" onerror="this.style.display='none'">` : `<div style="height:90px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:2rem;"><i class="fas fa-box"></i></div>`}
-                                <div class="rec-title">${recTitle}</div>
-                            </div>
-                        `;
-                    });
-                    recHtml += `</div></div>`;
-                }
-
-                // Kosongkan detail content sebelum render
-                detailContent.innerHTML = '';
-                showSection(detailSection);
-                setActiveNav('detail');
-                window.scrollTo({ top: 0 });
-
-                const viewCount = await getPostViewCount(name, true);
-
-                const desc = post.metadata.deskripsi || post.metadata.description || `Download mod ${t} premium terbaru. Versi ${v}, ukuran ${s}, developer ${dev}.`;
-                const detailUrl = window.location.origin + window.location.pathname + '?page=detail&post=' + encodeURIComponent(
-                    name);
-                updateMetaTags(t + ' • Destaseo Mods', desc, img || LOGO_URL, detailUrl);
-
-                const articleJson = {
-                    "@context": "https://schema.org",
-                    "@type": "Article",
-                    "headline": t,
-                    "description": desc,
-                    "image": img || LOGO_URL,
-                    "author": { "@type": "Person", "name": dev },
-                    "datePublished": dateRaw || new Date().toISOString(),
-                    "mainEntityOfPage": { "@type": "WebPage", "@id": detailUrl }
-                };
-                let script = document.querySelector('#article-ld-json');
-                if (!script) { script = document.createElement('script');
-                    script.id = 'article-ld-json';
-                    script.type = 'application/ld+json';
-                    document.head.appendChild(script); }
-                script.textContent = JSON.stringify(articleJson);
-
-                detailContent.innerHTML = `
-                <div class="detail-header fade-in-content">
-                    ${img ? `<img src="${img}" class="detail-img" alt="${t}" onerror="this.style.display='none'">` : '<div class="detail-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;"><i class="fas fa-box"></i></div>'}
-                    <h1 class="detail-title">${t}</h1>
-                    <div class="detail-meta-grid">
-                        <div class="meta-item"><i class="fas fa-code-branch"></i> <strong>Versi</strong> ${v}</div>
-                        <div class="meta-item"><i class="fas fa-weight-hanging"></i> <strong>Ukuran</strong> ${s}</div>
-                        <div class="meta-item"><i class="fas fa-user"></i> <strong>Developer</strong> ${dev}</div>
-                        ${kategori ? `<div class="meta-item"><i class="fas fa-folder"></i> <strong>Kategori</strong> ${kategori}</div>` : ''}
-                        ${dateFormatted ? `<div class="meta-item"><i class="far fa-calendar-alt"></i> <strong>Tanggal</strong> ${dateFormatted}</div>` : ''}
-                        <div class="meta-item"><i class="fas fa-eye"></i> <strong>Dilihat</strong> ${viewCount}</div>
-                    </div>
-                    ${galleryHtml}
-                    ${tagsHtml}
-                </div>
-                <div class="content-box fade-in-content">${post.html || '<p><i class="far fa-file-alt"></i> Tidak ada deskripsi.</p>'}</div>
-                ${downloadBtn}
-                ${recHtml}
-                <div id="ad-container" style="margin-top:20px; text-align:center;"></div>
-            `;
-
-                if (hasDownload) {
-                    const dBtn = document.getElementById('detail-download-btn');
-                    if (dBtn) {
-                        dBtn.addEventListener('click', async function(e) {
-                            e.preventDefault();
-                            if (this.classList.contains('counting')) return;
-                            await startDownloadWithAd(this, dwn);
-                        });
+                    if (hasDownload) {
+                        const dBtn = document.getElementById('detail-download-btn');
+                        if (dBtn) {
+                            dBtn.addEventListener('click', async function(e) {
+                                e.preventDefault();
+                                if (this.classList.contains('counting')) return;
+                                await startDownloadWithAd(this, dwn);
+                            });
+                        }
                     }
-                }
 
-                document.querySelectorAll('.rec-card').forEach(card => {
-                    card.addEventListener('click', function() {
-                        const name = this.dataset.name;
-                        if (name) navigateTo('detail', name);
+                    document.querySelectorAll('.rec-card').forEach(card => {
+                        card.addEventListener('click', function() {
+                            const name = this.dataset.name;
+                            if (name) navigateTo('detail', name);
+                        });
                     });
-                });
 
-                const adContainer = document.getElementById('ad-container');
-                if (adContainer) {
-                    unloadAdScript();
-                    loadAdScript(adContainer);
+                    const adContainer = document.getElementById('ad-container');
+                    if (adContainer) {
+                        unloadAdScript();
+                        loadAdScript(adContainer);
+                    }
+                } catch (err) {
+                    console.error('❌ Error render detail:', err);
+                    detailContent.innerHTML = `
+                        <div class="error-text">
+                            <i class="fas fa-exclamation-triangle" style="font-size:2rem;display:block;margin-bottom:12px;color:#f5a623;"></i>
+                            ❌ Gagal menampilkan konten. <br>
+                            <small>${err.message}</small>
+                            <br><br>
+                            <button onclick="navigateTo('home')" style="background:var(--accent2);color:#04040e;border:none;padding:10px 24px;border-radius:30px;font-weight:700;cursor:pointer;">
+                                <i class="fas fa-home"></i> Kembali ke Beranda
+                            </button>
+                        </div>
+                    `;
                 }
             }
 
@@ -2956,7 +2859,6 @@
 
             sortSelect.addEventListener('change', () => resetAndApplyFilters());
 
-            // Tombol Kembali ke Beranda
             detailBack.addEventListener('click', function() {
                 navigateTo('home');
             });
@@ -2986,7 +2888,6 @@
                 resetAndApplyFilters();
             });
 
-            // Back device ke Beranda
             window.addEventListener('popstate', (e) => {
                 const state = e.state || {};
                 if (!state.page || state.page === 'detail') {
@@ -2996,6 +2897,11 @@
                     navigateTo(state.page, state.post, state.q);
                 }
             });
+
+            // ===== INTERVAL FETCH OTOMATIS (SETIAP 3 MENIT) =====
+            setInterval(() => {
+                fetchBackgroundUpdates();
+            }, 3 * 60 * 1000);
 
             // ===== START =====
             (async () => {
