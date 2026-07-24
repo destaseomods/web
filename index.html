@@ -1849,9 +1849,9 @@
     <script>
         (function() {
             // ============================================================
-            // KONFIGURASI — GANTI DENGAN URL WORKER KAMU
+            // KONFIGURASI
             // ============================================================
-            const GITHUB_WORKER_URL = "https://dsmods.desta-seo.workers.dev";
+            const GITHUB_WORKER_URL = "https://dsmods.desta-seo.workers.dev"; // GANTI DENGAN URL WORKER ASLI
 
             const AD_URL = "https://www.effectivecpmnetwork.com/fb7g7n19e?key=6d1b0c2ece436780ddfd67417e4cd713";
             const AD_INTERVAL = 5 * 60 * 1000;
@@ -1871,7 +1871,8 @@
             const CACHE_KEY_LIST = 'destaseo_post_list_v4';
             const CACHE_KEY_CONTENT_PREFIX = 'destaseo_post_content_';
             const CACHE_KEY_TIMESTAMP = 'destaseo_cache_timestamp';
-            const CACHE_EXPIRY_MS = 5 * 60 * 1000;
+            // ===== CACHE DIUBAH MENJADI 1 JAM (60 MENIT) =====
+            const CACHE_EXPIRY_MS = 60 * 60 * 1000; // 1 jam
 
             // ============================================================
             // FUNGSI RENDER MARKDOWN YANG AMAN
@@ -2763,7 +2764,7 @@
             }
 
             // ============================================================
-            // RENDER HOME — DENGAN CACHE 5 MENIT
+            // RENDER HOME — DENGAN CACHE 1 JAM
             // ============================================================
             async function renderHome() {
                 const cachedList = getCachedList();
