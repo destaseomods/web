@@ -3,7 +3,7 @@ tanggal: 2026-07-25 17:30
 populer: true
 badges: VIP
 judul: "CINEMAID MOD VIP"
-gambar: "https://movieph.org/wp-content/uploads/2025/12/movieph.webp"
+gambar: "https://movieph.pro/wp-content/uploads/2026/02/MoviePH-App-Icon.webp"
 versi: "4.2.0"
 ukuran: "46 MB"
 developer: "CinemaId Inc"
